@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         if (data.status == 200) {
           this.auth.saveToken(data.access_token)
-          // this.getUser(data.email)
+           this.getUser(data.email)
         } else {
           this.openSnackBar(data.msg);
         }
