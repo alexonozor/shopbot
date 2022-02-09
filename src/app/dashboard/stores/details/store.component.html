@@ -22,11 +22,7 @@
     <div fxLayout="column" fxLayoutAlign="space-between stretch">
         <div *ngIf="store as store; else loading">
             <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
-                <mat-tab label="Dashboard">
-                    <ng-template matTabContent>
-                        <!-- <app-store-menus-tab [store]="store"></app-store-menus-tab> -->
-                    </ng-template>
-                </mat-tab>
+                
                 <mat-tab label="Menu">
                     <ng-template matTabContent>
                         <app-store-menus-tab [store]="store"></app-store-menus-tab>
