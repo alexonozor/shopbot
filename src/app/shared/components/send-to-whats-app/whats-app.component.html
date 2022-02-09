@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Send to What's App</h1>
+<div mat-dialog-content>
+  <mat-nav-list>
+    <div fxLayout="row" style="width: 100%;" fxLayoutAlign="space-between start" mat-list-item *ngFor="let item of data.numbers;">
+      <span matLine>{{item}}</span>
+      <button mat-icon-button (click)="send(item, data.text)">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </mat-nav-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-raised-button (click)="closeDialog()" color="primary">Ok</button>
+</div>
+

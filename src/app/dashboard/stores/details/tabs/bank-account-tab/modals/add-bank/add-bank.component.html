@@ -1,0 +1,24 @@
+
+
+
+<h1 matDialogTitle>{{data?.isNew ? "Add Bank Details" : data?.bank?.accountName}}</h1>
+<mat-dialog-content class="mat-typography">
+  <form name="menuForm" [formGroup]="bankForm" class="product w-100-p" fxLayout="column" fxFlex>
+    <mat-form-field appearance="outline">
+      <mat-label>Bank Name</mat-label>
+      <mat-select (selectionChange)="selectAccount($event)">
+        <mat-option *ngFor="let bank of banks" [value]="bank">
+          {{bank.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Account Number</mat-label>
+      <input matInput placeholder="Account Number" name="name" formControlName="accountNumber" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<div mat-dialog-actions class="pt-24">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button class="mat-accent mr-16" (click)="save()" [disabled]="!bankForm.valid && isLoading">{{isLoading ? 'Please wait..' : 'Save' }}</button>
+</div>

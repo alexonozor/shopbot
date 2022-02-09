@@ -1,0 +1,48 @@
+<mat-toolbar color="primary" class="main-toolbar">
+    <mat-toolbar-row fxLayout="row" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayout="row"  fxLayoutAlign="space-between center">
+            <div class="logo-container">
+                <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button> 
+            </div>
+            <h1 class="example-app-name">SHOPBOT ADMIN</h1>
+        </div>
+        <button mat-button (click)="logOut()"><mat-icon>logout</mat-icon>  Log out</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container class="example-container" autosize>
+    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+        (mouseleave)="mouseleave()">
+        <mat-nav-list>
+            <mat-list-item   class="parent" routerLinkActive="active" [routerLink]="['/dashboard/home']">
+                <span class="full-width">Dashboard</span>
+                <mat-icon class="material-icons-outlined" mat-list-icon>dashboard</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
+                <span class="full-width">Stores</span>
+                <mat-icon mat-list-icon>storefront</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
+                <span class="full-width">Support</span>
+                <mat-icon mat-list-icon>help</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item   class="parent" [routerLink]="['/dashboard/companies/list']">
+                <span class="full-width">Settings</span>
+                <mat-icon mat-list-icon>settings</mat-icon>
+            </mat-list-item>
+
+            
+         
+          
+        </mat-nav-list>
+        <mat-nav-list>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <div class="example-sidenav-content">
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-sidenav-container>

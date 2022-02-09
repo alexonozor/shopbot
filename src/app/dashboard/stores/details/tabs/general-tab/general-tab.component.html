@@ -1,0 +1,101 @@
+<div style="padding:10px">
+    <div fxLayout="row" fxLayoutAlign="end center" class="header">
+    
+        <button mat-raised-button (click)="save()" [disabled]="isLoading" color="primary">
+            <mat-icon class="mat-18">add</mat-icon> SAVE STORE
+        </button>
+      </div>
+    <form [formGroup]="generalSettingForm">
+        <div class="mat-elevation-z6 example-container">
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <div class="logo" [style.background-image]="'url(' + (this.store.logo == '' ? 'https://dashboard.heypay.xyz/images/store_image_placeholder.png' : this.store.logo) + ')'" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="control-logo" >
+                        <input type="file" class="file-input" (change)="onFileLogoSelected($event)"  #logoUpload>
+    
+                            <mat-progress-spinner *ngIf="uploadProgress" mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+                        <button mat-icon-button (click)="logoUpload.click()" *ngIf="!uploadProgress">
+                            <mat-icon class="mat-18">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" *ngIf="!uploadProgress">
+                            <mat-icon class="mat-18">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="banner" [style.background-image]="'url(' + (this.store.bannerImage == '' ? 'https://dashboard.heypay.xyz/images/store_image_placeholder.png' : this.store.bannerImage) + ')'" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="control-banner">
+                        <input type="file" class="file-input" (change)="onFileBannerSelected($event)"  #bannerUpload>
+                        <mat-progress-spinner *ngIf="uploadProgressBanner" mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+                        <button mat-icon-button (click)="bannerUpload.click()" *ngIf="!uploadProgressBanner">
+                            <mat-icon class="mat-18">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" *ngIf="!uploadProgressBanner">
+                            <mat-icon class="mat-18">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between start">
+            <div class="mat-elevation-z6 example-container" fxFlex="30%">
+                <h3>Basic Information</h3>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Name</mat-label>
+                    <input matInput formControlName="name" placeholder="Enter Store Name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Description</mat-label>
+                    <textarea matInput formControlName="description" placeholder="Enter Store Description"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="mat-elevation-z6 example-container" fxFlex="30%" formGroupName="contactInfo">
+                <h3>Contact Information</h3>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Email Address</mat-label>
+                    <input matInput placeholder="Enter Store Email" formControlName="email">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Phone Number</mat-label>
+                    <input matInput placeholder="Store Phone Number" formControlName="phone">
+                </mat-form-field>
+
+            </div>
+            <div class="mat-elevation-z6 example-container" fxFlex="30%" formGroupName="notifications">
+                <h3>Notifications</h3>
+                <mat-slide-toggle formControlName="sms">SMS</mat-slide-toggle>
+                <mat-slide-toggle formControlName="phone">Phone Calls</mat-slide-toggle>
+                <mat-slide-toggle formControlName="email">Emails</mat-slide-toggle>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+            <div class="mat-elevation-z6 example-container" fxLayout="column" fxLayoutAlign="space-between start" formGroupName="contactInfo">
+                <h3>Location</h3>
+                <agm-map [latitude]="lat" [longitude]="lng">
+                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+                <button mat-raised-button color="primary" (click)="setCurrentLocation()" style="margin-top: 10px ;">
+                    <mat-icon class="mat-18">location_searching</mat-icon> USE MY LOCATION
+                </button>
+
+                <mat-form-field appearance="outline" style="width: 40%; margin-top: 10px;">
+                    <mat-label>Place name</mat-label>
+                    <input matInput placeholder="Place name" formControlName="placeName">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 40%; margin-top: 10px;">
+                    <mat-label>Suite/Store Number</mat-label>
+                    <input matInput placeholder="Enter Suite/Store Number" formControlName="placeNumber">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 40%; margin-top: 10px;">
+                    <mat-label>Enter your Location</mat-label>
+                    <input matInput matGoogleMapsAutocomplete [country]="'ng'"
+                        (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                        (onLocationSelected)="onLocationSelected($event)">
+                </mat-form-field>
+
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,127 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import { extendMoment } from 'moment-range';
+import { Store } from '../../../../../shared/models/store';
+import { StoreService } from '../../store.service';
+import { finalize } from 'rxjs';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+const { range } = extendMoment(moment);
+
+
+
+@Component({
+  selector: 'app-business-hours-tab',
+  templateUrl: './business-hours-tab.component.html',
+  styleUrls: ['./business-hours-tab.component.scss']
+})
+export class BusinessHoursTabComponent implements OnInit {
+  businessHoursForm!: FormGroup;
+  days!: string[];
+  @Input() store!: Store | any;
+  public isLoading: boolean = false;
+  horizontalPosition: MatSnackBarHorizontalPosition | undefined;
+  verticalPosition: MatSnackBarVerticalPosition | undefined;
+
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private storeService: StoreService,
+    private _snackBar: MatSnackBar
+    ) {
+
+  }
+
+
+
+  ngOnInit(): void {
+    let ranges = range(moment().day(0), moment().day(6)), /*can handle leap year*/
+      array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
+    let daysRange = array.map((m) => {
+      return {
+        date: m.format("YYYY-MM-DD"),
+        openingTime: m.format("HH:MM"),
+        closingTime: m.add('hours', 9).format("HH:MM"),
+        day: m.format('dddd'),
+        closed: false,
+        referenceDate: m.format("YYYY-MM-DD"),
+        neverOpen: false
+      }
+    })
+
+    // convert to array
+    let businessHoursKeys = Object.keys(this.store.businessHours) 
+    let businessHoursKeysObject = businessHoursKeys.map((key) => {
+      return { ...this.store.businessHours[key] }
+    })
+
+    // merge and update with existing data
+    daysRange = daysRange.map((itm: any) => ({
+      ...itm, ...businessHoursKeysObject.find((item: any) => (item.name === itm.day) && item) 
+    }));
+
+    this.businessHoursForm = this.createProductForm(daysRange)
+    this.days = Object.keys(this.businessHoursForm.value.businessHours)
+  }
+
+  createProductForm(data: any): FormGroup {
+    return this._formBuilder.group({
+      businessHours: this._formBuilder.group({ ...this.newOptions(data) })
+    })
+  }
+
+  today(date: Date) {
+    if (moment(date).isSame(moment(new Date()), 'day')) {
+      return 'Today'
+    } else {
+      return moment(date).format('MMMM DD, y');
+    }
+  }
+
+  
+
+  newOptions(data?: any): FormGroup {
+    // return data.forEach((d: any) => {
+      
+    let f = {} as any;
+    for (let i = 0; i < data.length; i++) {
+      f[data[i].day.toLowerCase()] = this._formBuilder.group({
+        openingTime: [data[i].openingTime, Validators.required],
+        closingTime: [data[i].closingTime, Validators.required],
+        referenceDate: data[i].referenceDate,
+        closed: data[i].closed,
+        neverOpen: data[i].neverOpen
+      })
+    }
+    return f as FormGroup;
+  }
+
+
+  changeStoreStatus() {
+    this.isLoading = true;
+    this.store.paused = !this.store.paused;
+    this.storeService.saveStore({paused:  this.store.paused}, this.store._id)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe((store) => {
+      this._snackBar.open(this.store.paused ? 'Store has been paused' : 'Store was resumed', 'ok', {
+        duration: 5000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+    })
+  }
+
+  save() {
+    this.isLoading = true;
+    this.storeService.saveStore(this.businessHoursForm.getRawValue(), this.store._id)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe((store) => {
+      this._snackBar.open('Opening Hour update', 'ok', {
+        duration: 5000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+    })
+  }
+
+}

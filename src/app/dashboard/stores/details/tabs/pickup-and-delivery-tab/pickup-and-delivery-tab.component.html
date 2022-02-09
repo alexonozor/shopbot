@@ -1,0 +1,232 @@
+
+
+
+<div fxLayout="row" fxLayoutAlign="end center" class="header">
+    
+    <button mat-raised-button (click)="save()" [disabled]="isLoading" color="primary">
+        <mat-icon class="mat-18">add</mat-icon> SAVE STORE
+    </button>
+  </div>
+
+<form [formGroup]="pickupAndDeliveryForm">
+    <div style="padding:10px">
+        <div formGroupName="orderSettings">
+            <div class="mat-elevation-z6 example-container">
+                <h2>Order Settings</h2>
+                <p>Average amount of time it takes to prepare an order.</p>
+                <mat-form-field appearance="outline" style="width: 50%;">
+                    <mat-label>Enter Order Pre time</mat-label>
+                    <input matInput formControlName="orderPrepTime" placeholder="Enter Order Pre time">
+                    <span matSuffix>minutes</span>
+                </mat-form-field>
+            </div>
+
+            <div class="mat-elevation-z6 example-container">
+                <div style="margin-bottom: 20px;">
+                    <h2>Pickup Settings</h2>
+                    <h3>Enable pickup</h3>
+                    <mat-slide-toggle formControlName="enablePickup">Allow your customers to come pick their orders up
+                        at your store</mat-slide-toggle>
+                </div>
+                <div class="example-container" *ngIf="pickupAndDeliveryForm.value.orderSettings.enablePickup">
+                    <mat-divider></mat-divider>
+                    <div style="margin: 20px 0px" fxLayout="column" fxLayoutAlign="space-between start">
+                        <h3>Minimum order amount</h3>
+                        <div fxLayout="column" fxLayoutAlign="space-between start" style="width: 100%;">
+                            <mat-slide-toggle formControlName="allowMinimumOrderAmount">Require a minimum amount for
+                                orders to be eligible for pickup
+                            </mat-slide-toggle>
+                            <mat-form-field *ngIf="pickupAndDeliveryForm.value.orderSettings.allowMinimumOrderAmount"
+                                appearance="outline" style="width: 50%; margin-top: 20px;">
+                                <mat-label>Enter Minimum order amount</mat-label>
+                                <input matInput formControlName="minimumOrderAmount"
+                                    placeholder="Enter Minimum order amount">
+                                <span matSuffix>N</span>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <div style="margin-top: 20px;">
+                        <h2>How will customers pickup their orders? </h2>
+                        <p>Provide instructions for your customers so they know how to get their pickup orders. Include
+                            information
+                            such as:Provide instructions for your customers so they know how to get their pickup orders.
+                            Include
+                            information such as:</p>
+                        <ul>
+                            <li>Where to go in the store</li>
+                            <li>If they need name or order number</li>
+                            <li>If someone else can pickup the order</li>
+                        </ul>
+
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>Enter Pickup Instruction</mat-label>
+                            <textarea matInput formControlName="pickUpInstruction" cols="30" rows="5"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mat-elevation-z6 example-container" formGroupName="deliveryService">
+            <div style="margin-bottom: 20px;">
+                <h2>Delivery Service</h2>
+                <label id="example-radio-group-label">How will you deliver orders to customers? </label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="deliverOrderToCustomers"
+                    class="example-radio-group">
+                    <mat-radio-button class="example-radio-button" *ngFor="let courier of couriers" [value]="courier">
+                        {{courier}}
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <p>Shopbot has partnered with courier services to offer on-demand delivery. You will not be charged any
+                    additional fees or commissions from out partners.</p>
+            </div>
+
+        </div>
+        <div class="mat-elevation-z6 example-container" formGroupName="deliverySettings">
+            <h2>Delivery Settings</h2>
+            <div
+                *ngIf="pickupAndDeliveryForm.value.deliveryService.deliverOrderToCustomers === 'My own couriers'; else ShopBotCouriers">
+                <div style="margin-bottom: 20px;">
+
+                    <p>Customers outside this area will not be able to place orders for delivery from this location.
+                    </p>
+                    <mat-form-field appearance="outline" style="width: 50%;">
+                        <mat-label>Enter delivery radius</mat-label>
+                        <input matInput formControlName="deliveryRadius" placeholder="Enter delivery radius">
+                        <span matSuffix>Km</span>
+                    </mat-form-field>
+                </div>
+                <mat-divider></mat-divider>
+                <div style="margin-top: 20px;">
+                    <h2>Delivery fee</h2>
+                    <div class="example-radio-group">
+                        <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-label>Delivery fee</mat-label>
+                            <mat-select name="food" formControlName="deliveryFeeNumber">
+                                <mat-option *ngFor="let food of foods" [value]="food.value">
+                                    {{food.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline"
+                            *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 1"
+                            style="width: 50%;">
+                            <mat-label>Enter delivery fee</mat-label>
+                            <input matInput placeholder="Enter delivery fee">
+                            <!-- <span matPrefix>N</span> -->
+                        </mat-form-field>
+
+                        <div *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 3"
+                            style="width: 100%;" fxLayout="column" fxLayoutAlign="space-between start">
+                            <mat-form-field appearance="outline" style="width: 50%;">
+                                <mat-label>Order amount to qualify for free delivery</mat-label>
+                                <input matInput placeholder="Enter Minimum order amount"
+                                    formControlName="minimumOrderAmountForFreeDelivery">
+                                <span matSuffix>N</span>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" style="width: 50%;">
+                                <mat-label>Delivery fee for all other orders</mat-label>
+                                <input matInput placeholder="Enter delivery fee"
+                                    formControlName="deliveryFeeForAllOrder">
+                                <span matSuffix>N</span>
+                            </mat-form-field>
+                        </div>
+
+                        <div *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 4"
+                            style="width: 100%;" fxLayout="column" fxLayoutAlign="space-between start">
+                            <mat-form-field appearance="outline" style="width: 50%;">
+                                <mat-label>Minimum delivery fee</mat-label>
+                                <input matInput placeholder="Enter Minimum delivery Fee"
+                                    formControlName="minimumDeliveryFee">
+                                <span matSuffix>N</span>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" style="width: 50%;">
+                                <mat-label>Delivery fee per kilometer</mat-label>
+                                <input matInput formControlName="deliveryFeeByKilometers"
+                                    placeholder="Enter Delivery fee">
+                                <span matSuffix>N</span>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div style="margin: 20px 0px" class="example-radio-group">
+                    <h3>Minimum order amount</h3>
+                    <mat-slide-toggle formControlName="allowMinimumOrderAmount">Require a minimum amount for orders to
+                        be eligible for delivery
+                    </mat-slide-toggle>
+
+                    <mat-form-field appearance="outline" style="width: 50%;" *ngIf="pickupAndDeliveryForm.value.deliverySettings.allowMinimumOrderAmount">
+                        <mat-label>Enter Minimum order amount</mat-label>
+                        <input matInput formControlName="minimumOrderAmount" placeholder="Enter Minimum order amount">
+                        <span matSuffix>N</span>
+                    </mat-form-field>
+                </div>
+
+
+
+                <mat-divider></mat-divider>
+
+                <div style="margin: 20px 0px" class="example-radio-group" formGroupName="estimatedDeliveryTime">
+                    <h3>Estimated delivery time</h3>
+                    <p>The time it takes an order to get to the customer's door, after the courier picks it up from this
+                        location. </p>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;" fxLayoutGap="20px">
+                        <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-label>Enter Minimum delivery time</mat-label>
+                            <input matInput formControlName="minimum" placeholder="Enter Minimum order amount">
+                            <span matSuffix>minutes</span>
+                        </mat-form-field>
+
+                        <p>to</p>
+
+                        <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-label>Enter Maximum delivery time</mat-label>
+                            <input matInput formControlName="maximum" placeholder="Enter Maximum order amount">
+                            <span matSuffix>minutes</span>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div style="margin: 20px 0px" class="example-radio-group">
+                    <h3>Delivery instructions</h3>
+                    <mat-slide-toggle formControlName="enableDeliveryInstructions">Provide delivery instructions for
+                        customers</mat-slide-toggle>
+                    <div *ngIf="pickupAndDeliveryForm.value.deliverySettings.enableDeliveryInstructions">
+
+
+                        <p style="margin-top: 20px;">Provide instructions for your customers so they know how to get their delivered orders.
+                            Include
+                            information such as: </p>
+                        <ul>
+                            <li>If they need name or order number</li>
+                            <li> If someone else can receive the order</li>
+                        </ul>
+                        <mat-form-field appearance="outline"
+                            
+                            style="width: 100%;">
+                            <mat-label>Enter Delivery Instruction</mat-label>
+                            <textarea matInput formControlName="deliveryInstructions" cols="30" rows="5"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <ng-template #ShopBotCouriers>
+                <p>FoodBot will handle all settings pertaining to your deliveries.</p>
+            </ng-template>
+
+
+        </div>
+    </div>
+</form>

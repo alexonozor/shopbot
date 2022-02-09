@@ -1,0 +1,35 @@
+<div style="padding:10px" *ngIf="($banks | async); else loading">
+    <div class="mat-elevation-z6 example-container" *ngIf="($bank | async); else noBank; let bank">
+        <mat-list>
+            <h3 matSubheader>Bank Account Information</h3>
+            <mat-divider></mat-divider>
+            <mat-list-item *ngIf="($bank | async); else noBank; let bank">
+                <h3 matLine>Bank Name: {{bank.bankName}}</h3>
+                <h3 matLine> Account Name: {{bank.accountName}}</h3>
+                <h3 matLine> Account Number: {{bank.accountNumber}}</h3>
+                <h3 matLine> Currency: {{bank.currency}}</h3>
+            </mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <div style="padding: 15px;">
+            <button mat-raised-button color="primary" (click)="addAccountDetails(false, bank)">UPDATE</button>
+        </div>
+
+    </div>
+    <ng-template #noBank>
+        <div class="mat-elevation-z6 example-container">
+            <h3 matSubheader>Bank Account Information</h3>
+            <p style="text-align: center;">You haven't add any bank account yet. Please add one.</p>
+            <mat-divider></mat-divider>
+            <div style="padding: 15px;" fxLayout="row" fxLayoutAlign="center center">
+                <button (click)="addAccountDetails(true)" mat-raised-button color="primary">ADD ACCOUNT</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #loading>
+    <div style="padding:10px" fxLayout="row" fxLayoutAlign="center center" >
+        <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+    </div>
+</ng-template>

@@ -1,0 +1,19 @@
+.file-input {
+    display: none;
+  }
+
+  .product-image {
+    overflow: hidden;
+    width: 128px;
+    height: 128px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+
+    img {
+        height: 100%;
+        width: auto;
+        max-width: none;
+    }
+}
+
