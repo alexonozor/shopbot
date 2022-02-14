@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard.routing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -19,6 +19,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmComponent } from '../shared/components/comfirm/confirm.component';
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -28,6 +29,7 @@ import { ConfirmComponent } from '../shared/components/comfirm/confirm.component
     CommonModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     MatMenuModule,
     MatIconModule,
     MatToolbarModule,

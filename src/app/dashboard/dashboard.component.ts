@@ -5,6 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { Auth } from '../shared/models/auth';
 import { AuthService } from '../shared/services/auth.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { FormGroup, FormControl } from '@angular/forms';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';

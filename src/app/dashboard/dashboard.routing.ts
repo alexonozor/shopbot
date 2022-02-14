@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { MessagesComponent } from './messages/messages.component';
 // import { AdminGuard } from '../shared/guard/admin.guard';
 
 
@@ -18,10 +19,15 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
+        path: 'messages',
+        loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule),
+      },
+      {
         path: 'stores',
         loadChildren: () => import('./stores/stores.module').then(m => m.StoresModule),
         // canActivate: [AdminGuard]
       },
+    
       {
         path: '**',
         redirectTo: 'home',
