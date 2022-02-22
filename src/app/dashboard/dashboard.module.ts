@@ -18,6 +18,7 @@ import { TokenInterceptorService } from '../shared/interceptor/token-interceptor
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmComponent } from '../shared/components/comfirm/confirm.component';
+import { MessagesModule } from './messages/messages.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ConfirmComponent } from '../shared/components/comfirm/confirm.component
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MessagesModule,
     MatMenuModule,
     MatIconModule,
     MatToolbarModule,
