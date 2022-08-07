@@ -10,15 +10,12 @@ import { Store } from 'src/app/shared/models/store';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
 
-
-
-
-
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.scss'],
 })
+
 export class StoreComponent implements OnInit, OnDestroy {
   store!: Store;
   storeId!: string;
