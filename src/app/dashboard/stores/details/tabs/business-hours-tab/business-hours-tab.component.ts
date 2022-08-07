@@ -56,9 +56,12 @@ export class BusinessHoursTabComponent implements OnInit {
     })
 
     // merge and update with existing data
-    daysRange = daysRange.map((itm: any) => ({
-      ...itm, ...businessHoursKeysObject.find((item: any) => (item.name === itm.day) && item) 
-    }));
+    // daysRange = daysRange.map((itm: any) => ({
+    //   ...itm, ...businessHoursKeysObject.find((item: any) => (item.name === itm.day) && item) 
+    // }));
+
+    daysRange = this.getDays(daysRange, businessHoursKeysObject)
+    console.log(daysRange)
 
     this.businessHoursForm = this.createProductForm(daysRange)
     this.days = Object.keys(this.businessHoursForm.value.businessHours)
@@ -77,6 +80,42 @@ export class BusinessHoursTabComponent implements OnInit {
       return moment(date).format('MMMM DD, y');
     }
   }
+
+
+  getDays(daysRange: any[], businessHoursKeysObject: any[]) {
+    let days:  any[] = [];
+    for(let i = 0; i < daysRange.length; i++) {
+      // if (i >= 6) {
+        for(let l = 0; l < businessHoursKeysObject.length; l++) {
+          console.log(businessHoursKeysObject[l])
+         
+          if (businessHoursKeysObject[l].name === daysRange[i].day) {
+            if (!days.includes((day:any) => day.name  === daysRange[i].name)) {
+              days.push({
+                day: daysRange[i].day,
+                name: businessHoursKeysObject[l].name,
+                openingTime: businessHoursKeysObject[l].openingTime,
+                closingTime: businessHoursKeysObject[l].closingTime,
+                closed: businessHoursKeysObject[l].closed,
+                referenceDate: daysRange[i].referenceDate,
+                neverOpen: businessHoursKeysObject[l].neverOpen
+              })
+            }
+            
+          } else {
+            if (!days.includes((day:any) => day.name  === businessHoursKeysObject[l].name)) {
+              businessHoursKeysObject[l]['day'] = businessHoursKeysObject[l].name
+              days.push(businessHoursKeysObject[l])
+            }
+          }
+          // console.log(days)
+          // console.log( days.includes((day:any) => day.name  === daysRange[i].day))
+        }
+      // }
+      
+    }
+    return days
+  } 
 
   
 

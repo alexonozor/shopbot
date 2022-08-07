@@ -82,7 +82,7 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
   newOptions(data?: any): FormGroup {
     return this._formBuilder.group({
       name: [data ? data.name : '', Validators.required],
-      mandatory: [data ? data.mandatory : '', Validators.required],
+      mandatory: [data ? data.mandatory : false, Validators.required],
       selectedType: [data ? data.selectedType : '', Validators.required],
       options: this._formBuilder.array(data ? data.options.map((p: any) => this.newSubOptions(p)) : [])
     })
