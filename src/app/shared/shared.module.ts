@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmComponent } from './components/comfirm/confirm.component';
 import { WhatsAppComponent } from './components/send-to-whats-app/whats-app.component';
+import { AccountService } from './services/account.service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { WhatsAppComponent } from './components/send-to-whats-app/whats-app.comp
       useClass: TokenInterceptorService,
       multi: true
     },
-    AuthService
+    AuthService,
+    AccountService
   ],
   exports: [
     ConfirmComponent

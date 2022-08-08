@@ -16,6 +16,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { BankAccountTabComponent } from './bank-account-tab/bank-account-tab.component';
 import { BankService } from 'src/app/shared/services/bank.service';
 import { AddBankComponent } from './bank-account-tab/modals/add-bank/add-bank.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 
@@ -39,7 +40,8 @@ import { AddBankComponent } from './bank-account-tab/modals/add-bank/add-bank.co
     BusinessHoursTabComponent,
     PickupAndDeliveryTabComponent,
     GeneralTabComponent,
-    BankAccountTabComponent
+    BankAccountTabComponent,
+    OrdersComponent
   ],
   declarations: [
     StoreMenusComponent,
@@ -49,7 +51,8 @@ import { AddBankComponent } from './bank-account-tab/modals/add-bank/add-bank.co
     PickupAndDeliveryTabComponent,
     GeneralTabComponent,
     BankAccountTabComponent,
-    AddBankComponent
+    AddBankComponent,
+    OrdersComponent
   ],
   entryComponents: [
     AddMenusComponent,

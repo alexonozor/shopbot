@@ -71,14 +71,14 @@ export class StoreService implements Resolve<any> {
    * @param formData
    * @returns {Promise<any>}
    */
-  uploadLogo(formData:any, id?:string): Observable<any> {
+  uploadLogo(formData: any, id?: string): Observable<any> {
     return this._httpClient.post(`${this.hostServer}/stores/upload/${id}/logo`, formData, {
       reportProgress: true,
       observe: 'events'
     })
   }
 
-  uploadBanner(formData:any, id?:string): Observable<any> {
+  uploadBanner(formData: any, id?: string): Observable<any> {
     return this._httpClient.post(`${this.hostServer}/stores/upload/${id}/banner`, formData, {
       reportProgress: true,
       observe: 'events'
@@ -92,8 +92,8 @@ export class StoreService implements Resolve<any> {
  * @param store
  * @returns {Promise<any>}
  */
-  saveStore(store:any, id:string) {
-    return  this._httpClient.put(`${this.hostServer}/stores/${id}`, store)
+  saveStore(store: any, id: string) {
+    return this._httpClient.put(`${this.hostServer}/stores/${id}`, store)
   }
 
   /**
@@ -102,7 +102,37 @@ export class StoreService implements Resolve<any> {
    * @param store
    * @returns {Observable<any>}
    */
-  addStore(store:Store): Observable<any> {
+  addStore(store: Store): Observable<any> {
     return this._httpClient.post(`${this.hostServer}/stores`, store)
   }
+
+  /**
+* get store order
+*
+* @param store
+* @returns {Promise<any>}
+*/
+  getStoreOrders(storeId: string) {
+    return this._httpClient.get<any[]>(`${this.hostServer}/orders/store/${storeId}/orders`)
+  }
+
+  /**
+* get store order
+*
+* @param store
+* @returns {Promise<any>}
+*/
+  deleteStoreOrders(orderId: string) {
+    return this._httpClient.delete(`${this.hostServer}/orders/${orderId}`)
+  }
+
+    /**
+* update  order status
+*
+* @param store
+* @returns {Promise<any>}
+*/
+updateOrderStatus(orderId: string, userId:string, status:any) {
+  return this._httpClient.put(`${this.hostServer}/orders/${orderId}/status/${userId}`, status)
+}
 }
