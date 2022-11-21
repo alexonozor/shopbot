@@ -62,7 +62,7 @@ export class ListStoresComponent implements OnInit {
     addStoreForm.afterClosed().subscribe(result => {
 
       if (result) {
-        this.storesService.getUserStores().then(() => {
+        this.storesService.getUserStores({control: { sort: { 'createdAt': 'desc' }}}).then(() => {
           this.stores = this.storesService.stores;
         })
       }

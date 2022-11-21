@@ -4,7 +4,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Search Order" #input>
   </mat-form-field>
   <div class="mat-elevation-z6 example-container">
-    <table mat-table [dataSource]="dataSource" matSort class="w-full">
+    <table mat-table [dataSource]="dataSource" matSort class="w-full" style="width: 100%;">
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>

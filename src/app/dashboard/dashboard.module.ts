@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard.routing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,14 +18,23 @@ import { TokenInterceptorService } from '../shared/interceptor/token-interceptor
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmComponent } from '../shared/components/comfirm/confirm.component';
+import { MaterialModule } from '../material';
+import { HomeComponent } from './home/home.component';
+import { OrdersService } from '../shared/services/order.service';
+import { NgChartsModule } from 'ng2-charts';
+import { DashboardService } from '../shared/services/dashboard.service';
+import { StoresService } from './stores/stores.service';
+
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
     MatMenuModule,
@@ -38,12 +47,18 @@ import { ConfirmComponent } from '../shared/components/comfirm/confirm.component
     FlexLayoutModule,
     LayoutModule,
     MatSnackBarModule,
+    MaterialModule,
+    NgChartsModule,
+    
   ],
   entryComponents: [
     ConfirmComponent
   ],
   providers: [
     // AdminGuard,
+    StoresService,
+    DashboardService,
+    OrdersService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
 

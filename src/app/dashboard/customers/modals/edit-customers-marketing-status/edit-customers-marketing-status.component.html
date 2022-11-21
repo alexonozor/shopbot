@@ -1,0 +1,19 @@
+<h1 matDialogTitle>Edit Marketing Status</h1>
+
+<mat-dialog-content>
+ <form [formGroup]="customerForm" >
+  <div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="20px" >
+  
+    <mat-slide-toggle formControlName="allowNotifications">Mobile Notification Subscribed</mat-slide-toggle>
+   
+   
+    <mat-slide-toggle formControlName="allowSalesNotifications">Sales Notification Subscribed</mat-slide-toggle>
+   
+  </div>
+ </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+ <button mat-button matDialogClose>CANCEL</button>
+ <button mat-raised-button color="primary" (click)="submit()" [disabled]="customerForm.invalid">Save</button>
+</mat-dialog-actions>

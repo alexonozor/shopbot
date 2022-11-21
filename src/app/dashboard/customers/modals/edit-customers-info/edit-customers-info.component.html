@@ -1,0 +1,52 @@
+<h1 matDialogTitle>Edit customer</h1>
+
+<mat-dialog-content>
+ <form [formGroup]="customerForm" >
+  <div fxLayout="column" fxLayoutAlign="space-evenly stretch" >
+   <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Full Name</mat-label>
+    <input matInput placeholder="Full Name" formControlName="name">
+   </mat-form-field>
+
+   <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Phone Number</mat-label>
+    <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+   </mat-form-field>
+
+   <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Email" formControlName="email">
+   </mat-form-field>
+
+   <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Gender</mat-label>
+    <mat-select  formControlName="gender">
+        <mat-option  *ngFor="let gender of ['Male', 'Female']" [value]="gender">{{gender}}</mat-option>
+    </mat-select>
+   </mat-form-field>
+
+
+   <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Language</mat-label>
+    <mat-select  formControlName="language">
+        <mat-option  *ngFor="let language of ['English', 'French']" [value]="language">{{language}}</mat-option>
+    </mat-select>
+   </mat-form-field>
+
+   <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Country</mat-label>
+    <mat-select  formControlName="country">
+        <mat-option  *ngFor="let country of ['Nigeria', 'Mauritius']" [value]="country">{{country}}</mat-option>
+    </mat-select>
+   </mat-form-field>
+
+
+  </div>
+ </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+ <button mat-button matDialogClose>CANCEL</button>
+ <button mat-raised-button color="primary" (click)="submit()" [disabled]="customerForm.invalid">Save</button>
+</mat-dialog-actions>
+

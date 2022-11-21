@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../shared/services/auth.service';
+import { Store } from 'src/app/shared/models/store';
 
 @Injectable()
 export class StoresService implements Resolve<any>
@@ -36,7 +37,7 @@ export class StoresService implements Resolve<any>
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise((resolve, reject) => {
       Promise.all([
-        this.getUserStores()
+        this.getUserStores({control: { sort: { 'createdAt': 'desc' }}})
       ]).then(
         () => {
           resolve(null);
@@ -51,9 +52,10 @@ export class StoresService implements Resolve<any>
    *
    * @returns {Promise<any>}
    */
-   getUserStores(): Promise<any> {
+   getUserStores(queryParams:any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get(`${this.hostServer}/stores/${this.auth.getUser._id}/vendors`)
+      const query = JSON.stringify(queryParams)
+      this._httpClient.get(`${this.hostServer}/stores?query=${query}`)
         .subscribe((response: any) => {
           this.stores = response;
           this.onStoresChanged.next(this.stores);
@@ -72,6 +74,12 @@ export class StoresService implements Resolve<any>
 
   createStore(params:any) {
    return this._httpClient.post(`${this.hostServer}/stores`, params)
+  }
+
+  getStores(query:any): Observable<Store[]> {
+    const obj: any = query;
+    const queryParams = JSON.stringify(obj);
+    return this._httpClient.get<Store[]>(`${this.hostServer}/stores?query=${queryParams}`)
   }
 
 
