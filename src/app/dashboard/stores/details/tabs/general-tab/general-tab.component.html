@@ -7,7 +7,7 @@
       </div>
     <form [formGroup]="generalSettingForm">
         <div class="mat-elevation-z6 example-container">
-            <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="row " fxLayoutAlign="space-around center">
                 <div class="logo" [style.background-image]="'url(' + (this.store.logo == '' ? 'https://dashboard.heypay.xyz/images/store_image_placeholder.png' : this.store.logo) + ')'" fxLayout="row" fxLayoutAlign="center center">
                     <div class="control-logo" >
                         <input type="file" class="file-input" (change)="onFileLogoSelected($event)"  #logoUpload>

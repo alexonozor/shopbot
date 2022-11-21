@@ -1,24 +1,45 @@
+
+
 <mat-list style="margin-bottom: 20px">
     <div mat-subheader>Stores</div>
-    <mat-list-item *ngFor="let store of stores; let i = index" matRipple (click)="$event.stopPropagation()" [routerLink]="'/dashboard/stores/' + store._id + '/explore'">
+    <mat-list-item *ngFor="let store of stores; let i = index" matRipple>
         <div mat-line class="status">{{store.active ? 'APPROVE' : 'UNAPPROVED'}}</div>
         <div mat-line><span class="title">{{store.name}}</span></div>
+        
         <div mat-line> {{store.description}} </div>
+        <div mat-line fxLayout="row" fxLayoutAlign="start start"  fxLayoutGap="5px">
+            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
+            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
+            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
+            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
+            <mat-icon class="mat-18 text-yellow-500">star_border</mat-icon>
+        </div>
         <button mat-icon-button [matMenuTriggerFor]="menu" >
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
             <button mat-menu-item (click)="delete(i, store._id); $event.stopPropagation() "><mat-icon>delete</mat-icon> Delete</button>
-            <!-- <button mat-menu-item (click)="viewDetails(store)">
+            <button mat-menu-item (click)="viewDetails(store)" *ngIf="!store.active">
+                <mat-icon>done</mat-icon> Enable
+            </button>
+            <button mat-menu-item (click)="viewDetails(store)" *ngIf="store.active">
+                <mat-icon>remove_done</mat-icon> Disable
+            </button>
+            <button mat-menu-item (click)="viewDetails(store)">
                 <mat-icon>edit</mat-icon> Edit
-            </button> -->
+            </button>
           </mat-menu>
           <mat-divider></mat-divider>
     </mat-list-item>
     
 </mat-list>
-<button mat-button color="primary" (click)="addNewStore()">
-    <mat-icon class="mat-18">add</mat-icon>  Add Store
-</button>
+
+
+<div fxLayout="row" fxLayoutAlign="end end">
+    <button mat-fab color="primary" aria-label="Add Store" class="fixed" (click)="addNewStore()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
 
 

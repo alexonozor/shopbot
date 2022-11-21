@@ -10,6 +10,7 @@ export interface Auth {
   user: User;
   userLocked: string;
   username: string;
+  
   // admin: boolean;
 }
 

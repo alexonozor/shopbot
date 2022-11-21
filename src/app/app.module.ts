@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { MaterialModule } from './material';
+import { NgChartsModule } from 'ng2-charts';
 
 const config: SocketIoConfig = { url: environment.hostServer, options: {} };
 
@@ -21,8 +23,10 @@ const config: SocketIoConfig = { url: environment.hostServer, options: {} };
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
+    MaterialModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: true }),
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
