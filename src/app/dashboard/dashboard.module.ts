@@ -29,11 +29,10 @@ import { StoresService } from './stores/stores.service';
 @NgModule({
   declarations: [
     DashboardComponent,
-    ConfirmComponent,
     HomeComponent
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     FormsModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
@@ -48,12 +47,13 @@ import { StoresService } from './stores/stores.service';
     LayoutModule,
     MatSnackBarModule,
     MaterialModule,
-    NgChartsModule,
-    
+    NgChartsModule
   ],
   entryComponents: [
-    ConfirmComponent
+    ConfirmComponent,
+    
   ],
+  
   providers: [
     // AdminGuard,
     StoresService,

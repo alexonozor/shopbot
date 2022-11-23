@@ -13,39 +13,29 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmComponent } from './components/comfirm/confirm.component';
-import { WhatsAppComponent } from './components/send-to-whats-app/whats-app.component';
 import { AccountService } from './services/account.service';
+import { FileMediaCardComponent } from './components/file-media-card/file-media-card.component';
+import { SelectMediaComponent } from './components/select-media/select-media.component';
+import { MaterialModule } from '../material';
 
 
 @NgModule({
   declarations: [
     ConfirmComponent,
-    WhatsAppComponent
+    FileMediaCardComponent,
+    SelectMediaComponent
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     RouterModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatButtonModule,
-    
+    MaterialModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
-    AuthService,
-    AccountService
-  ],
   exports: [
-    ConfirmComponent
+    ConfirmComponent,
+    FileMediaCardComponent,
+    SelectMediaComponent,
+    
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,53 @@
+
+
+
+<!-- <h1 matDialogTitle>Title</h1> -->
+
+<mat-dialog-content>
+    <input type="file" class="file-input" (change)="onFileLogoSelected($event)"  #logoUpload>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="card bg-white mat-elevation-z2 px-2 py-2">
+        <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" > 
+            <mat-icon class="material-icons-outlined">perm_media</mat-icon> 
+            <span> Media</span>
+          </span>
+        <button mat-raised-button class="material-icons-outlined" (click)="logoUpload.click()"  color="primary" type="submit" >
+          <mat-icon>add_photo_alternate</mat-icon> Add Media
+        </button>
+     
+      </div>
+      <mat-progress-bar mode="indeterminate"  *ngIf="uploadProgress"></mat-progress-bar>
+    
+      <mat-tab-group [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="ALL">
+            <ng-template matTabContent>
+                <portal-lists-all-media [events]="eventsSubject.asObservable()" (chosenMediaEvent)="selectedMedia($event)" (browseMediaEvent)="logoUpload.click()"></portal-lists-all-media>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="IMAGES">
+            <ng-template matTabContent>
+                <!-- <app-store-menus-tab [store]="store"></app-store-menus-tab> -->
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="DOCUMENTS">
+            <ng-template matTabContent>
+                <!-- <app-store-menus-tab [store]="store"></app-store-menus-tab> -->
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="VIDEOS">
+            <ng-template matTabContent>
+                <!-- <app-store-menus-tab [store]="store"></app-store-menus-tab> -->
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="AUDIO">
+            <ng-template matTabContent>
+                <!-- <app-store-menus-tab [store]="store"></app-store-menus-tab> -->
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="start" *ngIf="dialogRef">
+    <button mat-button matDialogClose>CANCEL</button>
+    <button mat-raised-button (click)="selectMedia()" color="primary">SELECT</button>
+</mat-dialog-actions>

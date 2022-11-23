@@ -27,6 +27,30 @@ const routes: Routes = [
         loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
         // canActivate: [AdminGuard]
       },
+
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+        // canActivate: [AdminGuard]
+      },
+
+      {
+        path: 'cuisines',
+        loadChildren: () => import('./cuisines/cuisines.module').then(m => m.CuisinesModule)
+        // canActivate: [AdminGuard]
+      },
+
+      {
+        path: 'orders',
+        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+        // canActivate: [AdminGuard]
+      },
+
+      {
+        path: 'media',
+        loadChildren: () => import('./media/media.module').then(m => m.MediaModule)
+        // canActivate: [AdminGuard]
+      },
       
       {
         path: '**',
@@ -38,6 +62,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  
+exports: [RouterModule]
 })
 export class DashboardRoutingModule { }
