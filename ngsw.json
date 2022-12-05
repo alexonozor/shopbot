@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1670237261429,
+  "timestamp": 1670239431453,
   "index": "https://alexonozor.github.io/shopbot/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "https://alexonozor.github.io/shopbot/129.9c998ce111c64594.js",
         "https://alexonozor.github.io/shopbot/145.06090a36f032c70c.js",
         "https://alexonozor.github.io/shopbot/241.7dfa43bae2c711c5.js",
-        "https://alexonozor.github.io/shopbot/337.fe75c33a97c61105.js",
+        "https://alexonozor.github.io/shopbot/337.3d9d28f5b2b0db65.js",
         "https://alexonozor.github.io/shopbot/405.9864ec798bf7ca44.js",
         "https://alexonozor.github.io/shopbot/476.0d765b132df772a0.js",
         "https://alexonozor.github.io/shopbot/567.ef9ca9a840488181.js",
@@ -25,10 +25,10 @@
         "https://alexonozor.github.io/shopbot/common.92eba6fd7ddb1b89.js",
         "https://alexonozor.github.io/shopbot/favicon.ico",
         "https://alexonozor.github.io/shopbot/index.html",
-        "https://alexonozor.github.io/shopbot/main.4df51dcfe0cb710d.js",
+        "https://alexonozor.github.io/shopbot/main.0abf90d8ed57db27.js",
         "https://alexonozor.github.io/shopbot/manifest.webmanifest",
         "https://alexonozor.github.io/shopbot/polyfills.f97be2bad814202d.js",
-        "https://alexonozor.github.io/shopbot/runtime.607d4dc2cb3eb697.js",
+        "https://alexonozor.github.io/shopbot/runtime.294a020b2359af17.js",
         "https://alexonozor.github.io/shopbot/styles.2bb59d0b753bb1dc.css"
       ],
       "patterns": []
@@ -58,7 +58,7 @@
     "https://alexonozor.github.io/shopbot/129.9c998ce111c64594.js": "130170d8c565672c95c6a1526d4b457cec840311",
     "https://alexonozor.github.io/shopbot/145.06090a36f032c70c.js": "979028a2493a3faf0a3c59760afeb5ccee010c3d",
     "https://alexonozor.github.io/shopbot/241.7dfa43bae2c711c5.js": "fa0f9a930c551676d213eedad6e8a09c9aed602f",
-    "https://alexonozor.github.io/shopbot/337.fe75c33a97c61105.js": "2c7bab346ee551c95450aad90cc14d43660ab2f3",
+    "https://alexonozor.github.io/shopbot/337.3d9d28f5b2b0db65.js": "02cc126fab0810e225fa6285bd836e2083a8152c",
     "https://alexonozor.github.io/shopbot/405.9864ec798bf7ca44.js": "adc73ccfe997c88bf0706e3b9efcebb1e3a88496",
     "https://alexonozor.github.io/shopbot/476.0d765b132df772a0.js": "1b0b2b29fb49298d3c2e3e6bbacc75c093bd86d1",
     "https://alexonozor.github.io/shopbot/567.ef9ca9a840488181.js": "fe84d7bd087c85a773199db1a30d0efdb30d9154",
@@ -76,11 +76,11 @@
     "https://alexonozor.github.io/shopbot/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://alexonozor.github.io/shopbot/common.92eba6fd7ddb1b89.js": "1ee377967b4a610058fc19a12b264872461d9290",
     "https://alexonozor.github.io/shopbot/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://alexonozor.github.io/shopbot/index.html": "868422b6d756d94ac10f5b42060c277a26a2ed2b",
-    "https://alexonozor.github.io/shopbot/main.4df51dcfe0cb710d.js": "a1b6c8843b2c17d06f4583d5fce4430a3a77d631",
+    "https://alexonozor.github.io/shopbot/index.html": "ab1fea6f72afe9aa57813d472c05ecfe80d30e06",
+    "https://alexonozor.github.io/shopbot/main.0abf90d8ed57db27.js": "76d15b36627649a0a0ee3f6034649e54cf521d73",
     "https://alexonozor.github.io/shopbot/manifest.webmanifest": "4ce9de41fe9bf4efd293b3c7a20ad8f23961ec5e",
     "https://alexonozor.github.io/shopbot/polyfills.f97be2bad814202d.js": "cbaccdaf3ff43d6059c4ff0e14b58d4f38b5b844",
-    "https://alexonozor.github.io/shopbot/runtime.607d4dc2cb3eb697.js": "dcd223e998b866f75d78ba997a384a4979ba48d2",
+    "https://alexonozor.github.io/shopbot/runtime.294a020b2359af17.js": "8a1bd81a3258f28cf43f6ec05da6a80dcc2dace5",
     "https://alexonozor.github.io/shopbot/styles.2bb59d0b753bb1dc.css": "d4b87c67640f06d64c239df371ab8903f8f3c436"
   },
   "navigationUrls": [
