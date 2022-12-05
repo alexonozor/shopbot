@@ -17,6 +17,11 @@ export class CreateAdminComponent implements OnInit {
     gender: ['', Validators.required],
     email: ['', Validators.email],
     password: ['', Validators.required],
+    permissions: [{
+      name: { type: String, default: '' },
+      group: { type: String, default: '' },
+      value: { type: Boolean, default: false }
+    }],
   });
 
   constructor(

@@ -51,6 +51,11 @@ const routes: Routes = [
         loadChildren: () => import('./media/media.module').then(m => m.MediaModule)
         // canActivate: [AdminGuard]
       },
+      {
+        path: 'messages',
+        loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule)
+        // canActivate: [AdminGuard]
+      },
       
       {
         path: '**',

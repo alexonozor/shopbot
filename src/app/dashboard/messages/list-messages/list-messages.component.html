@@ -1,15 +1,13 @@
 <div>
-   
-  
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="card bg-white w-full mat-elevation-z2 px-2 py-2">
       <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-        <span>Customers</span>
+        <span>Messages and Notifications</span>
       </span>
 
 
       <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="selection.selected.length">
         <button mat-button>{{selection.selected.length}}  Selected</button>
-        <button mat-stroked-button color="primary" (click)="sendMessagesToSelectedCustomers()"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
+        <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
         <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon> Delete Selected Customers</button>
       </span>
   
@@ -33,14 +31,14 @@
               </mat-checkbox>
             </td>
           </ng-container>
-      <ng-container matColumnDef="Name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      <ng-container matColumnDef="recipients">
+        <th mat-header-cell *matHeaderCellDef>Recipients</th>
+        <td mat-cell *matCellDef="let element">{{ element.recipients.length }}</td>
       </ng-container>
   
       <ng-container matColumnDef="phoneNumber">
         <th mat-header-cell *matHeaderCellDef>Phone Number</th>
-        <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.type }}</td>
       </ng-container>
   
       <ng-container matColumnDef="email">
@@ -48,11 +46,22 @@
         <td mat-cell *matCellDef="let element">{{ element.email }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="country">
-        <th mat-header-cell *matHeaderCellDef>Country</th>
-        <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Notification Type</th>
+        <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+      </ng-container>
+      
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title<th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="body">
+        <th mat-header-cell *matHeaderCellDef>Body<th>
+        <td mat-cell *matCellDef="let element">{{ element.body }}</td>
+      </ng-container>
+
+      
 
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>Registered at</th>
@@ -66,18 +75,12 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="message(element)">
-                <mat-icon class="material-icons-outlined">campaign</mat-icon>
-                <span>Message Customer</span>
-              </button>
-            <button mat-menu-item (click)="deleteUser(element._id, j)">
+            
+            <button mat-menu-item (click)="deleteNotification(element._id, j)">
               <mat-icon class="material-icons-outlined">delete</mat-icon>
               <span>Delete</span>
             </button>
-            <button mat-menu-item  [routerLink]="['../', element._id, 'details']">
-              <mat-icon class="material-icons-outlined">person</mat-icon>
-              <span>Profile</span>
-            </button>
+            
           </mat-menu>
         </td>
       </ng-container>
@@ -89,5 +92,12 @@
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="end center" class="m-5">
+   
+  <button mat-fab (click)="openMessaging()" color="primary"  class="m-10">
+      <mat-icon class="mat-18">add</mat-icon>
+  </button>
 </div>
   </div>

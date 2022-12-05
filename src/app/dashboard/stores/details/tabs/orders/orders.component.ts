@@ -86,7 +86,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   deleteOrder(index:any, order:any) {
-    console.log(order._id)
     this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
       disableClose: false
     });

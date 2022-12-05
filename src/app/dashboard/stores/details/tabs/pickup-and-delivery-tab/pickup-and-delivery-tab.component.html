@@ -39,9 +39,9 @@
                             <mat-form-field *ngIf="pickupAndDeliveryForm.value.orderSettings.allowMinimumOrderAmount"
                                 appearance="outline" style="width: 50%; margin-top: 20px;">
                                 <mat-label>Enter Minimum order amount</mat-label>
-                                <input matInput formControlName="minimumOrderAmount"
+                                <input matInput type="number" formControlName="minimumOrderAmount"
                                     placeholder="Enter Minimum order amount">
-                                <span matSuffix>N</span>
+                                <span matSuffix>{{store.currency ? store.currency : 'Currency'}}</span>
                             </mat-form-field>
                         </div>
                     </div>

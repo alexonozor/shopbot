@@ -6,7 +6,7 @@ import { OrdersComponent } from './orders.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { OrdersDetailsComponent } from './orders-details/orders-details.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material';
 import { OrderResolver, OrdersResolver } from '../../shared/resolvers/orders.resolver';
 import { OrdersService } from '../../shared/services/order.service';
@@ -23,7 +23,8 @@ import { OrdersService } from '../../shared/services/order.service';
     OrdersRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [OrdersResolver, OrderResolver, OrdersService]
 })

@@ -167,13 +167,21 @@ export class HomeComponent implements OnInit {
   }
 
   getOrders() {
-   this.ordersService.getOrders({data: {category: 'Processing'}, control: {limit: 6} }).pipe(tap((orders) => {
+   this.ordersService.getOrders(
+    {
+     data: {$match: { category: 'Processing'}},
+     control:[ {$limit: 6},  { $sort: { 'createdAt': -1 }}] 
+    }).pipe(tap((orders) => {
       this.dataSource = new MatTableDataSource(orders);
     })).subscribe()
   }
 
   getRecentStores() {
-    this.stores$ = this.storeService.getStores({data: {}, control: { sort: { 'createdAt': 'desc' }, limit: 4 } })
+    this.stores$ = this.storeService.getStores({data: { $match: {} }, control: [
+      { $sort: { 'createdAt': -1 }},
+      { $limit: 4}
+    ]})
+    
   }
 
  

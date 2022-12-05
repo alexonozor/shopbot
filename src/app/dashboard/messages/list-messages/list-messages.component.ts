@@ -1,43 +1,39 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { UsersService } from '../../../shared/services/users.service';
-import { User } from '../../../shared/models/user';
-import { MatPaginator } from '@angular/material/paginator';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
-import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
+import { Notification } from 'src/app/shared/models/notification';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
+import { CreateMessagesComponent } from '../create-messages/create-messages.component';
 
 @Component({
-  selector: 'app-list-customers',
-  templateUrl: './list-customers.component.html',
-  styleUrls: ['./list-customers.component.scss']
+  selector: 'app-list-messages',
+  templateUrl: './list-messages.component.html',
+  styleUrls: ['./list-messages.component.scss']
 })
-export class ListCustomersComponent implements OnInit, AfterViewInit {
+export class ListMessagesComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'phoneNumber', 'country', 'createdAt', 'actions'];
-  public dataSource = new MatTableDataSource<User>([]);
+  public displayedColumns: string[] = ['select', 'recipients', 'type', 'title', 'body', 'createdAt', 'actions'];
+  public dataSource = new MatTableDataSource<Notification>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
 
-
   constructor(
     private route: ActivatedRoute,
-    private userService: UsersService,
+    private notificationService: NotificationsService,
     private _matDialog: MatDialog
   ) { }
-
-  
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<User>(this.route.snapshot.data['customers']) 
+    this.dataSource = new MatTableDataSource<Notification>(this.route.snapshot.data['notifications']) 
   }
 
   isAllSelected() {
@@ -58,17 +54,17 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
     this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
       disableClose: false
     });
-    this.confirmDialogRef.componentInstance.title = 'Delete customers?';
-    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete these customers?';
+    this.confirmDialogRef.componentInstance.title = 'Delete notifications?';
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete these notifications?';
     this.confirmDialogRef.componentInstance.confirmButton = 'Delete';
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.selection.selected.forEach((user: User, i:number) => {
+        this.selection.selected.forEach((notification: Notification, i:number) => {
         this.dataSource.data.splice(i, 1);
-        this.dataSource = new MatTableDataSource<User>(this.dataSource.data);
+        this.dataSource = new MatTableDataSource<Notification>(this.dataSource.data);
         this.dataSource._updateChangeSubscription();
         this.dataSource.paginator = this.paginator;
-        this.userService.deleteUser(user._id).subscribe();
+        this.notificationService.deleteNotification(notification._id).subscribe();
         })
       }
     });
@@ -83,7 +79,7 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
   }
 
 
-  deleteUser(id: string, index: number) {
+  deleteNotification(id: string, index: number) {
     this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
       disableClose: false
     });
@@ -93,29 +89,28 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dataSource.data.splice(index, 1);
-        this.dataSource = new MatTableDataSource<User>(this.dataSource.data);
+        this.dataSource = new MatTableDataSource<Notification>(this.dataSource.data);
         this.dataSource._updateChangeSubscription();
         this.dataSource.paginator = this.paginator;
-        this.userService.deleteUser(id).subscribe();
+        this.notificationService.deleteNotification(id).subscribe();
       }
     });
    
   }
 
 
-  message(customer: User) {
+  openMessaging() {
     this._matDialog.open(CreateMessagesComponent, {
-      data: { customers: customer, isBulkMsg: false, allCustomers: false},
+      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: true},
       width: '500px'
     });
-    
   }
 
-  sendMessagesToSelectedCustomers() {
-    this._matDialog.open(CreateMessagesComponent, {
-      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: false},
-      width: '500px'
-    });
+
+
+
+  message(customer: Notification) {
+
   }
 
 }

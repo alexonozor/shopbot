@@ -12,7 +12,10 @@ export class OrdersResolver implements Resolve<Order[]> {
   constructor(private orderService: OrdersService) {}
 
   resolve(): Observable<Order[]> {
-    return this.orderService.getOrders({});
+    return this.orderService.getOrders({
+      data: {$match: { }},
+      control:[   { $sort: { 'createdAt': -1 }}] 
+     });
   }
 }
 

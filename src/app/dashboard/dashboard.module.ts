@@ -50,8 +50,7 @@ import { StoresService } from './stores/stores.service';
     NgChartsModule
   ],
   entryComponents: [
-    ConfirmComponent,
-    
+    ConfirmComponent
   ],
   
   providers: [

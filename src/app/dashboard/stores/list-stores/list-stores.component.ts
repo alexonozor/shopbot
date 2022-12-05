@@ -10,6 +10,8 @@ import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.comp
 import { Store } from 'src/app/shared/models/store';
 import { AddStoresComponent } from '../modals/add-stores/add-stores.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { StoreService } from '../details/store.service';
 
 @Component({
   selector: 'app-list-stores',
@@ -23,6 +25,7 @@ export class ListStoresComponent implements OnInit {
 
   constructor(
     private storesService: StoresService,
+    private storeService: StoreService,
     public _matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
@@ -62,11 +65,19 @@ export class ListStoresComponent implements OnInit {
     addStoreForm.afterClosed().subscribe(result => {
 
       if (result) {
-        this.storesService.getUserStores({control: { sort: { 'createdAt': 'desc' }}}).then(() => {
+        this.storesService.getUserStores({data: { $match: {} }, control: [{ $sort: { 'createdAt': -1 }}]}).then(() => {
           this.stores = this.storesService.stores;
         })
       }
     });
+  }
+
+
+  onChange(store: Store, event: MatSlideToggleChange) {
+
+    this.storeService.saveStore({approve: event.checked, active: event.checked }, store._id).subscribe(() => {
+      this._matDialog
+    })
   }
 
   public viewDetails(store: Store) {

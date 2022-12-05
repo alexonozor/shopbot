@@ -1,6 +1,7 @@
-export interface Notifications {
+export interface Notification {
     created: string;
-    id: string;
+    recipients: string[];
+    _id: string;
     updated: string;
     userId: string;
     type: string;

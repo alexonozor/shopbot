@@ -48,6 +48,13 @@
                     <mat-label>Store Description</mat-label>
                     <textarea matInput formControlName="description" placeholder="Enter Store Description"></textarea>
                 </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Currency</mat-label>
+                    <mat-select formControlName="currency" >
+                        <mat-option *ngFor="let currency of ['₦', 'RS']" [value]="currency">{{currency}}</mat-option>
+                    </mat-select>
+                    
+                </mat-form-field>
             </div>
             <div class="mat-elevation-z6 example-container" fxFlex="30%" formGroupName="contactInfo">
                 <h3>Contact Information</h3>
@@ -89,7 +96,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="width: 40%; margin-top: 10px;">
                     <mat-label>Enter your Location</mat-label>
-                    <input matInput matGoogleMapsAutocomplete [country]="'ng'"
+                    <input matInput matGoogleMapsAutocomplete 
                         (onAutocompleteSelected)="onAutocompleteSelected($event)"
                         (onLocationSelected)="onLocationSelected($event)">
                 </mat-form-field>

@@ -13,6 +13,7 @@ import { EditCustomersInfoComponent } from './modals/edit-customers-info/edit-cu
 import { EditCustomersNotesComponent } from './modals/edit-customers-notes/edit-customers-notes.component';
 import { EditCustomersMarketingStatusComponent } from './modals/edit-customers-marketing-status/edit-customers-marketing-status.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
 
-  providers: [UserResolver, UsersResolver, UsersService],
+  providers: [UserResolver, UsersResolver, UsersService, NotificationsService],
 
   exports: [
      EditCustomersInfoComponent,

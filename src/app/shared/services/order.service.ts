@@ -44,10 +44,12 @@ export class OrdersService {
   }
 
   updateOrderStatus(orderId: string, userId: string, status: any) {
-    return this._httpClient.put(
-      `${this.hostServer}/orders/${orderId}/status/${userId}`,
-      status
-    );
+    return this._httpClient.put(`${this.hostServer}/orders/${orderId}/status/${userId}`, status);
+  }
+
+
+  updateOrder(orderId: string, status: any) {
+    return this._httpClient.put(`${this.hostServer}/orders/${orderId}`, status);
   }
 
   deleteOrder(orderId: string) {

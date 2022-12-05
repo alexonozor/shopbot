@@ -50,12 +50,14 @@ export class GeneralTabComponent implements OnInit {
       bannerImage: [this.store.bannerImage],
       name: [this.store.name, Validators.required],
       description: [this.store.description, Validators.required],
+      currency: [this.store.currency, Validators.required],
 
       notifications: this._formBuilder.group({
         email: [this.store.notifications.email],
         phone: [this.store.notifications.phone],
         sms: [this.store.notifications.sms],
       }),
+
       contactInfo: this._formBuilder.group({
         email: [this.store.contactInfo.email, [Validators.required, Validators.email]],
         phone: [this.store.contactInfo.phone, [Validators.required]],
@@ -66,6 +68,7 @@ export class GeneralTabComponent implements OnInit {
         placeName: [this.store.contactInfo.placeName],
         placeNumber: [this.store.contactInfo.placeNumber]
       }),
+
       location: this._formBuilder.group({
         type: 'Point',
         coordinates: [this.store.location.coordinates]
