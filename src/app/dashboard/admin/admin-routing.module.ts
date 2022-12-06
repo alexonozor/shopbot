@@ -5,6 +5,7 @@ import { ListAdminComponent } from './list-admin/list-admin.component';
 import { CreateAdminComponent } from './create-admin/create-admin.component';
 import { AdminResolver, AdminsResolver } from '../../shared/resolvers/admin.resolver';
 import { AdminDetailsComponent } from './admin-details/admin-details.component';
+import { PermissionsResolver } from '../../shared/resolvers/permissions.resolver';
 
 const routes: Routes = [
   {
@@ -18,12 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: CreateAdminComponent
+        component: CreateAdminComponent,
+        resolve: { roles: PermissionsResolver  }
       },
       {
         path: ':id/details',
         component: AdminDetailsComponent,
-        resolve: { admin: AdminResolver }
+        resolve: { admin: AdminResolver, roles: PermissionsResolver }
       }      
     ]
   }
@@ -31,7 +33,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  
-exports: [RouterModule]
+   exports: [RouterModule]
 })
 export class AdminRoutingModule { }

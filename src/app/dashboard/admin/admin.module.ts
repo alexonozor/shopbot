@@ -11,6 +11,8 @@ import { AdminDetailsComponent } from './admin-details/admin-details.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material';
+import { PermissionsResolver } from 'src/app/shared/resolvers/permissions.resolver';
+import { RolesAndPermissionsService } from 'src/app/shared/services/roles-and-permissions.service';
 
 
 @NgModule({
@@ -27,6 +29,6 @@ import { MaterialModule } from 'src/app/material';
     FlexLayoutModule,
     ReactiveFormsModule
   ],
-  providers: [AdminsResolver, AdminResolver, AdminService]
+  providers: [AdminsResolver, AdminResolver, AdminService, RolesAndPermissionsService, PermissionsResolver]
 })
 export class AdminModule { }

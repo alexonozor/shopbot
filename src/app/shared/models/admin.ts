@@ -1,4 +1,5 @@
 
+import { RolesAndPermission } from './roles-and-permission';
 export interface Admin {
     _id:string;
     photo: string;
@@ -13,7 +14,8 @@ export interface Admin {
     password: string;
     phoneToken: string;
     loginCount: number;
-    verifyPhoneNumber: boolean; 
+    verifyPhoneNumber: boolean;
+    role: RolesAndPermission
 }
 
 

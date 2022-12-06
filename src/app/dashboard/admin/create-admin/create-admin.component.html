@@ -25,6 +25,14 @@
 
 
             <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Select Roles</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let role of roles" [value]="role._id">{{role.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput type="password" placeholder="Password" formControlName="password">
             </mat-form-field>

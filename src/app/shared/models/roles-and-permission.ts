@@ -1,6 +1,7 @@
 
 export interface RolesAndPermission {
+    _id: string;
     name: string;
-    group: string;
-    value: string
+    permissions: string[];
+  
 }

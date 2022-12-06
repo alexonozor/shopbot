@@ -10,15 +10,15 @@ export class JwtService {
   }
 
   getToken():any {
-    return localStorage.getItem('JWT-Token');
+    return localStorage.getItem('token');
   }
 
   setToken(token: string): void {
-    localStorage.setItem('JWT-Token', token);
+    localStorage.setItem('token', token);
   }
 
   destroyToken(): void {
-    localStorage.removeItem('JWT-Token');
+    localStorage.removeItem('token');
   }
 
   hasValidAccessToken(): boolean {

@@ -1,20 +1,21 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, startWith, map } from 'rxjs';
 import { RolesAndPermissionsService } from 'src/app/shared/services/roles-and-permissions.service';
-import { MediaComponent } from '../../media/media.component';
+import { ActivatedRoute } from '@angular/router';
+import { RolesAndPermission } from '../../../shared/models/roles-and-permission';
 
 @Component({
-  selector: 'app-new-roles-and-permissions',
-  templateUrl: './new-roles-and-permissions.component.html',
-  styleUrls: ['./new-roles-and-permissions.component.scss']
+  selector: 'app-edit-roles-and-permissions',
+  templateUrl: './edit-roles-and-permissions.component.html',
+  styleUrls: ['./edit-roles-and-permissions.component.scss']
 })
-export class NewRolesAndPermissionsComponent implements OnInit {
+export class EditRolesAndPermissionsComponent implements OnInit {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl('');
@@ -30,28 +31,39 @@ export class NewRolesAndPermissionsComponent implements OnInit {
   'Add_store', 'Edit_store', 'Update_store', 'Delete_store', 'Read_store'];
 
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
-  rolesForm = this.fb.group({
-    name: ['', Validators.required],
-    permissions: this.fb.array([]),
-  });
+  rolesForm!: FormGroup
+  rolePermission!: RolesAndPermission
 
   constructor(
     private fb: FormBuilder,
     private permissionService: RolesAndPermissionsService,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public route: ActivatedRoute
   ) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
     );
+    this.rolePermission = this.route.snapshot.data['permission'] as RolesAndPermission;
+     this.permissions = this.rolePermission.permissions
+    this.rolesForm = this.fb.group({
+      name: [this.rolePermission.name, Validators.required],
+      permissions: this.fb.array([]),
+    });
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     this.rolePermission.permissions.map((p) => {
+       this.permission.push(this.fb.control(p))
+     })
+  
+  }
 
   submit() {
     if (this.rolesForm.valid) {
-      this.permissionService.createPermission(this.rolesForm.getRawValue()).subscribe((data) => {
+      this.permissionService.updatePermission(this.rolePermission._id, this.rolesForm.getRawValue()).subscribe((data) => {
         this.location.back();
       })
     }
@@ -60,8 +72,6 @@ export class NewRolesAndPermissionsComponent implements OnInit {
   back() {
     this.location.back();
   }
-
-
 
   get permission() {
     return this.rolesForm.get('permissions') as FormArray
@@ -104,7 +114,5 @@ export class NewRolesAndPermissionsComponent implements OnInit {
     return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
  
-
-  
 
 }

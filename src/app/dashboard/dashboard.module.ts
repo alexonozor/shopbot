@@ -24,6 +24,8 @@ import { OrdersService } from '../shared/services/order.service';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardService } from '../shared/services/dashboard.service';
 import { StoresService } from './stores/stores.service';
+import { AuthService } from '../shared/services';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { StoresService } from './stores/stores.service';
     StoresService,
     DashboardService,
     OrdersService,
+    AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
 
