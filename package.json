@@ -5,7 +5,7 @@
     "ng": "nx",
     "start": "ng serve",
     "build": "ng build",
-    "publish": "ng build  --base-href 'https://alexonozor.github.io/shopbot/' && npx ngh --dir=dist/shopbot",
+    "publish": "ng build  --base-href 'http://dashboard.shopbot.africa' && npx ngh --dir=dist/shopbot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "node ./decorate-angular-cli.js"
