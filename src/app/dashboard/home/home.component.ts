@@ -16,6 +16,8 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { StoresService } from '../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
+import { AuthService } from '../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -60,6 +62,8 @@ export class HomeComponent implements OnInit {
     private ordersService: OrdersService,
     private dashboardService: DashboardService,
     public _matDialog: MatDialog,
+    public authService: AuthService,
+    public router: Router
     ) {
     // Create 100 users
 
@@ -102,6 +106,11 @@ export class HomeComponent implements OnInit {
     this.getStat();
     this.getOrderMonthlyChart()
     this.getRecentStores()
+  }
+
+
+  openOrder(id:string) {
+    this.router.navigate(['dashboard', 'orders', id, 'details'])
   }
 
 
@@ -169,7 +178,7 @@ export class HomeComponent implements OnInit {
   getOrders() {
    this.ordersService.getOrders(
     {
-     data: {$match: { category: 'Processing'}},
+     data: {$match: { category: 'New'}},
      control:[ {$limit: 6},  { $sort: { 'createdAt': -1 }}] 
     }).pipe(tap((orders) => {
       this.dataSource = new MatTableDataSource(orders);

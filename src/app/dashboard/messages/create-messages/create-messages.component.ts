@@ -19,7 +19,7 @@ export class CreateMessagesComponent implements OnInit {
     body: ['', Validators.required],
     recipients: this.fb.array([]),
     type: ['', Validators.required],
-    recipientsType: [null],
+    recipientsType: [''],
   });
 
   addOnBlur = true;

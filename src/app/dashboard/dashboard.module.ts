@@ -25,13 +25,14 @@ import { NgChartsModule } from 'ng2-charts';
 import { DashboardService } from '../shared/services/dashboard.service';
 import { StoresService } from './stores/stores.service';
 import { AuthService } from '../shared/services';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    
   ],
   imports: [
   CommonModule,
@@ -49,7 +50,8 @@ import { ActivatedRouteSnapshot } from '@angular/router';
     LayoutModule,
     MatSnackBarModule,
     MaterialModule,
-    NgChartsModule
+    NgChartsModule,
+    SharedModule
   ],
   entryComponents: [
     ConfirmComponent

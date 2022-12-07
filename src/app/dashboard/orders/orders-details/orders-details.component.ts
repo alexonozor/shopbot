@@ -18,7 +18,7 @@ export class OrdersDetailsComponent implements OnInit {
   isCanceling!: boolean;
   isAccepting!: boolean;
   statuses = [
-    { id: 0, name: "Pending", color: "text-yellow-700"},
+    { id: 0, name: "Accepted", color: "text-yellow-700"},
     { id: 1, name: "Preparing", color: "text-blue-500"},
     { id: 2, name: "Ready for Pickup", color: "text-blue-500"},
     { id: 4, name: "Shipped", color: "text-blue-500"},
@@ -45,16 +45,19 @@ export class OrdersDetailsComponent implements OnInit {
 
   accept(order:Order) {
     this.isAccepting = true;
-    this.orderService.updateOrder(order._id, {category: 'Processing' })
-    .pipe(finalize(() => this.isAccepting = false) )
-    .subscribe((data) => {
-      order.category = 'Processing'
-      this._matSnack.open('Order has been Accepted', 'Close', {duration: 3000})
-    })
+    this.updateStatus({ id: 0, name: "Accepted", color: "text-yellow-700"}, order, false)
+    order.category =  'Processing'
+  }
+
+  
+
+  cancelOrder(order:Order) {
+    this.isCanceling = true;
+    this.updateStatus({ id: 3, name: "Canceled", color: "text-red-500"}, order, false)
+    order.category =  'Canceled'
   }
 
   updatePaymentStatus(order: Order, event:any) {
-   
     this.orderService.updateOrder(order._id, {paymentStatus: event.value })
     .pipe(finalize(() => this.isCanceling = false) )
     .subscribe((data) => {
@@ -63,23 +66,15 @@ export class OrdersDetailsComponent implements OnInit {
     })
   }
 
-  cancelOrder(order:Order) {
-    this.isCanceling = true;
-    this.orderService.updateOrder(order._id, {category: 'Cancel' })
-    .pipe(finalize(() => this.isCanceling = false) )
-    .subscribe((data) => {
-      order.category = 'Cancel'
-      this._matSnack.open('Order has been canceled', 'Close', {duration: 3000})
-    })
-  }
-
   compareFn(t1: any, t2: any): boolean { 
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
     }
 
-  updateStatus(event:any, order:any) {
-    this.orderService.updateOrderStatus(order._id, order.user._id, event.value).subscribe((data:any) => {
-      console.log(data)
+  updateStatus(event:any, order:any, eventType = true) {
+    this.orderService.updateOrderStatus(order._id, order.user._id, eventType?  event.value :  event).subscribe((data:any) => {
+      this.isCanceling = false;
+      this.isAccepting = false;
+      this._matSnack.open(`You have updated this order to ${event.value.name}`, 'Close', {duration: 3000})
     })
   }
 
