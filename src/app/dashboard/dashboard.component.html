@@ -18,37 +18,58 @@
                 <mat-icon class="material-icons-outlined" mat-list-icon>dashboard</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']" *ngIf="auth.isShow([Role.Admin, Role.Producer])">
                 <span class="full-width">Stores</span>
                 <mat-icon class="material-icons-outlined" mat-list-icon>storefront</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/cuisines/list']" *ngIf="auth.isShow([Role.Admin, Role.Producer])">
+                <span class="full-width">Cuisines</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">ramen_dining</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/orders/list']" *ngIf="auth.isShow([Role.Admin, Role.Marketer])">
                 <span class="full-width">Orders</span>
                 <mat-icon mat-list-icon class="material-icons-outlined">receipt_long</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/customers/list']">
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/customers/list']" *ngIf="auth.isShow([Role.Admin, Role.Marketer])">
                 <span class="full-width">Customers</span>
                 <mat-icon mat-list-icon class="material-icons-outlined">group</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
-                <span class="full-width">Riders</span>
-                <mat-icon mat-list-icon class="material-icons-outlined">delivery_dining</mat-icon>
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/admin/list']" *ngIf="auth.isShow([Role.Admin])">
+                <span class="full-width">Administration</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">admin_panel_settings</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/roles-permissions/list']" *ngIf="auth.isShow([Role.Admin])">
+                <span class="full-width">Roles and Permissions</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">manage_accounts</mat-icon>
+            </mat-list-item>
+            
+
+            <!-- <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
+                <span class="full-width">Riders</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">delivery_dining</mat-icon>
+            </mat-list-item> -->
+
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/messages/list']" *ngIf="auth.isShow([Role.Admin, Role.Marketer])">
                 <span class="full-width">Messaging</span>
                 <mat-icon mat-list-icon class="material-icons-outlined">campaign</mat-icon>
             </mat-list-item>
 
-            
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/media']" *ngIf="auth.isShow([Role.Admin, Role.Marketer, Role.Producer])">
+                <span class="full-width">Media</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">perm_media</mat-icon>
+            </mat-list-item>
 
+            
+<!-- 
             <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
                 <span class="full-width">Settings</span>
                 <mat-icon mat-list-icon class="material-icons-outlined">settings</mat-icon>
-            </mat-list-item>
+            </mat-list-item> -->
 
             
 

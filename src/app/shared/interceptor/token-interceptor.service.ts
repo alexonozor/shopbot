@@ -3,39 +3,49 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse,
+  HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
-
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    let token = localStorage.getItem('JWT-Token')
-    
-    if (token) {
-      request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
-    }
  
-    if (request.url.indexOf('upload') === -1) {
-      request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
-      request.headers.set('Accept', 'application/json')
-      request = request.clone({ headers: request.headers });
-    } else {
-      // request = request.clone({ headers: request.headers.set('Content-Type', 'multipart/form-data') });
-    }
-    // request.headers.set('Accept', 'multipart/form-data')
-    
-    // request.headers.set('Accept', 'application/json')
-
-    
-
-    return next.handle(request);
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.auth.getToken()}`
+      }
+    });
+    return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
+      if (event instanceof HttpResponse) {
+        // do stuff with response if you want
+      }
+    }, (err: any) => {
+      if (err instanceof HttpErrorResponse) {
+        if (err.status === 401) {
+          this.snackBar.open('Unauthorize!! Please login :(', 'CLOSE', {duration: 3000});
+          this.router.navigate(['auth']);
+        } else if (err.status === 404) {
+          this.snackBar.open('No record found for your request :(', 'CLOSE');
+          this.router.navigate(['']);
+          return;
+        }
+      }
+    }));
   }
 
-  constructor(private jwtService: JwtService) { }
+  constructor(
+    public dialog: MatDialog,
+    public auth: AuthService,
+    public router: Router,
+    public snackBar: MatSnackBar
+  ) { }
+
 }

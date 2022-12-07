@@ -1,97 +1,26 @@
 <div style="padding:20px">
- 
-
-  <div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="row" fxLayoutAlign="space-between start">
     <div fxLayout="column" fxLayoutAlign="space-between start" >
-       <h1 class="m-0">Dashboard</h1>
-       <p>Hi Alex. welcome back to Shopbot Admin.</p>
+        <h1 class="m-0">Dashboard</h1>
+        <p>Hi {{authService.currentUser.name}}. welcome back to Shopbot Admin.</p>
     </div>
 
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-          <input matStartDate formControlName="startDate" placeholder="Start date">
-          <input matEndDate formControlName="endDate" placeholder="End date">
-        </mat-date-range-input>
-        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      
-        <mat-error *ngIf="range.controls.startDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-        <mat-error *ngIf="range.controls.endDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-      </mat-form-field>
-   
- </div>
-
-
- <div fxLayout="row" fxLayoutAlign="space-between start" class="my-10" fxLayoutGap="8px" *ngIf="stat$ | async as stat">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="startDate" placeholder="Start date">
+        <input matEndDate formControlName="endDate" placeholder="End date">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
     
-   <div class="mat-elevation-z3 p-10 rounded-lg"   fxFlex="15%">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-        <h1 class="m-0 font-bold text-green-400" style="font-weight: bolder; font-size: 40px">{{stat.totalOrders}}</h1>
-        <p class="m-0 font-light">Total Orders</p>
-      </div>
-    </div>
-   </div>
-   <!-- {
-    "totalSales": 1628975.8,
-    "totalOrders": 9,
-    "completedOrders": 2,
-    "pendingOrders": 6,
-    "canceledOrders": 1,
-    "profits": 574.95
-  } -->
-   
-
-   <div class="mat-elevation-z3 p-10 rounded-lg"   fxFlex="15%">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-        <h1 class="m-0 font-bold text-green-400" style="font-weight: bolder; font-size: 40px">{{stat.completedOrders}}</h1>
-        <p class="m-0 font-light">Total Orders Delivered</p>
-      </div>
-    </div>
-   </div>
-
-   <div class="mat-elevation-z3 p-10 rounded-lg"   fxFlex="15%">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-        <h1 class="m-0 font-bold text-red-500" style="font-weight: bolder; font-size: 40px">{{stat.canceledOrders}}</h1>
-        <p class="m-0 font-light">Total Orders Canceled</p>
-      </div>
-    </div>
-   </div>
-
-   <div class="mat-elevation-z3 p-10 rounded-lg"   fxFlex="15%">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-        <h1 class="m-0 font-bold text-blue-500" style="font-weight: bolder; font-size: 30px;">{{stat.totalSales | currency}}</h1>
-        <p class="m-0 font-light">Total Revenue</p>
-      </div>
-    </div>
-   </div>
-
-   <div class="mat-elevation-z3 p-10 rounded-lg"   fxFlex="15%">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-        <h1 class="m-0 font-bold text-green-400" style="font-weight: bolder; font-size: 30px">{{stat.profits | currency}}</h1>
-        <p class="m-0 font-light">Total Profit</p>
-      </div>
-    </div>
-   </div>
-
-   <div class="mat-elevation-z3 p-10 rounded-lg"   fxFlex="15%">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-        <h1 class="m-0 font-bold text-black" style="font-weight: bolder; font-size: 40px">200</h1>
-        <p class="m-0 font-light">Total Customers</p>
-      </div>
-    </div>
-   </div>
-
-   
+      <mat-error *ngIf="range.controls.startDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.endDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
  </div>
+
+ <app-stats *ngIf="stat$ | async as stat" [stat]="stat"></app-stats>
 
 
  <div fxLayout="row" fxLayoutAlign="space-between start" class="my-10" fxLayoutGap="10px">
@@ -116,9 +45,9 @@
     <div class="mat-elevation-z6 example-container" fxFlex="50%">
       <div fxLayout="row" fxLayoutAlign="space-between start" class="p-10">
         <h2>Recent Orders</h2>     
-        <button mat-stroked-button color="primary">
+        <a mat-stroked-button color="primary" [routerLink]="['../orders', 'list']">
            See All
-        </button>
+        </a>
       </div>
       <table mat-table [dataSource]="dataSource" matSort class="w-full" style="width: 100%;">
         <ng-container matColumnDef="storeName">
@@ -134,7 +63,7 @@
   
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-          <td mat-cell *matCellDef="let row"> {{row.createdAt | date: 'd, y, h:mm:ss a'}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.createdAt | date: 'medium'}} </td>
         </ng-container>
   
         
@@ -148,20 +77,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
           <td mat-cell *matCellDef="let row; let i = index">
   
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
+            <button mat-icon-button  aria-label="Example icon-button with a menu" (click)="openOrder(row._id)">
+              <mat-icon>arrow_right_alt</mat-icon>
             </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="deleteOrder(i, row)"> 
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
-              <button mat-menu-item>
-                <mat-icon>visibility</mat-icon>
-                <span>View Order</span>
-              </button>
-            
-            </mat-menu>
+           
           </td>
   
         </ng-container>

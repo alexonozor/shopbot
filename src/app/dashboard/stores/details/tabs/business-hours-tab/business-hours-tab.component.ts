@@ -17,7 +17,7 @@ const { range } = extendMoment(moment);
 })
 export class BusinessHoursTabComponent implements OnInit {
   businessHoursForm!: FormGroup;
-  days!: string[];
+  days!: any[];
   @Input() store!: Store | any;
   public isLoading: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition | undefined;
@@ -36,98 +36,60 @@ export class BusinessHoursTabComponent implements OnInit {
 
   ngOnInit(): void {
     let ranges = range(moment().day(0), moment().day(6)), /*can handle leap year*/
-      array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
+    array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
     let daysRange = array.map((m) => {
       return {
         date: m.format("YYYY-MM-DD"),
         openingTime: m.format("HH:MM"),
         closingTime: m.add('hours', 9).format("HH:MM"),
-        day: m.format('dddd'),
+        day: m.format('dddd').toLowerCase(),
         closed: false,
         referenceDate: m.format("YYYY-MM-DD"),
         neverOpen: false
       }
     })
 
+
+    this.days = daysRange
+
+   
+    // console.log(this.store.businessHours)
     // convert to array
     let businessHoursKeys = Object.keys(this.store.businessHours) 
-    let businessHoursKeysObject = businessHoursKeys.map((key) => {
+    let days = businessHoursKeys.map((key) => {
       return { ...this.store.businessHours[key] }
     })
 
-    // merge and update with existing data
-    // daysRange = daysRange.map((itm: any) => ({
-    //   ...itm, ...businessHoursKeysObject.find((item: any) => (item.name === itm.day) && item) 
-    // }));
+   
+    // daysRange = this.getDays(daysRange, businessHoursKeysObject)
 
-    daysRange = this.getDays(daysRange, businessHoursKeysObject)
-    console.log(daysRange)
-
-    this.businessHoursForm = this.createProductForm(daysRange)
-    this.days = Object.keys(this.businessHoursForm.value.businessHours)
+    console.log(days, "dfsdfsdfsdfsdfsdfsd")
+ 
+   this.businessHoursForm = this.createProductForm(days)
+   
   }
+
+
+
 
   createProductForm(data: any): FormGroup {
     return this._formBuilder.group({
       businessHours: this._formBuilder.group({ ...this.newOptions(data) })
     })
+
   }
 
-  today(date: Date) {
-    if (moment(date).isSame(moment(new Date()), 'day')) {
-      return 'Today'
-    } else {
-      return moment(date).format('MMMM DD, y');
-    }
-  }
-
-
-  getDays(daysRange: any[], businessHoursKeysObject: any[]) {
-    let days:  any[] = [];
-    for(let i = 0; i < daysRange.length; i++) {
-      // if (i >= 6) {
-        for(let l = 0; l < businessHoursKeysObject.length; l++) {
-          console.log(businessHoursKeysObject[l])
-         
-          if (businessHoursKeysObject[l].name === daysRange[i].day) {
-            if (!days.includes((day:any) => day.name  === daysRange[i].name)) {
-              days.push({
-                day: daysRange[i].day,
-                name: businessHoursKeysObject[l].name,
-                openingTime: businessHoursKeysObject[l].openingTime,
-                closingTime: businessHoursKeysObject[l].closingTime,
-                closed: businessHoursKeysObject[l].closed,
-                referenceDate: daysRange[i].referenceDate,
-                neverOpen: businessHoursKeysObject[l].neverOpen
-              })
-            }
-            
-          } else {
-            if (!days.includes((day:any) => day.name  === businessHoursKeysObject[l].name)) {
-              businessHoursKeysObject[l]['day'] = businessHoursKeysObject[l].name
-              days.push(businessHoursKeysObject[l])
-            }
-          }
-          // console.log(days)
-          // console.log( days.includes((day:any) => day.name  === daysRange[i].day))
-        }
-      // }
-      
-    }
-    return days
-  } 
 
   
 
   newOptions(data?: any): FormGroup {
-    // return data.forEach((d: any) => {
-      
     let f = {} as any;
     for (let i = 0; i < data.length; i++) {
-      f[data[i].day.toLowerCase()] = this._formBuilder.group({
+      console.log(f[data[i].day])
+      f[data[i].name.toLowerCase()] = this._formBuilder.group({
+        name: [data[i].name, Validators.required],
         openingTime: [data[i].openingTime, Validators.required],
         closingTime: [data[i].closingTime, Validators.required],
-        referenceDate: data[i].referenceDate,
         closed: data[i].closed,
         neverOpen: data[i].neverOpen
       })

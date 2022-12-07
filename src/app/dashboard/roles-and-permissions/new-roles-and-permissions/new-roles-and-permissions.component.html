@@ -1,0 +1,47 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
+    <form [formGroup]="rolesForm" (ngSubmit)="submit()">
+        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Role Name</mat-label>
+                <input matInput placeholder="Name Of Cuisine" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field class="example-chip-list" appearance="fill">
+                <mat-label>Select Permissions</mat-label>
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip
+                    *ngFor="let permission of permissions"
+                    (removed)="remove(permission)">
+                    {{permission}}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                  <input
+                    placeholder="New permissions..."
+                    #fruitInput
+                    [formControl]="fruitCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                    {{fruit}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+            
+
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                <a mat-raised-button (click)="back()" color="warn" fxFlex="50%">CANCEL</a>
+
+                <button mat-raised-button  fxFlex="50%" color="primary" [disabled]="rolesForm.invalid">SAVE</button>
+            </div>
+           
+        </div>
+    </form>
+</div>

@@ -9,7 +9,7 @@
 
       <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="selection.selected.length">
         <button mat-button>{{selection.selected.length}}  Selected</button>
-        <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
+        <button mat-stroked-button color="primary" (click)="sendMessagesToSelectedCustomers()"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
         <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon> Delete Selected Customers</button>
       </span>
   

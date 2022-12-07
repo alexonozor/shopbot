@@ -37,7 +37,7 @@ export class StoresService implements Resolve<any>
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise((resolve, reject) => {
       Promise.all([
-        this.getUserStores({control: { sort: { 'createdAt': 'desc' }}})
+        this.getUserStores({data: { $match: {} }, control: [{ $sort: { 'createdAt': -1 }}]})
       ]).then(
         () => {
           resolve(null);

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,9 @@ import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MaterialModule } from './material';
 import { NgChartsModule } from 'ng2-charts';
+import { TokenInterceptorService } from './shared/interceptor/token-interceptor.service';
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from "ngx-progressbar/http";
 
 const config: SocketIoConfig = { url: environment.hostServer, options: {} };
 
@@ -18,7 +21,7 @@ const config: SocketIoConfig = { url: environment.hostServer, options: {} };
     AppComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -26,9 +29,17 @@ const config: SocketIoConfig = { url: environment.hostServer, options: {} };
     MaterialModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: true }),
     SocketIoModule.forRoot(config),
-    NgChartsModule
+    NgChartsModule,
+     NgProgressModule.withConfig({
+      spinnerPosition: "left",
+      color: "#f71cff"
+    }),
+    NgProgressHttpModule
+   
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

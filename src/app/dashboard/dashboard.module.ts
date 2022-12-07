@@ -24,16 +24,18 @@ import { OrdersService } from '../shared/services/order.service';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardService } from '../shared/services/dashboard.service';
 import { StoresService } from './stores/stores.service';
+import { AuthService } from '../shared/services';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    ConfirmComponent,
-    HomeComponent
+    HomeComponent,
+    
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     FormsModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
@@ -49,16 +51,18 @@ import { StoresService } from './stores/stores.service';
     MatSnackBarModule,
     MaterialModule,
     NgChartsModule,
-    
+    SharedModule
   ],
   entryComponents: [
     ConfirmComponent
   ],
+  
   providers: [
     // AdminGuard,
     StoresService,
     DashboardService,
     OrdersService,
+    AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
 

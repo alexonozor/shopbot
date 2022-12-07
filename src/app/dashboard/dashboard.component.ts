@@ -8,6 +8,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Role } from '../shared/models/role';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public userType:string | undefined;
   destroyed = new Subject<void>();
   currentScreenSize: string | undefined;
+  Role = Role
 
   // Create a map to display breakpoint names for demonstration purposes.
   displayNameMap = new Map([
@@ -60,11 +62,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   logOut() {
-    this.jwtService.destroyToken();
-    localStorage.removeItem('USER_TYPE');
-    localStorage.removeItem('USER');
+    this.auth.logout();
     this.snackbar.open('Logged Out', 'close', {duration: 2000});
-    this.router.navigate(['/auth']);
+    ;
   }
 
   ngAfterViewInit(): void {

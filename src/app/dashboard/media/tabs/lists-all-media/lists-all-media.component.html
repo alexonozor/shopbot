@@ -1,0 +1,11 @@
+
+  <div *ngIf="media$ | async as medias">
+    
+      <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-full p-5">
+        
+          <app-file-media-card *ngFor="let media of medias" [media]="media"   (selectedMedia)="selectedMedia($event, medias)" (deleteMedia)="delete(media._id)" fxFlex="300px"></app-file-media-card>
+        
+      </div>
+
+  </div>
+

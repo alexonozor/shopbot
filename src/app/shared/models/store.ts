@@ -2,13 +2,13 @@ import { Menu } from "./menu";
 
 
 export interface Store {
-  _id?: string;
+  _id: string;
   bannerImage?: string;
   logo: string;
   name: string;
   description: string;
   active?: boolean;
-  contactInfo?: ContactInfo;
+  contactInfo: ContactInfo;
   notifications?: Notifications;
   operations?: Operations;
   orderSettings: OrderSettings;
@@ -49,6 +49,8 @@ interface ContactInfo {
   country: string;
   state: string;
   postalCode: string;
+  placeName: string;
+  placeNumber: string;
 }
 
 

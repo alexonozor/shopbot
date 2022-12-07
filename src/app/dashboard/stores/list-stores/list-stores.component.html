@@ -2,18 +2,14 @@
 
 <mat-list style="margin-bottom: 20px">
     <div mat-subheader>Stores</div>
-    <mat-list-item *ngFor="let store of stores; let i = index" matRipple>
+    <mat-list-item *ngFor="let store of stores; let i = index" >
         <div mat-line class="status">{{store.active ? 'APPROVE' : 'UNAPPROVED'}}</div>
-        <div mat-line><span class="title">{{store.name}}</span></div>
+        <div mat-line><span class="title font-extrabold">{{store.name}}</span></div>
         
-        <div mat-line> {{store.description}} </div>
-        <div mat-line fxLayout="row" fxLayoutAlign="start start"  fxLayoutGap="5px">
-            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
-            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
-            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
-            <mat-icon class="mat-18 text-yellow-500">star</mat-icon>
-            <mat-icon class="mat-18 text-yellow-500">star_border</mat-icon>
-        </div>
+       <div mat-line class="text-gray-400 font-thin">{{store.contactInfo.placeNumber}} {{store.contactInfo.placeName}}  {{store.contactInfo.country}} </div>
+
+       <mat-slide-toggle [(ngModel)]="store.active" (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
+       
         <button mat-icon-button [matMenuTriggerFor]="menu" >
             <mat-icon>more_vert</mat-icon>
         </button>
@@ -22,11 +18,9 @@
             <button mat-menu-item (click)="viewDetails(store)" *ngIf="!store.active">
                 <mat-icon>done</mat-icon> Enable
             </button>
-            <button mat-menu-item (click)="viewDetails(store)" *ngIf="store.active">
-                <mat-icon>remove_done</mat-icon> Disable
-            </button>
+            
             <button mat-menu-item (click)="viewDetails(store)">
-                <mat-icon>edit</mat-icon> Edit
+                <mat-icon>edit</mat-icon> Edit / View
             </button>
           </mat-menu>
           <mat-divider></mat-divider>

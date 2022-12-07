@@ -5,9 +5,10 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Auth, User} from '../models/auth';
 import {JwtService} from './jwt.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {Router} from '@angular/router';
+import { ActivatedRouteSnapshot, Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-// import * as CryptoJS from 'crypto-js';
+import { Role } from '../models/role';
+//import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,16 @@ export class AuthService {
   ) {
   }
 
+ 
+  get isAdmin() {
+    return this.currentUser && this.currentUser.role === Role.Admin;
+  }
 
+
+  get currentUser() {
+   const user = localStorage.getItem('user') as string
+    return user ? JSON.parse(user) : undefined;
+  }
 
   login(params:any): Observable<any> {
     return this.http.post(`${this.hostServer}/auth/login?user=staff`, params)
@@ -84,8 +94,7 @@ export class AuthService {
   logout() {
     window.localStorage.removeItem('token');
     window.localStorage.removeItem('user')
-    window.localStorage.removeItem('tenantId');
-    this.router.navigate(['authentication']);
+    this.router.navigate(['auth']);
   }
 
 
@@ -94,11 +103,12 @@ export class AuthService {
     return !this.helper.isTokenExpired(token);
   }
 
-  get isAdmin() {
-    const isAdmin = localStorage.getItem('USER_TYPE');
-    return isAdmin == 'ADMIN';
 
+  isShow(roles:Role[]) {
+   return (roles && roles.indexOf(this.currentUser.role.name) !== -1)
   }
+
+  
 
 
 }

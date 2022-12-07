@@ -14,6 +14,12 @@ export interface Order  {
     serviceFee: number;
     orderInstruction: string;
     tax: string;
+    note: string;
+    createdAt: string;
+    shippingFee: number;
+    paymentStatus: string;
+    payment:string;
+    category: string;
 }
 
 
@@ -41,7 +47,7 @@ export interface Shipping {
         updatedOn: { 
             type: Date, 
             default: Date 
-        }
+        } | any;
   }
 
 

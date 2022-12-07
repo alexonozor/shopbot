@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>Send Notification</h1>
+<div mat-dialog-content>
+  <form [formGroup]="messagesForm" fxLayout="column" fxLayoutAlign="space-around stretch">
+    <ng-container *ngIf="!data.allCustomers else selectRecipient">
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Recipients</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection" formArrayName="recipients">
+          <mat-chip *ngFor="let recipient of recipients.controls; let i = index" (removed)="remove(recipient)">
+            {{recipient.value.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </ng-container>
+
+    <ng-template #selectRecipient>
+      <mat-form-field>
+        <mat-label>Select Recipients</mat-label>
+        <mat-select formControlName="recipientsType">
+         
+          <mat-option *ngFor="let choice of ['Registered Customers', 'Unregistered Customers', 'Both']"
+            [value]="choice">
+            {{choice}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-template>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Enter Message Title" formControlName="title">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Message Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let push of ['Notification', 'Email', 'Both']" [value]="push">{{push}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>body</mat-label>
+      <textarea matInput placeholder="Enter Message Body" rows="20" formControlName="body"></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="null">Cancel</button>
+  <button mat-button (click)="submit()" [disabled]="messagesForm.invalid" cdkFocusInitial>Send</button>
+</div>
+
+

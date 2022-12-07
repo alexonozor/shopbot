@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 
 @Component({
   selector: 'app-list-customers',
@@ -103,7 +104,18 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
 
 
   message(customer: User) {
+    this._matDialog.open(CreateMessagesComponent, {
+      data: { customers: customer, isBulkMsg: false, allCustomers: false},
+      width: '500px'
+    });
+    
+  }
 
+  sendMessagesToSelectedCustomers() {
+    this._matDialog.open(CreateMessagesComponent, {
+      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: false},
+      width: '500px'
+    });
   }
 
 }

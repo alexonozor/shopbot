@@ -1,0 +1,45 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
+    <form [formGroup]="administratorForm" (ngSubmit)="submit()">
+        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Full Name</mat-label>
+                <input matInput placeholder="Full Name" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option *ngFor="let gender of ['Male', 'Female']" [value]="gender">{{gender}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Select Roles</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let role of roles" [value]="role._id">{{role.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+      
+
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+
+                <button mat-raised-button  fxFlex="50%" color="primary" [disabled]="administratorForm.invalid">SAVE</button>
+            </div>
+           
+        </div>
+    </form>
+</div>
