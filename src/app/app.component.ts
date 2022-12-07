@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
         serverPublicKey: environment.publicKey
     })
     .then(sub => {
+
      let adminPush = sub.toJSON()
       this.accountService.updateStaff(this.authService.getUser._id, {adminPush}).subscribe()
     })

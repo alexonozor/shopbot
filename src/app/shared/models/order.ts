@@ -20,6 +20,7 @@ export interface Order  {
     paymentStatus: string;
     payment:string;
     category: string;
+    
 }
 
 

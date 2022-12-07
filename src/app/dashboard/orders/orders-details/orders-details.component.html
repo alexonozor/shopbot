@@ -22,7 +22,13 @@
       <div class="mt-2 flex items-center text-sm text-gray-500">
         <!-- Heroicon name: mini/calendar -->
         <mat-icon class="mat-18" class="material-icons-outlined">calendar_today</mat-icon>
-        Created on {{order.createdAt | date: 'medium'}}
+          {{order.createdAt | date: 'medium'}}
+      </div>
+
+      <div class="mt-2 flex items-center text-sm text-green-500 cursor-pointer" (click)="exportPDF()">
+        <!-- Heroicon name: mini/calendar -->
+        <mat-icon class="mat-18" class="material-icons-outlined">print</mat-icon>
+         Export Order
       </div>
     </div>
   </div>
@@ -177,7 +183,7 @@
   </div>
 
   <div fxFlex="70%" fxLayoutGap="20px">
-    <div class="mat-elevation-z2 p-3 rounded-md w-full">
+    <div class="mat-elevation-z2 p-3 rounded-md w-full" id="pdfTable" #pdfTable>
       <div class="p-3">
         <div class="overflow-x-auto">
           <table class="table-auto w-full">
@@ -205,14 +211,14 @@
                 <td class="p-2 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                      <img class="rounded-lg" [src]="item.photos[0]" width="100" height="100" alt="Alex Shatov">
+                      <!-- <img class="rounded-lg" [src]="item.photos[0]" width="100" height="100" alt="Alex Shatov"> -->
                     </div>
                     <div fxLayout="column" fxLayoutAlign="start start">
-                      <div class="font-medium text-blue-800">Main Course</div>
-                      <div class="font-medium text-gray-800">{{item.name}}</div>
+                     
+                      <div class="font-medium  text-blue-800">{{item.name}}</div>
                       <div fxLayout="column" fxLayoutAlign="space-around start">
                         <div class="font-medium text-gray-800" *ngFor="let option of item.options">
-                          {{option.quantity}} x {{option.name}} = {{option.quantity * option.price | currency: '₦'}}
+                          {{option.quantity}} x {{option.name}} = {{option.quantity * option.price | currency: order.store.currency}}
                         </div>
                       </div>
 
@@ -224,13 +230,15 @@
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-left">{{item.quantity}}</div>
                 </td>
+
+
+
                 <td class="p-2 whitespace-nowrap">
-                  <div class="text-left font-medium text-black">{{(item.price + optionsPrice(item.options)) | currency:
-                    '₦'}}</div>
+                  <div class="text-left font-medium text-black">{{(item.price + optionsPrice(item.options)) | currency: order.store.currency}}</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-left font-medium text-black">{{ (item.price + optionsPrice(item.options)) *
-                    item.quantity | currency: '₦'}}</div>
+                    item.quantity | currency: order.store.currency}}</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-lg text-center">
@@ -254,7 +262,7 @@
                   <div class="text-left font-medium text-black">-</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
-                  <div class="text-left font-medium text-black">{{order.serviceFee | currency: '₦'}}</div>
+                  <div class="text-left font-medium text-black">{{order.serviceFee | currency: order.store.currency}}</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-lg text-center">
@@ -276,7 +284,7 @@
                   <div class="text-left font-medium text-red-500">-</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
-                  <div class="text-left font-medium text-red-500">{{order.shippingFee | currency: '₦'}}</div>
+                  <div class="text-left font-medium text-red-500">{{order.shippingFee | currency: order.store.currency}}</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-lg text-center">
@@ -298,7 +306,7 @@
                   <div class="text-left font-medium text-black">-</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
-                  <div class="text-left font-medium text-black">{{order.discount | currency: '₦'}}</div>
+                  <div class="text-left font-medium text-black">{{order.discount | currency: order.store.currency}}</div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-lg text-center">
@@ -321,7 +329,7 @@
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-left font-medium text-white">
-                    {{order.total | currency: '₦'}}
+                    {{order.total | currency: order.store.currency}}
                   </div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
