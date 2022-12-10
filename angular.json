@@ -28,6 +28,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/CNAME",
+              "src/apple-app-site-association",
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest"

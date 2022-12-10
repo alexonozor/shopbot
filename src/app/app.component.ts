@@ -18,29 +18,12 @@ export class AppComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-   this.subscribeToNotifications()
-
-  //  this.swPush.notificationClicks.subscribe(
-  //   ({action, notification}) => {
-  //     console.log(notification)
-  //       // TODO: Do something in response to notification click.
-  //   });
-
-   }
-
-
-
-  subscribeToNotifications() {
-    
-    this.swPush.requestSubscription({
-        serverPublicKey: environment.publicKey
-    })
-    .then(sub => {
-
-     let adminPush = sub.toJSON()
-      this.accountService.updateStaff(this.authService.getUser._id, {adminPush}).subscribe()
-    })
-    .catch(err => console.error("Could not subscribe to notifications", err));
+ngOnInit(): void {
+    this.swPush.requestSubscription({ serverPublicKey: environment.publicKey })
+    .then((sub:any) => {
+    let adminPush = sub.toJSON()
+    this.accountService.updateStaff(this.authService.getUser._id, {adminPush}).subscribe()
+  }).catch((err:any) => console.error("Could not subscribe to notifications", err));
 }
+
 }

@@ -1,30 +1,30 @@
-<div class="login-container">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" autocomplete="off">
-        <div class="logo-container" fxLayout="row" fxLayoutAlign="center center">
-            <!-- <mat-icon>bug_report</mat-icon> {{ title }} -->
-        </div>
 
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Enter your email..." formControlName="email">
-        </mat-form-field>
+<div fxLayout="column" fxLayoutAlign="center center" class="w-full" style="height: 100vh">
 
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput type="password" placeholder="Enter your password..." formControlName="password">
-        </mat-form-field>
-       
-
-        <div class="m-b">
-            <!-- <a routerLink="/account/request">Request and account</a> |  -->
-            <a routerLink="/account">Forgot your password?</a>
-        </div>
-        <button mat-flat-button color="primary" [disabled]="isLoading" style="width: 100%;">{{ isLoading ? 'Checking...'
-            : 'Log in'}}</button>
-    </form>
-
-    <br>
-    <mat-error *ngIf="loginInvalid">
-        Invalid credentials.
-    </mat-error>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" fxFlex.gt-sm="100%" autocomplete="off">
+            <div class="logo-container" fxLayout="row" fxLayoutAlign="center center">
+                <!-- <mat-icon>bug_report</mat-icon> {{ title }} -->
+            </div>
+    
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Enter your email..." formControlName="email">
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Enter your password..." formControlName="password">
+            </mat-form-field>
+           
+    
+            <div class="m-b">
+                <!-- <a routerLink="/account/request">Request and account</a> |  -->
+                <a routerLink="/account">Forgot your password?</a>
+            </div>
+            <button mat-flat-button color="primary" [disabled]="isLoading" style="width: 100%;">{{ isLoading ? 'Checking...'
+                : 'Log in'}}</button>
+        </form>
+    
+     
 </div>
+
