@@ -117,8 +117,8 @@
                         <mat-form-field appearance="outline"
                             *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 1"
                             style="width: 50%;">
-                            <mat-label>Enter delivery fee</mat-label>
-                            <input matInput placeholder="Enter delivery fee">
+                            <mat-label>Enter delivery for all orders</mat-label>
+                            <input matInput type="number" placeholder="Enter delivery fee" formControlName="deliveryFeeForAllOrder">
                             <!-- <span matPrefix>N</span> -->
                         </mat-form-field>
 
@@ -150,7 +150,7 @@
 
                             <mat-form-field appearance="outline" style="width: 50%;">
                                 <mat-label>Delivery fee per kilometer</mat-label>
-                                <input matInput formControlName="deliveryFeeByKilometers"
+                                <input matInput type="number" formControlName="deliveryFeeByKilometers"
                                     placeholder="Enter Delivery fee">
                                 <span matSuffix>N</span>
                             </mat-form-field>
