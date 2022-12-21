@@ -91,7 +91,6 @@ export class MenuDetailsComponent implements OnInit {
       data: { storeId: this.store._id, menuId: this.menu._id, food: this.foods, product, pageType: 'edit' }
     });
     addToComponent.afterClosed().subscribe(result => {
-      console.log(result)
       if (result) {
         this.menuService.onMenuChanged.next(result);
         this.menuService.getMenu().then((menu) => {

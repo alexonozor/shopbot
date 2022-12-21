@@ -1,243 +1,135 @@
 <h2 mat-dialog-title>Add Item</h2>
-<mat-dialog-content class="mat-typography">
-    <form name="productForm" [formGroup]="productForm" class="product w-100-p" fxLayout="column" fxFlex>
+<mat-dialog-content class="w-full">
+  <form name="productForm" [formGroup]="productForm" class="product" fxLayout="column">
 
-        <mat-tab-group>
+    <mat-tab-group class="w-100">
 
-            <mat-tab label="Basic Info">
+      <mat-tab label="Basic">
 
-                <div class="tab-content p-24" fxLayout="column" fxLayoutAlign="space-around stretch">
+        <div class="tab-content" fxLayout="column" fxLayoutAlign="space-around stretch">
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                        <mat-label>Product Name</mat-label>
-                        <input matInput placeholder="Product Name" name="name" formControlName="name" required>
-                    </mat-form-field>
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100">
+            <mat-label>Product Name</mat-label>
+            <input matInput placeholder="Product Name" name="name" formControlName="name" required>
+          </mat-form-field>
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                        <mat-label>Product Description</mat-label>
-                        <textarea matInput placeholder="Product Description" name="description"
-                            formControlName="description" rows="5">
-                                  </textarea>
-                    </mat-form-field>
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100">
+            <mat-label>Product Description</mat-label>
+            <textarea matInput placeholder="Product Description" name="description" formControlName="description"
+              rows="5"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100">
+            <mat-label>Price</mat-label>
+            <input matInput placeholder="Price" name="Price" formControlName="price" type="number">
+            <!-- <span matPrefix>$&nbsp;</span> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100">
+            <mat-label>Product Status</mat-label>
+            <mat-select formControlName="active" required>
+              <mat-option *ngFor="let status of [{ name: 'Active', value: true }, { name: 'Draft', value: false }]"
+                [value]="status.value">
+                {{status.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </mat-tab>
+
+      <mat-tab label="Photos" [disabled]="pageType ==='new'">
+
+        <div class="tab-content" fusePerfectScrollbar>
+          <div fxLayout="row wrap" fxLayoutAlign="start start">
+
+            <div *ngIf="product.photos.length === 0" class="product-image" fxLayout="row" fxLayoutAlign="center center">
+              <img class="media" [src]="'https://dashboard.heypay.xyz/images/image_placeholder.png'">
+            </div>
+
+            <div *ngFor="let image of product.photos">
+              <div *ngIf="product.photos.length > 0" class="product-image" fxLayout="row" fxLayoutAlign="center center">
+
+                <img class="media" [src]="image">
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="space-around center">
+            <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+
+            </mat-progress-bar>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" multiple #fileUpload>
+            <button mat-stroked-button color="primary" (click)="fileUpload.click()">
+              <mat-icon>upload_cloud</mat-icon> Add Photos
+            </button>
+          </div>
+        </div>
+
+      </mat-tab>
 
 
-                    <!--     
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                <mat-label>Categories</mat-label>
-                <mat-select formControlName="categories" required
-                  [(ngModel)]="product.categories._id || product.categories">
-                  <mat-option *ngFor="let category of categories" [value]="category._id">
-                    {{category.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
+      <mat-tab label="Variants" [disabled]="pageType ==='new'">
+        <div class="tab-content p-24">
+          <div formArrayName="options" *ngIf="options">
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                        <mat-label>Price</mat-label>
-                        <input matInput placeholder="Price" name="Price" formControlName="price" type="number">
-                        <!-- <span matPrefix>$&nbsp;</span> -->
-                    </mat-form-field>
+            <div *ngFor="let option of options?.controls; let i = index"
+              style="border-bottom: 1px solid #ccc; margin-bottom: 20px;">
+              <div fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10" fxLayoutAlign="space-between center" [formGroupName]="i"
+                style="padding: 10px;background: #d6f2ff;">
+                <mat-form-field appearance="outline" fxFlex.lt-md="100%" floatLabel="always" fxFlex.gt-md="30">
+                  <mat-label>Name</mat-label>
+                  <input matInput name="name" formControlName="name" rows="5">
+                </mat-form-field>
 
+                <mat-form-field appearance="outline" floatLabel="always" fxFlex.lt-md="100%" fxFlex.gt-md="30">
+                  <mat-label>Selection Type</mat-label>
+                  <mat-select formControlName="selectedType" required>
+                    <mat-option *ngFor="let type of ['Multiple', 'Single']" [value]="type">{{type}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                        <mat-label>Product Status</mat-label>
-                        <mat-select formControlName="active" required>
-                            <mat-option
-                                *ngFor="let status of [{ name: 'Active', value: true }, { name: 'Draft', value: false }]"
-                                [value]="status.value">
-                                {{status.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <mat-slide-toggle formControlName="mandatory">Mandatory</mat-slide-toggle>
 
+                <button mat-raised-button color="primary" (click)="addSubOption(option.controls.options)">
+                  <mat-icon>add</mat-icon> Add Options
+                </button>
+                <button mat-icon-button (click)="removeOptions(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <h3 *ngIf="options.controls.length > 0">Variant Options</h3>
+              <div *ngFor="let subOption of option?.get('options')?.controls; let j = index">
+                <div fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10" fxLayoutAlign="start center" [formGroup]="subOption">
+                  <mat-form-field appearance="outline" floatLabel="always" fxFlex="30" style="margin-right: 10px;">
+                    <mat-label>Name</mat-label>
+                    <input matInput name="name" formControlName="name" [disabled]="true" rows="5">
+                  </mat-form-field>
 
-
+                  <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
+                    <mat-label>Price</mat-label>
+                    <input matInput type="number" name="price" formControlName="price" [disabled]="true" rows="5">
+                  </mat-form-field>
+                  <button mat-icon-button (click)="removeSubOptions(option.controls.options, j)" color="warn">
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center" style="padding: 20px 0px;">
+            <button (click)="addOption()" mat-raised-button color="primary">
+              <mat-icon>add</mat-icon> Add Variant
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
 
-            </mat-tab>
-
-            <mat-tab label="Product Images" [disabled]="pageType ==='new'">
-    
-                <div class="tab-content p-24" fusePerfectScrollbar>
-                    <div fxLayout="row wrap" fxLayoutAlign="start start">
-    
-                        <div *ngIf="product.photos.length === 0" class="product-image" fxLayout="row"
-                            fxLayoutAlign="center center">
-                            <img class="media" [src]="'https://dashboard.heypay.xyz/images/image_placeholder.png'">
-                        </div>
-    
-                        <div *ngFor="let image of product.photos">
-                            <div *ngIf="product.photos.length > 0" class="product-image" fxLayout="row"
-                                fxLayoutAlign="center center">
-    
-                                <img class="media" [src]="image">
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div fxLayout="column" fxLayoutAlign="space-around center">
-                        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"
-                            *ngIf="uploadProgress">
-    
-                        </mat-progress-bar>
-                        <input type="file" class="file-input" (change)="onFileSelected($event)" multiple #fileUpload>
-                        <button mat-stroked-button color="primary" (click)="fileUpload.click()">
-                            <mat-icon>upload_cloud</mat-icon> Add Photos
-                        </button>
-                    </div>
-                </div>
-    
-            </mat-tab>
-
-            <!-- <mat-tab label="Pricing">
-                <div class="tab-content p-24" fxLayout="column" fxLayoutAlign="space-around stretch">
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                        <mat-label>Price</mat-label>
-                        <input matInput placeholder="Price" name="Price" formControlName="price" type="number">
-                        <span matPrefix>$&nbsp;</span>
-                    </mat-form-field>
-                </div>
-            </mat-tab> -->
-
-
-
-            <mat-tab label="Variants" [disabled]="pageType ==='new'">
-                <div class="tab-content p-24">
-                    <div formArrayName="options" *ngIf="options">
-
-                        <div *ngFor="let option of options?.controls; let i = index"
-                            style="border-bottom: 1px solid #ccc; margin-bottom: 20px;">
-                            <div fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center"
-                                [formGroupName]="i" style="padding: 10px;background: #d6f2ff;">
-                                <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
-                                    <mat-label>Name</mat-label>
-                                    <input matInput name="name" formControlName="name" rows="5">
-                                </mat-form-field>
-
-                                <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
-                                    <mat-label>Selection Type</mat-label>
-                                    <mat-select formControlName="selectedType" required>
-                                        <mat-option *ngFor="let type of ['Multiple', 'Single']" [value]="type">{{type}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-
-                                <mat-slide-toggle formControlName="mandatory">Mandatory</mat-slide-toggle>
-
-                                <button mat-raised-button color="primary"
-                                    (click)="addSubOption(option.controls.options)">
-                                    <mat-icon>add</mat-icon> Add Options
-                                </button>
-                                <button mat-icon-button (click)="removeOptions(i)">
-                                    <mat-icon>delete</mat-icon>
-                                </button>
-                            </div>
-                            <h3 *ngIf="options.controls.length > 0">Variant Options</h3>
-                            <div *ngFor="let subOption of option?.get('options')?.controls; let j = index">
-                                <div fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
-                                    [formGroup]="subOption">
-                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="30"
-                                        style="margin-right: 10px;">
-                                        <mat-label>Name</mat-label>
-                                        <input matInput name="name" formControlName="name" [disabled]="true" rows="5">
-                                    </mat-form-field>
-
-                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
-                                        <mat-label>Price</mat-label>
-                                        <input matInput type="number" name="price" formControlName="price"
-                                            [disabled]="true" rows="5">
-                                    </mat-form-field>
-                                    <button mat-icon-button (click)="removeSubOptions(option.controls.options, j)"
-                                        color="warn">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div fxLayout="column" fxLayoutAlign="center center" style="padding: 20px 0px;">
-                        <button (click)="addOption()" mat-raised-button color="primary">
-                            <mat-icon>add</mat-icon> Add Variant
-                        </button>
-                    </div>
-                </div>
-            </mat-tab>
-
-
-
-            <!-- <mat-tab label="Inventory">
-    
-                <div class="tab-content p-24" fusePerfectScrollbar>
-    
-           
-    
-                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                        <mat-label>Quantity</mat-label>
-                        <input matInput placeholder="Quantity" name="quantity" formControlName="quantity" type="number">
-                    </mat-form-field>
-    
-                </div>
-    
-            </mat-tab> -->
-
-            <!-- <mat-tab label="Shipping">
-    
-                          <div class="tab-content p-24" fusePerfectScrollbar fxLayout="column">
-    
-                              <div fxLayout="row" fxLayoutAlign="space-between">
-    
-                                  <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
-                                      <mat-label>Width</mat-label>
-                                      <input matInput placeholder="Width"
-                                             name="Width"
-                                             formControlName="width">
-                                      <span matSuffix>cm</span>
-                                  </mat-form-field>
-    
-                                  <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
-                                      <mat-label>Height</mat-label>
-                                      <input matInput placeholder="Height"
-                                             name="Height"
-                                             formControlName="height">
-                                      <span matSuffix>cm</span>
-                                  </mat-form-field>
-    
-                                  <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
-                                      <mat-label>Depth</mat-label>
-                                      <input matInput placeholder="Depth"
-                                             name="Depth"
-                                             formControlName="depth">
-                                      <span matSuffix>cm</span>
-                                  </mat-form-field>
-    
-                              </div>
-    
-                              <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                                  <mat-label>Weight</mat-label>
-                                  <input matInput placeholder="Weight"
-                                         name="Weight"
-                                         formControlName="weight">
-                                  <span matSuffix>kg</span>
-                              </mat-form-field>
-    
-                              <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                                  <mat-label>Extra Shipping Fee</mat-label>
-                                  <input matInput placeholder="Extra Shipping Fee"
-                                         name="extraShippingFee"
-                                         formControlName="extraShippingFee"
-                                         type="number">
-                                  <span matPrefix>$&nbsp;</span>
-                              </mat-form-field>
-    
-                          </div>
-    
-                      </mat-tab> -->
-
-        </mat-tab-group>
-
-    </form>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="saveProduct()" cdkFocusInitial>Save</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="saveProduct()" cdkFocusInitial>Save</button>
 </mat-dialog-actions>
