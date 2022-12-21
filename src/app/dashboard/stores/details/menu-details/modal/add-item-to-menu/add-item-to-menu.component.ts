@@ -170,6 +170,10 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
     }
   }
 
+  deleteImages(index:number) {
+    this.product.photos.splice(1, index)
+  }
+
   reset() {
     this.uploadProgress = null;
     this.uploadSub = null;
