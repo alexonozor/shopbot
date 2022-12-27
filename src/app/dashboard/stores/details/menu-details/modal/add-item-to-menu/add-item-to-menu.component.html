@@ -137,5 +137,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="saveProduct()" cdkFocusInitial>Save</button>
+  <button mat-button (click)="saveProduct()" [disabled]="productForm.invalid" cdkFocusInitial>{{isLoading ? 'Checking..' : 'Save'}}</button>
 </mat-dialog-actions>

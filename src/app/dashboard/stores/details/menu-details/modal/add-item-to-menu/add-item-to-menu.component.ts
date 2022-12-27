@@ -24,6 +24,7 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
   pageType!: string;
   productForm!: FormGroup;
   productId!: string;
+  isLoading: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -66,14 +67,13 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
   createProductForm(): FormGroup {
     return this._formBuilder.group({
       _id: [this.product._id],
-      name: [this.product.name],
+      name: [this.product.name, Validators.required],
       menu: [this.product.menu],
       store: [this.product.store],
-      description: [this.product.description],
-      // categories: [this.product.categories],
+      description: [this.product.description, Validators.required],
       photos: [this.product.photos],
       quantity: [this.product.quantity],
-      price: [this.product.price],
+      price: [this.product.price, Validators.required],
       active: [this.product.active],
       options: this._formBuilder.array([])
     });
@@ -143,11 +143,13 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
   }
 
   saveProduct(): void {
+    this.isLoading = true;
     if (this.pageType == 'new') {
       const data = this.productForm.getRawValue();
     this.productService.addProduct(data).pipe(
       mergeMap((val) => this.menusService.addFoodToMenu(val._id, this.data.menuId))
     ).subscribe((data) => {
+      this.isLoading = false;
         this.dialogRef.close(data)
         // Trigger the subscription with new data
         // Show the success message
@@ -160,6 +162,7 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
     } else {
     const data = this.productForm.getRawValue();
     this.productService.saveProduct(data, this.data.product._id).subscribe((data) => {
+      this.isLoading = false;
         this.dialogRef.close('data')
         this._matSnackBar.open('Product saved', 'OK', {
           verticalPosition: 'top',
@@ -171,7 +174,7 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
   }
 
   deleteImages(index:number) {
-    this.product.photos.splice(1, index)
+    this.product.photos.splice(index, 1)
   }
 
   reset() {

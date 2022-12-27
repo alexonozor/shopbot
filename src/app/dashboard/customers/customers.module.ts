@@ -30,7 +30,7 @@ import { NotificationsService } from 'src/app/shared/services/notifications.serv
     CustomersRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 
   providers: [UserResolver, UsersResolver, UsersService, NotificationsService],
@@ -39,7 +39,6 @@ import { NotificationsService } from 'src/app/shared/services/notifications.serv
      EditCustomersInfoComponent,
      EditCustomersNotesComponent,
      EditCustomersMarketingStatusComponent
-
   ]
 })
 export class CustomersModule { }

@@ -5,3 +5,4 @@ export interface RolesAndPermission {
     permissions: string[];
   
 }
+
