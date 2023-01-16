@@ -1,5 +1,5 @@
-<div style="padding:20px">
-    <div fxLayout="row" fxLayoutAlign="space-between start">
+<div class="md:padding-20">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxLayoutAlign="space-between start">
     <div fxLayout="column" fxLayoutAlign="space-between start" >
         <h1 class="m-0">Dashboard</h1>
         <p>Hi {{authService.currentUser.name}}. welcome back to Shopbot Admin.</p>
@@ -23,9 +23,9 @@
  <app-stats *ngIf="stat$ | async as stat" [stat]="stat"></app-stats>
 
 
- <div fxLayout="row" fxLayoutAlign="space-between start" class="my-10" fxLayoutGap="10px">
+ <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxHide.lt-md="true" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" class="my-10" fxLayoutGap="10px">
   <div class="mat-elevation-z3 p-10  rounded-lg"  fxFlex="50%">
-    <div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch">
       <h2>Chart Orders</h2>     
       <button mat-stroked-button color="primary">
         <mat-icon class="mat-18 material-icons-outlined">file_download</mat-icon> Save Report
@@ -42,7 +42,7 @@
   </div>
 
 
-    <div class="mat-elevation-z6 example-container" fxFlex="50%">
+    <div class="mat-elevation-z6 example-container"  fxFlex="50%">
       <div fxLayout="row" fxLayoutAlign="space-between start" class="p-10">
         <h2>Recent Orders</h2>     
         <a mat-stroked-button color="primary" [routerLink]="['../orders', 'list']">
@@ -99,7 +99,7 @@
   
  </div>
 
- <div fxLayout="column"  class="my-10 p-5 mat-elevation-z3">
+ <div fxLayout="column"  class="my-10 p-5 mat-elevation-z3" fxHide.lt-md="true">
 
   <div fxLayout="row" fxLayoutAlign="space-between start">
     <h2>New Restaurants</h2>     

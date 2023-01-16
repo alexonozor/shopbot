@@ -19,7 +19,7 @@ import { StatsComponent } from './components/stats/stats.component';
   imports: [
   CommonModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   exports: [

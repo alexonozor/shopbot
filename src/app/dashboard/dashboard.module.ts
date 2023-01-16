@@ -10,9 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-// import { HomeComponent } from './home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-// import { AdminGuard } from '../shared/guard/admin.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from '../shared/interceptor/token-interceptor.service';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -31,8 +29,7 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     DashboardComponent,
-    HomeComponent,
-    
+    HomeComponent
   ],
   imports: [
   CommonModule,
@@ -58,7 +55,7 @@ import { SharedModule } from '../shared/shared.module';
   ],
   
   providers: [
-    // AdminGuard,
+    //AdminGuard
     StoresService,
     DashboardService,
     OrdersService,

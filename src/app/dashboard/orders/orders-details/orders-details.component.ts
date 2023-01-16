@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
+declare var require: any;
+
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+const htmlToPdfmake = require("html-to-pdfmake");
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-orders-details',
@@ -13,7 +19,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./orders-details.component.scss']
 })
 export class OrdersDetailsComponent implements OnInit {
-
+  @ViewChild('pdfTable') pdfTable!: ElementRef;
   order!: Order;
   isCanceling!: boolean;
   isAccepting!: boolean;
@@ -30,7 +36,8 @@ export class OrdersDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private orderService: OrdersService,
     private _matDialog: MatDialog,
-    private _matSnack: MatSnackBar
+    private _matSnack: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,6 +83,20 @@ export class OrdersDetailsComponent implements OnInit {
       this.isAccepting = false;
       this._matSnack.open(`You have updated this order to ${event.value.name}`, 'Close', {duration: 3000})
     })
+  }
+
+  public exportPDF() {
+    const pdfTable = this.pdfTable.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).download(); 
+     
+  }
+
+
+  open() {
+      window.open(`google.navigation:q=${this.order.store.location?.coordinates[0]}+${this.order.store.location?.coordinates[1]}`, '_blank');
+     
   }
 
 }

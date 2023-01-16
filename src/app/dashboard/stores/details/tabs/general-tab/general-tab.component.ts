@@ -59,7 +59,7 @@ export class GeneralTabComponent implements OnInit {
       }),
 
       contactInfo: this._formBuilder.group({
-        email: [this.store.contactInfo.email, [Validators.required, Validators.email]],
+        email: [this.store.contactInfo.email, [Validators.required]],
         phone: [this.store.contactInfo.phone, [Validators.required]],
         city: [this.store.contactInfo.city],
         country: [this.store.contactInfo.country],

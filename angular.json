@@ -27,6 +27,8 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/CNAME",
+              "src/apple-app-site-association",
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest"
@@ -101,6 +103,7 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "CNAME",
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest"

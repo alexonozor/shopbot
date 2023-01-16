@@ -24,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatTableResponsiveModule } from './shared/directives/mat-table-resposive/mat-table-responsive.module';
 
 
 
@@ -55,6 +56,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableResponsiveModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -83,7 +85,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatRadioModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableResponsiveModule
   ]
 })
 export class MaterialModule {

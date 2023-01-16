@@ -9,6 +9,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Role } from '../shared/models/role';
+import { Socket } from 'ngx-socket-io';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Role } from '../shared/models/role';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  @ViewChild('sidenav') sidenav: MatSidenav | undefined;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
   public userType:string | undefined;
   destroyed = new Subject<void>();
   currentScreenSize: string | undefined;
@@ -40,9 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     public breakpointObserver: BreakpointObserver
   ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   isExpanded = true;
   showSubmenu: boolean = false;
@@ -64,32 +63,38 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   logOut() {
     this.auth.logout();
     this.snackbar.open('Logged Out', 'close', {duration: 2000});
-    ;
+  }
+
+
+  closeWhenClick() {
+    if(this.currentScreenSize === 'Small' || this.currentScreenSize === 'XSmall') {
+      this.sidenav.close()
+    } 
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    // this.breakpointObserver
-    // .observe([
-    //   Breakpoints.XSmall,
-    //   Breakpoints.Small,
-    //   Breakpoints.Medium,
-    //   Breakpoints.Large,
-    //   Breakpoints.XLarge,
-    // ])
-    // .pipe(takeUntil(this.destroyed))
-    // .subscribe(result => {
-    //   for (const query of Object.keys(result.breakpoints)) {
-    //     if (result.breakpoints[query]) {
-    //       this.currentScreenSize = this.displayNameMap.get(query) ?? 'Unknown';
-    //       if(this.currentScreenSize === 'Small' || this.currentScreenSize === 'XSmall') {
-    //         this.sidenav.close()
-    //       } else {
-    //         this.sidenav.open()
-    //       }
-    //     }
-    //   }
-    // });
+    // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    // Add 'implements AfterViewInit' to the class.
+    this.breakpointObserver
+    .observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge,
+    ])
+    .pipe(takeUntil(this.destroyed))
+    .subscribe(result => {
+      for (const query of Object.keys(result.breakpoints)) {
+        if (result.breakpoints[query]) {
+          this.currentScreenSize = this.displayNameMap.get(query) ?? 'Unknown';
+          if(this.currentScreenSize === 'Small' || this.currentScreenSize === 'XSmall') {
+            this.sidenav.close();
+          } else {
+            this.sidenav.open();
+          }
+        }
+      }
+    });
   }
 }

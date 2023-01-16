@@ -1,0 +1,52 @@
+<h1 matDialogTitle>Create Payment Method</h1>
+<div mat-dialog-content>
+  <form name="storeForm" [formGroup]="paymentForm" class="product w-100-p" fxLayout="column" fxFlex>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Icon</mat-label>
+        <input matInput placeholder="Icon image code" name="image" formControlName="image" required>
+      </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Position</mat-label>
+        <input matInput type="number" placeholder="Position" name="id" formControlName="id" required>
+      </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Product Name" name="name" formControlName="name" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Product Description" name="description" formControlName="description" rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-select formControlName="active" placeholder="Enabled">
+            <mat-option  *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value:  false}]" [value]="item.value">{{item.name}}</mat-option>
+        </mat-select>
+   </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+        <mat-label>Region</mat-label>
+        <mat-select  multiple formControlName="region">
+          <mat-select-trigger>
+            {{paymentForm.value?.region?.[0] || ''}}
+            <span *ngIf="(paymentForm.value?.region?.value?.length || 0) > 1" class="example-additional-selection">
+              (+{{(paymentForm.value?.region?.length || 0) - 1}} {{paymentForm.value?.region?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let region of ['Nigeria', 'Mauritius', 'Kenya', 'Rwanda']" [value]="region">{{region}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="pt-24">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button class="mat-accent mr-16" (click)="save()" [disabled]="!paymentForm.valid">{{isLoading ? 'Please wait..' : 'Create Payment Method' }}</button>
+</div>
+
+
+ 
+
+<!-- region: ['', Validators.required],
+active: [false, Validators.required],
+description: ['', Validators.required], -->

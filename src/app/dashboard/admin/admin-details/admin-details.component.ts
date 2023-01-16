@@ -26,18 +26,16 @@ export class AdminDetailsComponent implements OnInit {
   ) {
    this.roles = this.route.snapshot.data['roles'] as RolesAndPermission[]
    this.admin = this.route.snapshot.data['admin'] as Admin
-   this.administratorForm = this.fb.group({
-    name: [this.admin.name, Validators.required],
-    phoneNumber: [this.admin.phoneNumber, Validators.required],
-    gender: [this.admin.gender, Validators.required],
-    email: [this.admin.email, Validators.email],
-    role: [this.admin?.role?._id, Validators.required],
-  })
+    this.administratorForm = this.fb.group({
+      name: [this.admin.name, Validators.required],
+      phoneNumber: [this.admin.phoneNumber, Validators.required],
+      gender: [this.admin.gender, Validators.required],
+      email: [this.admin.email, Validators.email],
+      role: [this.admin?.role?._id, Validators.required],
+    })
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   submit() {
     if (this.administratorForm.valid) {

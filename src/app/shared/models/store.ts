@@ -19,6 +19,7 @@ export interface Store {
   location?: Location;
   owner?: string,
   menus: Menu[],
+  currency: string;
   deliverySettings: DeliverySettings
 };
 

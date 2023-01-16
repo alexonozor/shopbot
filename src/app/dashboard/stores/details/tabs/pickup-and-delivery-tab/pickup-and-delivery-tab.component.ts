@@ -21,11 +21,11 @@ export class PickupAndDeliveryTabComponent implements OnInit {
 
 
   foods: any[] = [
-    { value: '1', viewValue: 'Charge the same delivery fee for all orders' },
-    { value: '2', viewValue: 'Free Delivery' },
-    { value: '3', viewValue: 'Free Delivery for orders over certain amount.' },
-    { value: '4', viewValue: 'Distance-base fees' },
-    { value: '5', viewValue: 'Charge flat fee base on areas' },
+    { value: 1, viewValue: 'Charge the same delivery fee for all orders' },
+    { value: 2, viewValue: 'Free Delivery' },
+    { value: 3, viewValue: 'Free Delivery for orders over certain amount.' },
+    { value: 4, viewValue: 'Distance-base fees' },
+    // { value: '5', viewValue: 'Charge flat fee base on areas' },
   ];
   pickupAndDeliveryForm!: FormGroup;
 

@@ -5,7 +5,7 @@
     "ng": "nx",
     "start": "ng serve",
     "build": "ng build",
-    "publish": "ng build  --base-href 'https://alexonozor.github.io/shopbot/' && npx ngh --dir=dist/shopbot",
+    "publish": "ng build  --base-href 'https://dashboard.shopbot.africa' && npx ngh --dir=dist/shopbot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "node ./decorate-angular-cli.js"
@@ -32,6 +32,8 @@
     "angular-jwt": "^0.1.11",
     "chart.js": "^3.6.0",
     "crypto-js": "^4.1.1",
+    "html-to-pdfmake": "^2.4.9",
+    "jspdf": "^2.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",
@@ -39,6 +41,7 @@
     "ngx-material-timepicker": "^5.5.3",
     "ngx-progressbar": "^9.0.0",
     "ngx-socket-io": "^4.3.0",
+    "pdfmake": "^0.2.6",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -53,6 +56,7 @@
     "@types/googlemaps": "^3.39.13",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "@types/pdfmake": "^0.2.2",
     "angular-cli-ghpages": "^1.0.3",
     "autoprefixer": "^10.4.8",
     "jasmine-core": "~3.10.0",

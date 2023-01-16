@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private jwtService: JwtService,
     private router: Router,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
 
   ) {
     this.userForm = fb.group({
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUser(email: string) {
-    this.auth.getUserByEmail(email).subscribe((user) => {
+    this.auth.getUserByEmail(email).subscribe((user:any) => {
       this.auth.saveUser(user)
       this.router.navigate(['dashboards'])
     })
