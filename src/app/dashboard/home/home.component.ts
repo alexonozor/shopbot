@@ -7,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
 import { map, Observable, startWith, switchMap, tap, finalize } from 'rxjs';
 import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
-import { StoreService } from '../stores/details/store.service';
 import { OrdersService } from '../../shared/services/order.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ChartConfiguration, ChartOptions } from 'chart.js';

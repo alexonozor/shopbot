@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -36,7 +36,8 @@ export class OrdersDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private orderService: OrdersService,
     private _matDialog: MatDialog,
-    private _matSnack: MatSnackBar
+    private _matSnack: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -89,6 +90,12 @@ export class OrdersDetailsComponent implements OnInit {
     var html = htmlToPdfmake(pdfTable.innerHTML);
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).download(); 
+     
+  }
+
+
+  open() {
+      window.open(`google.navigation:q=${this.order.store.location?.coordinates[0]}+${this.order.store.location?.coordinates[1]}`, '_blank');
      
   }
 

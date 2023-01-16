@@ -22,6 +22,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { CuisinesTabComponent } from './details/tabs/cuisines-tab/cuisines-tab.component';
 import { CuisinesService } from 'src/app/shared/services/cuisines.service';
+import { MerchantTabComponent } from './details/tabs/merchant-tab/merchant-tab.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { CuisinesService } from 'src/app/shared/services/cuisines.service';
     MenuDetailsComponent,
     AddItemToMenuComponent,
     CuisinesTabComponent,
+    MerchantTabComponent,
   ],
   entryComponents: [AddItemToMenuComponent],
   providers: [
@@ -57,7 +59,8 @@ import { CuisinesService } from 'src/app/shared/services/cuisines.service';
   ],
   exports: [
     AddItemToMenuComponent,
-    CuisinesTabComponent
+    CuisinesTabComponent,
+    MerchantTabComponent
   ]
 })
 export class StoresModule {

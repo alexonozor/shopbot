@@ -33,30 +33,26 @@
     </div>
   </div>
   <ng-container *ngIf="order.category == 'New'; else statusControl">
-    <div class="mt-5 flex lg:mt-0 lg:ml-4">
-      <span class="ml-3 hidden sm:block">
+    <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap="15px">
+     
         <button type="button" (click)="cancelOrder(order)" [disabled]="isCanceling"
           class="inline-flex items-center rounded-md border border-red-500 bg-white px-4 py-2 text-sm font-medium text-red-500 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
           <mat-icon class="mat-18" *ngIf="!isCanceling">close</mat-icon>
           {{isCanceling ? 'CANCELLING....' : 'CANCEL ORDER'}}
         </button>
-      </span>
-
-      <span class="sm:ml-3">
+     
         <button type="button" (click)="accept(order)"
           class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <mat-icon class="mat-18" *ngIf="!isAccepting">check</mat-icon>
           {{isAccepting ? 'ACCEPTING....' : 'ACCEPT ORDER'}}
         </button>
-      </span>
-
-
+ 
     </div>
   </ng-container>
 
   <ng-template #statusControl>
-    <div class="mt-5 flex lg:mt-0 lg:ml-4">
-      <mat-form-field appearance="outline" class="mx-5">
+    <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline">
         <mat-label>Payment Status</mat-label>
         <mat-select  (selectionChange)="updatePaymentStatus(order, $event)" [(ngModel)]="order.paymentStatus">
           <mat-option *ngFor="let status of ['Paid', 'Unpaid']" [value]="status">{{status}}</mat-option>
@@ -69,25 +65,6 @@
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- <span class="ml-3 hidden sm:block">
-        <button type="button" (click)="cancelOrder(order)" [disabled]="isCanceling"
-          class="inline-flex items-center rounded-md border border-red-500 bg-white px-4 py-2 text-sm font-medium text-red-500 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-          
-          <mat-icon class="mat-18" *ngIf="!isCanceling">close</mat-icon>
-          {{isCanceling ? 'CANCELLING....' : 'CANCEL ORDER'}}
-        </button>
-      </span>
-
-      <span class="sm:ml-3">
-        <button type="button" (click)="accept(order)"
-          class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          
-          <mat-icon class="mat-18" *ngIf="!isAccepting">check</mat-icon>
-          {{isAccepting ? 'ACCEPTING....' : 'ACCEPT ORDER'}}
-        </button>
-      </span> -->
-
-
     </div>
   </ng-template>
 
@@ -113,7 +90,7 @@
 
 </div> -->
 
-<div fxLayout="row" fxLayoutAlign="space-between start" class="mt-10" fxLayoutGap="20px">
+<div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch"  class="mt-10" fxLayoutGap="20px">
   <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex="30%" fxLayoutGap="20px">
     <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
 
@@ -131,12 +108,19 @@
       <mat-list class="w-full">
 
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">call</mat-icon>{{order.user.phoneNumber}}
+          <mat-icon matListIcon class="material-icons-outlined">phone_android</mat-icon>
+          <span class="w-full">{{order.user.phoneNumber}}</span>
+          <a mat-icon-button [href]="'tel:'+order.user.phoneNumber">
+              <mat-icon class="mat-18">call</mat-icon>
+          </a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon matListIcon class="material-icons-outlined">location_on</mat-icon>
-          {{order.shipping.name + ' ' + order.shipping.administrativeArea + ' ' + order.shipping.locality }}
+          <span class="w-full">{{order.shipping.name + ' ' + order.shipping.administrativeArea + ' ' + order.shipping.locality }}</span>
+          <button mat-icon-button (click)="open()">
+            <mat-icon class="mat-18">near_me</mat-icon>
+          </button>
         </mat-list-item>
         <mat-divider></mat-divider>
         <div mat-subheader>Order Note</div>
@@ -163,7 +147,11 @@
       <mat-list class="w-full">
 
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">call</mat-icon>{{order.store.contactInfo.phone}}
+          <mat-icon matListIcon class="material-icons-outlined">phone_android</mat-icon>
+          <span class="w-full">{{order.store.contactInfo.phone}}</span>
+          <a mat-icon-button [href]="'tel:'+order.store.contactInfo.phone">
+            <mat-icon class="mat-18">call</mat-icon>
+          </a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
