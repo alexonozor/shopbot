@@ -20,11 +20,9 @@ import { Order } from '../models/order';
 export class OrdersService {
   orders!: any[];
   private hostServer: string = environment.hostServer;
-  /**
-   * Constructor
-   *
-   * @param {HttpClient} _httpClient
-   */
+  private orders$ = new BehaviorSubject<any>(null);
+  selectedOrders = this.orders$.asObservable();
+  
   constructor(private _httpClient: HttpClient) {}
 
   getOrders(query: any): Observable<any[]> {
@@ -54,5 +52,9 @@ export class OrdersService {
 
   deleteOrder(orderId: string) {
     return this._httpClient.delete(`${this.hostServer}/orders/${orderId}`);
+  }
+
+  broadcast(order:Order) {
+    this.orders$.next(order); 
   }
 }

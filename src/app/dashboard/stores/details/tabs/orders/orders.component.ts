@@ -8,7 +8,7 @@ import { Socket } from 'ngx-socket-io';
 import { StoreService } from '../../store.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 

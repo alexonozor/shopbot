@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import { Menu } from 'src/app/shared/models/menu';
 import { MenuService } from './menu.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { AddMenusComponent } from '../tabs/menus/modals/add-menus/add-menus.component';
 import { AddItemToMenuComponent } from './modal/add-item-to-menu/add-item-to-menu.component';
 import { Product } from 'src/app/shared/models/product';
@@ -30,18 +30,12 @@ export class MenuDetailsComponent implements OnInit {
 
   constructor(
     public _matDialog: MatDialog,
-
-
     private storeService: StoreService,
     private menuService: MenuService,
-    private _location: Location,
-    private _matSnackBar: MatSnackBar,
-    private route: ActivatedRoute,
-    private router: Router
+    private _location: Location
   ) {
     this._unsubscribeAll = new Subject();
   }
-
 
   ngOnInit(): void {
     this.store = this.storeService.store;

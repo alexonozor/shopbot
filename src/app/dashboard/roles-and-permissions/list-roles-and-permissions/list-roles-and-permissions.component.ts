@@ -4,7 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 import { RolesAndPermissionsService } from '../../../shared/services/roles-and-permissions.service';
 import { RolesAndPermission } from '../../../shared/models/roles-and-permission';

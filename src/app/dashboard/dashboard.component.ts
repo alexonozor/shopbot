@@ -2,14 +2,16 @@ import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular
 import {JwtService} from '../shared/services/jwt.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Auth } from '../shared/models/auth';
 import { AuthService } from '../shared/services/auth.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Role } from '../shared/models/role';
 import { Socket } from 'ngx-socket-io';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
+import { Order } from '../shared/models/order';
+import { OrdersService } from 'src/app/shared/services/order.service';
 
 
 @Component({
@@ -38,15 +40,30 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private router: Router,
     private snackbar: MatSnackBar,
     public auth: AuthService,
-    public breakpointObserver: BreakpointObserver
+    public breakpointObserver: BreakpointObserver,
+    private socket: Socket,
+    private orderService: OrdersService,
+    private notificationService: NotificationsService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getOrder();
+  }
 
   isExpanded = true;
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
+
+
+  getOrder() {
+    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
+      if (order) {
+        this.orderService.broadcast(order as Order)
+        this.notificationService.broadCast(order)
+      }
+    })
+  }
 
   mouseenter() {
     if (!this.isExpanded) {

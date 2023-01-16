@@ -15,7 +15,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from '../shared/interceptor/token-interceptor.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ConfirmComponent } from '../shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
 import { MaterialModule } from '../material';
 import { HomeComponent } from './home/home.component';
 import { OrdersService } from '../shared/services/order.service';
@@ -24,6 +24,7 @@ import { DashboardService } from '../shared/services/dashboard.service';
 import { StoresService } from './stores/stores.service';
 import { AuthService } from '../shared/services';
 import { SharedModule } from '../shared/shared.module';
+import { NotificationsService } from '../shared/services/notifications.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { SharedModule } from '../shared/shared.module';
     HomeComponent
   ],
   imports: [
-  CommonModule,
+    CommonModule,
     FormsModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
@@ -53,13 +54,12 @@ import { SharedModule } from '../shared/shared.module';
   entryComponents: [
     ConfirmComponent
   ],
-  
   providers: [
-    //AdminGuard
     StoresService,
     DashboardService,
     OrdersService,
     AuthService,
+    NotificationsService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
 

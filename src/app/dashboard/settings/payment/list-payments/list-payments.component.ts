@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Payment } from 'src/app/shared/models/payment';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { CreatePaymentsComponent } from '../create-payments/create-payments.component';

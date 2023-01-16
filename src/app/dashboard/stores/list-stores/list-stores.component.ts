@@ -6,7 +6,7 @@ import { BehaviorSubject, fromEvent, merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { StoresService } from '../stores.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Store } from 'src/app/shared/models/store';
 import { AddStoresComponent } from '../modals/add-stores/add-stores.component';
 import { Router, ActivatedRoute } from '@angular/router';
