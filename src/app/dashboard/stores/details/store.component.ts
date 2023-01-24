@@ -8,6 +8,7 @@ import { StoreService } from './store.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from 'src/app/shared/models/store';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Merchant } from 'src/app/shared/models/merchant';
 
 
 @Component({
@@ -20,10 +21,8 @@ export class StoreComponent implements OnInit, OnDestroy {
   store!: Store;
   storeId!: string;
   public selectedTab = 0;
-  // Private
+  merchants: Merchant[];
   private _unsubscribeAll: Subject<any>;
-
-
 
   constructor(
     private storeService: StoreService,
@@ -33,6 +32,8 @@ export class StoreComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this._unsubscribeAll = new Subject();
+    this.store = this.storeService.store;
+    this.merchants = this.route.snapshot.data['merchants'] as Merchant[]
   }
 
 

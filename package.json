@@ -41,6 +41,7 @@
     "ngx-material-timepicker": "^5.5.3",
     "ngx-progressbar": "^9.0.0",
     "ngx-socket-io": "^4.3.0",
+    "onesignal-ngx": "^1.0.2",
     "pdfmake": "^0.2.6",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

@@ -9,6 +9,7 @@ export interface Store {
   description: string;
   active?: boolean;
   contactInfo: ContactInfo;
+  category: string;
   notifications?: Notifications;
   operations?: Operations;
   orderSettings: OrderSettings;

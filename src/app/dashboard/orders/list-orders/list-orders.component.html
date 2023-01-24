@@ -46,7 +46,7 @@
   
       <ng-container matColumnDef="vendorName">
         <th mat-header-cell *matHeaderCellDef>Vendor Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.store.name }}</td>
+        <td mat-cell *matCellDef="let element">{{ element?.store?.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="customerName">

@@ -12,6 +12,9 @@ import { Socket } from 'ngx-socket-io';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 import { Order } from '../shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
+import { SwPush } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
+import { AccountService } from '../shared/services/account.service';
 
 
 @Component({
@@ -25,6 +28,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   destroyed = new Subject<void>();
   currentScreenSize: string | undefined;
   Role = Role
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+  showNotification: boolean = Notification.permission !== 'granted';
 
   // Create a map to display breakpoint names for demonstration purposes.
   displayNameMap = new Map([
@@ -43,17 +51,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     public breakpointObserver: BreakpointObserver,
     private socket: Socket,
     private orderService: OrdersService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private swPush: SwPush,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
+    console.log(this.showNotification)
     this.getOrder();
   }
 
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
+ 
+
+
 
 
   getOrder() {
@@ -64,6 +74,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  subscribeToNotifications() {
+    this.swPush.requestSubscription({
+        serverPublicKey: environment.publicKey
+    }).then((sub:any) => {
+      console.log(sub)
+      let adminPush = sub.toJSON()
+      this.accountService.updateStaff(this.auth.getUser._id, {adminPush}).subscribe()
+    }).catch((err:any) => console.error("Could not subscribe to notifications", err));
+    
+}
 
   mouseenter() {
     if (!this.isExpanded) {

@@ -31,7 +31,12 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.Admin, Role.Marketer] }
       },
-
+      {
+        path: 'categories',
+        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin, Role.Marketer] }
+      },
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
@@ -51,6 +56,13 @@ const routes: Routes = [
         loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.Admin, Role.Marketer] }
+      },
+
+      {
+        path: 'merchants',
+        loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
       },
 
       {

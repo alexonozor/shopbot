@@ -13,6 +13,16 @@
       <mat-label>Description</mat-label>
       <textarea matInput placeholder="Product Description" name="description" formControlName="description" rows="5"></textarea>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Select Merchant</mat-label>
+      <mat-select formControlName="merchant">
+          <mat-option *ngFor="let merchant of data" [value]="merchant._id">{{merchant.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    
   
   </form>
 </div>

@@ -63,7 +63,6 @@ export class BusinessHoursTabComponent implements OnInit {
    
     // daysRange = this.getDays(daysRange, businessHoursKeysObject)
 
-    console.log(days, "dfsdfsdfsdfsdfsdfsd")
  
    this.businessHoursForm = this.createProductForm(days)
    

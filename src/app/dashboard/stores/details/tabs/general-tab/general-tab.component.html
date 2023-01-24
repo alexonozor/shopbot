@@ -48,10 +48,19 @@
                     <mat-label>Store Description</mat-label>
                     <textarea matInput formControlName="description" placeholder="Enter Store Description"></textarea>
                 </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Category</mat-label>
+                    <mat-select formControlName="category" >
+                        <mat-option *ngFor="let category of categories" [value]="category._id">{{category.name}}</mat-option>
+                    </mat-select>
+                    
+                </mat-form-field>
+                
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Store Currency</mat-label>
                     <mat-select formControlName="currency" >
-                        <mat-option *ngFor="let currency of ['₦', 'RS']" [value]="currency">{{currency}}</mat-option>
+                        <mat-option *ngFor="let currency of ['₦', 'RS ']" [value]="currency">{{currency}}</mat-option>
                     </mat-select>
                     
                 </mat-form-field>

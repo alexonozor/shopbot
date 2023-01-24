@@ -1,38 +1,42 @@
 
 
-<mat-list style="margin-bottom: 20px">
-    <div mat-subheader>Stores</div>
-    <mat-list-item *ngFor="let store of stores; let i = index" >
-        <div mat-line class="status">{{store.active ? 'APPROVE' : 'UNAPPROVED'}}</div>
-        <div mat-line><span class="title font-extrabold">{{store.name}}</span></div>
-        
-       <div mat-line class="text-gray-400 font-thin">{{store.contactInfo.placeNumber}} {{store.contactInfo.placeName}}  {{store.contactInfo.country}} </div>
-
-       <mat-slide-toggle [(ngModel)]="store.active" (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
-       
-        <button mat-icon-button [matMenuTriggerFor]="menu" >
-            <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
-            <button mat-menu-item (click)="delete(i, store._id); $event.stopPropagation() "><mat-icon>delete</mat-icon> Delete</button>
-            <button mat-menu-item (click)="viewDetails(store)" *ngIf="!store.active">
-                <mat-icon>done</mat-icon> Enable
-            </button>
+<div class="w-full h-screen relative">
+    <mat-list style="margin-bottom: 20px">
+        <div mat-subheader>Stores</div>
+        <mat-list-item *ngFor="let store of stores; let i = index" >
+            <div mat-line class="status">{{store.active ? 'APPROVE' : 'UNAPPROVED'}}</div>
+            <div mat-line><span class="title font-extrabold">{{store.name}}</span></div>
             
-            <button mat-menu-item (click)="viewDetails(store)">
-                <mat-icon>edit</mat-icon> Edit / View
-            </button>
-          </mat-menu>
-          <mat-divider></mat-divider>
-    </mat-list-item>
+           <div mat-line class="text-gray-400 font-thin">{{store.contactInfo.placeNumber}} {{store.contactInfo.placeName}}  {{store.contactInfo.country}} </div>
     
-</mat-list>
-
-
-<div fxLayout="row" fxLayoutAlign="end end">
-    <button mat-fab color="primary" aria-label="Add Store" class="fixed" (click)="addNewStore()">
-        <mat-icon>add</mat-icon>
+           <mat-slide-toggle [(ngModel)]="store.active" (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
+           
+            <button mat-icon-button [matMenuTriggerFor]="menu" >
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
+                <button mat-menu-item (click)="delete(i, store._id); $event.stopPropagation() "><mat-icon>delete</mat-icon> Delete</button>
+                <button mat-menu-item (click)="viewDetails(store)" *ngIf="!store.active">
+                    <mat-icon>done</mat-icon> Enable
+                </button>
+                
+                <button mat-menu-item (click)="viewDetails(store)">
+                    <mat-icon>edit</mat-icon> Edit / View
+                </button>
+              </mat-menu>
+              <mat-divider></mat-divider>
+        </mat-list-item>
+        
+    </mat-list>
+    
+    
+    
+    
+    <button mat-fab (click)="addNewStore()" color="primary"  
+        style="position: fixed; bottom: 80px; right: 15px">
+        <mat-icon class="mat-18">add</mat-icon>
     </button>
+    
 </div>
 
 

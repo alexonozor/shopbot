@@ -12,6 +12,7 @@ import { AddStoresComponent } from '../modals/add-stores/add-stores.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { StoreService } from '../details/store.service';
+import { Merchant } from 'src/app/shared/models/merchant';
 
 @Component({
   selector: 'app-list-stores',
@@ -22,14 +23,16 @@ export class ListStoresComponent implements OnInit {
   displayedColumns = ['name', 'description', 'active', 'action'];
   public stores: Store[] = [];
   confirmDialogRef!: MatDialogRef<ConfirmComponent> | null;
-
+  merchants: Merchant[]
   constructor(
     private storesService: StoresService,
     private storeService: StoreService,
     public _matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.merchants = this.route.snapshot.data['merchants'] as Merchant[]
+   }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -40,6 +43,7 @@ export class ListStoresComponent implements OnInit {
    */
   ngOnInit(): void {
     this.stores = this.storesService.stores;
+    
   }
 
   delete(index: number, id: any) {
@@ -60,7 +64,8 @@ export class ListStoresComponent implements OnInit {
   addNewStore() {
     let addStoreForm = this._matDialog.open(AddStoresComponent, {
       width: '500px',
-      disableClose: false
+      disableClose: false,
+      data: this.merchants
     });
     addStoreForm.afterClosed().subscribe(result => {
 

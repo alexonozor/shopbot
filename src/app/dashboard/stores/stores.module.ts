@@ -23,6 +23,10 @@ import { ProductsService } from 'src/app/shared/services/products.service';
 import { CuisinesTabComponent } from './details/tabs/cuisines-tab/cuisines-tab.component';
 import { CuisinesService } from 'src/app/shared/services/cuisines.service';
 import { MerchantTabComponent } from './details/tabs/merchant-tab/merchant-tab.component';
+import { CategoriesResolver } from 'src/app/shared/resolvers/categories.resolver';
+import { CategoriesService } from 'src/app/shared/services/category.service';
+import { MerchantResolver, MerchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
+import { MerchantsService } from 'src/app/shared/services/merchant.service';
 
 
 @NgModule({
@@ -55,7 +59,12 @@ import { MerchantTabComponent } from './details/tabs/merchant-tab/merchant-tab.c
     MenuService,
     ProductService,
     ProductsService,
-    CuisinesService
+    CuisinesService,
+    CategoriesResolver, 
+    CategoriesService,
+    MerchantResolver,
+    MerchantsService,
+    MerchantsResolver
   ],
   exports: [
     AddItemToMenuComponent,

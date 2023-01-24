@@ -62,7 +62,8 @@ import { OrdersComponent } from './orders/orders.component';
   ],
   providers: [
     MenusService,
-    BankService
+    BankService,
+    
   ],
 })
 export class StoreTabsModule {

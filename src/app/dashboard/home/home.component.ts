@@ -17,6 +17,8 @@ import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { SwPush } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -49,7 +51,7 @@ export class HomeComponent implements OnInit {
   public lineChartLegend = true;
   
   statuses = [
-    { id: 0, name: "Pending", color: "bg-blue-300"},
+    { id: 0, name: "Pending", color: "bg-blue-300", },
     { id: 1, name: "Approve", color: "bg-blue-400"},
     { id: 3, name: "Canceled", color: "bg-blue-400"},
     { id: 2, name: "Shipped", color: "bg-blue-400"},
@@ -62,14 +64,13 @@ export class HomeComponent implements OnInit {
     private dashboardService: DashboardService,
     public _matDialog: MatDialog,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
     ) {
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
     this.getOrderMonthlyChart()
   }
+
+
 
   compareFn(t1: any, t2: any): boolean { 
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
