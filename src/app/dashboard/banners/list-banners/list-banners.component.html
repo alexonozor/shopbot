@@ -1,0 +1,36 @@
+
+
+<div class="w-full h-screen relative">
+    <mat-list style="margin-bottom: 20px">
+        <div mat-subheader>Banners</div>
+        <mat-list-item *ngFor="let banner of banners; let i = index">
+            <div mat-line class="status">{{banner.active ? 'Active' : 'Inactive'}}</div>
+            <div mat-line><span class="title font-extrabold">{{banner.title}}</span></div>
+            
+           <div mat-line class="text-gray-400 font-thin">{{banner.category}} {{banner.category}}  {{banner.link}} </div>
+    
+           <mat-slide-toggle [(ngModel)]="banner.active" (change)="onChange(banner, $event)" class="mx-8" color="primary"></mat-slide-toggle>
+           
+            <button mat-icon-button [matMenuTriggerFor]="menu" >
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
+                <button mat-menu-item (click)="delete(i, banner._id); $event.stopPropagation() "><mat-icon>delete</mat-icon> Delete</button>
+                <button mat-menu-item (click)="viewDetails(banner)">
+                    <mat-icon>edit</mat-icon> Edit / View
+                </button>
+              </mat-menu>
+              <mat-divider></mat-divider>
+        </mat-list-item>
+        
+    </mat-list>
+    
+    
+    
+    
+    <button mat-fab (click)="addBanner()" color="primary"  
+        style="position: fixed; bottom: 80px; right: 15px">
+        <mat-icon class="mat-18">add</mat-icon>
+    </button>
+    
+</div>

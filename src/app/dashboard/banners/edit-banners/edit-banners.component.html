@@ -1,0 +1,52 @@
+
+
+    <div class="mat-elevation-z8 container mx-auto my-10  p-5" ngStyle.gt-sm="width: 50rem;" ngStyle.lt-lg="width: 100%">
+        <form [formGroup]="bannerForm" (ngSubmit)="submit()">
+            <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+    
+                <app-select-media valueName="Image" [isNew]="false" [mediaData]="mediaData?.image"
+            (removeValue)="removeValue($event)" (openMediaBrowser)="addMedia($event)"></app-select-media>
+    
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Name Of Banner</mat-label>
+                    <input matInput placeholder="Name Of Banner" formControlName="title">
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Short Description</mat-label>
+                    <textarea matInput placeholder="Short Description" formControlName="shortDescription"></textarea>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline" >
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of ['Product', 'Category', 'Blog']" [value]="category" >{{category}}</mat-option>
+                    </mat-select>
+                   
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Link</mat-label>
+                    <textarea matInput placeholder="Enter Link" formControlName="link"></textarea>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline" >
+                    <mat-label>Show on Slider</mat-label>
+                    <mat-select formControlName="showOnSlider">
+                        <mat-option *ngFor="let category of [{value:true, name:'Yes'}, {value: false, name:'No'}]" [value]="category.value" >{{category.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                
+    
+                <mat-slide-toggle formControlName="active">Enable</mat-slide-toggle>
+    
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                    <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+    
+                    <button mat-raised-button  fxFlex="50%" color="primary" [disabled]="bannerForm.invalid">SAVE</button>
+                </div>
+               
+            </div>
+        </form>
+    </div>

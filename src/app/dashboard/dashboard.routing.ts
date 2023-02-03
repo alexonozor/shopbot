@@ -83,6 +83,12 @@ const routes: Routes = [
         data: { roles: [Role.Admin] }
       },
       {
+        path: 'banners',
+        loadChildren: () => import('./banners/banners.module').then(m => m.BannersModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+      {
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
         canActivate: [AuthGuard, RoleGuard],

@@ -73,6 +73,11 @@
                 <mat-icon mat-list-icon class="material-icons-outlined">perm_media</mat-icon>
             </mat-list-item>
 
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/banners/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.Admin, Role.Marketer, Role.Producer])">
+                <span class="full-width">Banners</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">perm_media</mat-icon>
+            </mat-list-item>
+
             
             <mat-list-item  class="parent" [routerLink]="['/dashboard/settings']">
                 <span class="full-width">Settings</span>
