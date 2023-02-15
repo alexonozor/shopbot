@@ -90,7 +90,7 @@ export class MenuDetailsComponent implements OnInit {
 
   // @Post('/remove-item-from-popular')
   isAdded(foodId:any) {
-    return this.store?.popular.includes(foodId)
+    return this.store?.popular?.includes(foodId)
    }
   togglePopular(storeId:string, foodId:string) {
     if (this.isAdded(foodId)) {
