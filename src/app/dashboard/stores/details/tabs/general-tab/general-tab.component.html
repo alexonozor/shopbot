@@ -64,6 +64,14 @@
                     </mat-select>
                     
                 </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Expensive</mat-label>
+                    <mat-select formControlName="expensive" >
+                        <mat-option *ngFor="let expensive of [1,2,3,4,5]" [value]="expensive">{{expensive}}</mat-option>
+                    </mat-select>
+                    
+                </mat-form-field>
             </div>
             <div class="mat-elevation-z6 example-container" fxFlex="30%" fxFlexAlign.gt-md="start" formGroupName="contactInfo">
                 <h3>Contact Information</h3>

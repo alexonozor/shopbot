@@ -45,6 +45,13 @@ const routes: Routes = [
       },
 
       {
+        path: 'promos',
+        loadChildren: () => import('./promos/promos.module').then(m => m.PromosModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
         path: 'cuisines',
         loadChildren: () => import('./cuisines/cuisines.module').then(m => m.CuisinesModule),
         canActivate: [AuthGuard, RoleGuard],

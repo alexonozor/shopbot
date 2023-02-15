@@ -88,10 +88,7 @@ export class ProductService implements Resolve<any> {
  * @returns {Promise<any>}
  */
   saveProduct(product: any, id: any) {
-
     return this._httpClient.put(`${this.hostServer}/foods/${id}`, product)
-     
-
   }
 
   /**

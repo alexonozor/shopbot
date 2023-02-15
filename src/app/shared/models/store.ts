@@ -1,4 +1,5 @@
 import { Menu } from "./menu";
+import { Product } from './product';
 
 
 export interface Store {
@@ -21,7 +22,9 @@ export interface Store {
   owner?: string,
   menus: Menu[],
   currency: string;
-  deliverySettings: DeliverySettings
+  deliverySettings: DeliverySettings,
+  expensive: number;
+  popular: Product[] | string[]
 };
 
 interface DeliverySettings {

@@ -47,6 +47,8 @@ export class MenuDetailsComponent implements OnInit {
     this._location.back();
   }
 
+ 
+
   addTimeToMenu() {
     let addToComponent = this._matDialog.open(AddItemToMenuComponent, {
       disableClose: false,
@@ -78,6 +80,31 @@ export class MenuDetailsComponent implements OnInit {
       }
     });
   }
+
+  // @Post('/add-item-to-popular')
+  // addToPopular(@Req() req: Request, @Res() res: Response) {
+  //   this.storeService.addToPopular(req.body).then((Store) => {
+  //     return res.json(Store);
+  //   }).catch(err => console.log(err))
+  // }
+
+  // @Post('/remove-item-from-popular')
+  isAdded(foodId:any) {
+    return this.store?.popular.includes(foodId)
+   }
+  togglePopular(storeId:string, foodId:string) {
+    if (this.isAdded(foodId)) {
+      this.storeService.removeItemFromPopular({store: storeId, item: foodId}).subscribe(() => {
+        this.isAdded(foodId)
+      })
+    } else {
+      this.storeService.addItemToPopular({store: storeId, item: foodId}).subscribe(() => {
+        this.isAdded(foodId)
+      })
+    }
+  }
+
+
 
   edit(product: Product) {
     let addToComponent = this._matDialog.open(AddItemToMenuComponent, {

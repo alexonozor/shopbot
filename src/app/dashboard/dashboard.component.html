@@ -58,10 +58,10 @@
             </mat-list-item>
             
 
-            <!-- <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']">
-                <span class="full-width">Riders</span>
-                <mat-icon mat-list-icon class="material-icons-outlined">delivery_dining</mat-icon>
-            </mat-list-item> -->
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/promos/list']">
+                <span class="full-width">Promo</span>
+                <mat-icon mat-list-icon class="material-icons-outlined">card_giftcard</mat-icon>
+            </mat-list-item>
 
             <mat-list-item  class="parent" [routerLink]="['/dashboard/messages/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.Admin, Role.Marketer])">
                 <span class="full-width">Messaging</span>

@@ -106,6 +106,15 @@ export class StoreService implements Resolve<any> {
     return this._httpClient.post(`${this.hostServer}/stores`, store)
   }
 
+
+  addItemToPopular(store:any): Observable<any> {
+    return this._httpClient.post(`${this.hostServer}/stores/add-item-to-popular`, store)
+  }
+
+  removeItemFromPopular(store:any): Observable<any> {
+    return this._httpClient.post(`${this.hostServer}/stores/remove-item-from-popular`, store)
+  }
+
   /**
 * get store order
 *
