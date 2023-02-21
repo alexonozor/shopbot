@@ -13,6 +13,7 @@ import { AddMenusComponent } from '../modals/add-menus/add-menus.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { EditMenusComponent } from '../modals/edit-menus/edit-menus.component';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-store-menus-tab',
@@ -25,6 +26,8 @@ export class StoreMenusComponent implements OnInit {
   public menus$: Observable<Menu[]> | undefined;
   private confirmDialogRef!: MatDialogRef<ConfirmComponent> | null;
   @Input() store: Store | any;
+  public menus: Menu[] = [];
+
 
   constructor(
     private menusService: MenusService,
@@ -45,7 +48,7 @@ export class StoreMenusComponent implements OnInit {
   }
 
   loadMenus() {
-    this.menus$ = this.menusService.getStoreMenus(this.store._id)
+    this.menus$ = this.menusService.getStoreMenus(this.store._id).pipe(map((menus) => this.menus = menus))
   }
 
   delete(index:number, id:any) {
@@ -100,6 +103,17 @@ goBack() {
   this._location.back()
 }
 
+
+drop(event: CdkDragDrop<string[]>) {
+  
+  moveItemInArray(this.menus, event.previousIndex, event.currentIndex);
+   this.menus.forEach((item, i) => {
+     this.menusService.updateMenu(item._id, {position: i}).subscribe()
+  })
+  
+
+  
+}
 
 
 

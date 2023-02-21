@@ -1,6 +1,6 @@
 
 import { map, tap } from 'rxjs/operators';
-import {AfterViewInit, OnInit, Component, ViewChild, Input} from '@angular/core';
+import {AfterViewInit, OnInit, Component, ViewChild, Input, ElementRef} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,34 +10,32 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+const htmlToPdfmake = require("html-to-pdfmake");
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
  @Component({
-  selector: 'app-orders-tab',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  selector: 'app-finance-details-tab',
+  templateUrl: './finance-details.component.html',
+  styleUrls: ['./finance-details.component.scss']
 })
-export class OrdersComponent implements OnInit, AfterViewInit {
+export class FinanceDetailsComponent implements OnInit, AfterViewInit {
   @Input() store!: any;
   public orders$!: Observable<any[]>;
-  displayedColumns: string[] = ['reference', 'date',  'status', 'amount', 'paymentStatus', 'paymentType', 'actions'];
+  displayedColumns: string[] = ['reference', 'date',  'orderAmount', 'adminCommission', 'vendorEarning'];
   dataSource: MatTableDataSource<any[]>;
-
+  
+  @ViewChild('pdfTable') pdfTable!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   @ViewChild(MatSort) sort!: MatSort;
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
-  statuses = [
-    { id: 0, name: "Pending", color: "bg-blue-300"},
-    { id: 1, name: "Approve", color: "bg-blue-400"},
-    { id: 3, name: "Canceled", color: "bg-blue-400"},
-    { id: 2, name: "Shipped", color: "bg-blue-400"},
-    { id: 3, name: "Completed", color: "bg-green-400"},
-  ]
+ 
 
   constructor(
     private socket: Socket,
@@ -107,15 +105,51 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   getOrders() {
    this.storeService.getStoreOrders(this.store._id).pipe(tap((orders) => {
       this.dataSource = new MatTableDataSource(orders);
-      
-    })).subscribe()
-
-     
+    })).subscribe() 
   }
 
   get getTotalCost() {
     return this.dataSource.data.map((t:any) => t.total).reduce((acc, value) => acc + value, 0);
   }
+
+  get getVendorCost() {
+    let total = 0;
+    for (const data of this.dataSource.data as any) {
+     let d = (data.total - (data.total * this.store.finance.adminCommission / 100))
+     console.log(d)
+      total +=d;
+      
+    }
+    return total;
+  }
+
+ get  getShopbotTotal() {
+    return this.getTotalCost - this.getVendorCost
+  }
+
+  print() {
+    const pdfTable = this.pdfTable.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    const documentDefinition = { content: html,  
+     styles:{
+      'with-margin':{ // we define the class called "red"
+        marginBottom: 5,
+      },
+      'amount':{ // we define the class called "red"
+        marginBottom: 5,
+        bold:true
+      },
+      'fill':{ // we define the class called "red"
+        marginBottom: 5,
+        bold:true,
+        fillColor:'green'
+      }
+    } };
+    pdfMake.createPdf(documentDefinition).download(); 
+  }
+
+ 
+  
  
   getOrder() {
     return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {

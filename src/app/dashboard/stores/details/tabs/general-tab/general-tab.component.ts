@@ -58,6 +58,11 @@ export class GeneralTabComponent implements OnInit {
       currency: [this.store.currency, Validators.required],
       expensive: [this.store.expensive, Validators.required],
 
+      finance: this._formBuilder.group({
+        financeType: [this.store?.finance?.financeType,  Validators.required],
+        adminCommission: [this.store?.finance?.adminCommission, Validators.required],
+      }),
+
       notifications: this._formBuilder.group({
         email: [this.store.notifications.email],
         phone: [this.store.notifications.phone],

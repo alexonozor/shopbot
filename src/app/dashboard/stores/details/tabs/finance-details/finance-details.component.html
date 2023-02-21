@@ -1,0 +1,80 @@
+
+
+<div style="padding:20px">
+ 
+  <div class="mat-elevation-z6 mb-3 p-3">
+    <button mat-raised-button color="primary" (click)="print()"><mat-icon>print</mat-icon> Print</button>
+  </div>
+
+  <div class="mat-elevation-z6 example-container" id="pdfTable" #pdfTable>
+    <div  fxLayout="row" fxLayoutAlign="center center">
+      <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto  sm:grid-cols-2 xl:grid-cols-4  sm:p-8">
+        <div class="flex flex-col items-center justify-center with-margin">
+            <dt class="mb-2 text-3xl font-extrabold amount">{{dataSource.data.length}} </dt>
+            <dd class="font-light red "> Total Number of Orders</dd>
+        </div>
+        <div class="flex flex-col items-center justify-center with-margin">
+            <dt class="mb-2 text-3xl font-extrabold amount"> {{getTotalCost | currency: store.currency}} </dt>
+            <dd class="font-light ">Total Amount</dd>
+        </div>
+        <div class="flex flex-col items-center justify-center with-margin">
+            <dt class="mb-2 text-3xl font-extrabold amount">{{getShopbotTotal | currency: store.currency}} </dt>
+            <dd class="font-light"> Shopbot Commission</dd>
+        </div>
+        <div class="flex flex-col items-center justify-center with-margin">
+            <dt class="mb-2 text-3xl font-extrabold amount fill">{{getVendorCost | currency: store.currency}} </dt>
+            <dd class="font-light">  Vendor Amount </dd>
+        </div>
+       </dl>
+    </div>
+    
+    <table mat-table [dataSource]="dataSource" matSort class="w-full" style="width: 100%;">
+      <!-- Checkbox Column -->
+    
+      <!-- ['reference', 'date',  'orderAmount', 'AdminCommission', 'vendorEarning']; -->
+      <ng-container matColumnDef="reference">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Number </th>
+        <td mat-cell *matCellDef="let row"> {{row.reference}} </td>
+        <td mat-footer-cell *matFooterCellDef class="font-bold"> Total</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.createdAt | date: 'MMM d, y, h:mm:ss a'}} </td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="orderAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Amount </th>
+        <td mat-cell *matCellDef="let row"> {{row.total | currency: store.currency}} </td>
+        <td mat-footer-cell *matFooterCellDef class="font-bold"> {{getTotalCost | currency: store.currency}} </td>
+      </ng-container>
+
+      <!-- (100 * partialValue) / totalValue; -->
+
+      <ng-container matColumnDef="adminCommission">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Shopbot Commission </th>
+        <td mat-cell *matCellDef="let row"> {{((row?.total * store.finance.adminCommission) / 100) | currency: store.currency}} </td>
+        <td mat-footer-cell *matFooterCellDef class="font-bold"> {{getShopbotTotal | currency: store.currency}}  </td>
+      </ng-container>
+
+    
+
+      <ng-container matColumnDef="vendorEarning">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor Amount </th>
+        <td mat-cell *matCellDef="let row">  {{(row?.total - ((row?.total * store.finance.adminCommission) / 100)) | currency: store.currency}} </td>
+        <td mat-footer-cell *matFooterCellDef class="font-bold"> {{getVendorCost | currency: store.currency}}  </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+
+    
+
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+
+  
+  </div>
+</div>

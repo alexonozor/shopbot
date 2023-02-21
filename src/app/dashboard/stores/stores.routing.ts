@@ -15,7 +15,8 @@ const routes: Routes = [
     component: ListStoresComponent,
     resolve: {
       data: StoresService,
-      merchants: MerchantsResolver
+      merchants: MerchantsResolver,
+      categories: CategoriesResolver,
     }
   },
   {

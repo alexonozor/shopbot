@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DataSource } from '@angular/cdk/collections';
@@ -13,6 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { StoreService } from '../details/store.service';
 import { Merchant } from 'src/app/shared/models/merchant';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Category } from 'src/app/shared/models/category';
 
 @Component({
   selector: 'app-list-stores',
@@ -23,15 +25,20 @@ export class ListStoresComponent implements OnInit {
   displayedColumns = ['name', 'description', 'active', 'action'];
   public stores: Store[] = [];
   confirmDialogRef!: MatDialogRef<ConfirmComponent> | null;
-  merchants: Merchant[]
+  merchants: Merchant[];
+  categories: Category[];
+  filterForm!: FormGroup;
+  name!: string;
   constructor(
     private storesService: StoresService,
     private storeService: StoreService,
     public _matDialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private fb: FormBuilder
   ) {
-    this.merchants = this.route.snapshot.data['merchants'] as Merchant[]
+    this.merchants = this.route.snapshot.data['merchants'] as Merchant[],
+    this.categories = this.route.snapshot.data['categories'] as Category[]
    }
 
   // -----------------------------------------------------------------------------------------------------
@@ -43,7 +50,12 @@ export class ListStoresComponent implements OnInit {
    */
   ngOnInit(): void {
     this.stores = this.storesService.stores;
-    
+    this.filterForm = this.fb.group({
+      active: new FormControl(true),
+      category: new FormControl(''),
+      'contactInfo.country': new FormControl(''),
+    });
+    this.filterSet();
   }
 
   delete(index: number, id: any) {
@@ -77,9 +89,38 @@ export class ListStoresComponent implements OnInit {
     });
   }
 
+  
+  filterSet() {
+    this.filterForm.valueChanges.subscribe((value) => {
+         this.filterObject(value)
+         this.storesService.getUserStores({data: { $match: {  ...this.filterObject(value) } }, control: [{ $sort: { 'createdAt': -1 }}]})
+         .then(() => {
+          this.stores = this.storesService.stores;
+    }) 
+    })
+   
+  }
+
+  clearFilerSet() {
+    this.filterForm.patchValue({
+      name: '',
+      active: '',
+      category: '',
+      'contactInfo.country': '',
+    })
+   
+  }
+
+   filterObject(obj:any): any {
+    return Object.fromEntries(
+      Object.entries(obj).filter(([_, value]) => value !== undefined && value !== null && value !== '')
+    );
+  }
+
+  
+
 
   onChange(store: Store, event: MatSlideToggleChange) {
-
     this.storeService.saveStore({approve: event.checked, active: event.checked }, store._id).subscribe(() => {
       this._matDialog
     })
@@ -92,5 +133,14 @@ export class ListStoresComponent implements OnInit {
 
 }
 
+
+@Pipe({name: 'filterByName'})
+export class filterNames implements PipeTransform {
+  transform(stores: Store[], name = ''): any {
+    return stores.filter(n => {
+		return n.name.toLowerCase().indexOf(name.toLowerCase()) >= 0
+	});
+  }
+}
 
 

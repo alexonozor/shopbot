@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StoresService } from './stores.service';
-import { ListStoresComponent } from './list-stores/list-stores.component';
+import { filterNames, ListStoresComponent } from './list-stores/list-stores.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { MaterialModule } from 'src/app/material';
 import { StoresRoutingModule } from './stores.routing';
@@ -27,6 +27,7 @@ import { CategoriesResolver } from 'src/app/shared/resolvers/categories.resolver
 import { CategoriesService } from 'src/app/shared/services/category.service';
 import { MerchantResolver, MerchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
 import { MerchantsService } from 'src/app/shared/services/merchant.service';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { MerchantsService } from 'src/app/shared/services/merchant.service';
     FlexLayoutModule,
     CommonModule,
     StoreTabsModule,
-    RouterModule
+    RouterModule,
+    
   ],
   declarations: [
     StoresComponent,
@@ -50,6 +52,7 @@ import { MerchantsService } from 'src/app/shared/services/merchant.service';
     AddItemToMenuComponent,
     CuisinesTabComponent,
     MerchantTabComponent,
+    filterNames
   ],
   entryComponents: [AddItemToMenuComponent],
   providers: [
