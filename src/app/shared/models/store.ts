@@ -28,6 +28,7 @@ export interface Store {
 };
 
 interface DeliverySettings {
+  deliveryType: String[];
   deliveryRadius: string;
   deliveryFeeNumber: number;
   deliveryFee: number;

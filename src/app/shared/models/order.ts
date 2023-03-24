@@ -20,7 +20,32 @@ export interface Order  {
     paymentStatus: string;
     payment:string;
     category: string;
-    
+    gift: boolean;
+    orderType: string;
+    receiver: Receiver
+}
+
+
+export interface Receiver  {
+    "address": {
+        "name": string;
+        "latitude": number;
+        "longitude": number;
+        "country": string;
+        "locality": string;
+        "postalCode": string;
+        "administrativeArea": string;
+        "subLocality": string;
+        "subThoroughfare": string;
+        "thoroughfare": string;
+        "label": string;
+        "dropOfOption": string;
+        "driversInstruction": string;
+    };
+    "name": string;
+    "phoneNumber": string;
+    "note": string;
+    "surprise": boolean;
 }
 
 

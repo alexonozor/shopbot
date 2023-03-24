@@ -1,12 +1,9 @@
-
-
-
 <div fxLayout="row" fxLayoutAlign="end center" class="header">
-    
+
     <button mat-raised-button (click)="save()" [disabled]="isLoading" color="primary">
         <mat-icon class="mat-18">add</mat-icon> SAVE STORE
     </button>
-  </div>
+</div>
 
 <form [formGroup]="pickupAndDeliveryForm">
     <div style="padding:10px">
@@ -84,6 +81,8 @@
 
                 <p>Shopbot has partnered with courier services to offer on-demand delivery. You will not be charged any
                     additional fees or commissions from out partners.</p>
+
+
             </div>
 
         </div>
@@ -91,6 +90,17 @@
             <h2>Delivery Settings</h2>
             <div
                 *ngIf="pickupAndDeliveryForm.value.deliveryService.deliverOrderToCustomers === 'My own couriers'; else ShopBotCouriers">
+                <div style="margin-bottom: 20px;">
+                    <mat-form-field appearance="outline" style="width: 50%;">
+                        <mat-label>Delivery Types</mat-label>
+                        <mat-select name="food" formControlName="deliveryType" multiple="true">
+                            <mat-option *ngFor="let delivery of ['Instant Delivery', 'Schedule Delivery']"
+                                [value]="delivery">
+                                {{delivery}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
                 <div style="margin-bottom: 20px;">
 
                     <p>Customers outside this area will not be able to place orders for delivery from this location.
@@ -118,7 +128,8 @@
                             *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 1"
                             style="width: 50%;">
                             <mat-label>Enter delivery for all orders</mat-label>
-                            <input matInput type="number" placeholder="Enter delivery fee" formControlName="deliveryFeeForAllOrder">
+                            <input matInput type="number" placeholder="Enter delivery fee"
+                                formControlName="deliveryFeeForAllOrder">
                             <!-- <span matPrefix>N</span> -->
                         </mat-form-field>
 
@@ -164,7 +175,8 @@
                         be eligible for delivery
                     </mat-slide-toggle>
 
-                    <mat-form-field appearance="outline" style="width: 50%;" *ngIf="pickupAndDeliveryForm.value.deliverySettings.allowMinimumOrderAmount">
+                    <mat-form-field appearance="outline" style="width: 50%;"
+                        *ngIf="pickupAndDeliveryForm.value.deliverySettings.allowMinimumOrderAmount">
                         <mat-label>Enter Minimum order amount</mat-label>
                         <input matInput formControlName="minimumOrderAmount" placeholder="Enter Minimum order amount">
                         <span matSuffix>N</span>
@@ -206,16 +218,15 @@
                     <div *ngIf="pickupAndDeliveryForm.value.deliverySettings.enableDeliveryInstructions">
 
 
-                        <p style="margin-top: 20px;">Provide instructions for your customers so they know how to get their delivered orders.
+                        <p style="margin-top: 20px;">Provide instructions for your customers so they know how to get
+                            their delivered orders.
                             Include
                             information such as: </p>
                         <ul>
                             <li>If they need name or order number</li>
                             <li> If someone else can receive the order</li>
                         </ul>
-                        <mat-form-field appearance="outline"
-                            
-                            style="width: 100%;">
+                        <mat-form-field appearance="outline" style="width: 100%;">
                             <mat-label>Enter Delivery Instruction</mat-label>
                             <textarea matInput formControlName="deliveryInstructions" cols="30" rows="5"></textarea>
                         </mat-form-field>

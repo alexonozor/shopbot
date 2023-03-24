@@ -53,6 +53,7 @@ export class PickupAndDeliveryTabComponent implements OnInit {
         deliverOrderToCustomers: [this.store.deliveryService.deliverOrderToCustomers]
       }),
       deliverySettings: this._formBuilder.group({
+        deliveryType: [this.store.deliverySettings.deliveryType],
         deliveryRadius: [this.store.deliverySettings.deliveryRadius],
         deliveryFeeNumber: [this.store.deliverySettings.deliveryFeeNumber],
         deliveryFee: [this.store.deliverySettings.deliveryFee],

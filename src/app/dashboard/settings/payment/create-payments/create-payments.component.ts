@@ -33,6 +33,8 @@ export class CreatePaymentsComponent implements OnInit {
       id: ['', Validators.required],
       image: ['', Validators.required],
       name: ['', Validators.required],
+      secretKey: [],
+      publicKey: [],
       region: [],
       active: [false, Validators.required],
       description: ['', Validators.required],

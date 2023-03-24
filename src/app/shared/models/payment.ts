@@ -7,5 +7,7 @@ export interface Payment {
     active: boolean;
     region: string[];
     createdAt: string;
+    secretKey: string;
+    publicKey: string;
 }
 

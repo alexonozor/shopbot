@@ -25,6 +25,12 @@
           {{order.createdAt | date: 'medium'}}
       </div>
 
+      <div class="mt-2 flex items-center text-sm text-pink-700" *ngIf="order.gift">
+        <!-- Heroicon name: mini/calendar -->
+        <mat-icon class="mat-18" class="material-icons-outlined">redeem</mat-icon>
+           It's a gift
+      </div>
+
       <div class="mt-2 flex items-center text-sm text-green-500 cursor-pointer" (click)="exportPDF()">
         <!-- Heroicon name: mini/calendar -->
         <mat-icon class="mat-18" class="material-icons-outlined">print</mat-icon>
@@ -71,25 +77,6 @@
 </div>
 
 
-
-<!-- <div fxLayout="row" fxLayoutAlign="space-between start" >
-    <div fxLayout="row" fxLayoutAlign="start start" >
-        <button mat-icon-button  fxFlexAlign="start">
-            <mat-icon class="mat-18">arrow_back_ios</mat-icon>
-        </button>
-        <div fxLayout="column" fxLayoutAlign="start start" >
-            <h1 class="text-3xl" style="font-size: 1.875rem;">Order ID #5552351</h1>
-        </div>
-  </div>
-
-    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
-        <button mat-stroked-button color="warn">CANCEL ORDER</button>
-        <button mat-raised-button class="bg-green-600 text-white p-3">DELIVERED</button>
-        
-    </div>
-
-</div> -->
-
 <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch"  class="mt-10" fxLayoutGap="20px">
   <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex="30%" fxLayoutGap="20px">
     <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
@@ -126,6 +113,47 @@
         <div mat-subheader>Order Note</div>
         <mat-list-item>
           <p>{{order.orderInstruction || 'No Notes'}} </p>
+        </mat-list-item>
+
+      </mat-list>
+
+
+    </div>
+
+    <div *ngIf="order.gift" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+
+      <div fxLayout="column" fxLayoutAlign="space-around center" class="w-full p-3">
+        <img src="https://davur.dexignzone.com/react/demo/static/media/1.7c3d5aa9.jpg" width="150" height="150"
+          class="rounded-full">
+        <h2 class="text-center font-bolder">{{order.receiver.name}}</h2>
+
+        <button type="button"
+          class="inline-flex items-center rounded-md border border-transparent bg-pink-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          Gift Receiver  ({{order.receiver.surprise ? 'surprise' : 'Note surprise'}})
+        </button>
+      </div>
+
+      <mat-list class="w-full">
+
+        <mat-list-item>
+          <mat-icon matListIcon class="material-icons-outlined">phone_android</mat-icon>
+          <span class="w-full">{{order.receiver.phoneNumber}}</span>
+          <a mat-icon-button [href]="'tel:'+order.receiver.phoneNumber">
+              <mat-icon class="mat-18">call</mat-icon>
+          </a>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <mat-icon matListIcon class="material-icons-outlined">location_on</mat-icon>
+          <span class="w-full">{{order.receiver.address.name + ' ' + order.receiver.address.administrativeArea + ' ' + order.receiver.address.locality }}</span>
+          <button mat-icon-button (click)="open()">
+            <mat-icon class="mat-18">near_me</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader> Gift Note</div>
+        <mat-list-item>
+          <p>{{order.receiver.note || 'No Notes'}} </p>
         </mat-list-item>
 
       </mat-list>
