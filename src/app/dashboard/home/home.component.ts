@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit {
     this.dashboardService.getOrderMonthlyChart()
     .pipe(finalize(() => this.isLoadingChart = false))
     .subscribe((data) => {
-      const label = ["", 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec']
+      const label = ["", 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec']
  
       const sortedDate = data.sort((a, b) =>  label.indexOf(a.month) - label.indexOf(b.month))
 
