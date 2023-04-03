@@ -22,7 +22,8 @@ export interface Order  {
     category: string;
     gift: boolean;
     orderType: string;
-    receiver: Receiver
+    receiver: Receiver;
+    vendorCommission: number;
 }
 
 

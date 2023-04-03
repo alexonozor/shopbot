@@ -57,15 +57,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.showNotification)
     this.getOrder();
   }
 
  
-
-
-
-
   getOrder() {
     return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
       if (order) {
@@ -79,7 +74,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.swPush.requestSubscription({
         serverPublicKey: environment.publicKey
     }).then((sub:any) => {
-      console.log(sub)
       let adminPush = sub.toJSON()
       this.accountService.updateStaff(this.auth.getUser._id, {adminPush}).subscribe()
     }).catch((err:any) => console.error("Could not subscribe to notifications", err));

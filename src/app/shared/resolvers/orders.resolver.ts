@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order';
 import { OrdersService } from '../services/order.service';
@@ -30,5 +31,19 @@ export class OrderResolver implements Resolve<Order> {
   resolve(route: ActivatedRouteSnapshot): Observable<Order> {
     const id = route.paramMap.get('id')
     return this.orderService.getOrder(id);
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class OrderUpdateResolver implements Resolve<any> {
+  constructor(private orderService: OrdersService) {}
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD hh:mm');
+    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD hh:mm');  
+    return this.orderService.updateOrderCommission({startDate: startOfMonth, endDate: endOfMonth })
   }
 }

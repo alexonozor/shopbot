@@ -5,13 +5,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
-import { map, Observable, startWith, switchMap, tap, finalize } from 'rxjs';
+import { map, Observable, startWith, switchMap, tap, finalize, forkJoin, of } from 'rxjs';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { OrdersService } from '../../shared/services/order.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { DashboardService } from 'src/app/shared/services/dashboard.service';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { StoresService } from '../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
     { id: 2, name: "Shipped", color: "bg-blue-400"},
     { id: 3, name: "Completed", color: "bg-green-400"},
   ]
+  isLoading: boolean = false;
   constructor(
     private socket: Socket,
     private storeService: StoresService,
@@ -149,14 +150,29 @@ export class HomeComponent implements OnInit {
 
 
   getStat() {
+
     const startOfMonth = moment().startOf('month').format('YYYY-MM-DD hh:mm');
     const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD hh:mm');
-   this.stat$ = this.range.valueChanges.pipe(
-    startWith({startDate: startOfMonth, endDate: endOfMonth }),
-    distinctUntilChanged(),
-    switchMap((date:any) =>  {
-     return this.dashboardService.getOrderStat(date)
-    }))
+  
+    this.stat$ = this.range.valueChanges.pipe(
+      tap(() => this.isLoading =  true),
+      
+      startWith({startDate: startOfMonth, endDate: endOfMonth }),
+      distinctUntilChanged(),
+      switchMap((date:any) => {
+        return forkJoin({
+          commission: this.ordersService.updateOrderCommission(date),
+          stats: this.dashboardService.getOrderStat(date)
+        }).pipe(
+          finalize(() => this.isLoading =  false),
+          catchError(error => {
+            console.error('Error in forkJoin:', error);
+            return of(null);
+          })
+        )
+      }),
+      finalize(() => this.isLoading =  false),
+    );
   }
 
   deleteOrder(index:any, order:any) {

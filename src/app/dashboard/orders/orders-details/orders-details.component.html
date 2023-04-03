@@ -353,6 +353,79 @@
                 </td>
               </tr>
             </tfoot>
+            <tfoot class="bg-blue-700">
+              <tr class="font-semibold text-white dark:white">
+                <th scope="row" class="py-3 px-6 whitespace-nowrap text-base">
+                  <div class="text-left font-bold">Total Vendor Commission</div>
+                </th>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">
+                    {{((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission) | currency: order.store.currency}} ({{order.vendorCommission}}%)
+                  </div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-lg text-center">
+                    -
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+            <tfoot class="bg-pink-700">
+              <tr class="font-semibold text-white dark:white">
+                <th scope="row" class="py-3 px-6 whitespace-nowrap text-base">
+                  <div class="text-left font-bold">Vendor Receive's</div>
+                </th>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">
+                    {{(order.total - order.serviceFee - order.shippingFee) - ((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission) | currency: order.store.currency}}
+                  </div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-lg text-center">
+                    -
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+
+            <tfoot class="bg-green-700">
+              <tr class="font-semibold text-white dark:white">
+                <th scope="row" class="py-3 px-6 whitespace-nowrap text-base">
+                  <div class="text-left font-bold">Shopbot Receives</div>
+                </th>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">
+                    {{order.total - ((order.total - order.serviceFee - order.shippingFee) - ((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission))  | currency: order.store.currency}}
+                  </div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-lg text-center">
+                    -
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+            
+
+            
           </table>
         </div>
       </div>

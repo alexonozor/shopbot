@@ -1,0 +1,76 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
+    <form [formGroup]="deliveryZonesForm" (ngSubmit)="submit()">
+      <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  
+  
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name of  delivery zone" formControlName="name">
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Country</mat-label>
+          <input matInput placeholder="Country" formControlName="country">
+        </mat-form-field>
+  
+
+        <mat-form-field class="example-chip-list w-full">
+            <mat-chip-list #chipList>
+              <mat-chip
+                *ngFor="let state of zones.states; let i = index"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(i, 'state')">
+                {{state}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                #stateInput
+                [formControl]="stateCtrl"
+                (matChipInputTokenEnd)="add($event, 'state')"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur">
+            </mat-chip-list>
+            
+        </mat-form-field>
+
+        <mat-form-field class="example-chip-list w-full">
+            <mat-chip-list #localList>
+              <mat-chip
+                *ngFor="let local of zones.localities; let i = index"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(i, 'local')">
+                {{local}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+
+                #localInput
+                [formControl]="localCtrl"
+                (matChipInputTokenEnd)="add($event, 'local')"
+                [matChipInputFor]="localList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur">
+            </mat-chip-list>
+            
+        </mat-form-field>
+        
+        
+  
+  
+        <mat-slide-toggle formControlName="enabled">Enable</mat-slide-toggle>
+  
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+          <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+          <button mat-raised-button fxFlex="50%" color="primary" [disabled]="deliveryZonesForm.invalid">SAVE</button>
+        </div>
+  
+      </div>
+    </form>
+  </div>
+
+
+

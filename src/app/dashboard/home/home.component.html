@@ -22,7 +22,7 @@
     </mat-form-field>
  </div>
 
- <app-stats *ngIf="stat$ | async as stat" [stat]="stat"></app-stats>
+  <app-stats *ngIf="stat$ | async as stat" [stat]="stat.stats" [loading]="isLoading"></app-stats>
 
 
  <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxHide.lt-md="true" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" class="my-10" fxLayoutGap="10px">

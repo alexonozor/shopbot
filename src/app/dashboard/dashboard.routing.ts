@@ -52,6 +52,13 @@ const routes: Routes = [
       },
 
       {
+        path: 'delivery-zones',
+        loadChildren: () => import('./delivery-zones/delivery-zones.module').then(m => m.DeliveryZonesModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
         path: 'cuisines',
         loadChildren: () => import('./cuisines/cuisines.module').then(m => m.CuisinesModule),
         canActivate: [AuthGuard, RoleGuard],

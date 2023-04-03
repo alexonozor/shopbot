@@ -50,6 +50,11 @@ export class OrdersService {
     return this._httpClient.put(`${this.hostServer}/orders/${orderId}`, status);
   }
 
+  updateOrderCommission(date: any) {
+    let httpParams = new HttpParams({ fromObject: date });
+    return this._httpClient.get(`${this.hostServer}/dashboard/orders-commission?${httpParams.toString()}`);
+  }
+
   deleteOrder(orderId: string) {
     return this._httpClient.delete(`${this.hostServer}/orders/${orderId}`);
   }
