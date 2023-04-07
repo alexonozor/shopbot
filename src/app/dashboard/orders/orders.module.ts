@@ -14,9 +14,15 @@ import {
   OrderUpdateResolver,
 } from '../../shared/resolvers/orders.resolver';
 import { OrdersService } from '../../shared/services/order.service';
+import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
 
 @NgModule({
-  declarations: [OrdersComponent, ListOrdersComponent, OrdersDetailsComponent],
+  declarations: [
+    OrdersComponent, 
+    ListOrdersComponent, 
+    OrdersDetailsComponent, 
+    GravatarDirective
+  ],
   imports: [
     CommonModule,
     OrdersRoutingModule,

@@ -7,7 +7,6 @@ import { OrdersService } from 'src/app/shared/services/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 declare var require: any;
-
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 const htmlToPdfmake = require("html-to-pdfmake");
@@ -31,6 +30,7 @@ export class OrdersDetailsComponent implements OnInit {
     { id: 3, name: "Canceled", color: "text-red-500"},
     { id: 5, name: "Delivered", color: "text-green-500"},
   ]
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -90,7 +90,6 @@ export class OrdersDetailsComponent implements OnInit {
     var html = htmlToPdfmake(pdfTable.innerHTML);
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).download(); 
-     
   }
 
 

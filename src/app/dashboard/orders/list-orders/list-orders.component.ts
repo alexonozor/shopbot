@@ -15,7 +15,7 @@ import { OrdersService } from 'src/app/shared/services/order.service';
 })
 export class ListOrdersComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'date', 'status', 'paymentStatus', 'paymentType', 'amount', 'actions'];
+  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'device', 'date', 'status', 'paymentStatus', 'paymentType', 'amount', 'actions'];
   public dataSource = new MatTableDataSource<Order>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
@@ -35,7 +35,7 @@ export class ListOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Order>(this.route.snapshot.data['orders']) 
+    this.dataSource = new MatTableDataSource<Order>(this.route.snapshot.data['orders']);
   }
 
   isAllSelected() {

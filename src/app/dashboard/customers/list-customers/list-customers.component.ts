@@ -17,7 +17,7 @@ import { CreateMessagesComponent } from '../../messages/create-messages/create-m
 })
 export class ListCustomersComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'phoneNumber', 'country', 'createdAt', 'actions'];
+  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'device', 'country', 'createdAt', 'actions'];
   public dataSource = new MatTableDataSource<User>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);

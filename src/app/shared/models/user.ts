@@ -21,7 +21,7 @@ export interface User {
     avgAmountSpent: number;
     totalOrders: number;
     shipping: Shipping;
-    
+    phoneCredentials: any;
 }
 
 export interface Shipping {

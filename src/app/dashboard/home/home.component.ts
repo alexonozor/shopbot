@@ -19,8 +19,9 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { SwPush } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
-
-
+const startOfMonth = moment().startOf('month').toDate()
+const endOfMonth   = moment().endOf('month').toDate()
+console.log(endOfMonth)
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -35,8 +36,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
   range = new FormGroup({
-    startDate: new FormControl<Date | null>(null),
-    endDate: new FormControl<Date | null>(null),
+    startDate: new FormControl<Date | null | string>(startOfMonth),
+    endDate: new FormControl<Date | null | string>(endOfMonth),
   });
   stat$!: Observable<any>
   stores$!: Observable<Store[]>
@@ -107,6 +108,8 @@ export class HomeComponent implements OnInit {
     this.getStat();
     this.getOrderMonthlyChart()
     this.getRecentStores()
+    this.range.patchValue({startDate: startOfMonth, endDate: endOfMonth})
+
   }
 
 
@@ -149,14 +152,9 @@ export class HomeComponent implements OnInit {
 
 
 
-  getStat() {
-
-    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD hh:mm');
-    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD hh:mm');
-  
+  getStat() { 
     this.stat$ = this.range.valueChanges.pipe(
       tap(() => this.isLoading =  true),
-      
       startWith({startDate: startOfMonth, endDate: endOfMonth }),
       distinctUntilChanged(),
       switchMap((date:any) => {

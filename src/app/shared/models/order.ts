@@ -24,6 +24,7 @@ export interface Order  {
     orderType: string;
     receiver: Receiver;
     vendorCommission: number;
+    deliveryTime: any;
 }
 
 

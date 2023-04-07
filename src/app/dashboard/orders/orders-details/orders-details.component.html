@@ -82,8 +82,8 @@
     <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
 
       <div fxLayout="column" fxLayoutAlign="space-around center" class="w-full p-3">
-        <img src="https://davur.dexignzone.com/react/demo/static/media/1.7c3d5aa9.jpg" width="150" height="150"
-          class="rounded-full">
+        
+          <img  appGravatar [email]="order.user.email" width="150" height="150" class="rounded-full">
         <h2 class="text-center font-bolder">{{order.user.name}}</h2>
 
         <button type="button"
@@ -110,14 +110,20 @@
           </button>
         </mat-list-item>
         <mat-divider></mat-divider>
+        <mat-list-item>
+          <mat-icon matListIcon class="material-icons-outlined">phone</mat-icon>
+          <span class="w-full">{{(order.user.phoneCredentials[0].deviceType) + '  ' +order.user.phoneCredentials[0].make + ' ' + order.user.phoneCredentials[0].os}}</span>
+          <button mat-icon-button (click)="open()">
+            <mat-icon class="mat-18">near_me</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
         <div mat-subheader>Order Note</div>
         <mat-list-item>
           <p>{{order.orderInstruction || 'No Notes'}} </p>
         </mat-list-item>
 
       </mat-list>
-
-
     </div>
 
     <div *ngIf="order.gift" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
@@ -197,8 +203,18 @@
   </div>
 
   <div fxFlex="70%" fxLayoutGap="20px">
+    <div id="alert-additional-content-1" *ngIf="order?.deliveryTime?.name === 'Schedule Delivery'" class="p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50" role="alert">
+      <div class="flex items-center">    
+        <h3 class="text-lg font-medium m-0" style="margin: 0; padding:0">
+          <mat-icon class="mat-18">alarm</mat-icon> Schedule Delivery</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        This order is Scheduled for {{order.deliveryTime.time}}, kindly inform both the vendor and the customers. 
+      </div>
+    </div>
     <div class="mat-elevation-z2 p-3 rounded-md w-full" id="pdfTable" #pdfTable>
       <div class="p-3">
+        
         <div class="overflow-x-auto">
           <table class="table-auto w-full">
             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
