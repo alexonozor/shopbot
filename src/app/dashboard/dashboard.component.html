@@ -68,7 +68,21 @@
                 <mat-icon mat-list-icon class="material-icons-outlined">emoji_flags</mat-icon>
             </mat-list-item>
 
-            
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header style="padding: 0px 16px;">
+                    <div  class="w-full p-0" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-icon mat-list-icon class="material-icons-outlined ml-1">monetization_on</mat-icon>
+                        <span class="full-width ml-2">Reports</span>
+                    </div>
+                </mat-expansion-panel-header>
+                <mat-nav-list class="submenu">
+                    <a mat-list-item  [routerLink]="['/dashboard/reports/fund-requests/list']" style="height: 40px"><mat-icon class="material-icons-outlined">request_quote</mat-icon>Fund Requests</a>
+                    <a mat-list-item  style="height: 40px"><mat-icon class="material-icons-outlined">trending_up</mat-icon>Payouts Reports</a>
+                    <a mat-list-item  style="height: 40px"><mat-icon class="material-icons-outlined">volunteer_activism</mat-icon>Withdrawal Reports</a> 
+                </mat-nav-list>
+            </mat-expansion-panel>
+          
+  
 
             <mat-list-item  class="parent" [routerLink]="['/dashboard/messages/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.Admin, Role.Marketer])">
                 <span class="full-width">Messaging</span>

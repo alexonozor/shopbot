@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
 export class AppComponent implements OnInit {
   title = 'shopbot';
 

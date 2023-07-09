@@ -19,11 +19,11 @@
     transform: rotate(180deg);
   }
   .submenu {
-    overflow-y: hidden;
-    transition: transform 300ms ease;
-    transform: scaleY(0);
-    transform-origin: top;
-    padding-left: 30px;
+    // transition: transform 300ms ease;
+    // transform: scaleY(0);
+    // transform-origin: top;
+
+    padding-left: 10px;
   }
   .submenu.expanded {
     transform: scaleY(1);
@@ -42,3 +42,8 @@
   .main-toolbar {
     position: sticky;
   }
+
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+}
+

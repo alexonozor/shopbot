@@ -1,0 +1,130 @@
+
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+      class="card bg-white w-full mat-elevation-z2 px-2 py-2">
+      <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <span class="text-2xl">Create Fund Requests</span>
+      </span>
+    </div>
+<div class="mat-elevation-z3 container mx-auto my-10  w-full p-5">
+    <form [formGroup]="requestForm" (ngSubmit)="submit()">
+        <div fxLayout="column" fxLayoutAlign="start start">
+
+            <div fxLayout.gt-md="row" class="w-full">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of ['Operations', 'Marketing', 'Mentainace', 'Trip']"
+                            [value]="category"> {{category}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout.gt-md="row" class="w-full">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Currency</mat-label>
+                    <mat-select formControlName="currency">
+                        <mat-option *ngFor="let category of ['NGN', 'MUR', 'RWF', 'USD']"
+                            [value]="category"> {{category}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <ng-container formArrayName="items">
+                <a mat-button color="primary" (click)="addItems()"><mat-icon>add</mat-icon> ADD ITEMS</a>
+                <div *ngFor="let item of items.controls; let i=index" fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+                    fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px" [formGroupName]="i">
+                    <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+                        <mat-label>Item Name</mat-label>
+                        <input matInput type="text" placeholder="Enter an item name"
+                            formControlName="item">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+                        <mat-label>Price</mat-label>
+                        <input matInput type="number" placeholder="Enter an item price"
+                            formControlName="price">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput type="number" placeholder="Enter quantity"
+                            formControlName="quantity">
+                    </mat-form-field>
+
+
+                    <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+                        <mat-label>Note</mat-label>
+                        <input matInput type="text" placeholder="note"
+                            formControlName="note">
+                    </mat-form-field>
+                    <button mat-icon-button color="warn"  fxFlexAlign="auto" (click)="removeItems(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+               
+            </ng-container>
+
+            <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+                fxLayoutAlign.lt-lg="space-around stretch" class="w-full">
+                <mat-form-field class="w-full" appearance="outline" >
+                    <mat-label>Total</mat-label>
+                    <input matInput type="number" placeholder="note"
+                    formControlName="total">
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+                fxLayoutAlign.lt-lg="space-around stretch" class="w-full">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Note</mat-label>
+                    <textarea matInput placeholder="Short Description"
+                        formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+                fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
+
+                <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+                <button mat-raised-button fxFlex="50%" color="primary" [disabled]="requestForm.invalid">{{isLoading ?
+                    'CHECKING...' : 'SAVE'}}</button>
+
+            </div>
+
+
+
+        </div>
+    </form>
+</div>
+
+
+
+<!-- // _id: string;
+  // image: string;
+  // codeName: string;
+  // code: string;
+  // vendors: Store[];
+  // customers: User[];
+  // showInCustomerApp: boolean;
+  // flatDiscount: boolean;
+  // flatDiscountAmount: number;
+  // discountType: number;
+  // startTime: Date;
+  // endTime: Date;
+  // redeemCount: number;
+  // promoCodeDescription: string;
+  // textCodeDescription: string;
+  // enabled: boolean;
+  // createdAt: Date; -->
+
+<!-- maximumDiscountAmount: {
+    type: Number, 
+    default: 0
+  },
+  
+  minimumOrderAmount: {
+    type: Number, 
+    default: 0
+  }, -->

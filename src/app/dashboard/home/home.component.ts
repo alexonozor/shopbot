@@ -21,7 +21,7 @@ import { SwPush } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 const startOfMonth = moment().startOf('month').toDate()
 const endOfMonth   = moment().endOf('month').toDate()
-console.log(endOfMonth)
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

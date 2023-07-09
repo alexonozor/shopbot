@@ -65,6 +65,8 @@ export class BusinessHoursTabComponent implements OnInit {
 
  
    this.businessHoursForm = this.createProductForm(days)
+
+   
    
   }
 

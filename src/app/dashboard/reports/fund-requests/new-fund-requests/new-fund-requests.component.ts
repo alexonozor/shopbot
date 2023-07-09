@@ -1,0 +1,91 @@
+import { Component, OnInit } from '@angular/core';
+import {Validators, FormBuilder, FormArray, FormGroup} from '@angular/forms'
+import { AuthService } from 'src/app/shared/services';
+import { FundRequestsService } from '../../../../shared/services/fund-request.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-new-fund-requests',
+  templateUrl: './new-fund-requests.component.html',
+  styleUrls: ['./new-fund-requests.component.scss']
+})
+export class NewFundRequestsComponent implements OnInit {
+
+  requestForm = this.fb.group({
+    requestedBy: [this.auth.currentUser._id, Validators.required],
+    category: ['', Validators.required],
+    status: ['Pending', Validators.required],
+    items: this.fb.array([]),
+    total: [{ value: 0, disabled: true } as any, Validators.required],
+    currency: ['', Validators.required],
+    description: [''],
+  });
+  isLoading: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private requestedFundService: FundRequestsService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.addItems();
+  }
+
+  newItems(): FormGroup {
+    const itemGroup = this.fb.group({
+      item: ['', Validators.required],
+      price: ['', Validators.required],
+      quantity: ['', Validators.required],
+      note: ['', Validators.required]
+    });
+  
+    itemGroup.valueChanges.subscribe(() => {
+      this.calculateTotal();
+    });
+  
+    return itemGroup;
+ }
+
+ calculateTotal() {
+  
+  let total = 0;
+  this.items.controls.forEach((itemGroup: any) => {
+    const price = itemGroup.get('price').value;
+    const quantity = itemGroup.get('quantity').value;
+
+    if (price && quantity) {
+      total += price * quantity;
+    }
+  });
+
+  this.requestForm.patchValue({
+    total: total // Assuming you want the total to have 2 decimal places
+  });
+}
+
+ addItems() {
+  this.items.push(this.newItems());
+}
+
+removeItems(i:number) {
+  this.items.removeAt(i);
+}
+ 
+get items() : FormArray {
+  return this.requestForm.get("items") as FormArray
+}
+
+submit() {
+  this.requestedFundService.createFundRequests(this.requestForm.getRawValue())
+  .subscribe(() => {
+    this.back();
+  })
+}
+
+back() {
+  this.router.navigate(['dashboard', 'reports', 'fund-requests', 'list'])
+}
+
+}

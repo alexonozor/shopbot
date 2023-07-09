@@ -80,6 +80,13 @@ const routes: Routes = [
       },
 
       {
+        path: 'reports',
+        loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
         path: 'media',
         loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
         canActivate: [AuthGuard],

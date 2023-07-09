@@ -29,3 +29,15 @@ export class PaymentResolver implements Resolve<Payment> {
     return this.settingsService.getPayment(id);
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class VersionResolver implements Resolve<any> {
+  constructor(private settingsService: SettingsService) {}
+  
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+    return this.settingsService.getVersion();
+  }
+}
