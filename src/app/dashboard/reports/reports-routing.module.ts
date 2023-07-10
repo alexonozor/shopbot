@@ -11,13 +11,17 @@ const routes: Routes = [
         path: 'fund-requests',
         loadChildren: () => import('./fund-requests/fund-requests.module').then(m => m.FundRequestsModule),
       },
-      // {
-      //   path: ':id/details',
-      //   component: OrdersDetailsComponent,
-      //   resolve: { order: OrderResolver, commission: OrderUpdateResolver }
-      // }
+      { 
+        path: 'payouts', 
+        loadChildren: () => import('./payouts/payouts.module').then(m => m.PayoutsModule)
+      },
+      { 
+        path: 'withdrawals', 
+        loadChildren: () => import('./withdrawals/withdrawals.module').then(m => m.WithdrawalsModule)
+      }
     ]
-  }
+  },
+ 
 ];
 
 @NgModule({

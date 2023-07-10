@@ -1,0 +1,142 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 40rem;">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-3">
+    <h3 class="text-slate-500">Settlement information</h3>
+    <button mat-icon-button (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" *ngIf="transfer.complete_message"  role="alert">
+    {{transfer.complete_message}}
+  </div>
+ 
+  <ul class="divide-y w-full divide-gray-200 ">
+    <li class="pb-3 sm:pb-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Transfer reference
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transfer.reference}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Store / Vendor
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transfer.meta.store.name}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Date of transfer	
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transfer.createdAt | date: 'medium'}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Status
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base text-gray-900  font-semibol" [ngClass]="{'text-red-800': transfer.status === 'FAILED', 'text-green-900': transfer.status === 'SUCCESSFUL'}">
+          {{transfer.status}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Narration
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transfer.narration}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Amount
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transfer.amount | currency: transfer.currency}}
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <h3 class="text-slate-500">Beneficiary details</h3>
+
+  <ul class="divide-y w-full divide-gray-100 ">
+    <li class="py-3 sm:py-4  cursor-pointer" >
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+           Account Name
+          </p>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-right text-gray-900 truncate ">
+            {{transfer.fullname}}
+          </p>
+        </div>
+        
+      </div>
+    </li>
+
+    <li class="py-3 sm:py-4  cursor-pointer" >
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Bank Name
+          </p>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-right text-gray-900 truncate ">
+            {{transfer.bank_name}}
+          </p>
+        </div>
+        
+      </div>
+    </li>
+
+    <li class="py-3 sm:py-4  cursor-pointer" >
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Account Number
+          </p>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-right text-gray-900 truncate ">
+            {{transfer.account_number}}
+          </p>
+        </div>
+        
+      </div>
+    </li>
+
+   
+  </ul>
+
+</div>
