@@ -8,9 +8,8 @@ import { Socket } from 'ngx-socket-io';
 import { StoreService } from '../../store.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSelectChange } from '@angular/material/select';
 
 
 
@@ -25,7 +24,7 @@ import { MatSelectChange } from '@angular/material/select';
 export class OrdersComponent implements OnInit, AfterViewInit {
   @Input() store!: any;
   public orders$!: Observable<any[]>;
-  displayedColumns: string[] = ['select', 'reference', 'storeName', 'customer', 'date',  'status', 'amount', 'paymentStatus', 'paymentType', 'actions'];
+  displayedColumns: string[] = ['reference', 'date',  'status', 'amount', 'paymentStatus', 'paymentType', 'actions'];
   dataSource: MatTableDataSource<any[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -53,7 +52,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   compareFn(t1: any, t2: any): boolean { 
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
-    }
+  }
 
 
   isAllSelected() {
@@ -61,6 +60,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
+
+  
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   toggleAllRows() {
@@ -71,6 +72,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
     this.selection.select(...this.dataSource.data);
   }
+
+ 
 
    /** The label for the checkbox on the passed row */
    checkboxLabel(row?: any): string {
@@ -104,9 +107,15 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   getOrders() {
    this.storeService.getStoreOrders(this.store._id).pipe(tap((orders) => {
       this.dataSource = new MatTableDataSource(orders);
+      
     })).subscribe()
+
+     
   }
 
+  get getTotalCost() {
+    return this.dataSource.data.map((t:any) => t.total).reduce((acc, value) => acc + value, 0);
+  }
  
   getOrder() {
     return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
@@ -137,6 +146,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
       console.log(data)
     })
   }
+
+
 }
 
 

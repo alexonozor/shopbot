@@ -1,0 +1,60 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
+  <form [formGroup]="deliveryZonesForm" (ngSubmit)="submit()">
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+
+
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name of  delivery zone" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Country</mat-label>
+        <input matInput placeholder="Country" formControlName="country">
+      </mat-form-field>
+
+      <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>States</mat-label>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let state of states" (removed)="remove(state, 'states')">{{state}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+
+          <input placeholder="States" formControlName="states" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, 'states')">
+        </mat-chip-list>
+      </mat-form-field>
+
+
+
+      
+      <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>Localities</mat-label>
+        <mat-chip-list #setChip>
+          <mat-chip *ngFor="let locality of localities" (removed)="remove(locality, 'local')">{{locality}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+
+          <input placeholder="Localities" formControlName="localities" [matChipInputFor]="setChip"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, 'local')">
+        </mat-chip-list>
+      </mat-form-field>
+
+
+      <mat-slide-toggle formControlName="enabled">Enable</mat-slide-toggle>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+        <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+        <button mat-raised-button fxFlex="50%" color="primary" [disabled]="deliveryZonesForm.invalid">SAVE</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<pre>{{deliveryZonesForm.value | json}}</pre>

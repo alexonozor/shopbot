@@ -1,4 +1,5 @@
 import { Menu } from "./menu";
+import { Product } from './product';
 
 
 export interface Store {
@@ -9,6 +10,7 @@ export interface Store {
   description: string;
   active?: boolean;
   contactInfo: ContactInfo;
+  category: string;
   notifications?: Notifications;
   operations?: Operations;
   orderSettings: OrderSettings;
@@ -20,10 +22,13 @@ export interface Store {
   owner?: string,
   menus: Menu[],
   currency: string;
-  deliverySettings: DeliverySettings
+  deliverySettings: DeliverySettings,
+  expensive: number;
+  popular: Product[] | string[]
 };
 
 interface DeliverySettings {
+  deliveryType: String[];
   deliveryRadius: string;
   deliveryFeeNumber: number;
   deliveryFee: number;

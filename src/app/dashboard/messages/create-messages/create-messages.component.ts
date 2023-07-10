@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/app/shared/components/comfirm/confirm.component';
+import { DialogData } from 'src/app/shared/components/confirm/confirm.component';
 import { NotificationsService } from '../../../shared/services/notifications.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEvent, MatChipInputEvent} from '@angular/material/chips';

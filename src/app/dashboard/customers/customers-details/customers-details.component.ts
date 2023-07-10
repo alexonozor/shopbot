@@ -7,7 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { OrdersService } from '../../../shared/services/order.service';
 import { Observable, finalize, map } from 'rxjs';

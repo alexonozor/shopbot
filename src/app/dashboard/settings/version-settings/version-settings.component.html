@@ -1,0 +1,121 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
+    <h3 class="text-center">Version control(Developers only)</h3>
+    <form [formGroup]="versionForm" (ngSubmit)="submit()">
+        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
+                fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
+                fxFlex.lt-md="100%">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>ios User APP Version</mat-label>
+                    <input matInput placeholder="ios User Version" formControlName="iosUserVersion">
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>ios Vendor APP Version</mat-label>
+                    <input matInput placeholder="ios Vendor APP Version" formControlName="iosVendorVersion">
+                </mat-form-field>
+
+               
+            </div>
+
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
+                fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
+                fxFlex.lt-md="100%">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Android Vendor Version</mat-label>
+                    <input matInput placeholder="Android Vendor Version" formControlName="androidVendorVersion">
+                </mat-form-field>
+                
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Android User APP Version</mat-label>
+                    <input matInput placeholder="Android UserVersion" formControlName="androidUserVersion">
+                </mat-form-field>
+
+                
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
+                fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
+                fxFlex.lt-md="100%">
+               
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>ios User App URL</mat-label>
+                    <input matInput placeholder="ios User App URL" formControlName="iosUserAppURL">
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>ios Vendor App URL</mat-label>
+                    <input matInput placeholder="ios Vendor App URL" formControlName="iosVendorAppURL">
+                </mat-form-field>
+
+               
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
+                fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
+                fxFlex.lt-md="100%">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Android User App URL</mat-label>
+                    <input matInput placeholder="Android User App UR" formControlName="androidUserAppURL">
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Android Vendor App URL</mat-label>
+                    <input matInput placeholder="Android Vendor App URL" formControlName="androidVendorAppURL">
+                </mat-form-field>
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
+                fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
+                fxFlex.lt-md="100%">
+              
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>ios User APP Version Mandatory</mat-label>
+                    <input matInput placeholder="ios User APP Version Mandatory"
+                        formControlName="iosUserVersionMandatory">
+                </mat-form-field>
+
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>ios Vendor APP Mandatory</mat-label>
+                    <input matInput placeholder="ios Vendor APP Mandatory" formControlName="iosVendorMandatory">
+                </mat-form-field>
+
+               
+
+                
+                
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
+                fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
+                fxFlex.lt-md="100%">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Android User Version Mandatory</mat-label>
+                    <input matInput placeholder="Android User Version Mandatory"
+                        formControlName="androidUserVersionMandatory">
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Android Vendor App Mandatory</mat-label>
+                    <input matInput placeholder="Android Vendor App Mandatory" formControlName="androidVendorMandatory">
+                </mat-form-field>
+               
+            </div>
+
+           
+
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+
+                <button mat-raised-button fxFlex="50%" color="primary" [disabled]="versionForm.invalid">SAVE</button>
+            </div>
+
+        </div>
+    </form>
+</div>

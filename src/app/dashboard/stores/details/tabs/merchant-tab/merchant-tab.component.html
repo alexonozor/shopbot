@@ -1,1 +1,18 @@
-<p>merchant-tab works!</p>
+
+<div class="w-full h-screen relative p-5">
+
+    <form [formGroup]="generalSettingForm">
+        <mat-form-field appearance="outline" floatLabel="always" class="w-full">
+            <mat-label>Select Merchant</mat-label>
+            <mat-select formControlName="merchant" placeholder="Select Merchant">
+                <mat-option *ngFor="let merchant of merchants" [value]="merchant._id">{{merchant.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+
+    <div   fxLayout="row" fxLayoutAlign="start center" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="start stretch" fxLayoutGap="10px">
+        <button mat-raised-button  (click)="addMerchant()">Create Merchant</button>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+    
+</div>

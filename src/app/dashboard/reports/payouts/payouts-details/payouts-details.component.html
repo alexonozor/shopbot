@@ -1,0 +1,97 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 40rem;">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-3">
+    <h3 class="text-slate-500">Settlement information</h3>
+    <button mat-icon-button (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+ 
+  <ul class="divide-y w-full divide-gray-200 ">
+    <li class="pb-3 sm:pb-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Reference
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transaction.reference}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Store / Vendor
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transaction.store.name}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Created
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transaction.createdAt | date}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Status
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transaction.status}}
+        </div>
+      </div>
+    </li>
+    <li class="py-3 sm:py-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            Fee
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{transaction.totalAmount | currency: transaction.store.currency}}
+        </div>
+      </div>
+    </li> 
+  </ul>
+
+  <h3 class="text-slate-500">Orders that make up this settlement</h3>
+
+  <ul class="divide-y w-full divide-gray-100 ">
+    <li class="py-3 sm:py-4 hover:bg-slate-300 cursor-pointer" *ngFor="let order of transaction.orders" (click)="goToOrder(order._id)">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            {{order.payment}}
+          </p>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate ">
+            {{order.createdAt | date: 'meduim'}}
+          </p>
+        </div>
+        <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
+          {{(order.total - order.serviceFee - order.shippingFee) - ((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission) | currency: transaction.store.currency}}
+        </div>
+      </div>
+    </li>
+
+   
+  </ul>
+
+</div>

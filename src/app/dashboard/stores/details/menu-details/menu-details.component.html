@@ -30,6 +30,7 @@
     <mat-card-actions>
       <button mat-button (click)="edit(food)">EDIT</button>
       <button mat-button color="warn" (click)="removeFood(food, i)">DELETE</button>
+      <button mat-button color="warn" (click)="togglePopular(store._id, food._id)">{{isAdded(food._id) ? 'REMOVE FROM POPULAR' : 'ADD TO POPULAR'}}</button>
     </mat-card-actions>
   </mat-card>
 </div>

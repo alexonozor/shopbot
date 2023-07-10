@@ -34,6 +34,8 @@ export class EditPaymentsComponent implements OnInit {
       image: [this.payment.image, Validators.required],
       name: [this.payment.name, Validators.required],
       region: [this.payment.region],
+      secretKey: [this.payment.secretKey],
+      publicKey: [this.payment.publicKey],
       active: [this.payment.active, Validators.required],
       description: [this.payment.description, Validators.required],
     });

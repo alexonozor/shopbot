@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrdersComponent } from './orders.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { OrdersDetailsComponent } from './orders-details/orders-details.component';
-import { OrderResolver, OrdersResolver } from '../../shared/resolvers/orders.resolver';
+import { OrderResolver, OrdersResolver, OrderUpdateResolver } from '../../shared/resolvers/orders.resolver';
 
 
 const routes: Routes = [
@@ -14,12 +14,12 @@ const routes: Routes = [
       {
         path: 'list',
         component: ListOrdersComponent,
-        resolve: { orders: OrdersResolver }
+        resolve: { orders: OrdersResolver, commission: OrderUpdateResolver }
       },
       {
         path: ':id/details',
         component: OrdersDetailsComponent,
-        resolve: { order: OrderResolver }
+        resolve: { order: OrderResolver, commission: OrderUpdateResolver }
       }
     ]
   }

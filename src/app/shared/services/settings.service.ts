@@ -38,4 +38,12 @@ export class SettingsService  {
   deletePayment(PaymentId: string) {
     return this._httpClient.delete(`${this.hostServer}/payment-methods/${PaymentId}`);
   }
+
+  versionUpdate(params: any) {
+    return this._httpClient.put(`${this.hostServer}/version-settings/649e53c6837973557666255a`, params);
+  }
+
+  getVersion() {
+    return this._httpClient.get(`${this.hostServer}/version-settings/649e53c6837973557666255a`);
+  }
 }

@@ -30,6 +30,7 @@ export class AddStoresComponent implements OnInit {
     return this._formBuilder.group({
       name: ['', Validators.required],
       owner: [this.auth.getUser._id, Validators.required],
+      merchant: ['', Validators.required],
       description: ['', Validators.required],
     });
   }

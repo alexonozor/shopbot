@@ -7,7 +7,7 @@ import { User } from '../../../shared/models/user';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { CreateMessagesComponent } from '../../messages/create-messages/create-m
 })
 export class ListCustomersComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'phoneNumber', 'country', 'createdAt', 'actions'];
+  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'device', 'country', 'createdAt', 'actions'];
   public dataSource = new MatTableDataSource<User>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);

@@ -8,6 +8,7 @@ export interface Menu {
     daysActive: any;
     store: string;
     foods: Product[],
+    position: number
 }
 
 

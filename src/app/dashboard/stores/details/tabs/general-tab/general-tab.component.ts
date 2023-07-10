@@ -8,6 +8,8 @@ import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { Category } from 'src/app/shared/models/category';
 
 @Component({
   selector: 'app-general-settings-tab',
@@ -29,13 +31,15 @@ export class GeneralTabComponent implements OnInit {
   isLoading: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition | undefined;
   verticalPosition: MatSnackBarVerticalPosition | undefined;
+  categories!: Category[]
 
   constructor(
     private _formBuilder: FormBuilder,
     private storeService: StoreService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
-
+    this.categories = this.route.snapshot.data['categories']
   }
 
   ngOnInit(): void {
@@ -50,7 +54,14 @@ export class GeneralTabComponent implements OnInit {
       bannerImage: [this.store.bannerImage],
       name: [this.store.name, Validators.required],
       description: [this.store.description, Validators.required],
+      category: [this.store.category[0]?._id, Validators.required],
       currency: [this.store.currency, Validators.required],
+      expensive: [this.store.expensive, Validators.required],
+
+      finance: this._formBuilder.group({
+        financeType: [this.store?.finance?.financeType,  Validators.required],
+        adminCommission: [this.store?.finance?.adminCommission, Validators.required],
+      }),
 
       notifications: this._formBuilder.group({
         email: [this.store.notifications.email],

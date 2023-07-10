@@ -17,6 +17,7 @@ import { BankAccountTabComponent } from './bank-account-tab/bank-account-tab.com
 import { BankService } from 'src/app/shared/services/bank.service';
 import { AddBankComponent } from './bank-account-tab/modals/add-bank/add-bank.component';
 import { OrdersComponent } from './orders/orders.component';
+import { FinanceDetailsComponent } from './finance-details/finance-details.component';
 
 
 
@@ -41,7 +42,8 @@ import { OrdersComponent } from './orders/orders.component';
     PickupAndDeliveryTabComponent,
     GeneralTabComponent,
     BankAccountTabComponent,
-    OrdersComponent
+    OrdersComponent,
+    FinanceDetailsComponent
   ],
   declarations: [
     StoreMenusComponent,
@@ -52,7 +54,8 @@ import { OrdersComponent } from './orders/orders.component';
     GeneralTabComponent,
     BankAccountTabComponent,
     AddBankComponent,
-    OrdersComponent
+    OrdersComponent,
+    FinanceDetailsComponent
   ],
   entryComponents: [
     AddMenusComponent,
@@ -62,7 +65,8 @@ import { OrdersComponent } from './orders/orders.component';
   ],
   providers: [
     MenusService,
-    BankService
+    BankService,
+    
   ],
 })
 export class StoreTabsModule {

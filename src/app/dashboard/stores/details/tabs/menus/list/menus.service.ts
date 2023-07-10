@@ -38,7 +38,7 @@ export class MenusService  {
     return this._httpClient.post(`${this.hostServer}/menus`, params)
   }
 
-  updateMenu(menuId: string, menusParams: Menu) {
+  updateMenu(menuId: string, menusParams: Menu | any) {
     return this._httpClient.put(`${this.hostServer}/menus/${menuId}`, menusParams)
   }
 

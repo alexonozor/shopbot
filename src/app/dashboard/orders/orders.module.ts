@@ -8,15 +8,20 @@ import { OrdersDetailsComponent } from './orders-details/orders-details.componen
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material';
-import { OrderResolver, OrdersResolver } from '../../shared/resolvers/orders.resolver';
+import {
+  OrderResolver,
+  OrdersResolver,
+  OrderUpdateResolver,
+} from '../../shared/resolvers/orders.resolver';
 import { OrdersService } from '../../shared/services/order.service';
-
+import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
 
 @NgModule({
   declarations: [
-    OrdersComponent,
-    ListOrdersComponent,
-    OrdersDetailsComponent
+    OrdersComponent, 
+    ListOrdersComponent, 
+    OrdersDetailsComponent, 
+    GravatarDirective
   ],
   imports: [
     CommonModule,
@@ -24,8 +29,13 @@ import { OrdersService } from '../../shared/services/order.service';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [OrdersResolver, OrderResolver, OrdersService]
+  providers: [
+    OrdersResolver,
+    OrderResolver,
+    OrdersService,
+    OrderUpdateResolver,
+  ],
 })
-export class OrdersModule { }
+export class OrdersModule {}

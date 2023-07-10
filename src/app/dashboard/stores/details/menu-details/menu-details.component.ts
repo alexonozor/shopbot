@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import { Menu } from 'src/app/shared/models/menu';
 import { MenuService } from './menu.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { AddMenusComponent } from '../tabs/menus/modals/add-menus/add-menus.component';
 import { AddItemToMenuComponent } from './modal/add-item-to-menu/add-item-to-menu.component';
 import { Product } from 'src/app/shared/models/product';
@@ -30,18 +30,12 @@ export class MenuDetailsComponent implements OnInit {
 
   constructor(
     public _matDialog: MatDialog,
-
-
     private storeService: StoreService,
     private menuService: MenuService,
-    private _location: Location,
-    private _matSnackBar: MatSnackBar,
-    private route: ActivatedRoute,
-    private router: Router
+    private _location: Location
   ) {
     this._unsubscribeAll = new Subject();
   }
-
 
   ngOnInit(): void {
     this.store = this.storeService.store;
@@ -52,6 +46,8 @@ export class MenuDetailsComponent implements OnInit {
   goBack() {
     this._location.back();
   }
+
+ 
 
   addTimeToMenu() {
     let addToComponent = this._matDialog.open(AddItemToMenuComponent, {
@@ -84,6 +80,31 @@ export class MenuDetailsComponent implements OnInit {
       }
     });
   }
+
+  // @Post('/add-item-to-popular')
+  // addToPopular(@Req() req: Request, @Res() res: Response) {
+  //   this.storeService.addToPopular(req.body).then((Store) => {
+  //     return res.json(Store);
+  //   }).catch(err => console.log(err))
+  // }
+
+  // @Post('/remove-item-from-popular')
+  isAdded(foodId:any) {
+    return this.store?.popular?.includes(foodId)
+   }
+  togglePopular(storeId:string, foodId:string) {
+    if (this.isAdded(foodId)) {
+      this.storeService.removeItemFromPopular({store: storeId, item: foodId}).subscribe(() => {
+        this.isAdded(foodId)
+      })
+    } else {
+      this.storeService.addItemToPopular({store: storeId, item: foodId}).subscribe(() => {
+        this.isAdded(foodId)
+      })
+    }
+  }
+
+
 
   edit(product: Product) {
     let addToComponent = this._matDialog.open(AddItemToMenuComponent, {

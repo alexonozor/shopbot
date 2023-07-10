@@ -6,21 +6,26 @@ import { StoreService } from './details/store.service';
 import { StoresService } from './stores.service';
 import { MenuDetailsComponent } from './details/menu-details/menu-details.component';
 import { MenuService } from './details/menu-details/menu.service';
-
+import { CategoriesResolver } from '../../shared/resolvers/categories.resolver';
+import { MerchantResolver, MerchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
 
 const routes: Routes = [
   {
     path: 'list',
     component: ListStoresComponent,
     resolve: {
-      data: StoresService
+      data: StoresService,
+      merchants: MerchantsResolver,
+      categories: CategoriesResolver,
     }
   },
   {
     path: ':id/explore',
     component: StoreComponent,
     resolve: {
-      data: StoreService
+      data: StoreService,
+      categories: CategoriesResolver,
+      merchants: MerchantsResolver,
     }
   },
   {
@@ -29,7 +34,6 @@ const routes: Routes = [
     resolve: {
       data: StoreService,
       menu: MenuService,
-      
     }
   },
   {
@@ -40,6 +44,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-exports: [RouterModule]
+  exports: [RouterModule]
 })
 export class StoresRoutingModule { }

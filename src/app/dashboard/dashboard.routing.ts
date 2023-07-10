@@ -31,10 +31,29 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.Admin, Role.Marketer] }
       },
-
+      {
+        path: 'categories',
+        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin, Role.Marketer] }
+      },
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
+        path: 'promos',
+        loadChildren: () => import('./promos/promos.module').then(m => m.PromosModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
+        path: 'delivery-zones',
+        loadChildren: () => import('./delivery-zones/delivery-zones.module').then(m => m.DeliveryZonesModule),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.Admin] }
       },
@@ -54,6 +73,20 @@ const routes: Routes = [
       },
 
       {
+        path: 'merchants',
+        loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
+        path: 'reports',
+        loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+
+      {
         path: 'media',
         loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
         canActivate: [AuthGuard],
@@ -67,6 +100,12 @@ const routes: Routes = [
       {
         path: 'roles-permissions',
         loadChildren: () => import('./roles-and-permissions/roles-and-permissions.module').then(m => m.RolesAndPermissionsModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin] }
+      },
+      {
+        path: 'banners',
+        loadChildren: () => import('./banners/banners.module').then(m => m.BannersModule),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.Admin] }
       },

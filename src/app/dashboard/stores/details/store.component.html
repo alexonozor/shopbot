@@ -27,6 +27,14 @@
                         <app-general-settings-tab [store]="store"></app-general-settings-tab>
                     </ng-template>
                 </mat-tab>
+
+                <mat-tab label="Finance Details">
+                    <ng-template matTabContent>
+                        <app-finance-details-tab [store]="store"></app-finance-details-tab>
+                    </ng-template>
+                </mat-tab>
+
+                
                 <mat-tab label="Menu">
                     <ng-template matTabContent>
                         <app-store-menus-tab [store]="store"></app-store-menus-tab>
@@ -56,7 +64,7 @@
                 </mat-tab>
                 <mat-tab label="Merchant">
                     <ng-template matTabContent>
-                        <app-merchant-tab [store]="store"></app-merchant-tab>
+                        <app-merchant-tab [store]="store" [merchants]="merchants"></app-merchant-tab>
                     </ng-template>
                 </mat-tab>
                 <mat-tab label="Bank Account">

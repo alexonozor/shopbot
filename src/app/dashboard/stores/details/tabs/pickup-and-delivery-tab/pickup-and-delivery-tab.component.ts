@@ -53,18 +53,19 @@ export class PickupAndDeliveryTabComponent implements OnInit {
         deliverOrderToCustomers: [this.store.deliveryService.deliverOrderToCustomers]
       }),
       deliverySettings: this._formBuilder.group({
+        deliveryType: [this.store.deliverySettings.deliveryType],
         deliveryRadius: [this.store.deliverySettings.deliveryRadius],
         deliveryFeeNumber: [this.store.deliverySettings.deliveryFeeNumber],
-        deliveryFee: [this.store.deliverySettings.deliveryFee],
-        minimumOrderAmountForFreeDelivery: [this.store.deliverySettings.minimumOrderAmountForFreeDelivery],
-        deliveryFeeForAllOrder: [this.store.deliverySettings.deliveryFeeForAllOrder],
-        minimumDeliveryFee: [this.store.deliverySettings.minimumDeliveryFee],
-        deliveryFeeByKilometers: [this.store.deliverySettings.deliveryFeeByKilometers],
-        allowMinimumOrderAmount: [this.store.deliverySettings.allowMinimumOrderAmount],
-        minimumOrderAmount: [this.store.deliverySettings.minimumOrderAmount],
+        deliveryFee: [this.store.deliverySettings?.deliveryFee],
+        minimumOrderAmountForFreeDelivery: [this.store.deliverySettings?.minimumOrderAmountForFreeDelivery || 0],
+        deliveryFeeForAllOrder: [this.store.deliverySettings?.deliveryFeeForAllOrder],
+        minimumDeliveryFee: [this.store.deliverySettings?.minimumDeliveryFee],
+        deliveryFeeByKilometers: [this.store.deliverySettings?.deliveryFeeByKilometers || 50],
+        allowMinimumOrderAmount: [this.store.deliverySettings?.allowMinimumOrderAmount || 0],
+        minimumOrderAmount: [this.store.deliverySettings?.minimumOrderAmount || 0],
         estimatedDeliveryTime: this._formBuilder.group({
-            minimum: [this.store.deliverySettings.estimatedDeliveryTime.minimum],
-            maximum: [this.store.deliverySettings.estimatedDeliveryTime.maximum]
+            minimum: [this.store.deliverySettings?.estimatedDeliveryTime?.minimum || 0],
+            maximum: [this.store.deliverySettings?.estimatedDeliveryTime?.maximum || 0]
         }),
         enableDeliveryInstructions: [this.store.deliverySettings.enableDeliveryInstructions],
         deliveryInstructions: [this.store.deliverySettings.deliveryInstructions]

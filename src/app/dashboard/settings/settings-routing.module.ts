@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings.component';
 import { PaymentComponent } from './payment/payment.component';
+import { VersionSettingsComponent } from './version-settings/version-settings.component';
+import { VersionResolver } from 'src/app/shared/resolvers/settings.resolver';
 
 const routes: Routes = [
   {
@@ -13,20 +15,11 @@ const routes: Routes = [
       path: 'payments',
       loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),
     },
-    // children: [
-    //   {
-    //     path: 'list',
-    //     component: ListOrdersComponent,
-    //     resolve: { orders: OrdersResolver }
-    //   },
-    //   {
-    //     path: ':id/details',
-    //     component: OrdersDetailsComponent,
-    //     resolve: { order: OrderResolver }
-    //   }
-    // ]
-  
-  
+    {
+        path: 'version-settings',
+        component: VersionSettingsComponent,
+        resolve: { version: VersionResolver }
+    }
 ];
 
 @NgModule({

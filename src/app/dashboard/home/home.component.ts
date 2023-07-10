@@ -5,19 +5,22 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
-import { map, Observable, startWith, switchMap, tap, finalize } from 'rxjs';
-import { ConfirmComponent } from 'src/app/shared/components/comfirm/confirm.component';
+import { map, Observable, startWith, switchMap, tap, finalize, forkJoin, of } from 'rxjs';
+import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { OrdersService } from '../../shared/services/order.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { DashboardService } from 'src/app/shared/services/dashboard.service';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { StoresService } from '../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
-
+import { SwPush } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
+const startOfMonth = moment().startOf('month').toDate()
+const endOfMonth   = moment().endOf('month').toDate()
 
 @Component({
   selector: 'app-home',
@@ -33,8 +36,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
   range = new FormGroup({
-    startDate: new FormControl<Date | null>(null),
-    endDate: new FormControl<Date | null>(null),
+    startDate: new FormControl<Date | null | string>(startOfMonth),
+    endDate: new FormControl<Date | null | string>(endOfMonth),
   });
   stat$!: Observable<any>
   stores$!: Observable<Store[]>
@@ -49,12 +52,13 @@ export class HomeComponent implements OnInit {
   public lineChartLegend = true;
   
   statuses = [
-    { id: 0, name: "Pending", color: "bg-blue-300"},
+    { id: 0, name: "Pending", color: "bg-blue-300", },
     { id: 1, name: "Approve", color: "bg-blue-400"},
     { id: 3, name: "Canceled", color: "bg-blue-400"},
     { id: 2, name: "Shipped", color: "bg-blue-400"},
     { id: 3, name: "Completed", color: "bg-green-400"},
   ]
+  isLoading: boolean = false;
   constructor(
     private socket: Socket,
     private storeService: StoresService,
@@ -62,14 +66,13 @@ export class HomeComponent implements OnInit {
     private dashboardService: DashboardService,
     public _matDialog: MatDialog,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
     ) {
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
     this.getOrderMonthlyChart()
   }
+
+
 
   compareFn(t1: any, t2: any): boolean { 
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
@@ -105,6 +108,8 @@ export class HomeComponent implements OnInit {
     this.getStat();
     this.getOrderMonthlyChart()
     this.getRecentStores()
+    this.range.patchValue({startDate: startOfMonth, endDate: endOfMonth})
+
   }
 
 
@@ -120,7 +125,7 @@ export class HomeComponent implements OnInit {
     this.dashboardService.getOrderMonthlyChart()
     .pipe(finalize(() => this.isLoadingChart = false))
     .subscribe((data) => {
-      const label = ["", 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec']
+      const label = ["", 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec']
  
       const sortedDate = data.sort((a, b) =>  label.indexOf(a.month) - label.indexOf(b.month))
 
@@ -147,15 +152,25 @@ export class HomeComponent implements OnInit {
 
 
 
-  getStat() {
-    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD hh:mm');
-    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD hh:mm');
-   this.stat$ = this.range.valueChanges.pipe(
-    startWith({startDate: startOfMonth, endDate: endOfMonth }),
-    distinctUntilChanged(),
-    switchMap((date:any) =>  {
-     return this.dashboardService.getOrderStat(date)
-    }))
+  getStat() { 
+    this.stat$ = this.range.valueChanges.pipe(
+      tap(() => this.isLoading =  true),
+      startWith({startDate: startOfMonth, endDate: endOfMonth }),
+      distinctUntilChanged(),
+      switchMap((date:any) => {
+        return forkJoin({
+          commission: this.ordersService.updateOrderCommission(date),
+          stats: this.dashboardService.getOrderStat(date)
+        }).pipe(
+          finalize(() => this.isLoading =  false),
+          catchError(error => {
+            console.error('Error in forkJoin:', error);
+            return of(null);
+          })
+        )
+      }),
+      finalize(() => this.isLoading =  false),
+    );
   }
 
   deleteOrder(index:any, order:any) {
