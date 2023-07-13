@@ -8,5 +8,7 @@ export interface Banner {
     category: string;
     showOnSlider: string;
     link: string;
+    country: string[];
+    cities: string[];
     createdAt: string;
 }

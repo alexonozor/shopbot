@@ -16,6 +16,10 @@ const routes: Routes = [
       loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),
     },
     {
+      path: 'blocks',
+      loadChildren: () => import('./blocks/blocks.module').then(m => m.BlockModule),
+    },
+    {
         path: 'version-settings',
         component: VersionSettingsComponent,
         resolve: { version: VersionResolver }

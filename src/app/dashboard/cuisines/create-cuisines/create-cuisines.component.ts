@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CuisinesService } from '../../../shared/services/cuisines.service';
 import { Location } from '@angular/common';
@@ -13,11 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CreateCuisinesComponent implements OnInit {
   mediaData:any;
-  cuisineForm = this.fb.group({
-    name: ['', Validators.required],
-    status: ['', Validators.required],
-    image: ['', Validators.required],
-  });
+  cuisineForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +24,15 @@ export class CreateCuisinesComponent implements OnInit {
     this.mediaData = { image:null, icon:null };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cuisineForm = this.fb.group({
+      name: ['', Validators.required],
+      status: ['', Validators.required],
+      image: ['', Validators.required],
+      country: ['', Validators.required],
+      cities: ['', Validators.required],
+    });
+  }
 
   submit() {
     if (this.cuisineForm.valid) {

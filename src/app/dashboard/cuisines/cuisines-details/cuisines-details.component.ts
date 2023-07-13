@@ -32,6 +32,8 @@ export class CuisinesDetailsComponent implements OnInit {
       name: [this.cuisine.name, Validators.required],
       status: [this.cuisine.status, Validators.required],
       image: [this.cuisine.image, Validators.required],
+      country: [this.cuisine.country, Validators.required],
+      cities: [this.cuisine.cities, Validators.required],
     });
 
     this.mediaData = {image:null, icon:null};

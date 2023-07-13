@@ -35,7 +35,9 @@ export class EditBannersComponent implements OnInit {
     category: [this.banner.category, Validators.required],
     link: [this.banner.link, Validators.required],
     showOnSlider: [this.banner.showOnSlider, Validators.required],
-    shortDescription: [this.banner.shortDescription, Validators.required]
+    shortDescription: [this.banner.shortDescription, Validators.required],
+    country: [this.banner.country, Validators.required],
+    cities: [this.banner.cities, Validators.required]
   });
     this.mediaData = {image:null, icon:null};
     this.mediaData['image'] = this.banner.image

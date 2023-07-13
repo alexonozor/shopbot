@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {BannersService } from '../../../shared/services/banners.service';
 import { Location } from '@angular/common';
 import { MediaComponent } from '../../media/media.component';
@@ -12,15 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CreateBannersComponent implements OnInit {
   mediaData:any;
-  bannerForm = this.fb.group({
-    image: ['', Validators.required],
-    title: ['', Validators.required],
-    active: [false, Validators.required],
-    category: ['', Validators.required],
-    link: ['', Validators.required],
-    shortDescription: ['', Validators.required],
-    showOnSlider: [false, Validators.required]
-  });
+  bannerForm:FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +21,17 @@ export class CreateBannersComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.mediaData = { image:null, icon:null };
+    this.bannerForm = this.fb.group({
+      image: ['', Validators.required],
+      title: ['', Validators.required],
+      active: [false, Validators.required],
+      category: ['', Validators.required],
+      link: ['', Validators.required],
+      shortDescription: ['', Validators.required],
+      showOnSlider: [false, Validators.required],
+      country: ['', Validators.required],
+      cities: ['', Validators.required]
+    });
   }
 
   

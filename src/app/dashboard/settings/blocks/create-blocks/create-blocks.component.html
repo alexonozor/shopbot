@@ -1,0 +1,91 @@
+<h1 matDialogTitle>Create Payment Method</h1>
+<div mat-dialog-content>
+  <form name="storeForm" [formGroup]="blockForm" class="product w-100-p" fxLayout="column" fxFlex>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Title" name="title" formControlName="title" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-select formControlName="type" placeholder="Category">
+            <mat-option  *ngFor="let item of types" [value]="item.value">{{item.name}}</mat-option>
+        </mat-select>
+     </mat-form-field>
+
+     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Content</mat-label>
+      <textarea matInput placeholder="Block Content" name="content" formControlName="content" rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Use aggregate query</mat-label>
+      <mat-select formControlName="useAggrregateQuery" placeholder="Use aggregate query">
+          <mat-option  *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value:  false}]" [value]="item.value">{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Activate</mat-label>
+      <mat-select formControlName="active" placeholder="Enabled">
+          <mat-option  *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value:  false}]" [value]="item.value">{{item.name}}</mat-option>
+      </mat-select>
+   </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <mat-label>Query</mat-label>
+      <textarea matInput placeholder="Query" name="query" formControlName="query" rows="5"></textarea>
+    </mat-form-field>
+
+   <ng-container formGroupName="metaQuery">
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Params Query</mat-label>
+        <textarea matInput placeholder="Params" name="params" formControlName="params" rows="5"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Controls</mat-label>
+        <textarea matInput placeholder="Controls" name="controls" formControlName="controls" rows="5"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Url</mat-label>
+        <textarea matInput placeholder="Url" name="controls" formControlName="url" rows="5"></textarea>
+      </mat-form-field>
+   </ng-container>
+
+    <mat-form-field appearance="outline" >
+        <mat-label>Country</mat-label>
+        <mat-select  multiple formControlName="country">
+          <mat-select-trigger>
+            {{blockForm.value?.country?.[0] || ''}}
+            <span *ngIf="(blockForm.value?.country?.value?.length || 0) > 1" class="example-additional-selection">
+              (+{{(blockForm.value?.country?.length || 0) - 1}} {{blockForm.value?.country?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let region of ['Nigeria', 'Mauritius', 'Kenya', 'Rwanda']" [value]="region">{{region}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>City</mat-label>
+        <mat-select  multiple formControlName="cities">
+          <mat-select-trigger>
+            {{blockForm.value?.cities?.[0] || ''}}
+            <span *ngIf="(blockForm.value?.cities?.value?.length || 0) > 1" class="example-additional-selection">
+              (+{{(blockForm.value?.cities?.length || 0) - 1}} {{blockForm.value?.cities?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let region of ['Yenagoa', 'Lagos', 'Warri', 'PH']" [value]="region">{{region}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="pt-24">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button class="mat-accent mr-16" (click)="save()" [disabled]="!blockForm.valid">{{isLoading ? 'Please wait..' : 'Create Payment Method' }}</button>
+</div>
+
+
+ 
+
+<!-- region: ['', Validators.required],
+active: [false, Validators.required],
+description: ['', Validators.required], -->
