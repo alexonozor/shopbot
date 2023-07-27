@@ -32,71 +32,107 @@ export class BusinessHoursTabComponent implements OnInit {
 
   }
 
-
-
   ngOnInit(): void {
-    let ranges = range(moment().day(0), moment().day(6)), /*can handle leap year*/
-    array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
-    let daysRange = array.map((m) => {
-      return {
-        date: m.format("YYYY-MM-DD"),
-        openingTime: m.format("HH:MM"),
-        closingTime: m.add('hours', 9).format("HH:MM"),
-        day: m.format('dddd').toLowerCase(),
-        closed: false,
-        referenceDate: m.format("YYYY-MM-DD"),
-        neverOpen: false
-      }
-    })
+	  let ranges = range(moment().day(0), moment().day(6)), /*can handle leap year*/
+	  array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
+	  let daysRange = array.map((m) => {
+		return {
+		  date: m.format("YYYY-MM-DD"),
+		  openingTime: m,
+		  closingTime: m,
+		  day: m.format('dddd').toLowerCase(),
+		  closed: false,
+		  referenceDate: m,
+		  neverOpen: false
+		}
+	  })
+	  this.days = daysRange
+	  let businessHoursKeys = Object.keys(this.store.businessHours) 
+	  let days = businessHoursKeys.map((key) => {
+		return { ...this.store.businessHours[key] }
+	  })
+	 this.businessHoursForm = this.createProductForm(days);
+   console.log(this.businessHoursForm.value)
+	}
+  
+	createProductForm(data: any): FormGroup {
+	  return this._formBuilder.group({
+		businessHours: this._formBuilder.group({ ...this.newOptions(data) })
+	  })
+	}
+  
+	newOptions(data?: any): FormGroup {
+	  let f = {} as any;
+	  for (let i = 0; i < data.length; i++) {
+		f[data[i].name.toLowerCase()] = this._formBuilder.group({
+		  name: [data[i].name, Validators.required],
+		  openingTime: [ new Date(), Validators.required],
+		  closingTime: [ new Date(), Validators.required],
+		  closed: data[i].closed,
+		  neverOpen: data[i].neverOpen
+		})
+	  }
+	  return f as FormGroup;
+	}
 
 
-    this.days = daysRange
+  // ngOnInit(): void {
+  //   let ranges = range(moment().day(0), moment().day(6)), /*can handle leap year*/
+  //   array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
+  //   let daysRange = array.map((m) => {
+  //     return {
+  //       date: m.format("YYYY-MM-DD"),
+  //       openingTime: m.toDate(),
+  //       closingTime: m.add('hours', 9).toDate(),
+  //       day: m.format('dddd').toLowerCase(),
+  //       closed: false,
+  //       referenceDate: m.format("YYYY-MM-DD"),
+  //       neverOpen: false
+  //     }
+  //   })
+
+
+  //   this.days = daysRange
 
    
-    // console.log(this.store.businessHours)
-    // convert to array
-    let businessHoursKeys = Object.keys(this.store.businessHours) 
-    let days = businessHoursKeys.map((key) => {
-      return { ...this.store.businessHours[key] }
-    })
+  //   // console.log(this.store.businessHours)
+  //   // convert to array
+  //   let businessHoursKeys = Object.keys(this.store.businessHours) 
+  //   let days = businessHoursKeys.map((key) => {
+  //     return { ...this.store.businessHours[key] }
+  //   })
 
    
-    // daysRange = this.getDays(daysRange, businessHoursKeysObject)
+  //   // daysRange = this.getDays(daysRange, businessHoursKeysObject)
 
  
-   this.businessHoursForm = this.createProductForm(days)
+  //  this.businessHoursForm = this.createProductForm(days)
 
    
    
-  }
+  // }
 
+  // createProductForm(data: any): FormGroup {
+  //   return this._formBuilder.group({
+  //     businessHours: this._formBuilder.group({ ...this.newOptions(data) })
+  //   })
 
+  // }
 
-
-  createProductForm(data: any): FormGroup {
-    return this._formBuilder.group({
-      businessHours: this._formBuilder.group({ ...this.newOptions(data) })
-    })
-
-  }
-
-
-  
-
-  newOptions(data?: any): FormGroup {
-    let f = {} as any;
-    for (let i = 0; i < data.length; i++) {
-      console.log(f[data[i].day])
-      f[data[i].name.toLowerCase()] = this._formBuilder.group({
-        name: [data[i].name, Validators.required],
-        openingTime: [data[i].openingTime, Validators.required],
-        closingTime: [data[i].closingTime, Validators.required],
-        closed: data[i].closed,
-        neverOpen: data[i].neverOpen
-      })
-    }
-    return f as FormGroup;
-  }
+  // newOptions(data?: any): FormGroup {
+  //   let f = {} as any;
+  //   for (let i = 0; i < data.length; i++) {
+  //     console.log(f[data[i].day])
+  //     f[data[i].name.toLowerCase()] = this._formBuilder.group({
+  //       name: [data[i].name, Validators.required],
+  //       openingTime: [data[i].openingTime, Validators.required],
+  //       closingTime: [data[i].closingTime, Validators.required],
+  //       closed: data[i].closed,
+  //       neverOpen: data[i].neverOpen
+  //     })
+  //   }
+  //   return f as FormGroup;
+  // }
 
 
   changeStoreStatus() {

@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'edit-delivery-zone',
@@ -35,7 +36,8 @@ export class EditDeliveryZoneComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private deliveryZonesService: DeliveryZoneService,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -43,8 +45,33 @@ export class EditDeliveryZoneComponent implements OnInit {
     this.deliveryZonesForm = this.fb.group({
       name: [this.zones.name, Validators.required],
       country: [this.zones.country, Validators.required],
-      enabled: [''],
-    });   
+      states: this.fb.array(this.zones.states),
+      enabled: [this.zones.enabled, Validators.required],
+      localities: this.fb.array(['']),
+      localAreas: this.fb.array([]),
+    }); 
+    this.zones.localAreas.forEach((data) => {
+      this.addAreas(data);
+    })
+    
+  }
+
+  get localAreas() {
+    return this.deliveryZonesForm.get('localAreas') as FormArray
+   }
+
+  addAreas(data?:any) {
+    this.localAreas.push(
+      this.fb.group({
+      name: [data ? data.name : '', Validators.required],
+      latitude: [data ? data.latitude : '', Validators.required],
+      longitude: [data ? data.longitude : '', Validators.required],
+     })
+    )
+  }
+  
+  removeArea(index:number) {
+    this.localAreas.removeAt(index);
   }
 
   remove(index: number, side:string): void {
@@ -83,5 +110,7 @@ export class EditDeliveryZoneComponent implements OnInit {
   }
 
 
-  back() {}
+  back() {
+    this.location.back();
+  }
 }

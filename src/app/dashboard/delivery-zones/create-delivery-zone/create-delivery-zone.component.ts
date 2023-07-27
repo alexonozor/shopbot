@@ -1,9 +1,10 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { DeliveryZoneService } from '../../../shared/services/delivery-zone.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'create-delivery-zone',
@@ -19,16 +20,20 @@ export class CreateDeliveryZoneComponent implements OnInit {
     country: ['', Validators.required],
     states: this.fb.array(['']),
     enabled: ['', Validators.required],
-    localities: this.fb.array([''])
+    localities: this.fb.array(['']),
+    localAreas: this.fb.array([]),
   });
 
   constructor(
     private fb: FormBuilder,
     private deliveryService: DeliveryZoneService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private location: Location
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addAreas();
+  }
 
   submit() {
     if (this.deliveryZonesForm.valid) {
@@ -36,6 +41,24 @@ export class CreateDeliveryZoneComponent implements OnInit {
         .createDeliveryZone(this.deliveryZonesForm.getRawValue())
         .subscribe((data) => {});
     }
+  }
+
+  get localAreas() {
+   return this.deliveryZonesForm.get('localAreas') as FormArray
+  }
+
+  addAreas() {
+    this.localAreas.push(
+      this.fb.group({
+      name: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required],
+     })
+    )
+  }
+  
+  removeArea(index:number) {
+    this.localAreas.removeAt(index);
   }
 
   add(event: MatChipInputEvent, place:string): void {
@@ -65,6 +88,8 @@ export class CreateDeliveryZoneComponent implements OnInit {
 
   
 
-  back() {}
+  back() {
+    this.location.back();
+  }
 
 }

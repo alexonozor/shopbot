@@ -37,6 +37,13 @@
                     <ngx-material-timepicker clockTheme="primary" #openingTime></ngx-material-timepicker>
                     <mat-icon matSuffix>schedule</mat-icon>
                 </mat-form-field>
+
+                <ngx-mat-timepicker  formControlName="openingTime"> </ngx-mat-timepicker>
+
+                <!-- <ngx-mat-timepicker [(ngModel)]="date" [disabled]="disabled" [showSpinners]="showSpinners"
+                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [showSeconds]="showSeconds"
+                [color]="color" [enableMeridian]="enableMeridian">
+              </ngx-mat-timepicker> -->
               
             
               <mat-form-field appearance="outline" ngClass.gt-sm="mt-5" fxFlex.md="40">

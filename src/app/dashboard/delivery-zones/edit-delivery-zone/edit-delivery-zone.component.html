@@ -57,6 +57,41 @@
             </mat-chip-list>
             
         </mat-form-field>
+
+        <div>
+          <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="start start" fxLayout.lt-lg="column"
+            fxLayoutAlign.lt-lg="start stretch" class="w-full" fxLayoutGap="10px">
+            <a mat-icon-button (click)="addAreas()">
+              <mat-icon class="mat-18">add</mat-icon> Add Supported Local Areas
+            </a>
+          </div>
+  
+          <ng-container formArrayName="localAreas" *ngIf="localAreas">
+            <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+              fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px"
+              *ngFor="let item of localAreas?.controls; let i=index" [formGroupName]="i">
+  
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name" formControlName="name">
+              </mat-form-field>
+  
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>latitude</mat-label>
+                <input matInput placeholder="latitude" type="number" formControlName="latitude">
+              </mat-form-field>
+  
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>longitude</mat-label>
+                <input matInput type="number" placeholder="longitude" formControlName="longitude">
+              </mat-form-field>
+              <a mat-icon-button (click)="removeArea(i)">
+                <mat-icon class="mat-18">remove</mat-icon>
+              </a>
+  
+            </div>
+          </ng-container>
+        </div>
         
         
   

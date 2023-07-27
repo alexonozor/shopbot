@@ -18,7 +18,8 @@ import { BankService } from 'src/app/shared/services/bank.service';
 import { AddBankComponent } from './bank-account-tab/modals/add-bank/add-bank.component';
 import { OrdersComponent } from './orders/orders.component';
 import { FinanceDetailsComponent } from './finance-details/finance-details.component';
-
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 
 @NgModule({
@@ -33,8 +34,11 @@ import { FinanceDetailsComponent } from './finance-details/finance-details.compo
       apiKey: 'AIzaSyBTzycQbUj9vWxnq8VgI7pzmYxdEo6t8to',
       libraries: ['places']
     }),
-    MatGoogleMapsAutocompleteModule
-    
+    MatGoogleMapsAutocompleteModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    NgxMatMomentModule
   ],
   exports: [
     StoreMenusComponent,
