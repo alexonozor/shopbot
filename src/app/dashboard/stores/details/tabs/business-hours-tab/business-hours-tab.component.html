@@ -31,14 +31,15 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="space-around start"  fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch" fxFlex="60">
-                <mat-form-field appearance="outline" ngClass.gt-sm="mt-5" fxFlex.md="40">
+                <!-- <mat-form-field appearance="outline" ngClass.gt-sm="mt-5" fxFlex.md="40">
                     <mat-label>Open Time</mat-label>
                     <input matInput placeholder="Placeholder"    [format]="12" [ngxTimepicker]="openingTime"   formControlName="openingTime">
                     <ngx-material-timepicker clockTheme="primary" #openingTime></ngx-material-timepicker>
                     <mat-icon matSuffix>schedule</mat-icon>
-                </mat-form-field>
+                </mat-form-field> -->
 
-                <ngx-mat-timepicker  formControlName="openingTime"> </ngx-mat-timepicker>
+                <ngx-mat-timepicker  formControlName="openingTime" [enableMeridian]="true"> </ngx-mat-timepicker>
+                <ngx-mat-timepicker  formControlName="closingTime" [enableMeridian]="true"> </ngx-mat-timepicker>
 
                 <!-- <ngx-mat-timepicker [(ngModel)]="date" [disabled]="disabled" [showSpinners]="showSpinners"
                 [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [showSeconds]="showSeconds"
@@ -46,12 +47,12 @@
               </ngx-mat-timepicker> -->
               
             
-              <mat-form-field appearance="outline" ngClass.gt-sm="mt-5" fxFlex.md="40">
+              <!-- <mat-form-field appearance="outline" ngClass.gt-sm="mt-5" fxFlex.md="40">
                   <mat-label>Close Time</mat-label>
                   <input matInput placeholder="Placeholder" [ngxTimepicker]="closingTime" [format]="12" formControlName="closingTime">
                   <ngx-material-timepicker #closingTime></ngx-material-timepicker>
                   <mat-icon matSuffix>schedule</mat-icon>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>  
 
             <section class="example-section"   fxLayout="column" fxLayoutAlign="space-between center" fxFlex="20">

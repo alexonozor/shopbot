@@ -3,7 +3,6 @@ import { SwPush, SwUpdate } from '@angular/service-worker';
 import { environment } from '../environments/environment.prod';
 import { AccountService } from './shared/services/account.service';
 import { AuthService } from './shared/services/auth.service';
-import { OneSignal } from 'onesignal-ngx';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

@@ -1,4 +1,4 @@
-<h1 matDialogTitle>Create Payment Method</h1>
+<h1 matDialogTitle>Create Block</h1>
 <div mat-dialog-content>
   <form name="storeForm" [formGroup]="blockForm" class="product w-100-p" fxLayout="column" fxFlex>
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
@@ -31,10 +31,18 @@
       </mat-select>
    </mat-form-field>
 
+   <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-label>Display Orientation</mat-label>
+    <mat-select formControlName="orientation">
+        <mat-option  *ngFor="let item of [{name: 'Vertical', value: 'vertical'}, {name: 'Horizontal', value:  'horizontal'}]" [value]="item.value">{{item.name}}</mat-option>
+    </mat-select>
+ </mat-form-field>
+
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Query</mat-label>
       <textarea matInput placeholder="Query" name="query" formControlName="query" rows="5"></textarea>
     </mat-form-field>
+
 
    <ng-container formGroupName="metaQuery">
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
@@ -80,7 +88,7 @@
 </div>
 <div mat-dialog-actions class="pt-24">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button class="mat-accent mr-16" (click)="save()" [disabled]="!blockForm.valid">{{isLoading ? 'Please wait..' : 'Create Payment Method' }}</button>
+    <button mat-raised-button class="mat-accent mr-16" (click)="save()" [disabled]="!blockForm.valid">{{isLoading ? 'Please wait..' : 'Save' }}</button>
 </div>
 
 

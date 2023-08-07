@@ -54,7 +54,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MerchantTabComponent,
     filterNames
   ],
-  entryComponents: [AddItemToMenuComponent],
   providers: [
     StoresService,
     StoreService,

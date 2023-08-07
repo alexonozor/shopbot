@@ -1,4 +1,3 @@
-import { MapsAPILoader } from '@agm/core';
 import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/models/store';
 import { Location, Appearance, GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
@@ -32,6 +31,13 @@ export class GeneralTabComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition | undefined;
   verticalPosition: MatSnackBarVerticalPosition | undefined;
   categories!: Category[]
+  countriesWithStates = [
+    { country: 'Nigeria', states: ['Bayelsa', 'Delta', 'Rivers State'] },
+    { country: 'Mauritius', states: ['Black River (Rivière Noire)', 'Flacq (Flacq)', 'Grand Port (Grand Port)', 'Moka (Moka)', 'Pamplemousses (Pamplemousses)', 'Plaines Wilhems (Plaine Wilhems)', 'Port Louis (Port-Louis)', 'Rivière du Rempart (Rivière du Rempart)', 'Savanne (Savanne)'] },
+    { country: 'Rwanda', states: ['Kigali', 'Butare', 'Gitarama'] }
+  ];
+
+  states: string[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -46,7 +52,21 @@ export class GeneralTabComponent implements OnInit {
     this.lat = this.store.location.coordinates[0];
     this.lng = this.store.location.coordinates[1];
     this.generalSettingForm = this.createGeneralSettingForm();
+
+    this.generalSettingForm = this.createGeneralSettingForm();
+
+    // Subscribe to changes in the 'country' form control
+    this.generalSettingForm?.get('contactInfo.country')?.valueChanges.subscribe((selectedCountry) => {
+      console.log(selectedCountry)
+    const matchingCountry = this.countriesWithStates.find(item => item.country === selectedCountry);
+      if (matchingCountry) {
+        this.states = matchingCountry.states
+      } 
+    });
+
+    this.generalSettingForm?.get('contactInfo')?.patchValue({country: this.store.contactInfo.country})
   }
+
 
   createGeneralSettingForm(): FormGroup {
     return this._formBuilder.group({
@@ -86,6 +106,7 @@ export class GeneralTabComponent implements OnInit {
       })
     })
   }
+
 
   setCurrentLocation() {
     if ('geolocation' in navigator) {

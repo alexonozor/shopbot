@@ -49,10 +49,7 @@ import { NotificationsService } from '../shared/services/notifications.service';
     MatSnackBarModule,
     MaterialModule,
     NgChartsModule,
-    SharedModule
-  ],
-  entryComponents: [
-    ConfirmComponent
+    SharedModule,
   ],
   providers: [
     StoresService,

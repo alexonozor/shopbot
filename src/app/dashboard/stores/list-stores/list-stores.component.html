@@ -53,34 +53,72 @@
     </form>
 </div>
 <div class="w-full h-screen relative">
-    <mat-list style="margin-bottom: 20px">
-        <div mat-subheader>Stores</div>
-        <mat-list-item *ngFor="let store of stores | filterByName:name; let i = index"
-            [routerLink]="['../', store._id, 'explore']" matRipple>
-            <div mat-line class="status">{{store.active ? 'APPROVE' : 'UNAPPROVED'}}</div>
-            <div mat-line><span class="title font-extrabold">{{store.name}}</span></div>
-
-            <div mat-line class="text-gray-400 font-thin">{{store.contactInfo.placeNumber}}
-                {{store.contactInfo.placeName}} {{store.contactInfo.country}} </div>
-
-            <mat-slide-toggle [(ngModel)]="store.active" (click)="$event.stopPropagation()"
-                (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
-
-            <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="delete(i, store._id);"><mat-icon>delete</mat-icon> Delete</button>
-
-
-                <button mat-menu-item (click)="viewDetails(store)">
-                    <mat-icon>edit</mat-icon> Edit
-                </button>
-            </mat-menu>
-            <mat-divider></mat-divider>
-        </mat-list-item>
-
-    </mat-list>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+       
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                    <th scope="col" class="p-4">
+                        <div class="flex items-center">
+                            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2">
+                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Vendor Profile
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Contact
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Enabled
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b  hover:bg-gray-50 " *ngFor="let store of stores | filterByName:name; let i = index"
+                [routerLink]="['../', store._id, 'explore']">
+                    <td class="w-4 p-4">
+                        <div class="flex items-center">
+                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                        </div>
+                    </td>
+                    <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                        <img class="w-10 h-10 rounded-full" [src]="store.logo">
+                        <div class="pl-3">
+                            <div class="text-base font-semibold">{{store.name}}</div>
+                            <div class="font-normal truncate text-gray-500">{{store.contactInfo.placeNumber}}
+                                {{store.contactInfo.placeName}} {{store.contactInfo.country}}</div>
+                        </div>  
+                    </th>
+                    <td class="px-6 py-4">
+                        <div class="text-base font-semibold">{{store.contactInfo?.phone}}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <mat-slide-toggle [(ngModel)]="store.active" (click)="$event.stopPropagation()"
+                    (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
+                    </td>
+                    <td class="px-6 py-4">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="delete(i, store._id);"><mat-icon>delete</mat-icon> Delete</button>
+            
+            
+                            <button mat-menu-item (click)="viewDetails(store)">
+                                <mat-icon>edit</mat-icon> Edit
+                            </button>
+                        </mat-menu>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 
@@ -90,3 +128,7 @@
     </button>
 
 </div>
+
+
+
+

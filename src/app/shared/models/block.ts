@@ -21,6 +21,8 @@ export interface Block {
         url: string;
     };
 
+    orientation: string;
+
     location: {
         type:string;
         coordinates: {

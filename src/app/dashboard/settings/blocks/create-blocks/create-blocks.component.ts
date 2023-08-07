@@ -18,7 +18,8 @@ export class CreateBlocksComponent implements OnInit {
   isLoading: boolean = false;
   types = [
     {name: 'Categories', value: 'category'}, 
-    {name: 'Restaurants', value:  'store'},
+    {name: 'Store grid', value:  'store-grid'},
+    {name: 'Store List', value:  'store-list'},
     {name: 'Sliders', value:  'slider'},
     {name: 'Food items', value:  'food'},
     {name: 'Cuisines', value:  'cuisine'}
@@ -50,6 +51,7 @@ export class CreateBlocksComponent implements OnInit {
         url: [''],
       }),
       active: [false, Validators.required],
+      orientation: ['', Validators.required],
     });
   }
 

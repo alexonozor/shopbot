@@ -35,6 +35,7 @@ export class BusinessHoursTabComponent implements OnInit {
   ngOnInit(): void {
 	  let ranges = range(moment().day(0), moment().day(6)), /*can handle leap year*/
 	  array = Array.from(ranges.by("days")); /*days, hours, years, etc.*/
+    
 	  let daysRange = array.map((m) => {
 		return {
 		  date: m.format("YYYY-MM-DD"),
@@ -47,6 +48,7 @@ export class BusinessHoursTabComponent implements OnInit {
 		}
 	  })
 	  this.days = daysRange
+
 	  let businessHoursKeys = Object.keys(this.store.businessHours) 
 	  let days = businessHoursKeys.map((key) => {
 		return { ...this.store.businessHours[key] }
@@ -66,14 +68,24 @@ export class BusinessHoursTabComponent implements OnInit {
 	  for (let i = 0; i < data.length; i++) {
 		f[data[i].name.toLowerCase()] = this._formBuilder.group({
 		  name: [data[i].name, Validators.required],
-		  openingTime: [ new Date(), Validators.required],
-		  closingTime: [ new Date(), Validators.required],
+		  openingTime: [moment(data[i].openingTime).utc(), Validators.required],
+		  closingTime: [moment(data[i].closingTime).utc(), Validators.required],
 		  closed: data[i].closed,
 		  neverOpen: data[i].neverOpen
 		})
 	  }
 	  return f as FormGroup;
 	}
+
+  formatDateTimeTo12Hrs(dateTimeString: string): moment.Moment {
+    // Format the date-time in 12-hour format with AM/PM
+    const formattedDateTime = moment(dateTimeString).format('YYYY-MM-DD hh:mm A');
+  
+    // Convert the formatted date-time back to a Moment object
+    const momentFormattedDateTime = moment(formattedDateTime, 'YYYY-MM-DD hh:mm A');
+  
+    return momentFormattedDateTime;
+  }
 
 
   // ngOnInit(): void {

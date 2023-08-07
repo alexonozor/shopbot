@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
   ]
   isLoading: boolean = false;
   constructor(
-    private socket: Socket,
+    @Inject(Socket) private socket: Socket,
     private storeService: StoresService,
     private ordersService: OrdersService,
     private dashboardService: DashboardService,
@@ -112,13 +112,9 @@ export class HomeComponent implements OnInit {
 
   }
 
-
   openOrder(id:string) {
     this.router.navigate(['dashboard', 'orders', id, 'details'])
   }
-
-
-
 
   getOrderMonthlyChart() {
     this.isLoadingChart = true
@@ -128,7 +124,6 @@ export class HomeComponent implements OnInit {
       const label = ["", 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec']
  
       const sortedDate = data.sort((a, b) =>  label.indexOf(a.month) - label.indexOf(b.month))
-
 
       this.lineChartData = {
         labels: sortedDate.map((d:any) => d.month),
@@ -148,9 +143,6 @@ export class HomeComponent implements OnInit {
       
     })
   }
-
-
-
 
   getStat() { 
     this.stat$ = this.range.valueChanges.pipe(
@@ -209,7 +201,7 @@ export class HomeComponent implements OnInit {
 
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
+    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
       if (order) {
         this.dataSource.data.unshift(order)
         this.dataSource._updateChangeSubscription();

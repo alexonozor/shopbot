@@ -16,7 +16,8 @@ export class EditBlocksComponent implements OnInit {
   block!: Block;
   types = [
     {name: 'Categories', value: 'category'}, 
-    {name: 'Restaurants', value:  'store'},
+    {name: 'Store grid', value:  'store-grid'},
+    {name: 'Store List', value:  'store-list'},
     {name: 'Sliders', value:  'slider'},
     {name: 'Food items', value:  'food'},
     {name: 'Cuisines', value:  'cuisine'}
@@ -44,6 +45,7 @@ export class EditBlocksComponent implements OnInit {
       query: [this.block.query, Validators.required],
       country: [this.block.country, Validators.required],
       cities: [this.block.cities, Validators.required],
+      orientation: [this.block.orientation, Validators.required],
       metaQuery: this._formBuilder.group({
         params: [this.block.metaQuery.params],
         controls: [this.block.metaQuery.controls],

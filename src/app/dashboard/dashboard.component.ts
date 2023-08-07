@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, Inject } from '@angular/core';
 import {JwtService} from '../shared/services/jwt.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private snackbar: MatSnackBar,
     public auth: AuthService,
     public breakpointObserver: BreakpointObserver,
-    private socket: Socket,
+    @Inject(Socket) private socket: Socket,
     private orderService: OrdersService,
     private notificationService: NotificationsService,
     private swPush: SwPush,
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
+    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
       if (order) {
         this.orderService.broadcast(order as Order)
         this.notificationService.broadCast(order)

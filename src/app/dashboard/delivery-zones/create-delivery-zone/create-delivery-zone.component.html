@@ -6,7 +6,7 @@
 
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name of  delivery zone" formControlName="name">
+        <input matInput placeholder="Name of delivery zone" formControlName="name">
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="outline">
@@ -14,7 +14,7 @@
         <input matInput placeholder="Country" formControlName="country">
       </mat-form-field>
 
-      <mat-form-field class="example-chip-list" appearance="outline">
+      <!-- <mat-form-field class="example-chip-list" appearance="outline">
         <mat-label>States</mat-label>
         <mat-chip-list #chipList>
           <mat-chip *ngFor="let state of states" (removed)="remove(state, 'states')">{{state}}
@@ -26,12 +26,12 @@
           <input placeholder="States" formControlName="states" [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, 'states')">
         </mat-chip-list>
-      </mat-form-field>
+      </mat-form-field> -->
 
 
 
 
-      <mat-form-field class="example-chip-list" appearance="outline">
+      <!-- <mat-form-field class="example-chip-list" appearance="outline">
         <mat-label>Localities</mat-label>
         <mat-chip-list #setChip>
           <mat-chip *ngFor="let locality of localities" (removed)="remove(locality, 'local')">{{locality}}
@@ -43,14 +43,14 @@
           <input placeholder="Localities" formControlName="localities" [matChipInputFor]="setChip"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, 'local')">
         </mat-chip-list>
-      </mat-form-field>
+      </mat-form-field> -->
 
 
       <div>
         <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="start start" fxLayout.lt-lg="column"
           fxLayoutAlign.lt-lg="start stretch" class="w-full" fxLayoutGap="10px">
           <a mat-icon-button (click)="addAreas()">
-            <mat-icon class="mat-18">add</mat-icon> Add Supported Local Areas
+            <mat-icon class="mat-18">add</mat-icon>
           </a>
         </div>
 
