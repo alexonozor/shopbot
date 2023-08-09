@@ -63,10 +63,10 @@ export class SettingsService  {
   }
 
   versionUpdate(params: any) {
-    return this._httpClient.put(`${this.hostServer}/version-settings/649e53c6837973557666255a`, params);
+    return this._httpClient.put(`${this.hostServer}/version-settings/64a3ac4b376e5b4172739f1b`, params);
   }
 
   getVersion() {
-    return this._httpClient.get(`${this.hostServer}/version-settings/649e53c6837973557666255a`);
+    return this._httpClient.get(`${this.hostServer}/version-settings/64a3ac4b376e5b4172739f1b`);
   }
 }
