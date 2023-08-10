@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
-
+import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-list-orders',
   templateUrl: './list-orders.component.html',
@@ -20,7 +20,7 @@ export class ListOrdersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
-
+  totalOrders: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,11 +31,23 @@ export class ListOrdersComponent implements OnInit {
   
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    
+    this.paginator.page.pipe(switchMap((event) => { 
+      const offSet = event.pageSize * event.pageIndex
+      return this.orderService.getOrders({
+      data: {$match:{}},
+      control:[{$sort:{'createdAt': -1}},{$skip:offSet},{$limit:20}] 
+     })
+    })).subscribe((orders) => {
+     
+      this.dataSource = new MatTableDataSource<Order>(orders);
+    })
+   
   }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Order>(this.route.snapshot.data['orders']);
+    this.totalOrders = this.route.snapshot.data['totalOrders'] as number;
   }
 
   isAllSelected() {
@@ -93,7 +105,7 @@ export class ListOrdersComponent implements OnInit {
         this.dataSource.data.splice(index, 1);
         this.dataSource = new MatTableDataSource<Order>(this.dataSource.data);
         this.dataSource._updateChangeSubscription();
-        this.dataSource.paginator = this.paginator;
+        // this.dataSource.paginator = this.paginator;
         this.orderService.deleteOrder(id).subscribe();
       }
     });

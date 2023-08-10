@@ -33,6 +33,10 @@ export class OrdersService {
     );
   }
 
+  countOrders(): Observable<number> {
+    return this._httpClient.get<number>(`${this.hostServer}/orders/count/all`);
+  }
+
   getUserOrders(id:any): Observable<Order[]> {
     return this._httpClient.get<Order[]>(`${this.hostServer}/orders/user/${id}`);
   }
