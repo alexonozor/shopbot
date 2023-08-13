@@ -68,8 +68,8 @@ export class BusinessHoursTabComponent implements OnInit {
 	  for (let i = 0; i < data.length; i++) {
 		f[data[i].name.toLowerCase()] = this._formBuilder.group({
 		  name: [data[i].name, Validators.required],
-		  openingTime: [moment(data[i].openingTime).utc(), Validators.required],
-		  closingTime: [moment(data[i].openingTime).utc(), Validators.required],
+		  openingTime: [new Date(data[i].openingTime), Validators.required],
+		  closingTime: [new Date(data[i].closingTime), Validators.required],
 		  closed: data[i].closed,
 		  neverOpen: data[i].neverOpen
 		})

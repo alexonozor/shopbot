@@ -82,7 +82,9 @@ export class StoresService implements Resolve<any>
     return this._httpClient.get<Store[]>(`${this.hostServer}/stores?query=${queryParams}`)
   }
 
-
+  search(query:any): Observable<Store[]> {
+    return this._httpClient.get<Store[]>(`${this.hostServer}/stores/search-store-admin?search=${query}`)
+  }
 
 /**
  * Search stores

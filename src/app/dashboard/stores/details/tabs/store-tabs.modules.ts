@@ -30,7 +30,7 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
-    NgxMatMomentModule
+    // NgxMatMomentModule
   ],
   exports: [
     StoreMenusComponent,

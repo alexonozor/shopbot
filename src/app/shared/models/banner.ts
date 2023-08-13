@@ -11,4 +11,7 @@ export interface Banner {
     country: string[];
     cities: string[];
     createdAt: string;
+    storeId: string;
+    menuId: string;
+    productId: string;
 }

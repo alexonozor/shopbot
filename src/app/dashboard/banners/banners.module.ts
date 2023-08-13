@@ -15,6 +15,7 @@ import { MaterialModule } from 'src/app/material';
 import { StoreTabsModule } from '../stores/details/tabs/store-tabs.modules';
 import { StoresRoutingModule } from '../stores/stores.routing';
 import { SharedModule } from '../../shared/shared.module';
+import { StoreService } from '../stores/details/store.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SharedModule } from '../../shared/shared.module';
   providers: [
     BannersResolver, 
     BannerResolver,
-    BannersService
+    BannersService,
+    StoreService
   ]
 })
 export class BannersModule { }

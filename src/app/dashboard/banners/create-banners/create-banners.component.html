@@ -24,6 +24,40 @@
                     </mat-select>
                 </mat-form-field>
 
+                <mat-form-field class="example-full-width" *ngIf="bannerForm.value.category === 'Product'">
+                  <mat-label>Store</mat-label>
+                  <input matInput
+                         aria-label="Store"
+                         [matAutocomplete]="auto"
+                         [formControl]="storesCtrl"
+                         formControlName="storeId">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onShopSelectionChanged($event)" > 
+                    <mat-option *ngFor="let store of filteredStores | async" [value]="store.name" [id]="store._id">
+                      <span>{{store.name}}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" *ngIf="bannerForm.value.storeId">
+                  <mat-label>Select product menu</mat-label>
+                  <mat-select (selectionChange)="changeMenu($event)"  formControlName="menuId">
+                    <mat-option *ngFor="let menu of menus$ | async" [value]="menu._id">
+                      <span>{{menu.name}}</span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" *ngIf="selectedMenu">
+                  <mat-label>Select product</mat-label>
+                  <mat-select formControlName="productId">
+                    <mat-option *ngFor="let food of selectedMenu.foods" [value]="food._id">
+                      <span>{{food.name}}</span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                
+
                 <mat-form-field class="full-width" appearance="outline" >
                     <mat-label>Show on Slider</mat-label>
                     <mat-select formControlName="showOnSlider">
@@ -33,10 +67,10 @@
 
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Link</mat-label>
-                    <textarea matInput placeholder="Enter Link" formControlName="link"></textarea>
+                    <input matInput placeholder="Enter Link" formControlName="link">
                 </mat-form-field>
 
-                 <mat-form-field appearance="outline" >
+                 <mat-form-field appearance="outline">
                     <mat-label>Country</mat-label>
                     <mat-select  multiple formControlName="country">
                       <mat-select-trigger>
@@ -58,7 +92,7 @@
                           (+{{(bannerForm.value?.cities?.length || 0) - 1}} {{bannerForm.value?.cities?.length === 2 ? 'other' : 'others'}})
                         </span>
                       </mat-select-trigger>
-                      <mat-option *ngFor="let region of ['Yenagoa', 'Lagos', 'Warri', 'PH']" [value]="region">{{region}}</mat-option>
+                      <mat-option *ngFor="let region of ['Yenagoa', 'Yenegoa', 'Lagos', 'Warri', 'PH']" [value]="region">{{region}}</mat-option>
                     </mat-select>
                   </mat-form-field>
 

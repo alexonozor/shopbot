@@ -57,7 +57,6 @@ export class MenuService implements Resolve<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get(`${this.hostServer}/menus/` + this.routeParams.menuId)
                 .subscribe((response: any) => {
-                    console.log(response)
                     this.menu = response;
                     this.onMenuChanged.next(this.menu);
                     resolve(response);
