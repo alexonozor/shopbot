@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1691930837394,
+  "timestamp": 1692129542546,
   "index": "https://dashboard.shopbot.africa/index.html",
   "assetGroups": [
     {
@@ -19,7 +19,7 @@
         "https://dashboard.shopbot.africa/255.c49f213cc7382f60.js",
         "https://dashboard.shopbot.africa/31.8319d9e7ea1d1e74.js",
         "https://dashboard.shopbot.africa/327.049e8de2d21efbc5.js",
-        "https://dashboard.shopbot.africa/404.564ec5e32fb39590.js",
+        "https://dashboard.shopbot.africa/404.ad21c734fc63810f.js",
         "https://dashboard.shopbot.africa/467.6e42d3e432cfd185.js",
         "https://dashboard.shopbot.africa/478.5e05c36666ba4eb5.js",
         "https://dashboard.shopbot.africa/520.69f4be91d040d26d.js",
@@ -31,7 +31,7 @@
         "https://dashboard.shopbot.africa/729.2e5f93963fd92e01.js",
         "https://dashboard.shopbot.africa/750.777649a08d7fa619.js",
         "https://dashboard.shopbot.africa/775.ac72922fca9b98c2.js",
-        "https://dashboard.shopbot.africa/827.c8fc1c79776fcc29.js",
+        "https://dashboard.shopbot.africa/827.0589f8a8ae4f0b21.js",
         "https://dashboard.shopbot.africa/87.a1712be252802351.js",
         "https://dashboard.shopbot.africa/884.a31aeb2603149e65.js",
         "https://dashboard.shopbot.africa/943.540876fb96789ad9.js",
@@ -40,11 +40,11 @@
         "https://dashboard.shopbot.africa/common.00953982d1bf50ee.js",
         "https://dashboard.shopbot.africa/favicon.ico",
         "https://dashboard.shopbot.africa/index.html",
-        "https://dashboard.shopbot.africa/main.97c9d277ebcf8c30.js",
+        "https://dashboard.shopbot.africa/main.6ab62fba66995b51.js",
         "https://dashboard.shopbot.africa/manifest.webmanifest",
         "https://dashboard.shopbot.africa/polyfills.f8b65e4025643e46.js",
-        "https://dashboard.shopbot.africa/runtime.d76812a4e066791d.js",
-        "https://dashboard.shopbot.africa/styles.30e4197de6934a47.css"
+        "https://dashboard.shopbot.africa/runtime.a7905923a811c16e.js",
+        "https://dashboard.shopbot.africa/styles.fcee8872859721de.css"
       ],
       "patterns": []
     },
@@ -81,7 +81,7 @@
     "https://dashboard.shopbot.africa/255.c49f213cc7382f60.js": "03758e41be1eb5131a1b112f885c7100d7ad96d4",
     "https://dashboard.shopbot.africa/31.8319d9e7ea1d1e74.js": "a5b820f3d399cc204622ef487bb657754c007bdf",
     "https://dashboard.shopbot.africa/327.049e8de2d21efbc5.js": "6376ad0e170f6fa3d900c9ec9f81ecb934324254",
-    "https://dashboard.shopbot.africa/404.564ec5e32fb39590.js": "f882d7a6113ff4cc34d2f971fa40562871592ff5",
+    "https://dashboard.shopbot.africa/404.ad21c734fc63810f.js": "6ce6a48dead1e3d411bd5db182a063deae92531e",
     "https://dashboard.shopbot.africa/467.6e42d3e432cfd185.js": "876bb77afbcaf23bef24bc5d101698f35173b568",
     "https://dashboard.shopbot.africa/478.5e05c36666ba4eb5.js": "bc4ee2ad17710d231afbe5e67f97cbcaf8a96dc3",
     "https://dashboard.shopbot.africa/520.69f4be91d040d26d.js": "637b4234540d85b291b96d9d1c369ea6be7d8ec6",
@@ -93,7 +93,7 @@
     "https://dashboard.shopbot.africa/729.2e5f93963fd92e01.js": "688b1685885379071e189aa79ad0d63675e9fc6a",
     "https://dashboard.shopbot.africa/750.777649a08d7fa619.js": "c7f7ad92cc7b53df8c2091c3e4d436835ceef5c3",
     "https://dashboard.shopbot.africa/775.ac72922fca9b98c2.js": "dbfda1c7323ab78ca4c0b7b5f118d18c9795fdd0",
-    "https://dashboard.shopbot.africa/827.c8fc1c79776fcc29.js": "f869ca7d14ec0da26c5288c42c4f577ac4b9ad42",
+    "https://dashboard.shopbot.africa/827.0589f8a8ae4f0b21.js": "d9aa6ef2e4f80de37f5df27382e7afd509616394",
     "https://dashboard.shopbot.africa/87.a1712be252802351.js": "b804a866a64876365c55fed6998faa58d3583887",
     "https://dashboard.shopbot.africa/884.a31aeb2603149e65.js": "80eefe6e2cb5f4e4bcd622004fbaa07515f55a5f",
     "https://dashboard.shopbot.africa/943.540876fb96789ad9.js": "ae4d29bb2312c757bf83e68c4a4a6023232b5fc1",
@@ -112,12 +112,12 @@
     "https://dashboard.shopbot.africa/assets/notification/sound.wav": "5a68c64b98d733acbf7f8e320e92d423bfab77c7",
     "https://dashboard.shopbot.africa/common.00953982d1bf50ee.js": "6b2091014d37ee16c5de519213cadbb7eddea3f6",
     "https://dashboard.shopbot.africa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://dashboard.shopbot.africa/index.html": "f452ca776794fb3467a4c5aee0cfea1b48979ad0",
-    "https://dashboard.shopbot.africa/main.97c9d277ebcf8c30.js": "f91deb572970fa5c6221a48d6dfd081faa6472f4",
+    "https://dashboard.shopbot.africa/index.html": "2321e8476c87b49757a89a37e518178602068b10",
+    "https://dashboard.shopbot.africa/main.6ab62fba66995b51.js": "0b1aed8615c91c8f95df7dca4d891a0333abe989",
     "https://dashboard.shopbot.africa/manifest.webmanifest": "57f41389f7ce57ab57722d42bcb521aa857f0392",
     "https://dashboard.shopbot.africa/polyfills.f8b65e4025643e46.js": "97384fc4bf2a20355e31ea236f9c1fcaad1718a1",
-    "https://dashboard.shopbot.africa/runtime.d76812a4e066791d.js": "5d3aeebc69e10ea6a5f1f6c9ec096af47ec545ce",
-    "https://dashboard.shopbot.africa/styles.30e4197de6934a47.css": "264ecf9f6e632a2f668344bd60a30a1791bc63fa"
+    "https://dashboard.shopbot.africa/runtime.a7905923a811c16e.js": "0846f81528384eaae4f2ed9d2ced7d19200668fc",
+    "https://dashboard.shopbot.africa/styles.fcee8872859721de.css": "4bc42b9f82b7f550389ad1941ae2576e5c430e31"
   },
   "navigationUrls": [
     {
