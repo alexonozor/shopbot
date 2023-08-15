@@ -23,12 +23,12 @@ export class OrdersDetailsComponent implements OnInit {
   isCanceling!: boolean;
   isAccepting!: boolean;
   statuses = [
-    { id: 0, name: "Accepted", color: "text-yellow-700"},
-    { id: 1, name: "Preparing", color: "text-blue-500"},
-    { id: 2, name: "Ready for Pickup", color: "text-blue-500"},
-    { id: 4, name: "Shipped", color: "text-blue-500"},
-    { id: 3, name: "Canceled", color: "text-red-500"},
-    { id: 5, name: "Delivered", color: "text-green-500"},
+    { id: 0, name: "Accepted", color: "text-yellow-700", updatedOn: new Date()},
+    { id: 1, name: "Preparing", color: "text-blue-500", updatedOn: new Date()},
+    { id: 2, name: "Ready for Pickup", color: "text-blue-500", updatedOn: new Date()},
+    { id: 4, name: "Shipped", color: "text-blue-500", updatedOn: new Date()},
+    { id: 3, name: "Canceled", color: "text-red-500", updatedOn: new Date()},
+    { id: 5, name: "Delivered", color: "text-green-500", updatedOn: new Date()},
   ]
   
 
@@ -52,7 +52,7 @@ export class OrdersDetailsComponent implements OnInit {
 
   accept(order:Order) {
     this.isAccepting = true;
-    this.updateStatus({ id: 0, name: "Accepted", color: "text-yellow-700"}, order, false)
+    this.updateStatus({ id: 0, name: "Accepted", color: "text-yellow-700", updatedOn: new Date()}, order, false)
     order.category =  'Processing'
   }
 
@@ -60,7 +60,7 @@ export class OrdersDetailsComponent implements OnInit {
 
   cancelOrder(order:Order) {
     this.isCanceling = true;
-    this.updateStatus({ id: 3, name: "Canceled", color: "text-red-500"}, order, false)
+    this.updateStatus({ id: 3, name: "Canceled", color: "text-red-500", updatedOn: new Date()}, order, false)
     order.category =  'Canceled'
   }
 

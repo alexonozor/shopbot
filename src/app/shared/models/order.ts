@@ -10,6 +10,7 @@ export interface Order  {
     status: Status[];
     reference: string;
     total: number;
+    driverTip: number;
     discount: number;
     serviceFee: number;
     orderInstruction: string;
@@ -18,6 +19,7 @@ export interface Order  {
     createdAt: string;
     shippingFee: number;
     paymentStatus: string;
+    currentAppVersion:string;
     payment:string;
     category: string;
     gift: boolean;
@@ -66,6 +68,7 @@ export interface Shipping {
     thoroughfare: string;
     paymentStatus: string;
     category: string;
+    streetName?: string | null | undefined;
   }
 
   export interface Status {
