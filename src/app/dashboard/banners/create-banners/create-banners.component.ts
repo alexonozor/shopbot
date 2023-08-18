@@ -11,6 +11,8 @@ import { StoresService } from '../../stores/stores.service';
 import { Menu } from '../../../shared/models/menu';
 import { MenusService } from '../../stores/details/tabs/menus/list/menus.service';
 import { StoreService } from '../../stores/details/store.service';
+import { DeliveryZone } from '../../../shared/models/delivery-zone';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-banners',
@@ -26,6 +28,8 @@ export class CreateBannersComponent implements OnInit {
   menus: Menu[] = []
   menus$!: Observable<Menu[]>;
   selectedMenu: Menu | any;
+  deliveryZones!: DeliveryZone[];
+  selectedZone!: DeliveryZone;
 
   constructor(
     private fb: FormBuilder,
@@ -34,8 +38,10 @@ export class CreateBannersComponent implements OnInit {
     public dialog: MatDialog,
     public storesService: StoresService,
     public menusService: MenusService,
-    public storeService: StoreService
+    public storeService: StoreService,
+    public route: ActivatedRoute
   ) {
+    this.deliveryZones = this.route.snapshot.data['deliveryZones'] as DeliveryZone[]
     this.mediaData = { image: null, icon: null };
     this.bannerForm = this.fb.group({
       image: ['', Validators.required],
@@ -49,13 +55,17 @@ export class CreateBannersComponent implements OnInit {
       menuId: [''],
       productId: [''],
       country: ['', Validators.required],
-      cities: ['', Validators.required]
+      localities: ['', Validators.required]
     });
   }
 
 
+  selectedCountry(event:any) {
+   this.selectedZone =  this.deliveryZones.find((zone) => zone.country == event.value) as DeliveryZone
+  }
 
   ngOnInit(): void {
+   
     this.filteredStores = this.storesCtrl.valueChanges.pipe(
       startWith(''),
       debounceTime(500),

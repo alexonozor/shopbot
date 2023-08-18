@@ -5,6 +5,7 @@ import { ListBannersComponent } from './list-banners/list-banners.component';
 import { EditBannersComponent } from './edit-banners/edit-banners.component';
 import { CreateBannersComponent } from './create-banners/create-banners.component';
 import { BannerResolver, BannersResolver } from 'src/app/shared/resolvers/banners.resolver';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   {
@@ -18,12 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: CreateBannersComponent
+        component: CreateBannersComponent,
+        resolve: { deliveryZones: DeliveryZonesResolver }
       },
       {
         path: ':id/edit',
         component: EditBannersComponent,
-        resolve: { banner: BannerResolver }
+        resolve: { banner: BannerResolver, deliveryZones: DeliveryZonesResolver }
       }
     ]
   }

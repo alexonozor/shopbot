@@ -3,21 +3,23 @@
     <div class="mat-elevation-z8 container mx-auto my-10  p-5" ngStyle.gt-sm="width: 50rem;" ngStyle.lt-lg="width: 100%">
         <form [formGroup]="bannerForm" (ngSubmit)="submit()">
             <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
-    
+              <div class="mb-4">
                 <app-select-media valueName="Image" [isNew]="false" [mediaData]="mediaData?.image"
             (removeValue)="removeValue($event)" (openMediaBrowser)="addMedia($event)"></app-select-media>
+              </div>
+                
     
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" >
                     <mat-label>Name Of Banner</mat-label>
                     <input matInput placeholder="Name Of Banner" formControlName="title">
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" >
                     <mat-label>Short Description</mat-label>
                     <textarea matInput placeholder="Short Description" formControlName="shortDescription"></textarea>
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline" >
+                <mat-form-field class="full-width"  >
                     <mat-label>Category</mat-label>
                     <mat-select formControlName="category">
                         <mat-option *ngFor="let category of ['Product', 'Category', 'Blog']" [value]="category" >{{category}}</mat-option>
@@ -57,12 +59,12 @@
                   </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" >
                     <mat-label>Link</mat-label>
                     <input matInput placeholder="Enter Link" formControlName="link">
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline" >
+                <mat-form-field class="full-width"  >
                     <mat-label>Show on Slider</mat-label>
                     <mat-select formControlName="showOnSlider">
                         <mat-option *ngFor="let category of [{value:true, name:'Yes'}, {value: false, name:'No'}]" [value]="category.value" >{{category.name}}</mat-option>
@@ -70,35 +72,36 @@
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" >
-                    <mat-label>Country</mat-label>
-                    <mat-select  multiple formControlName="country">
-                      <mat-select-trigger>
-                        {{bannerForm.value?.country?.[0] || ''}}
-                        <span *ngIf="(bannerForm.value?.country?.length || 0) > 1" class="example-additional-selection">
-                          (+{{(bannerForm.value?.country?.length || 0) - 1}} {{bannerForm.value?.country?.length === 2 ? 'other' : 'others'}})
-                        </span>
-                      </mat-select-trigger>
-                      <mat-option *ngFor="let region of ['Nigeria', 'Mauritius', 'Kenya', 'Rwanda']" [value]="region">{{region}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            
-                  <mat-form-field appearance="outline" >
-                    <mat-label>City</mat-label>
-                    <mat-select  multiple formControlName="cities">
-                      <mat-select-trigger>
-                        {{bannerForm.value?.cities?.[0] || ''}}
-                        <span *ngIf="(bannerForm.value?.cities?.length || 0) > 1" class="example-additional-selection">
-                          (+{{(bannerForm.value?.cities?.length || 0) - 1}} {{bannerForm.value?.cities?.length === 2 ? 'other' : 'others'}})
-                        </span>
-                      </mat-select-trigger>
-                      <mat-option *ngFor="let region of ['Yenagoa', 'Lagos', 'Warri', 'PH']" [value]="region">{{region}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <mat-form-field >
+                  <mat-label>Country</mat-label>
+                  <mat-select  formControlName="country" (selectionChange)="selectedCountry($event.value)">
+                    <mat-option *ngFor="let zone of deliveryZones" [value]="zone.country">{{zone.country}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+          
+                <mat-form-field appearance="outline" *ngIf="bannerForm.value.country">
+                  <mat-label>Localities</mat-label>
+                  <mat-select  multiple formControlName="localities">
+                    <mat-select-trigger>
+                      {{bannerForm.value?.localities?.[0] || ''}}
+                      <span *ngIf="(bannerForm.value?.localities?.length || 0) > 1" class="example-additional-selection">
+                        (+{{(bannerForm.value?.localities?.length || 0) - 1}} {{bannerForm.value?.localities?.length === 2 ? 'other' : 'others'}})
+                      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let locality of selectedZone.localAreas" [value]="locality.name">{{locality.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
                 
     
-                <mat-slide-toggle formControlName="active">Enable</mat-slide-toggle>
+                
+
+                <mat-form-field class="full-width"  >
+                  <mat-label>Publish</mat-label>
+                  <mat-select formControlName="active">
+                      <mat-option *ngFor="let category of [{value:true, name:'Yes'}, {value: false, name:'No'}]" [value]="category.value" >{{category.name}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
     
                 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
                     <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>

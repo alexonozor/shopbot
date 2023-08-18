@@ -8,8 +8,8 @@ export interface Banner {
     category: string;
     showOnSlider: string;
     link: string;
-    country: string[];
-    cities: string[];
+    country: string;
+    localities: any[];
     createdAt: string;
     storeId: string;
     menuId: string;

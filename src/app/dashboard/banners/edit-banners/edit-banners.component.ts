@@ -13,6 +13,7 @@ import { StoresService } from '../../stores/stores.service';
 import { Menu } from '../../../shared/models/menu';
 import { MenusService } from '../../stores/details/tabs/menus/list/menus.service';
 import { StoreService } from '../../stores/details/store.service';
+import { DeliveryZone } from '../../../shared/models/delivery-zone';
 
 @Component({
   selector: 'app-edit-banners',
@@ -31,7 +32,9 @@ export class EditBannersComponent implements OnInit {
   menus$!: Observable<Menu[]>;
   selectedMenu:Menu | any;
   storeId!: string;
-  
+  deliveryZones!: DeliveryZone[];
+  selectedZone!: DeliveryZone;
+
   constructor(
     private fb: FormBuilder,
     private bannerService: BannersService,
@@ -43,6 +46,9 @@ export class EditBannersComponent implements OnInit {
     public menusService: MenusService
   ) {
    this.banner = this.route.snapshot.data['banner'] as Banner;
+   this.deliveryZones = this.route.snapshot.data['deliveryZones'] as DeliveryZone[]
+   console.log(this.banner.country)
+   this.selectedCountry(this.banner.country)
    this.mediaData = { image:null, icon:null };
    this.bannerForm = this.fb.group({
     image: [this.banner.image, Validators.required],
@@ -56,7 +62,7 @@ export class EditBannersComponent implements OnInit {
     menuId: [this.banner.menuId],
     productId: [this.banner.productId],
     country: [this.banner.country, Validators.required],
-    cities: [this.banner.cities, Validators.required]
+    localities: [this.banner.localities, Validators.required]
   });
     this.mediaData = {image:null, icon:null};
     this.mediaData['image'] = this.banner.image
@@ -76,6 +82,12 @@ export class EditBannersComponent implements OnInit {
       })
     }
   }
+
+  selectedCountry(value:string) {
+    if (value) {
+      this.selectedZone =  this.deliveryZones.find((zone) => zone.country == value) as DeliveryZone
+    }
+   }
 
   onShopSelectionChanged(event:any) {
     this.bannerForm.patchValue({storeId: event.option.value})

@@ -72,27 +72,21 @@
 
                  <mat-form-field appearance="outline">
                     <mat-label>Country</mat-label>
-                    <mat-select  multiple formControlName="country">
-                      <mat-select-trigger>
-                        {{bannerForm.value.country[0] || ''}}
-                        <span *ngIf="(bannerForm.value?.country?.length || 0) > 1" class="example-additional-selection">
-                          (+{{(bannerForm.value?.country?.length || 0) - 1}} {{bannerForm.value?.country?.length === 2 ? 'other' : 'others'}})
-                        </span>
-                      </mat-select-trigger>
-                      <mat-option *ngFor="let region of ['Nigeria', 'Mauritius', 'Kenya', 'Rwanda']" [value]="region">{{region}}</mat-option>
+                    <mat-select  formControlName="country" (selectionChange)="selectedCountry($event)">
+                      <mat-option *ngFor="let zone of deliveryZones" [value]="zone.country">{{zone.country}}</mat-option>
                     </mat-select>
                   </mat-form-field>
             
-                  <mat-form-field appearance="outline" >
-                    <mat-label>City</mat-label>
-                    <mat-select  multiple formControlName="cities">
+                  <mat-form-field appearance="outline" *ngIf="selectedZone">
+                    <mat-label>Localities</mat-label>
+                    <mat-select  multiple formControlName="localities">
                       <mat-select-trigger>
-                        {{bannerForm.value?.cities?.[0] || ''}}
-                        <span *ngIf="(bannerForm.value?.cities?.length || 0) > 1" class="example-additional-selection">
-                          (+{{(bannerForm.value?.cities?.length || 0) - 1}} {{bannerForm.value?.cities?.length === 2 ? 'other' : 'others'}})
+                        {{bannerForm.value?.localities?.[0] || ''}}
+                        <span *ngIf="(bannerForm.value?.localities?.length || 0) > 1" class="example-additional-selection">
+                          (+{{(bannerForm.value?.localities?.length || 0) - 1}} {{bannerForm.value?.localities?.length === 2 ? 'other' : 'others'}})
                         </span>
                       </mat-select-trigger>
-                      <mat-option *ngFor="let region of ['Yenagoa', 'Yenegoa', 'Lagos', 'Warri', 'PH']" [value]="region">{{region}}</mat-option>
+                      <mat-option *ngFor="let locality of selectedZone.localAreas" [value]="locality.name">{{locality.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
 
