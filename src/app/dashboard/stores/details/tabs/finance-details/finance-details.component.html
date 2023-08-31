@@ -25,6 +25,10 @@
             <dt class="mb-2 text-3xl font-extrabold amount fill">{{getVendorCost | currency: store.currency}} </dt>
             <dd class="font-light">  Vendor Amount </dd>
         </div>
+        <div class="flex flex-col items-center justify-center with-margin">
+          <dt class="mb-2 text-3xl font-extrabold amount fill">{{store.walletBalance | currency: store.currency}} </dt>
+          <dd class="font-light">  Wallet Balance  </dd>
+      </div>
        </dl>
     </div>
     

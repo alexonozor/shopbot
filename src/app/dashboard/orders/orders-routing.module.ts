@@ -14,12 +14,12 @@ const routes: Routes = [
       {
         path: 'list',
         component: ListOrdersComponent,
-        resolve: { orders: OrdersResolver, commission: OrderUpdateResolver, totalOrders: OrdersCountResolver }
+        resolve: { orders: OrdersResolver, totalOrders: OrdersCountResolver }
       },
       {
         path: ':id/details',
         component: OrdersDetailsComponent,
-        resolve: { order: OrderResolver, commission: OrderUpdateResolver }
+        resolve: { order: OrderResolver }
       }
     ]
   }

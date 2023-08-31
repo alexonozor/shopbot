@@ -19,10 +19,11 @@ export interface Store {
   businessHours: BusinessHours | any;
   rank?: number;
   location?: Location;
-  owner?: string,
-  menus: Menu[],
+  owner?: string;
+  menus: Menu[];
+  walletBalance: number;
   currency: string;
-  deliverySettings: DeliverySettings,
+  deliverySettings: DeliverySettings;
   expensive: number;
   popular: Product[] | string[]
 };

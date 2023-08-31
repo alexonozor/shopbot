@@ -17,7 +17,6 @@ import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
-import { SwPush } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 const startOfMonth = moment().startOf('month').toDate()
 const endOfMonth   = moment().endOf('month').toDate()
@@ -42,9 +41,8 @@ export class HomeComponent implements OnInit {
   stat$!: Observable<any>
   stores$!: Observable<Store[]>
 
-
   title = 'ng2-charts-demo';
-   public isLoadingChart!: boolean
+  public isLoadingChart!: boolean
   public lineChartData!: ChartConfiguration<'line'>['data'];
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true
@@ -151,7 +149,6 @@ export class HomeComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((date:any) => {
         return forkJoin({
-          commission: this.ordersService.updateOrderCommission(date),
           stats: this.dashboardService.getOrderStat(date)
         }).pipe(
           finalize(() => this.isLoading =  false),

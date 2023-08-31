@@ -9,6 +9,7 @@ export interface Order  {
     user: User,
     status: Status[];
     reference: string;
+    settled: boolean;
     total: number;
     driverTip: number;
     discount: number;

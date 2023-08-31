@@ -22,14 +22,14 @@
     <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap.gt-md="10px">
       <mat-form-field appearance="outline">
         <mat-label>Payment Status</mat-label>
-        <mat-select  (selectionChange)="updatePaymentStatus(order, $event)" [(ngModel)]="order.paymentStatus">
+        <mat-select [disabled]="order.settled" (selectionChange)="updatePaymentStatus(order, $event)" [(ngModel)]="order.paymentStatus">
           <mat-option *ngFor="let status of ['Paid', 'Unpaid']" [value]="status">{{status}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Order Status</mat-label>
-        <mat-select  (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
+        <mat-select [disabled]="order.settled" (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>

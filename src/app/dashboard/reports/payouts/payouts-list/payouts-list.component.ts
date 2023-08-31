@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 export class PayoutsListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'createdAt', 'vendor', 'orders', 'status', 'total',  'actions'];
+  public displayedColumns: string[] = ['select', 'createdAt', 'vendor', 'orders', 'total',  'actions'];
   public dataSource = new MatTableDataSource<Transaction>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

@@ -18,6 +18,10 @@ const routes: Routes = [
       { 
         path: 'withdrawals', 
         loadChildren: () => import('./withdrawals/withdrawals.module').then(m => m.WithdrawalsModule)
+      },
+      { 
+        path: 'finances', 
+        loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule)
       }
     ]
   },
