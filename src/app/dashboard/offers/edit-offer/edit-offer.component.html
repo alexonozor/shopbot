@@ -1,0 +1,108 @@
+<div class="mat-elevation-z3 container mx-auto my-10 container-md p-5">
+  <form [formGroup]="promoForm" (ngSubmit)="submit()">
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <div class="m-3 w-full" fxLayout="column" fxLayoutAlign="center center">
+        <app-select-media valueName="Image" [isNew]="false" [mediaData]="mediaData?.image"
+          (removeValue)="removeValue($event)" (openMediaBrowser)="addMedia($event)"></app-select-media>
+      </div>
+
+      <mat-form-field  class="w-full" >
+      <mat-label>Select a vendor</mat-label>
+      <mat-select formControlName="store"  (selectionChange)="selectStore($event)">
+        <mat-option *ngFor="let store of stores" [value]="store._id">
+          {{store.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Offer Type</mat-label>
+        <mat-select formControlName="offerType">
+          <mat-option *ngFor="let offerType of ['Entire menu', 'Single menu', 'Single Item']" [value]="offerType">
+            {{offerType}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field  class="w-full" *ngIf="promoForm.value.offerType === 'Single menu'
+      || promoForm.value.offerType === 'Single Item' && selectedStore">
+        <mat-label>Select a menu</mat-label>
+        <mat-select formControlName="menu" (selectionChange)="selectedMenu($event)" [compareWith]="objectComparisonFunction">
+          <mat-option *ngFor="let menu of menus" [value]="menu">
+            {{menu.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field  class="w-full" 
+        *ngIf="promoForm.value.offerType === 'Single Item' && selectMenu">
+        <mat-label>Select a menu Item</mat-label>
+        <mat-select formControlName="food">
+          <mat-option *ngFor="let food of selectMenu.foods" [value]="food._id">
+            {{food.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field class="w-full">
+        <mat-label>Offer Period Type</mat-label>
+        <mat-select formControlName="offerPeriodType">
+          <mat-option *ngFor="let offerType of ['One Time', 'Recurring']" [value]="offerType">
+            {{offerType}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" *ngIf="promoForm.value.offerPeriodType === 'One Time'">
+        <mat-label>Offer Start/End Period</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate formControlName="startTime" placeholder="Start date">
+          <input matEndDate formControlName="endTime" placeholder="End date">
+        </mat-date-range-input>
+
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+      </mat-form-field>
+
+      <div   formArrayName="offerPeriodDays" class="w-full" *ngIf="promoForm.value.offerPeriodType === 'Recurring'">
+        <div class="p-3 border-b-2 border-b-gray w-full" *ngFor="let period of offerPeriods.controls; let i = index"  fxLayout="row" fxLayoutAlign="space-around center">
+          <ng-container [formGroupName]="i">
+          <mat-checkbox  formControlName="active">{{period.value.day}}</mat-checkbox>
+          <ngx-mat-timepicker  formControlName="startDate" [enableMeridian]="true"> </ngx-mat-timepicker>
+          <ngx-mat-timepicker  formControlName="endDate" [enableMeridian]="true"> </ngx-mat-timepicker>
+        </ng-container>
+        </div>
+        
+      </div>
+      
+      
+      <mat-form-field class="w-full">
+        <mat-label>Discount</mat-label>
+        <input matInput type="number" placeholder="Enter Discount" formControlName="discount">
+        <mat-icon matSuffix>percent</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Text Description" formControlName="description"></textarea>
+      </mat-form-field>
+
+
+      <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+        fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
+
+        <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+        <button mat-raised-button fxFlex="50%" color="primary" [disabled]="promoForm.invalid">{{isLoading ?
+          'CHECKING...' : 'SAVE'}}</button>
+
+      </div>
+
+     
+    </div>
+
+  </form>
+</div>

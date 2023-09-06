@@ -25,7 +25,7 @@ export class AddMenusComponent implements OnInit {
       { day: "Thursday", active: true, from: '09:00:00', to: '20:00:00' },
       { day: "Friday", active: true, from: '09:00:00', to: '20:00:00' },
       { day: "Saturday", active: true, from: '09:00:00', to: '20:00:00' }
-    ]
+  ]
   
   public filteredDays: any[] =[];
 

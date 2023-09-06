@@ -19,6 +19,7 @@ export interface User {
   created: string;
   id: string;
   updated: string;
+  name: string;
   notificationToken: string;
   online: boolean;
   customerDetails: CustomerDetails;

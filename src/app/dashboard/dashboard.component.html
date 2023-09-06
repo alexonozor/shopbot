@@ -63,6 +63,11 @@
                 <mat-icon matListItemIcon class="material-icons-outlined">card_giftcard</mat-icon>
             </mat-list-item>
 
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/offers/list']">
+                <span class="full-width">Offers</span>
+                <mat-icon matListItemIcon class="material-icons-outlined">sell</mat-icon>
+            </mat-list-item>
+
             <mat-list-item  class="parent" [routerLink]="['/dashboard/delivery-zones/list']">
                 <span class="full-width">Delivery Zones</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">emoji_flags</mat-icon>
@@ -70,10 +75,7 @@
 
             <mat-expansion-panel [class.mat-elevation-z0]="true">
                 <mat-expansion-panel-header style="padding: 0px 10px 0px 0px;">
-                    <!-- <div  class="w-full p-0" fxLayout="row" fxLayoutAlign="space-between center">
-                        <mat-icon matListItemIcon class="material-icons-outlined ml-1">monetization_on</mat-icon>
-                        <span class="full-width ml-2">Reports</span>
-                    </div> -->
+                 
                     <mat-nav-list>
                         <mat-list-item  class="parent">
                             <span class="full-width">Reports</span>

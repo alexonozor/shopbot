@@ -47,7 +47,7 @@ export class BankAccountTabComponent implements OnInit {
   addAccountDetails(isNew: boolean, bank?: Bank) {
     let addStoreForm = this._matDialog.open(AddBankComponent, {
       disableClose: false,
-      data: { storeId: this.store._id, banks: this.bankList, isNew, bank }
+      data: { storeId: this.store._id, banks: this.bankList, isNew, bank, currency: this.store.currency }
     });
     addStoreForm.afterClosed().subscribe(result => {
       if (result) {

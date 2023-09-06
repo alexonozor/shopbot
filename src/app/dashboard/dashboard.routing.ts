@@ -71,6 +71,12 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.Admin, Role.Marketer] }
       },
+      {
+        path: 'offers',
+        loadChildren: () => import('./offers/offers.module').then(m => m.OffersModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.Admin, Role.Marketer] }
+      },
 
       {
         path: 'merchants',

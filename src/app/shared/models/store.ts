@@ -26,6 +26,7 @@ export interface Store {
   deliverySettings: DeliverySettings;
   expensive: number;
   popular: Product[] | string[]
+  createdAt: any;
 };
 
 interface DeliverySettings {
