@@ -9,6 +9,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
+import { AuthService } from 'src/app/shared/services';
+import { Role } from 'src/app/shared/models/role';
 
 @Component({
   selector: 'app-list-customers',
@@ -22,11 +24,13 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
+  Role = Role
 
 
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
+    public auth: AuthService,
     private _matDialog: MatDialog
   ) { }
 

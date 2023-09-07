@@ -8,6 +8,9 @@ import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.comp
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
 import { switchMap } from 'rxjs/operators';
+import { Role } from 'src/app/shared/models/role';
+import { AuthService } from 'src/app/shared/services';
+
 @Component({
   selector: 'app-list-orders',
   templateUrl: './list-orders.component.html',
@@ -21,11 +24,14 @@ export class ListOrdersComponent implements OnInit {
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
   totalOrders: number = 0;
+  Role = Role
+  
 
   constructor(
     private route: ActivatedRoute,
     private orderService: OrdersService,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    public auth: AuthService,
   ) { }
 
   

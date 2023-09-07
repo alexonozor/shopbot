@@ -85,12 +85,12 @@ export class EditOfferComponent implements OnInit {
     this.getMenu(this.selectedStore._id)
     this.promoForm = this.fb.group({
       image: [this.offer?.image],
-      menu: [this.offer?.menu._id],
-      food: [this.offer?.food._id],
+      menu: [this.offer?.menu?._id],
+      food: [this.offer?.food?._id],
       offerType: [this.offer?.offerType, Validators.required],
       offerPeriodType: [this.offer?.offerPeriodType, Validators.required],
       offerPeriodDays: this.fb.array([]),
-      store: [this.offer?.store._id],
+      store: [this.offer?.store?._id],
       discount: [this.offer?.discount, Validators.required],
       startTime: [this.offer?.startTime],
       endTime: [this.offer?.endTime],
@@ -155,7 +155,6 @@ export class EditOfferComponent implements OnInit {
   submit() {
     if (this.promoForm.valid) {
       let formValue = this.promoForm.getRawValue();
-      formValue.store = this.selectedStore._id
       formValue.menu = <any>this.selectMenu?._id;
       this.isLoading = true
       this.offersService.updateOffer(this.offer._id, formValue).subscribe((data) => {

@@ -76,7 +76,7 @@
                 <mat-icon class="material-icons-outlined">campaign</mat-icon>
                 <span>Message Customer</span>
               </button>
-            <button mat-menu-item (click)="deleteUser(element._id, j)">
+            <button mat-menu-item (click)="deleteUser(element._id, j)" *ngIf="auth.isShow([Role.Admin])">
               <mat-icon class="material-icons-outlined">delete</mat-icon>
               <span>Delete</span>
             </button>
