@@ -86,14 +86,19 @@ export class EditOfferComponent implements OnInit {
     this.promoForm = this.fb.group({
       image: [this.offer?.image],
       menu: [this.offer?.menu?._id],
+      applicableType: [this.offer?.applicableType],
+      quantityForFree: [this.offer?.quantityForFree],
+      quantityToOrder: [this.offer?.quantityToOrder],
       food: [this.offer?.food?._id],
       offerType: [this.offer?.offerType, Validators.required],
       offerPeriodType: [this.offer?.offerPeriodType, Validators.required],
       offerPeriodDays: this.fb.array([]),
       store: [this.offer?.store?._id],
-      discount: [this.offer?.discount, Validators.required],
+      amount: [this.offer?.amount],
+      discount: [this.offer?.discount],
       startTime: [this.offer?.startTime],
       endTime: [this.offer?.endTime],
+      enabled: [this.offer?.enabled],
       description: [this.offer?.description, Validators.required],
     });
 

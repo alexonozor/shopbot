@@ -15,14 +15,51 @@
       </mat-select>
     </mat-form-field>
 
-      <mat-form-field class="w-full">
-        <mat-label>Offer Type</mat-label>
-        <mat-select formControlName="offerType">
-          <mat-option *ngFor="let offerType of ['Entire menu', 'Single menu', 'Single Item']" [value]="offerType">
-            {{offerType}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>What kind of offer do you want create?</mat-label>
+      <mat-select formControlName="applicableType">
+        <mat-option *ngFor="let offerType of [
+        {name: 'Discount', value: 0},
+        {name: 'Buy x get x free', value: 1},
+        {name: 'Buy x, Get %(x) Off', value: 2},
+        {name: '%(x) Off, up to (x) amount of order', value: 3}
+        ]" [value]="offerType.value">
+          {{offerType.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 1 || promoForm.value.applicableType === 2">
+      <mat-label>Enter the quantity the buyer needs to order</mat-label>
+      <input matInput type="number" placeholder="Enter the quantity the buyer needs to order" formControlName="quantityToOrder">
+    </mat-form-field>
+
+    <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 1">
+      <mat-label>Enter to the quantity the buy will receive</mat-label>
+      <input matInput type="number" placeholder="Enter to the quantity the buyer will receive" formControlName="quantityForFree">
+    </mat-form-field>
+
+    <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 0 || promoForm.value.applicableType === 2 || promoForm.value.applicableType === 3">
+      <mat-label>Enter the discount</mat-label>
+      <input matInput type="number" placeholder="Enter Discount" formControlName="discount">
+      <mat-icon matSuffix>percent</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 3">
+      <mat-label>Enter the amount the user have to order</mat-label>
+      <input matInput type="number" placeholder="Enter the amount the user have to order" formControlName="amount">
+      <mat-icon matSuffix>money</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Where do you want to apply this offer?</mat-label>
+      <mat-select formControlName="offerType">
+        <mat-option *ngFor="let offerType of ['Entire menu', 'Single menu', 'Single Item']" [value]="offerType">
+          {{offerType}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
       <mat-form-field  class="w-full" *ngIf="promoForm.value.offerType === 'Single menu'
       || promoForm.value.offerType === 'Single Item' && selectedStore">
@@ -79,16 +116,20 @@
         
       </div>
       
-      
-      <mat-form-field class="w-full">
-        <mat-label>Discount</mat-label>
-        <input matInput type="number" placeholder="Enter Discount" formControlName="discount">
-        <mat-icon matSuffix>percent</mat-icon>
-      </mat-form-field>
-
       <mat-form-field class="w-full">
         <mat-label>Description</mat-label>
         <textarea matInput placeholder="Text Description" formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Enabled?</mat-label>
+        <mat-select formControlName="enabled">
+          <mat-option *ngFor="let offerType of [
+          {name: 'Enable', value: true},
+          {name: 'Disable', value: false}]" [value]="offerType.value">
+            {{offerType.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
 

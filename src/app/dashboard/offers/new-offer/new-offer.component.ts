@@ -78,14 +78,19 @@ export class NewOfferComponent implements OnInit {
       image: [''],
       menu: [null],
       food: [null],
+      applicableType: ['', Validators.required],
+      quantityForFree: [0],
+      quantityToOrder: [0],
       offerType: ['', Validators.required],
       offerPeriodType: ['', Validators.required],
       offerPeriodDays: this.fb.array([]),
       store: [''],
-      discount: [0, Validators.required],
+      discount: [0],
+      amount: [0],
       startTime: [this.range.value.start],
       endTime: [this.range.value.end],
       description: ['', Validators.required],
+      enabled: [false, Validators.required],
     });
 
 

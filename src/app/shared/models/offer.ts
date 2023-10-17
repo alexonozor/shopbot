@@ -14,6 +14,12 @@ export interface Offer {
     endTime: string;
     offerPeriodType: string;
     offerType: string;
+    applicableType: number;
+    quantityForFree: number,
+    quantityToOrder: number,
+    qtq: number;
     offerPeriodDays: any[];
+    enabled: boolean;
+    amount: number;
 }
   

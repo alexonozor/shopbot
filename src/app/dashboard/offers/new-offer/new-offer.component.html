@@ -10,6 +10,7 @@
 
 
 
+
       <mat-form-field class="w-full" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
         <mat-label>Select a vendor</mat-label>
         <input matInput placeholder="Select a vendor" #storeInput formControlName="store" [formControl]="storeCtrl"
@@ -23,7 +24,45 @@
       </mat-form-field>
 
       <mat-form-field class="w-full">
-        <mat-label>Offer Type</mat-label>
+        <mat-label>What kind of offer do you want create?</mat-label>
+        <mat-select formControlName="applicableType">
+          <mat-option *ngFor="let offerType of [
+          {name: 'Discount', value: 0},
+          {name: 'Buy x get x free', value: 1},
+          {name: 'Buy x, Get %(x) Off', value: 2},
+          {name: '%(x) Off, up to (x) amount of order', value: 3}
+          ]" [value]="offerType.value">
+            {{offerType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+
+      <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 1 || promoForm.value.applicableType === 2">
+        <mat-label>Enter the quantity the buyer needs to order</mat-label>
+        <input matInput type="number" placeholder="Enter the quantity the buyer needs to order" formControlName="quantityToOrder">
+      </mat-form-field>
+  
+      <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 1">
+        <mat-label>Enter to the quantity the buy will receive</mat-label>
+        <input matInput type="number" placeholder="Enter to the quantity the buyer will receive" formControlName="quantityForFree">
+      </mat-form-field>
+  
+      <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 0 || promoForm.value.applicableType === 2 || promoForm.value.applicableType === 3">
+        <mat-label>Enter the discount</mat-label>
+        <input matInput type="number" placeholder="Enter Discount" formControlName="discount">
+        <mat-icon matSuffix>percent</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 3">
+        <mat-label>Enter the amount</mat-label>
+        <input matInput type="number" placeholder="Enter amount" formControlName="amount">
+        <mat-icon matSuffix>money</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field class="w-full">
+        <mat-label>Where do you want to apply this offer?</mat-label>
         <mat-select formControlName="offerType">
           <mat-option *ngFor="let offerType of ['Entire menu', 'Single menu', 'Single Item']" [value]="offerType">
             {{offerType}}
@@ -31,7 +70,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field  class="w-full"  *ngIf="promoForm.value.offerType === 'Single menu'
+      <mat-form-field class="w-full" *ngIf="promoForm.value.offerType === 'Single menu'
           || promoForm.value.offerType === 'Single Item' && selectedStore">
         <mat-label>Select a menu</mat-label>
         <input matInput placeholder="Select a menu" #menuInput formControlName="menu" [formControl]="menuCtrl"
@@ -44,8 +83,7 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field  class="w-full" 
-        *ngIf="promoForm.value.offerType === 'Single Item' && selectMenu">
+      <mat-form-field class="w-full" *ngIf="promoForm.value.offerType === 'Single Item' && selectMenu">
         <mat-label>Select a menu Item</mat-label>
         <mat-select formControlName="food">
           <mat-option *ngFor="let food of selectMenu.foods" [value]="food._id">
@@ -78,27 +116,32 @@
         <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
       </mat-form-field>
 
-      <div   formArrayName="offerPeriodDays" class="w-full" *ngIf="promoForm.value.offerPeriodType === 'Recurring'">
-        <div class="p-3 border-b-2 border-b-gray w-full" *ngFor="let period of offerPeriods.controls; let i = index"  fxLayout="row" fxLayoutAlign="space-around center">
+      <div formArrayName="offerPeriodDays" class="w-full" *ngIf="promoForm.value.offerPeriodType === 'Recurring'">
+        <div class="p-3 border-b-2 border-b-gray w-full" *ngFor="let period of offerPeriods.controls; let i = index"
+          fxLayout="row" fxLayoutAlign="space-around center">
           <ng-container [formGroupName]="i">
-          <mat-checkbox  formControlName="active">{{period.value.day}}</mat-checkbox>
-          <ngx-mat-timepicker  formControlName="startDate" [enableMeridian]="true"> </ngx-mat-timepicker>
-          <ngx-mat-timepicker  formControlName="endDate" [enableMeridian]="true"> </ngx-mat-timepicker>
-        </ng-container>
+            <mat-checkbox formControlName="active">{{period.value.day}}</mat-checkbox>
+            <ngx-mat-timepicker formControlName="startDate" [enableMeridian]="true"> </ngx-mat-timepicker>
+            <ngx-mat-timepicker formControlName="endDate" [enableMeridian]="true"> </ngx-mat-timepicker>
+          </ng-container>
         </div>
-        
+
       </div>
-      
-      
-      <mat-form-field class="w-full">
-        <mat-label>Discount</mat-label>
-        <input matInput type="number" placeholder="Enter Discount" formControlName="discount">
-        <mat-icon matSuffix>percent</mat-icon>
-      </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Description</mat-label>
         <textarea matInput placeholder="Text Description" formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Enabled?</mat-label>
+        <mat-select formControlName="enabled">
+          <mat-option *ngFor="let offerType of [
+          {name: 'Enable', value: true},
+          {name: 'Disable', value: false}]" [value]="offerType.value">
+            {{offerType.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
 
@@ -111,7 +154,7 @@
 
       </div>
 
-     
+
     </div>
 
   </form>
