@@ -131,6 +131,12 @@ export class ListStoresComponent implements OnInit {
     })
   }
 
+  onChangeFeatured(store: Store, event: MatSlideToggleChange) {
+    this.storeService.saveStore({featured: event.checked }, store._id).subscribe(() => {
+      this._matDialog
+    })
+  }
+
   public viewDetails(store: Store) {
     this.router.navigate(['dashboard', 'stores', store._id, 'explore']);
   }

@@ -16,6 +16,8 @@ import { EditCustomersInfoComponent } from '../modals/edit-customers-info/edit-c
 import { EditCustomersNotesComponent } from '../modals/edit-customers-notes/edit-customers-notes.component';
 import { EditCustomersMarketingStatusComponent } from '../modals/edit-customers-marketing-status/edit-customers-marketing-status.component';
 import { EditWalletComponent } from '../modals/edit-wallet/edit-wallet.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { Role } from 'src/app/shared/models/role';
 
 @Component({
   selector: 'app-customers-details',
@@ -35,6 +37,7 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
   userReferrals$!: Observable<any[]> 
   userReferralStat$!: Observable<any> 
   userAddresses$!: Observable<any[]> 
+  Role = Role
 
   constructor( 
     private route: ActivatedRoute,
@@ -42,7 +45,8 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
     private orderService: OrdersService,
     private router: Router,
     private location: Location,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    public auth: AuthService,
   ) { }
 
   ngOnInit(): void {
