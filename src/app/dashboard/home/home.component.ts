@@ -16,7 +16,7 @@ import { StoresService } from '../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
 import { AuthService } from '../../shared/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 const startOfMonth = moment().startOf('month').toDate()
 const endOfMonth   = moment().endOf('month').toDate()
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
   range = new FormGroup({
+    country: new FormControl< null | string>('Nigeria'),
     startDate: new FormControl<Date | null | string>(startOfMonth),
     endDate: new FormControl<Date | null | string>(endOfMonth),
   });
@@ -57,6 +58,9 @@ export class HomeComponent implements OnInit {
     { id: 3, name: "Completed", color: "bg-green-400"},
   ]
   isLoading: boolean = false;
+  deliveries: any[] = [];
+  defaultCurrency: any = '₦'
+
   constructor(
     @Inject(Socket) private socket: Socket,
     private storeService: StoresService,
@@ -65,6 +69,7 @@ export class HomeComponent implements OnInit {
     public _matDialog: MatDialog,
     public authService: AuthService,
     public router: Router,
+    public route: ActivatedRoute
     ) {
     this.dataSource = new MatTableDataSource();
     this.getOrderMonthlyChart()
@@ -106,8 +111,13 @@ export class HomeComponent implements OnInit {
     this.getStat();
     this.getOrderMonthlyChart()
     this.getRecentStores()
-    this.range.patchValue({startDate: startOfMonth, endDate: endOfMonth})
+    this.range.patchValue({startDate: startOfMonth, endDate: endOfMonth, country: 'Nigeria'})
+    this.deliveries = this.route.snapshot.data['deliveries']
+  }
 
+  changeCurrency(event: any) {
+    const delivery = this.deliveries.find((delivery) => delivery.country == event.value)
+    this.defaultCurrency =  delivery?.currency;
   }
 
   openOrder(id:string) {
@@ -145,7 +155,7 @@ export class HomeComponent implements OnInit {
   getStat() { 
     this.stat$ = this.range.valueChanges.pipe(
       tap(() => this.isLoading =  true),
-      startWith({startDate: startOfMonth, endDate: endOfMonth }),
+      startWith({startDate: startOfMonth, endDate: endOfMonth, country: 'Nigeria' }),
       distinctUntilChanged(),
       switchMap((date:any) => {
         return forkJoin({

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserResolver, UsersResolver } from 'src/app/shared/resolvers/customers.resolver';
+import { UserCountResolver, UserResolver, UsersResolver } from 'src/app/shared/resolvers/customers.resolver';
 import { CustomersComponent } from './customers.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
 import { CustomerDetails } from '../../shared/models/auth';
 import { CustomersDetailsComponent } from './customers-details/customers-details.component';
-
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   {
@@ -15,15 +15,13 @@ const routes: Routes = [
       {
         path: 'list',
         component: ListCustomersComponent,
-        resolve: { customers: UsersResolver }
+        resolve: { customers: UsersResolver, deliveries: DeliveryZonesResolver, count: UserCountResolver }
       },
       {
         path: ':id/details',
         component: CustomersDetailsComponent,
         resolve: { customer: UserResolver }
       }
-
-      
     ]
   }
 ];

@@ -25,6 +25,8 @@ import { StoresService } from './stores/stores.service';
 import { AuthService } from '../shared/services';
 import { SharedModule } from '../shared/shared.module';
 import { NotificationsService } from '../shared/services/notifications.service';
+import { DeliveryZonesResolver, DeliveryZoneResolver } from '../shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from '../shared/services/delivery-zone.service';
 
 
 @NgModule({
@@ -57,6 +59,9 @@ import { NotificationsService } from '../shared/services/notifications.service';
     OrdersService,
     AuthService,
     NotificationsService,
+    DeliveryZonesResolver, 
+    DeliveryZoneResolver, 
+    DeliveryZoneService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
 

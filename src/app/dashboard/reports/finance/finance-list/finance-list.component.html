@@ -1,11 +1,22 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg" *ngIf="finances$ | async as finances" id="pdfTable"
+  #pdfTable>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg"   *ngIf="finances$ | async as finances" id="pdfTable" #pdfTable>
+  <div class="p-3 bg-white " fxLayout="row" fxLayoutAlign="space-between start" fxLayout.lt-md="column"
+    fxLayoutAlign.lt-md="start stretch">
+    <div ngClass.lt-md="mb-5 w-full">
+      <p>Export</p>
+      <button mat-raised-button (click)="exportPDF()">PDF</button>
+    </div>
 
-  <div class="p-3 bg-white " fxLayout="row" fxLayoutAlign="space-between start" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch">
-      <div ngClass.lt-md="mb-5 w-full">
-        <p>Export</p>
-        <button mat-raised-button (click)="exportPDF()">PDF</button>
-      </div>
+    <div fxLayout="row" [formGroup]="range" fxLayout.lt-md="column" fxLayoutGap="20px"
+      fxLayoutAlign.lt-md="space-around stretch" fxLayoutAlign="space-between start">
+      <mat-form-field>
+        <mat-label>Select a country</mat-label>
+        <mat-select formControlName="country" (selectionChange)="changeCurrency($event)">
+          <mat-option *ngFor="let delivery of deliveries"  [value]="delivery.country">{{delivery.country}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
@@ -14,116 +25,118 @@
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
-      
+
         <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
         <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
       </mat-form-field>
+    </div>
   </div>
-  <div class=" p-4 bg-white rounded-lg md:p-8" id="stats" >
+  <div class=" p-4 bg-white rounded-lg md:p-8" id="stats">
     <dl class="grid max-w-screen-xl grid-cols-1 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-1 xl:grid-cols-3  sm:p-8">
-        <div class="flex flex-col items-center justify-center">
-            <dt class="mb-2 text-3xl font-extrabold">{{finances.orders.length}}</dt>
-            <dd class="text-gray-500 ">Total Orders</dd>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-          <dt class="mb-2 text-3xl font-extrabold">{{finances.deliveryFee | currency: '₦'}}</dt>
-          <dd class="text-gray-500 ">Total Customer Delivery Fee</dd>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-          <dt class="mb-2 text-3xl font-extrabold">{{finances.customersServiceFee | currency: '₦'}}</dt>
-          <dd class="text-gray-500 ">Total Customer Commissions</dd>
-        </div>
-        
-        <div class="flex flex-col items-center justify-center">
-          <dt class="mb-2 text-3xl font-extrabold">{{finances.totalVendorCommissionAmount | currency: '₦'}}</dt>
-          <dd class="text-gray-500 ">Total Vendor Commissions</dd>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-            <dt class="mb-2 text-3xl font-extrabold">{{finances.ordersTotal | currency: '₦'}}</dt>
-            <dd class="text-gray-500 ">Total Sales</dd>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-            <dt class="mb-2 text-3xl font-extrabold">{{finances.fundRequestsTotal | currency: '₦'}}</dt>
-            <dd class="text-gray-500 ">Total Expenses</dd>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-          <dt class="mb-2 text-3xl font-extrabold">{{finances.totalProfits | currency: '₦'}}</dt>
-          <dd class="text-gray-500 ">Gross Profits</dd>
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.orders.length}}</dt>
+        <dd class="text-gray-500 ">Total Orders</dd>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.deliveryFee | currency: defaultCurrency}}</dt>
+        <dd class="text-gray-500 ">Total Customer Delivery Fee</dd>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.customersServiceFee | currency: defaultCurrency}}</dt>
+        <dd class="text-gray-500 ">Total Customer Commissions</dd>
       </div>
 
       <div class="flex flex-col items-center justify-center">
-        <dt class="mb-2 text-3xl font-extrabold">{{finances.totalProfits - finances.fundRequestsTotal | currency: '₦'}}</dt>
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.totalVendorCommissionAmount | currency: defaultCurrency}}</dt>
+        <dd class="text-gray-500 ">Total Vendor Commissions</dd>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.ordersTotal | currency: defaultCurrency}}</dt>
+        <dd class="text-gray-500 ">Total Sales</dd>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.fundRequestsTotal | currency: defaultCurrency}}</dt>
+        <dd class="text-gray-500 ">Total Expenses</dd>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.totalProfits | currency: defaultCurrency}}</dt>
+        <dd class="text-gray-500 ">Gross Profits</dd>
+      </div>
+
+      <div class="flex flex-col items-center justify-center">
+        <dt class="mb-2 text-3xl font-extrabold">{{finances.totalProfits - finances.fundRequestsTotal | currency: defaultCurrency}}
+        </dt>
         <dd class="text-gray-500 ">Net income</dd>
-    </div>
-        
-        
+      </div>
+
+
     </dl>
   </div>
   <table class="w-full text-sm text-left">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-          <tr>
-              <th scope="col" class="p-4">
-                  <div class="flex items-center">
-                     S/N
-                  </div>
-              </th>
-              <th scope="col" class="p-4">
-                Created
-              </th>
-              <th scope="col" class="px-6 py-3">
-                  Name
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Order Number
-              </th>
-              <th scope="col" class="px-6 py-3">
-                  Service Fee
-              </th>
-              <th scope="col" class="px-6 py-3">
-                  Shipping Fee
-              </th>
-              <th scope="col" class="px-6 py-3">
-               Vendor Commission
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Total
-              </th>
-          </tr>
-      </thead>
-      <tbody>
-        
-          <tr class="bg-white border-b " *ngFor="let order of finances.orders; let i =index">
-              <td class="w-4 p-4">
-                  <div class="flex items-center">
-                      {{i+1}}
-                  </div>
-              </td>
-              <td class="px-6 py-4">
-                {{order.createdAt | date: 'dd-MM-YYYY MM:HH:SS'}}
-             </td>
-              <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                  <div class="pl-3">
-                      <div class="text-base font-semibold">{{order.user.name}}</div>
-                      <div class="font-normal text-gray-500">Order from {{order.store.name}}</div>
-                  </div>
-              </th>
-              <td class="px-6 py-4">
-                 #{{order.reference}}
-              </td>
-              <td class="px-6 py-4">
-                {{order.serviceFee | currency: order.store.currency}}
-              </td>
-              <td class="px-6 py-4">
-                {{order.shippingFee | currency: order.store.currency}}
-              </td>
-              <td class="px-6 py-4">
-                {{order.vendorCommissionAmount}}(%{{order.vendorCommission}})
-              </td>
-              <td class="px-6 py-4">
-                {{order.total | currency: order.store.currency}}
-              </td>
-          </tr>
-      
-      </tbody>
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <tr>
+        <th scope="col" class="p-4">
+          <div class="flex items-center">
+            S/N
+          </div>
+        </th>
+        <th scope="col" class="p-4">
+          Created
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Name
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Order Number
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Service Fee
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Shipping Fee
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Vendor Commission
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Total
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="bg-white border-b " *ngFor="let order of finances.orders; let i =index">
+        <td class="w-4 p-4">
+          <div class="flex items-center">
+            {{i+1}}
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          {{order.createdAt | date: 'dd-MM-YYYY MM:HH:SS'}}
+        </td>
+        <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+          <div class="pl-3">
+            <div class="text-base font-semibold">{{order.user.name}}</div>
+            <div class="font-normal text-gray-500">Order from {{order.store.name}}</div>
+          </div>
+        </th>
+        <td class="px-6 py-4">
+          #{{order.reference}}
+        </td>
+        <td class="px-6 py-4">
+          {{order.serviceFee | currency: order.store.currency}}
+        </td>
+        <td class="px-6 py-4">
+          {{order.shippingFee | currency: order.store.currency}}
+        </td>
+        <td class="px-6 py-4">
+          {{order.vendorCommissionAmount}}(%{{order.vendorCommission}})
+        </td>
+        <td class="px-6 py-4">
+          {{order.total | currency: order.store.currency}}
+        </td>
+      </tr>
+
+    </tbody>
   </table>
 </div>

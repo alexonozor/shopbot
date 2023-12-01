@@ -26,12 +26,14 @@ export class Product
     active: boolean;
     options: [{
         name: string;
-        mandatory: boolean,
-        selectedType: string,
+        mandatory: boolean;
+        selectedType: string;
+        enabled: boolean;
         options: [
          { 
            name: { type: string },
-           price: { type: number } 
+           price: { type: number },
+           inStock: { type: boolean },
          }
         ]
       }];

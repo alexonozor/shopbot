@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FinancesService } from 'src/app/shared/services/finance.service';
 import { FinancesResolver } from 'src/app/shared/resolvers/finance.resolver';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
+import { DeliveryZoneResolver, DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   providers: [
     FinancesService,
     FinancesResolver,
+    DeliveryZonesResolver, 
+    DeliveryZoneResolver, 
+    DeliveryZoneService,
   ]
 })
 export class FinanceModule { }

@@ -5,6 +5,7 @@ import { ListCuisinesComponent } from './list-cuisines/list-cuisines.component';
 import { CreateCuisinesComponent } from './create-cuisines/create-cuisines.component';
 import { CuisinesResolver, CuisineResolver } from '../../shared/resolvers/cuisines.resolver';
 import { CuisinesDetailsComponent } from './cuisines-details/cuisines-details.component';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   {
@@ -18,12 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: CreateCuisinesComponent
+        component: CreateCuisinesComponent,
+        resolve: {  deliveriesZones: DeliveryZonesResolver }
       },
       {
         path: ':id/details',
         component: CuisinesDetailsComponent,
-        resolve: { cuisine: CuisineResolver }
+        resolve: { cuisine: CuisineResolver, deliveriesZones: DeliveryZonesResolver }
       }      
     ]
   }

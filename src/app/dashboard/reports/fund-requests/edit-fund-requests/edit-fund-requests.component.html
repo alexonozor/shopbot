@@ -21,10 +21,19 @@
 
             <div fxLayout.gt-md="row" class="w-full">
                 <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Country</mat-label>
+                    <mat-select formControlName="country">
+                        <mat-option *ngFor="let delivery of deliveries"
+                            [value]="delivery.country"> {{delivery.country}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout.gt-md="row" class="w-full">
+                <mat-form-field class="w-full" appearance="outline">
                     <mat-label>Currency</mat-label>
                     <mat-select formControlName="currency">
-                        <mat-option *ngFor="let category of ['NGN', 'MUR', 'RWF', 'USD']"
-                            [value]="category"> {{category}} </mat-option>
+                      <mat-option *ngFor="let delivery of deliveries" [value]="delivery.currencyCode">{{delivery.currencyCode}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

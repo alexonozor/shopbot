@@ -1,7 +1,5 @@
 import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/models/store';
-import { Location, Appearance, GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
-import PlaceResult = google.maps.places.PlaceResult;
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs';
@@ -31,13 +29,9 @@ export class GeneralTabComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition | undefined;
   verticalPosition: MatSnackBarVerticalPosition | undefined;
   categories!: Category[]
-  countriesWithStates = [
-    { country: 'Nigeria', states: ['Bayelsa', 'Delta', 'Rivers State'] },
-    { country: 'Mauritius', states: ['Black River (Rivière Noire)', 'Flacq (Flacq)', 'Grand Port (Grand Port)', 'Moka (Moka)', 'Pamplemousses (Pamplemousses)', 'Plaines Wilhems (Plaine Wilhems)', 'Port Louis (Port-Louis)', 'Rivière du Rempart (Rivière du Rempart)', 'Savanne (Savanne)'] },
-    { country: 'Rwanda', states: ['Kigali', 'Butare', 'Gitarama'] }
-  ];
+  countriesWithStates: any[] = [];
 
-  states: string[] = [];
+  states: any[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -46,6 +40,8 @@ export class GeneralTabComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.categories = this.route.snapshot.data['categories']
+    this.countriesWithStates = this.route.snapshot.data['deliveryZones'];
+    console.log(this.countriesWithStates)
   }
 
   ngOnInit(): void {
@@ -57,7 +53,6 @@ export class GeneralTabComponent implements OnInit {
 
     // Subscribe to changes in the 'country' form control
     this.generalSettingForm?.get('contactInfo.country')?.valueChanges.subscribe((selectedCountry) => {
-      console.log(selectedCountry)
     const matchingCountry = this.countriesWithStates.find(item => item.country === selectedCountry);
       if (matchingCountry) {
         this.states = matchingCountry.states
@@ -76,6 +71,7 @@ export class GeneralTabComponent implements OnInit {
       description: [this.store.description, Validators.required],
       category: [this.store.category[0]?._id, Validators.required],
       currency: [this.store.currency, Validators.required],
+      currencyCode: [this.store.currencyCode, Validators.required],
       expensive: [this.store.expensive, Validators.required],
 
       finance: this._formBuilder.group({
@@ -119,13 +115,13 @@ export class GeneralTabComponent implements OnInit {
     }
   }
 
-  onAutocompleteSelected(result: PlaceResult) {
+  onAutocompleteSelected(result:any) {
     console.log('onAutocompleteSelected: ', result);
   }
 
   onLocationSelected(location: Location) {
-    this.lat = location.latitude;
-    this.lng = location.longitude;
+    // this.lat = location.latitude;
+    // this.lng = location.longitude;
     this.generalSettingForm.patchValue({ location: { coordinates: [this.lat, this.lng] } })
   }
 

@@ -15,7 +15,7 @@ import { DeliveryZoneService } from '../../../shared/services/delivery-zone.serv
 })
 export class ListDeliveryZonesComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'name', 'country', 'states', 'localities', 'enabled', 'actions'];
+  public displayedColumns: string[] = ['select', 'country', 'states', 'enabled', 'actions'];
   public dataSource = new MatTableDataSource<DeliveryZone>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);

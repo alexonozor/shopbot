@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { Block } from 'src/app/shared/models/block';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-blocks',
@@ -14,6 +16,7 @@ export class EditBlocksComponent implements OnInit {
   blockForm!: FormGroup;
   isLoading: boolean = false;
   block!: Block;
+  zones!: DeliveryZone[]
   types = [
     {name: 'Categories', value: 'category'}, 
     {name: 'Store grid', value:  'store-grid'},
@@ -27,13 +30,17 @@ export class EditBlocksComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private settingsService: SettingsService,
     public dialogRef: MatDialogRef<any>,
+    private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ) { 
-      this.block = data
+      console.log(data)
+      this.block = data.block
+      this.zones = data.zones
     }
 
   ngOnInit() {
     this.blockForm = this.createProductForm()
+    
   }
 
   createProductForm(): FormGroup {

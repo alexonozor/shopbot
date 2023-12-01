@@ -4,7 +4,7 @@ export interface Cuisine {
     image: string;
     name: string;
     status: string;
-    country: string;
+    countries: string[];
     cities: string;
     createdAt: string;
 }

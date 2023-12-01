@@ -1,10 +1,10 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DeliveryZoneService } from '../../../shared/services/delivery-zone.service';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 @Component({
   selector: 'create-delivery-zone',
@@ -12,81 +12,71 @@ import { Location } from '@angular/common';
   styleUrls: ['./create-delivery-zone.component.scss'],
 })
 export class CreateDeliveryZoneComponent implements OnInit {
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  states: any[] = [];
-  localities: any[] = [];
-  deliveryZonesForm = this.fb.group({
-    name: ['', Validators.required],
-    country: ['', Validators.required],
-    states: this.fb.array(['']),
-    enabled: ['', Validators.required],
-    localities: this.fb.array(['']),
-    localAreas: this.fb.array([]),
-  });
+  deliveryZonesForm!: FormGroup;
+  zones!: DeliveryZone;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private deliveryService: DeliveryZoneService,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.addAreas();
+   
+    this.deliveryZonesForm = this.fb.group({
+      country: ['', Validators.required],
+      countryCode: ['', Validators.required],
+      currencyCode: ['', Validators.required],
+      currency: ['', Validators.required],
+      image: ['', Validators.required],
+      states: this.fb.array([]),
+      enabled: ['', Validators.required],
+    });
+    
   }
 
-  submit() {
-    if (this.deliveryZonesForm.valid) {
-      this.deliveryService
-        .createDeliveryZone(this.deliveryZonesForm.getRawValue())
-        .subscribe((data) => {});
-    }
+  getLocalities(state: FormGroup | any) {
+    return state.get('localities') as FormArray;
   }
 
-  get localAreas() {
-   return this.deliveryZonesForm.get('localAreas') as FormArray
+  get states() {
+    return this.deliveryZonesForm.get('states') as FormArray
   }
 
-  addAreas() {
-    this.localAreas.push(
-      this.fb.group({
+  addStates(): any {
+    const state = this.fb.group({
+      name: ['', Validators.required],
+      localities: this.fb.array([])
+    })
+    this.states.push(state)
+    this.addLocality(state)
+  }
+
+  addLocality(state?: any) {
+    const locality = this.fb.group({
       name: ['', Validators.required],
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
-     })
-    )
-  }
-  
-  removeArea(index:number) {
-    this.localAreas.removeAt(index);
+      enabled: [false],
+    })
+    state.get('localities').push(locality);
   }
 
-  add(event: MatChipInputEvent, place:string): void {
-    const value = (event.value || '').trim();
-	event.chipInput!.clear();
-	if (place === 'states') {
-		this.states.push(value);
-		this.deliveryZonesForm.patchValue({states: this.states});
-	} else {
-		this.localities.push(value);
-		this.deliveryZonesForm.patchValue({localities: this.localities});
-	}  
+  removeLocality(state: FormGroup | any, index: number) {
+    state.get('localities').removeAt(index);
   }
 
-  remove(fruit: string, place: string): void {
-    const index = this.states.indexOf(fruit);
-    if (index >= 0) {
-      if (place === 'states') {
-		this.states.splice(index, 1);
-        this.deliveryZonesForm.patchValue({ states: this.states });
-      } else {
-        this.localities.splice(index, 1);
-        this.deliveryZonesForm.patchValue({ localities: this.localities });
-      }
-    }
+  removeState(index: number) {
+    this.states.removeAt(index);
   }
 
-  
+  submit() {
+    this.deliveryService.createDeliveryZone(this.deliveryZonesForm.getRawValue())
+      .subscribe((data) => { });
+  }
 
   back() {
     this.location.back();

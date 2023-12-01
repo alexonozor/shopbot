@@ -6,6 +6,7 @@ import { MediaComponent } from '../../media/media.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Cuisine } from '../../../shared/models/cuisine';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CuisinesDetailsComponent implements OnInit {
   cuisine:Cuisine;
   cuisineForm!:FormGroup;
   mediaData:any;
+  deliveriesZones!: DeliveryZone[];
 
   constructor(
     private fb: FormBuilder,
@@ -32,15 +34,16 @@ export class CuisinesDetailsComponent implements OnInit {
       name: [this.cuisine.name, Validators.required],
       status: [this.cuisine.status, Validators.required],
       image: [this.cuisine.image, Validators.required],
-      country: [this.cuisine.country, Validators.required],
-      cities: [this.cuisine.cities, Validators.required],
+      countries: [this.cuisine.countries, Validators.required],
     });
 
     this.mediaData = {image:null, icon:null};
     this.mediaData['image'] = this.cuisine.image
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.deliveriesZones = this.route.snapshot.data['deliveriesZones'] as DeliveryZone[]
+  }
 
   submit() {
     if (this.cuisineForm.valid) {

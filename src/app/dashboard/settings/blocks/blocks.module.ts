@@ -11,6 +11,8 @@ import { SettingsService } from '../../../shared/services/settings.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BlockComponent } from './blocks.component';
 import { BlocksResolver, BlockResolver } from '../../../shared/resolvers/settings.resolver';
+import { DeliveryZonesResolver, DeliveryZoneResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
 
 
 @NgModule({
@@ -31,7 +33,10 @@ import { BlocksResolver, BlockResolver } from '../../../shared/resolvers/setting
   providers: [
     SettingsService,
     BlocksResolver,
-    BlockResolver
+    BlockResolver,
+    DeliveryZonesResolver,
+    DeliveryZoneResolver,
+    DeliveryZoneService
   ]
 })
 export class BlockModule { }

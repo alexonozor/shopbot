@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs';
 import { StoresService } from 'src/app/dashboard/stores/stores.service';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 import { AuthService } from 'src/app/shared/services';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 
@@ -24,16 +26,19 @@ export class CreateBlocksComponent implements OnInit {
     {name: 'Food items', value:  'food'},
     {name: 'Cuisines', value:  'cuisine'}
   ]
+  zones!: DeliveryZone[]
 
   constructor(
     private _formBuilder: FormBuilder,
     private settingsService: SettingsService,
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private route: ActivatedRoute,
     ) { }
 
   ngOnInit() {
     this.blockForm = this.createProductForm()
+    this.zones = this.route.snapshot.data['zones'] as DeliveryZone[];
   }
 
   createProductForm(): FormGroup {

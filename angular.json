@@ -118,5 +118,8 @@
         }
       }
     },
-    "defaultProject": "shopbot"
+    "defaultProject": "shopbot",
+    "cli": {
+      "analytics": false
+    }
   }

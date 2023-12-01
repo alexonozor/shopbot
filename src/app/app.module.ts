@@ -14,7 +14,6 @@ import { TokenInterceptorService } from './shared/interceptor/token-interceptor.
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from "ngx-progressbar/http";
 const config: SocketIoConfig = { url: environment.hostServer, options: {} };
-import { AgmCoreModule } from '@agm/core/agm-core';
 
 @NgModule({
   declarations: [

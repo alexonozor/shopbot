@@ -5,6 +5,7 @@ import { FundRequestsListComponent } from './fund-requests-list/fund-requests-li
 import { NewFundRequestsComponent } from './new-fund-requests/new-fund-requests.component';
 import { FundRequestsResolver, FundRequestResolver } from 'src/app/shared/resolvers/fund-requests.resolver';
 import { EditFundRequestsComponent } from './edit-fund-requests/edit-fund-requests.component';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   { 
@@ -18,12 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: NewFundRequestsComponent
+        component: NewFundRequestsComponent,
+        resolve: { deliveries: DeliveryZonesResolver }
      },
      {
       path: ':id/edit',
       component: EditFundRequestsComponent,
-      resolve: { fund: FundRequestResolver }
+      resolve: { fund: FundRequestResolver, deliveries: DeliveryZonesResolver }
    }
     ]
   }

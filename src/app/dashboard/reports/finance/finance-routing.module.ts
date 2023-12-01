@@ -4,6 +4,7 @@ import { FinancesComponent } from './finance.component';
 import { FinanceListComponent } from './finance-list/finance-list.component';
 import { ModalGuard } from 'src/app/shared/guard/open-modal.guard';
 import { FinancesResolver } from 'src/app/shared/resolvers/finance.resolver';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 const routes: Routes = [
   { 
     path: '', component: FinancesComponent,
@@ -12,6 +13,7 @@ const routes: Routes = [
         path: 'list', 
         component: FinanceListComponent,
         // resolve: { finances: FinancesResolver }
+        resolve: { deliveries: DeliveryZonesResolver }
       },
       
     ]

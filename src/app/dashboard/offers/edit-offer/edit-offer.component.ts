@@ -106,8 +106,6 @@ export class EditOfferComponent implements OnInit {
     this.offer.offerPeriodDays.forEach((item) => {
       this.addOfferPeriods(item)
     })
-
-    
     this.mediaData = { image: this.offer?.image, icon: null };
     this.filteredMenus = this.menuCtrl.valueChanges.pipe(
       startWith(null),
@@ -139,7 +137,6 @@ export class EditOfferComponent implements OnInit {
       const filterValue = value.name.toLowerCase();
       return this.menus?.filter(menu => menu?.name?.toLowerCase().indexOf(filterValue) === 0);
     }
-
   }
 
   private _filterStore(value: any): Store[] {

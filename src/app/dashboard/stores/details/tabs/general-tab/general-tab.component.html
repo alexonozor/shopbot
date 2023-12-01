@@ -60,9 +60,15 @@
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Store Currency</mat-label>
                     <mat-select formControlName="currency" >
-                        <mat-option *ngFor="let currency of ['₦', 'RS']" [value]="currency">{{currency}}</mat-option>
+                        <mat-option *ngFor="let currency of countriesWithStates" [value]="currency.currency">{{currency.currency}}</mat-option>
                     </mat-select>
-                    
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Currency</mat-label>
+                    <mat-select formControlName="currencyCode" >
+                        <mat-option *ngFor="let currency of countriesWithStates" [value]="currency.currencyCode">{{currency.currencyCode}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="outline">
@@ -96,8 +102,8 @@
                   <mat-form-field appearance="outline" class="example-full-width w-full">
                     <mat-label>State</mat-label>
                     <mat-select formControlName="state">
-                      <mat-option *ngFor="let state of states" [value]="state">
-                        {{ state }}
+                      <mat-option *ngFor="let state of states" [value]="state.name">
+                        {{ state.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>

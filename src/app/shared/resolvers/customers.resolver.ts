@@ -12,7 +12,10 @@ export class UsersResolver implements Resolve<User[]> {
   constructor(private userService: UsersService) {}
 
   resolve(): Observable<User[]> {
-    return this.userService.getUsers();
+    return this.userService.getUsers({
+      data: { '$match': { country: 'Nigeria'  }},
+      control:[{$sort:{'createdAt': -1}},{$limit:20},{$skip:0}] 
+     });
   }
 }
 
@@ -29,3 +32,15 @@ export class UserResolver implements Resolve<User> {
     return this.userService.getUser(id);
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class UserCountResolver implements Resolve<number> {
+  constructor(private userService: UsersService) {}
+  resolve(): Observable<number> {
+    return this.userService.countUsers();
+  }
+}
+

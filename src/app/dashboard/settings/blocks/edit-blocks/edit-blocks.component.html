@@ -67,7 +67,7 @@
               (+{{(blockForm.value?.country?.length || 0) - 1}} {{blockForm.value?.country?.length === 2 ? 'other' : 'others'}})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let region of ['Nigeria', 'Mauritius', 'Kenya', 'Rwanda']" [value]="region">{{region}}</mat-option>
+          <mat-option *ngFor="let region of zones" [value]="region.country">{{region.country}}</mat-option>
         </mat-select>
       </mat-form-field>
 

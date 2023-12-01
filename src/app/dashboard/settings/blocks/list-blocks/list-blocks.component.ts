@@ -8,6 +8,8 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 import { CreateBlocksComponent } from '../create-blocks/create-blocks.component';
 import { EditBlocksComponent } from '../edit-blocks/edit-blocks.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+
 @Component({
   selector: 'app-list-blocks',
   templateUrl: './list-blocks.component.html',
@@ -17,6 +19,7 @@ export class ListBlocksComponent implements OnInit {
 
   public blocks: Block[] = [];
   confirmDialogRef!: MatDialogRef<ConfirmComponent> | null;
+  zones!: DeliveryZone[];
 
   constructor(
     private settingsService: SettingsService,
@@ -34,6 +37,7 @@ export class ListBlocksComponent implements OnInit {
    */
   ngOnInit(): void {
     this.blocks = this.route.snapshot.data['blocks'] as Block[]
+    this.zones = this.route.snapshot.data['zones'] as DeliveryZone[];
   }
 
   delete(index: number, id: any) {
@@ -55,7 +59,8 @@ export class ListBlocksComponent implements OnInit {
   addNewBlock() {
     let addBlockForm = this._matDialog.open(CreateBlocksComponent, {
       width: '500px',
-      disableClose: false
+      disableClose: false,
+      data: { zones: this.zones }
     });
     addBlockForm.afterClosed().subscribe(result => {
 
@@ -76,9 +81,10 @@ export class ListBlocksComponent implements OnInit {
 
   public viewDetails(block: Block) {
     let addBlockForm = this._matDialog.open(EditBlocksComponent, {
-      data: block,
+      data:  { zones: this.zones, block },
       width: '500px',
-      disableClose: false
+      disableClose: false,
+      
     });
     addBlockForm.afterClosed().subscribe(result => {
 

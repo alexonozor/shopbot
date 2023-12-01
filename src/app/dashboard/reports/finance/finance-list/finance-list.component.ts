@@ -17,6 +17,8 @@ const startOfMonth = moment().startOf('month').toDate() as any
 const endOfMonth   = moment().endOf('month').toDate() as any
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { MatSelectChange } from '@angular/material/select';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 const htmlToPdfmake = require("html-to-pdfmake");
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -31,24 +33,31 @@ export class FinanceListComponent implements OnInit {
   @ViewChild('pdfTable') pdfTable!: ElementRef;
   finances$!: Observable<any>;
   range = new FormGroup({
+    country: new FormControl< null | string>('Nigeria'),
     start: new FormControl<Date | null | string>(startOfMonth),
     end: new FormControl<Date | null | string>(endOfMonth),
   });
+  defaultCurrency: any = '₦'
   isLoading = false;
+  deliveries: DeliveryZone[] = [];
+  
   
   constructor(
     private route: ActivatedRoute,
     private financesService: FinancesService,
     private _matDialog: MatDialog,
     private router: Router
-  ) { }
-  
+  ) {}
 
-  ngAfterViewInit() {
-    
+  ngAfterViewInit() {}
+
+  changeCurrency(event: any) {
+    const delivery = this.deliveries.find((delivery) => delivery.country == event.value)
+    this.defaultCurrency =  delivery?.currency
   }
 
   ngOnInit(): void {
+    this.deliveries = this.route.snapshot.data['deliveries']
     this.getFinances() 
   }
 
@@ -60,7 +69,7 @@ export class FinanceListComponent implements OnInit {
    this.finances$ = this.range.valueChanges.pipe(
       tap(() => this.isLoading =  true),
       distinctUntilChanged(),
-      startWith({start: startOfMonth, end: endOfMonth }),
+      startWith({start: startOfMonth, end: endOfMonth, country: 'Nigeria' }),
       switchMap((date:any) => this.financesService.getFinances(date)))
   }
 

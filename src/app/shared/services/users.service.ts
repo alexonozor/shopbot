@@ -27,12 +27,18 @@ export class UsersService {
    */
   constructor(private _httpClient: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
-    return this._httpClient.get<User[]>(`${this.hostServer}/users`);
+  getUsers(query?:any): Observable<User[]> {
+    const obj: any = query;
+    const queryParams = JSON.stringify(obj);
+    return this._httpClient.get<User[]>(`${this.hostServer}/users?query=${queryParams}`);
   }
 
   getUser(id:any): Observable<User> {
     return this._httpClient.get<User>(`${this.hostServer}/users/${id}`);
+  }
+
+  countUsers(): Observable<number> {
+    return this._httpClient.get<number>(`${this.hostServer}/users/count/all`);
   }
 
   deleteUser(id:string): Observable<User> {
@@ -42,4 +48,24 @@ export class UsersService {
   updateUser(id:string, params: any) : Observable<User> {
     return this._httpClient.put<User>(`${this.hostServer}/users/${id}`, params);
   } 
+
+  getUserTransactions(userId:string) {
+    return this._httpClient.get<any[]>(`${this.hostServer}/wallet-transactions/${userId}/transactions`);
+  }
+
+  getUserReferrals(userId:string):any {
+    return this._httpClient.get(`${this.hostServer}/referrals/${userId}/transactions`)
+  }
+
+  getUserReferralStats(userId:string):any {
+    return this._httpClient.get(`${this.hostServer}/referrals/${userId}/stats`)
+  }
+
+  getUserAddresses(userId:string):any {
+    return this._httpClient.get(`${this.hostServer}/addresses/${userId}/user`)
+  }
+
+  
+
+  
 }

@@ -1,88 +1,87 @@
 <div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
   <form [formGroup]="deliveryZonesForm" (ngSubmit)="submit()">
     <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
-
-
-
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Name of delivery zone" formControlName="name">
-      </mat-form-field>
-
-      <mat-form-field class="full-width" appearance="outline">
+      <mat-form-field class="full-width" appearance="fill">
         <mat-label>Country</mat-label>
-        <input matInput placeholder="Country" formControlName="country">
+        <input matInput placeholder="Country Name" formControlName="country">
       </mat-form-field>
 
-      <!-- <mat-form-field class="example-chip-list" appearance="outline">
-        <mat-label>States</mat-label>
-        <mat-chip-list #chipList>
-          <mat-chip *ngFor="let state of states" (removed)="remove(state, 'states')">{{state}}
-            <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Country Code</mat-label>
+        <input matInput placeholder="+234" formControlName="countryCode">
+      </mat-form-field>
 
-          <input placeholder="States" formControlName="states" [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, 'states')">
-        </mat-chip-list>
-      </mat-form-field> -->
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Currency</mat-label>
+        <input matInput placeholder="currency" formControlName="currency">
+      </mat-form-field>
 
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Currency Code</mat-label>
+        <input matInput placeholder="currency Code" formControlName="currencyCode">
+      </mat-form-field>
 
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Country Flag</mat-label>
+        <input matInput placeholder="flag" formControlName="image">
+      </mat-form-field>
 
-
-      <!-- <mat-form-field class="example-chip-list" appearance="outline">
-        <mat-label>Localities</mat-label>
-        <mat-chip-list #setChip>
-          <mat-chip *ngFor="let locality of localities" (removed)="remove(locality, 'local')">{{locality}}
-            <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-
-          <input placeholder="Localities" formControlName="localities" [matChipInputFor]="setChip"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, 'local')">
-        </mat-chip-list>
-      </mat-form-field> -->
-
-
-      <div>
-        <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="start start" fxLayout.lt-lg="column"
-          fxLayoutAlign.lt-lg="start stretch" class="w-full" fxLayoutGap="10px">
-          <a mat-icon-button (click)="addAreas()">
-            <mat-icon class="mat-18">add</mat-icon>
-          </a>
-        </div>
-
-        <ng-container formArrayName="localAreas" *ngIf="localAreas">
-          <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
-            fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px"
-            *ngFor="let item of localAreas?.controls; let i=index" [formGroupName]="i">
-
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Name</mat-label>
-              <input matInput placeholder="Name" formControlName="name">
-            </mat-form-field>
-
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>latitude</mat-label>
-              <input matInput placeholder="latitude" type="number" formControlName="latitude">
-            </mat-form-field>
-
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>longitude</mat-label>
-              <input matInput type="number" placeholder="longitude" formControlName="longitude">
-            </mat-form-field>
-            <a mat-icon-button (click)="removeArea(i)">
-              <mat-icon class="mat-18">remove</mat-icon>
-            </a>
-
-          </div>
-        </ng-container>
+      <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="start start" fxLayout.lt-lg="column"
+        fxLayoutAlign.lt-lg="start stretch" class="w-full" fxLayoutGap="10px" class="my-2">
+        <a mat-button (click)="addStates()">
+          <mat-icon class="mat-18">add</mat-icon> Add State
+        </a>
       </div>
 
+      <div formArrayName="states">
+        <div *ngFor="let state of states?.controls; let i=index" [formGroupName]="i">
+          <div>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>State Name</mat-label>
+              <input matInput placeholder="Enter State Name" formControlName="name">
+            </mat-form-field>
+            <a mat-icon-button (click)="removeState(i)">
+              <mat-icon class="mat-18">remove</mat-icon>
+            </a>
+          </div>
 
-      <mat-slide-toggle formControlName="enabled">Enable</mat-slide-toggle>
+          <ng-container formArrayName="localities">
+            <p>Localities</p>
+            <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
+              fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px"
+              *ngFor="let item of getLocalities(state).controls; let j=index" [formGroupName]="j">
+
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Locality name</mat-label>
+                <input matInput placeholder="Locality name" formControlName="name">
+              </mat-form-field>
+
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>latitude</mat-label>
+                <input matInput placeholder="latitude" type="number" formControlName="latitude">
+              </mat-form-field>
+
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>longitude</mat-label>
+                <input matInput type="number" placeholder="longitude" formControlName="longitude">
+              </mat-form-field>
+
+              <mat-slide-toggle formControlName="enabled" class="my-3">Enable</mat-slide-toggle>
+
+              <a mat-icon-button (click)="removeLocality(state, j)">
+                <mat-icon class="mat-18">remove</mat-icon>
+              </a>
+
+              <a mat-icon-button (click)="addLocality(state)">
+                <mat-icon class="mat-18">add</mat-icon>
+              </a>
+            </div>
+          </ng-container>
+        </div>
+        
+      </div>
+            
+      <mat-slide-toggle formControlName="enabled" class="my-3">Enable</mat-slide-toggle>
 
       <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
         <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
@@ -92,5 +91,3 @@
     </div>
   </form>
 </div>
-
-<pre>{{deliveryZonesForm.value | json}}</pre>

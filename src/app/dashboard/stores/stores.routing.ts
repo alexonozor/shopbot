@@ -8,6 +8,7 @@ import { MenuDetailsComponent } from './details/menu-details/menu-details.compon
 import { MenuService } from './details/menu-details/menu.service';
 import { CategoriesResolver } from '../../shared/resolvers/categories.resolver';
 import { MerchantResolver, MerchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       data: StoreService,
       categories: CategoriesResolver,
       merchants: MerchantsResolver,
+      deliveryZones: DeliveryZonesResolver,
     }
   },
   {

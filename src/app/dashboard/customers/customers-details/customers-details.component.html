@@ -1,182 +1,453 @@
 <div class="md:container md:mx-auto">
-    <div fxLayout="row" fxLayoutAlign="space-between start" class="mb-10">
-        <div fxLayout="row" fxLayoutAlign="start start" flexLayoutGap="10px">
-            <button  mat-icon-button (click)="back()"><mat-icon class="mat-18">arrow_back_ios</mat-icon></button>
-            <div fxLayout="column" fxLayoutAlign="start start" >
-                <h2 style="margin: 0px;">{{customer.name}}</h2>
-                <p>Customer for over 5 years</p>
-            </div>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="start start" >
-            <button mat-button>Message User</button>
-            <button mat-button (click)="disableAccount()">{{this.customer.deleteAccount ? 'Enable Account' : 'Disable Account'}}</button>
-            <button mat-button [color]="'warn'" (click)="deleteAccount()">Delete User</button>
-            <!-- <button mat-button>Reset Password</button> -->
-        </div>
+  <div fxLayout="row" fxLayoutAlign="space-between start" class="mb-10">
+    <div fxLayout="row" fxLayoutAlign="start start" flexLayoutGap="10px">
+      <button mat-icon-button (click)="back()"><mat-icon class="mat-18">arrow_back_ios</mat-icon></button>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <h2 style="margin: 0px;">{{customer.name}} ({{customer.username}})</h2>
+        <p>{{customer.createdAt | date: 'medium'}}</p>
+        <a [href]="customer.referralLink" target="_blank">{{customer.referralLink}}</a>
+      </div>
     </div>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap.gt-md="10px">
+      <button mat-raised-button>Message Customer</button>
+      <button mat-raised-button [color]="'warn'" (click)="deleteAccount()">Delete Customer</button>
+      <!-- <button mat-button>Reset Password</button> -->
+    </div>
+  </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px">
-        <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex="60%">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="mat-elevation-z3 divide-x divide-gray-300 rounded-md p-5 w-full">
-                <div fxLayout="column" fxLayoutAlign="space-evenly center " class="text-center" fxFlex="30%">
-                    <p  class="text-center">Amount spent</p>
-                    <h1  class="text-center">{{customer.totalAmountSpent | currency}}</h1>
-                </div>
-                <div fxLayout="column" fxLayoutAlign="space-evenly center" class="text-center" fxFlex="30%">
-                    <p  class="text-center">Orders</p>
-                    <h1  class="text-center">{{customer.totalOrders}}</h1>
-                </div>
-                <div fxLayout="column" fxLayoutAlign="space-evenly center" class="text-center" fxFlex="30%">
-                    <p  class="text-center">Average order value</p>
-                    <h1  class="text-center">{{customer.avgAmountSpent | currency}}</h1>
-                </div>
-            </div>
-
-
-            <div  *ngIf="orders$ | async as orders" class="w-full mat-elevation-z3 mt-5">
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="card bg-white w-full mat-elevation-z2 px-2 py-2">
-                    <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                      <span>Orders</span>
-                    </span>
-              
-              
-                    <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="selection.selected.length">
-                      <button mat-button>{{selection.selected.length}}  Selected</button>
-                      <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
-                      <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon> Delete Selected Customers</button>
-                    </span>
-                
-                    
-                  </div>
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z3 w-full">
-                    <ng-container matColumnDef="select">
-                        <th mat-header-cell *matHeaderCellDef>
-                          <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                                        [checked]="selection.hasValue() && isAllSelected()"
-                                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                        [aria-label]="checkboxLabel()">
-                          </mat-checkbox>
-                        </th>
-                        <td mat-cell *matCellDef="let row">
-                          <mat-checkbox (click)="$event.stopPropagation()"
-                                        (change)="$event ? selection.toggle(row) : null"
-                                        [checked]="selection.isSelected(row)"
-                                        [aria-label]="checkboxLabel(row)">
-                          </mat-checkbox>
-                        </td>
-                      </ng-container>
-                  <ng-container matColumnDef="reference">
-                    <th mat-header-cell *matHeaderCellDef>Order Num</th>
-                    <td mat-cell *matCellDef="let element">{{ element.reference }}</td>
-                  </ng-container>
-              
-                  <ng-container matColumnDef="category">
-                    <th mat-header-cell *matHeaderCellDef>Category</th>
-                    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
-                  </ng-container>
-              
-                  <ng-container matColumnDef="store">
-                    <th mat-header-cell *matHeaderCellDef>Store</th>
-                    <td mat-cell *matCellDef="let element">{{ element.store.name }}</td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef>Amount</th>
-                    <td mat-cell *matCellDef="let element">{{ element?.total | currency }}</td>
-                  </ng-container>
-            
-            
-                  <ng-container matColumnDef="createdAt">
-                    <th mat-header-cell *matHeaderCellDef>Ordered</th>
-                    <td mat-cell *matCellDef="let element">{{ element.createdAt  | date:'short'}}</td>
-                  </ng-container>
-            
-                  <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef>Actions</th>
-                    <td mat-cell *matCellDef="let element; let j = index;">
-                      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="message(element)">
-                            <mat-icon class="material-icons-outlined">campaign</mat-icon>
-                            <span>Message Customer</span>
-                          </button>
-                        <button mat-menu-item (click)="deleteOrder(element._id, j)">
-                          <mat-icon class="material-icons-outlined">delete</mat-icon>
-                          <span>Delete</span>
-                        </button>
-                        <button mat-menu-item  [routerLink]="['../', element._id, 'details']">
-                          <mat-icon class="material-icons-outlined">receipt_long</mat-icon>
-                          <span>Open Order</span>
-                        </button>
-                      </mat-menu>
-                    </td>
-                  </ng-container>
-              
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-                </table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 15]"
-                             showFirstLastButtons
-                             aria-label="Select page of periodic elements">
-              </mat-paginator>
-            </div>
+  <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+    <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex="60%">
+      <div fxLayout="row" fxLayoutAlign="space-between center"
+        class="mat-elevation-z3 divide-x divide-gray-300 rounded-md p-5 w-full">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center " class="text-center" fxFlex="30%">
+          <p class="text-center">Amount spent</p>
+          <h1 class="text-center">{{customer.totalAmountSpent | currency: customer.currency}}</h1>
         </div>
-        <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex="40%">
-            <div fxLayout="column" fxLayoutAlign="space-around start"  class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
-                    <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
-                       
-                        <button mat-button>Notes</button>
-                        <button mat-icon-button >
-                            <mat-icon class="mat-18">edit</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <div>
-                   <p class="p-5">{{customer.notes ? customer.notes : 'No notes about this customer'}}</p> 
-                </div>
-            </div>
+        <div fxLayout="column" fxLayoutAlign="space-evenly center" class="text-center" fxFlex="30%">
+          <p class="text-center">Orders</p>
+          <h1 class="text-center">{{customer.totalOrders}}</h1>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-evenly center" class="text-center" fxFlex="30%">
+          <p class="text-center">Average order value</p>
+          <h1 class="text-center">{{customer.avgAmountSpent | currency: customer.currency}}</h1>
+        </div>
+      </div>
 
-            <div fxLayout="column" fxLayoutAlign="space-around start"  class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
-                    <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
-                       
-                        <button mat-button>Customers</button>
-                        <button mat-icon-button (click)="openCustomerBasicInfo()">
-                            <mat-icon class="mat-18">edit</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <mat-list>
+      <div fxLayout="row" fxLayoutAlign="space-between center"
+        class="mat-elevation-z3 divide-x divide-gray-300 rounded-md p-5 mt-5 w-full">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center " class="text-center" fxFlex="50%">
+          <p class="text-center">Wallet Ballance</p>
+          <h1 class="text-center">{{customer.walletBallance || 0 | currency: customer.currency}}</h1>
+          <p class="text-center text-xs cursor-pointer text-blue-700" (click)="editWallet()">Edit wallet</p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-evenly center" class="text-center" fxFlex="50%">
+          <p class="text-center">Referral Bonus</p>
+          <div *ngIf="(userReferralStat$ | async) as ref">
+            <h1 class="text-center" >{{ref.totalEarnings |  currency: customer.currency}}</h1>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <mat-tab-group class="w-full mt-5">
+        <mat-tab label="Orders">
+          <div *ngIf="orders$ | async as orders" class="w-full mat-elevation-z3 mt-5">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+              class="card bg-white w-full mat-elevation-z2 px-2 py-2">
+              <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span>Orders</span>
+              </span>
+
+              <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+                *ngIf="selection.selected.length">
+                <button mat-button>{{selection.selected.length}} Selected </button>
+                <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message
+                  Customers</button>
+                <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon
+                    class="mat-18">delete</mat-icon> Delete Selected Customers</button>
+              </span>
+            </div>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z3 w-full">
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="reference">
+                <th mat-header-cell *matHeaderCellDef>Order Num</th>
+                <td mat-cell *matCellDef="let element">{{ element.reference }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="store">
+                <th mat-header-cell *matHeaderCellDef>Store</th>
+                <td mat-cell *matCellDef="let element">{{ element.store.name }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <td mat-cell *matCellDef="let element">{{ element?.total | currency: element?.currency }}</td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Ordered</th>
+                <td mat-cell *matCellDef="let element">{{ element.createdAt | date:'short'}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element; let j = index;">
+                  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="message(element)">
+                      <mat-icon class="material-icons-outlined">campaign</mat-icon>
+                      <span>Message Customer</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteOrder(element._id, j)">
+                      <mat-icon class="material-icons-outlined">delete</mat-icon>
+                      <span>Delete</span>
+                    </button>
+                    <button mat-menu-item [routerLink]="['../', element._id, 'details']">
+                      <mat-icon class="material-icons-outlined">receipt_long</mat-icon>
+                      <span>Open Order</span>
+                    </button>
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+              aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+        <mat-tab label="Transactions">
+
+
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full mt-5 text-sm text-left rtl:text-right text-gray-500 "
+              *ngIf="transactions$ | async as transactions">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Narration
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Status
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Type
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Amount
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                   Date
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="bg-white border-b   hover:bg-gray-50" *ngFor="let transaction of transactions">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    {{transaction.narration}}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{transaction.status}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{transaction.type}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{transaction.totalAmount | currency: transaction.currency}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{transaction.createdAt | date: 'medium'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </mat-tab>
+        <mat-tab label="Referrals">
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full mt-5 text-sm text-left rtl:text-right text-gray-500 "
+              *ngIf="userReferrals$ | async as referrals">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Referee
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Status
+                  </th>
+                 
+                  <th scope="col" class="px-6 py-3">
+                    Amount
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                   Signed up
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Ordered at
+                   </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="bg-white border-b   hover:bg-gray-50" *ngFor="let referral of referrals">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    {{referral.referee.name}}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{referral.earned ? 'Yes' : 'NO'}}
+                  </td>
                   
-                    <mat-list-item><mat-icon matListIcon class="material-icons-outlined">email</mat-icon>{{customer.email}}</mat-list-item>
-                    <mat-list-item><mat-icon matListIcon class="material-icons-outlined">call</mat-icon>{{customer.phoneNumber}} <mat-icon *ngIf="customer.verifyPhoneNumber" class="material-icons-outlined text-blue-500">verified</mat-icon></mat-list-item>
-                    <mat-list-item *ngIf="customer.shipping"><mat-icon matListIcon class="material-icons-outlined">place</mat-icon>{{customer.shipping.name}}</mat-list-item>
-                    <mat-list-item *ngIf="customer.country"><mat-icon matListIcon class="material-icons-outlined">flag</mat-icon>{{customer.country}}</mat-list-item>
-                    <mat-list-item *ngIf="customer.gender"><mat-icon matListIcon class="material-icons-outlined">male</mat-icon>{{customer.gender}}</mat-list-item>
-                    <mat-list-item *ngIf="customer.language"><mat-icon matListIcon class="material-icons-outlined">language</mat-icon>{{customer.language}}</mat-list-item>
-                   </mat-list>
-            </div>
+                  <td class="px-6 py-4">
+                    {{referral.amount | currency: referral.currency}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{referral.createdAt | date: 'medium'}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{referral.updatedAt | date: 'medium'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Addresses"> 
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full mt-5 text-sm text-left rtl:text-right text-gray-500 "
+              *ngIf="userAddresses$ | async as userAddresses">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Name
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Label
+                  </th>
+                 
+                  <th scope="col" class="px-6 py-3">
+                    State
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                   Country
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Created
+                   </th>
+                </tr>
+              </thead>
 
-            <div fxLayout="column" fxLayoutAlign="space-around start"  class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
-                    <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
-                       
-                        <button mat-button>Marketing status</button>
-                        <button mat-icon-button  (click)="openCustomerMarketingStatus()">
-                            <mat-icon class="mat-18">edit</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <mat-list>
+              <tbody>
+                <tr class="bg-white border-b   hover:bg-gray-50" *ngFor="let address of userAddresses">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    {{address.name}} 
+                  </th>
+                  <td class="px-6 py-4">
+                    {{address.label}}
+                  </td>
+                  
+                  <td class="px-6 py-4">
+                    {{address.state}}
+                  </td>
+
+                  <td class="px-6 py-4">
+                    {{address.country}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{address.createdAt | date: 'medium'}}
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Devices"> 
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full mt-5 text-sm text-left rtl:text-right text-gray-500">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Make
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Model
+                  </th>
+                 
+                  <th scope="col" class="px-6 py-3">
+                    Device Type
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    OS Version
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    sdk Version
+                   </th>
+                </tr>
+              </thead>
              
-                    <mat-list-item><mat-icon matListIcon class="material-icons-outlined">notifications_active</mat-icon> {{customer.allowNotifications ? 'Mobile Notification Subscribed' : 'Mobile Notification Unsubscribed'}}</mat-list-item>
-                    <mat-list-item><mat-icon matListIcon class="material-icons-outlined">campaign</mat-icon> {{customer.allowSalesNotifications ? 'Sales Notification Subscribed' : 'Sales Notification Unsubscribed'}}</mat-list-item>
-                    
-                   </mat-list>
-            </div>
-        </div>
+              <tbody>
+                <tr class="bg-white border-b   hover:bg-gray-50" *ngFor="let phone of customer.phoneCredentials">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    {{phone.make}} 
+                  </th>
+                  <td class="px-6 py-4">
+                    {{phone.model}}
+                  </td>
+                  
+                  <td class="px-6 py-4">
+                    {{phone.deviceType}}
+                  </td>
+
+                  <td class="px-6 py-4">
+                    {{phone.osVersion}}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{phone.sdkVersion}}
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
+    <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex="40%">
+      <div fxLayout="column" fxLayoutAlign="space-around start" class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
+          <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
+
+            <button mat-button>Accessibility</button>
+            <button mat-icon-button (click)="openCustomerMarketingStatus()">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <mat-list>
+          <mat-list-item>
+            <mat-slide-toggle (change)="banAccount($event)" [checked]="customer.ban">Ban Customer</mat-slide-toggle>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-slide-toggle (change)="allowCash($event)" [checked]="customer.allowCashOnDelivery">Allow cash on
+              delivery</mat-slide-toggle>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-slide-toggle (change)="allowWallet($event)" [checked]="customer.allowWallet">Allow wallet for this
+              Customer</mat-slide-toggle>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-slide-toggle (change)="disableAccount($event)" [checked]="customer.deleteAccount">Disable
+              Account</mat-slide-toggle>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="space-around start" class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
+          <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
+
+            <button mat-button>Notes</button>
+            <button mat-icon-button (click)="openCustomerNote()">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div>
+          <p class="p-5">{{customer.notes ? customer.notes : 'No notes about this customer'}}</p>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="space-around start" class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
+          <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
+
+            <button mat-button>Customers</button>
+            <button mat-icon-button (click)="openCustomerBasicInfo()">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+          </div>
+        </div>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListItemIcon class="material-icons-outlined">email</mat-icon>
+            <div matListItemTitle>{{customer.email}}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon class="material-icons-outlined">call</mat-icon>
+            <div matListItemTitle>{{customer.phoneNumber}}</div>
+          </mat-list-item>
+          <mat-list-item *ngIf="customer.shipping">
+            <mat-icon matListItemIcon class="material-icons-outlined">place</mat-icon>
+            <div matListItemTitle>{{customer.shipping.name}}</div>
+          </mat-list-item>
+          <mat-list-item *ngIf="customer.country">
+            <mat-icon matListItemIcon class="material-icons-outlined">flag</mat-icon>
+            <div matListItemTitle>{{customer.country}}</div>
+          </mat-list-item>
+          <mat-list-item *ngIf="customer.gender">
+            <mat-icon matListItemIcon class="material-icons-outlined">male</mat-icon>
+            <div matListItemTitle>{{customer.gender}}</div>
+          </mat-list-item>
+          <mat-list-item *ngIf="customer.language">
+            <mat-icon matListItemIcon class="material-icons-outlined">language</mat-icon>
+            <div matListItemTitle>{{customer.language}}</div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="space-around start" class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
+          <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
+
+            <button mat-button>Marketing status</button>
+            <button mat-icon-button (click)="openCustomerMarketingStatus()">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListItemIcon class="material-icons-outlined">notifications_active</mat-icon>
+            <div matListItemTitle>{{customer.allowNotifications ? 'Mobile Notification Subscribed' : 'Mobile
+              Notification
+              Unsubscribed'}}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon class="material-icons-outlined">campaign</mat-icon>
+            <div matListItemTitle>{{customer.allowSalesNotifications ? 'Sales Notification Subscribed' : 'Sales
+              Notification
+              Unsubscribed'}}</div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </div>
 </div>

@@ -15,6 +15,8 @@ import { StoreService } from '../details/store.service';
 import { Merchant } from 'src/app/shared/models/merchant';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/shared/models/category';
+import { Role } from 'src/app/shared/models/role';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-list-stores',
@@ -29,13 +31,16 @@ export class ListStoresComponent implements OnInit {
   categories: Category[];
   filterForm!: FormGroup;
   name!: string;
+  Role = Role
+  
   constructor(
     private storesService: StoresService,
     private storeService: StoreService,
     public _matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public auth: AuthService,
   ) {
     this.merchants = this.route.snapshot.data['merchants'] as Merchant[],
     this.categories = this.route.snapshot.data['categories'] as Category[]
