@@ -21,7 +21,8 @@ export class TokenInterceptorService implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${this.auth.getToken()}`,
-        version: `10.1`
+        version: `10.1`,
+        'x-user-banned': `${this.auth.currentUser?.ban}`,
       }
     });
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
