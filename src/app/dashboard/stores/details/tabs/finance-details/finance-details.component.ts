@@ -1,6 +1,6 @@
 
 import { map, tap } from 'rxjs/operators';
-import {AfterViewInit, OnInit, Component, ViewChild, Input, ElementRef} from '@angular/core';
+import {AfterViewInit, OnInit, Component, ViewChild, Input, ElementRef, Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -38,7 +38,7 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
  
 
   constructor(
-    private socket: Socket,
+    @Inject(Socket) private socket: Socket,
     private storeService: StoreService,
     public _matDialog: MatDialog,
     ) {
@@ -103,7 +103,7 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
   }
 
   getOrders() {
-   this.storeService.getStoreOrders(this.store._id).pipe(tap((orders) => {
+   this.storeService.getStoreOrders(this.store._id).pipe(tap((orders:any) => {
       this.dataSource = new MatTableDataSource(orders);
     })).subscribe() 
   }
@@ -152,7 +152,7 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
   
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
+    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
       if (order) {
         this.dataSource.data.unshift(order)
         this.dataSource._updateChangeSubscription();

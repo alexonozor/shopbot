@@ -1,43 +1,5 @@
 <div class="lg:flex lg:items-center lg:justify-between">
-  <div class="min-w-0 flex-1">
-    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Order ID
-      #{{order.reference}}</h2>
-    <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-      <div class="mt-2 flex items-center text-sm text-gray-500">
-        <mat-icon class="mat-18" class="material-icons-outlined">card_travel</mat-icon>
-
-        {{order.payment}}
-      </div>
-      <div class="mt-2 flex items-center text-sm text-gray-500">
-        <!-- Heroicon name: mini/map-pin -->
-        <mat-icon class="mat-18" class="material-icons-outlined">credit_score</mat-icon>
-        {{order.paymentStatus}}
-      </div>
-      <div class="mt-2 flex items-center text-sm text-black">
-        <!-- Heroicon name: mini/currency-dollar -->
-        <mat-icon class="mat-18" class="material-icons-outlined">money</mat-icon>
-
-        {{order.total | currency:'₦'}}
-      </div>
-      <div class="mt-2 flex items-center text-sm text-gray-500">
-        <!-- Heroicon name: mini/calendar -->
-        <mat-icon class="mat-18" class="material-icons-outlined">calendar_today</mat-icon>
-          {{order.createdAt | date: 'medium'}}
-      </div>
-
-      <div class="mt-2 flex items-center text-sm text-pink-700" *ngIf="order.gift">
-        <!-- Heroicon name: mini/calendar -->
-        <mat-icon class="mat-18" class="material-icons-outlined">redeem</mat-icon>
-           It's a gift
-      </div>
-
-      <div class="mt-2 flex items-center text-sm text-green-500 cursor-pointer" (click)="exportPDF()">
-        <!-- Heroicon name: mini/calendar -->
-        <mat-icon class="mat-18" class="material-icons-outlined">print</mat-icon>
-         Export Order
-      </div>
-    </div>
-  </div>
+ 
   <ng-container *ngIf="order.category == 'New'; else statusControl">
     <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap="15px">
      
@@ -60,14 +22,14 @@
     <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap.gt-md="10px">
       <mat-form-field appearance="outline">
         <mat-label>Payment Status</mat-label>
-        <mat-select  (selectionChange)="updatePaymentStatus(order, $event)" [(ngModel)]="order.paymentStatus">
+        <mat-select [disabled]="order.settled" (selectionChange)="updatePaymentStatus(order, $event)" [(ngModel)]="order.paymentStatus">
           <mat-option *ngFor="let status of ['Paid', 'Unpaid']" [value]="status">{{status}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Order Status</mat-label>
-        <mat-select  (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
+        <mat-select [disabled]="order.settled" (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -78,51 +40,83 @@
 
 
 <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch"  class="mt-10" fxLayoutGap="20px">
-  <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex="30%" fxLayoutGap="20px">
+  <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex.gt-md="30%" fxFlex.lt-md="100%" fxLayoutGap="20px">
+    <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+      <mat-list class="w-full">
+        <div mat-subheader>Order reference #{{order.reference}}</div>
+        <mat-list-item  class="w-full">
+          <mat-icon matListItemIcon class="material-icons-outlined">card_travel</mat-icon>
+          <div matListItemTitle>{{order.payment}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item  class="w-full">
+          <mat-icon matListItemIcon class="material-icons-outlined">credit_score</mat-icon>
+          <div matListItemTitle>{{order.paymentStatus}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item  class="w-full">
+          <mat-icon matListItemIcon class="material-icons-outlined">calendar_today</mat-icon>
+          <div matListItemTitle>{{order.createdAt | date: 'medium'}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item  class="w-full"  *ngIf="order.gift">
+          <mat-icon matListItemIcon class="material-icons-outlined">redeem</mat-icon>
+          <div matListItemTitle>It's a gift</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item  class="w-full"  (click)="exportPDF()">
+          <mat-icon matListItemIcon class="material-icons-outlined">print</mat-icon>
+          <div matListItemTitle>Export Order</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item  class="w-full">
+          <mat-icon matListItemIcon class="material-icons-outlined">memory</mat-icon>
+          <div matListItemTitle> {{order.currentAppVersion || 'No Version'}}</div>
+        </mat-list-item> 
+      </mat-list>
+    </div>
+
     <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
 
       <div fxLayout="column" fxLayoutAlign="space-around center" class="w-full p-3">
         
-          <img  appGravatar [email]="order.user.email" width="150" height="150" class="rounded-full">
-        <h2 class="text-center font-bolder">{{order.user.name}}</h2>
+        <img [routerLink]="['../../../customers', order.user._id, 'details']" appGravatar [email]="order.user.email" width="150" height="150" class="rounded-full cursor-pointer">
+        <h2 class="text-center font-bolder text-blue-600" [routerLink]="['dashboard', 'customers', order.user._id, 'details']">{{order.user.name}}</h2>
 
-        <button type="button"
+        <a type="button" [routerLink]="['../../../customers', order.user._id, 'details']"
           class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           Customer
-        </button>
+      </a>
       </div>
 
       <mat-list class="w-full">
-
-        <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">phone_android</mat-icon>
-          <span class="w-full">{{order.user.phoneNumber}}</span>
-          <a mat-icon-button [href]="'tel:'+order.user.phoneNumber">
-              <mat-icon class="mat-18">call</mat-icon>
-          </a>
+        <mat-list-item  class="w-full">
+          <mat-icon matListItemIcon class="material-icons-outlined">phone_android</mat-icon>
+          <a matListItemTitle [href]="'tel:'+order.user.phoneNumber">{{order.user.phoneNumber}}</a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">location_on</mat-icon>
-          <span class="w-full">{{order.shipping.name + ' ' + order.shipping.administrativeArea + ' ' + order.shipping.locality }}</span>
-          <button mat-icon-button (click)="open()">
-            <mat-icon class="mat-18">near_me</mat-icon>
-          </button>
+          <mat-icon matListItemIcon class="material-icons-outlined">location_on</mat-icon>
+          <a matListItemTitle>{{order.shipping.name + ' ' + order.shipping.administrativeArea}}</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="order.shipping.streetName">
+          <a matListItemTitle>{{order.shipping.streetName}}</a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">phone</mat-icon>
-          <span class="w-full">{{(order.user.phoneCredentials[0].deviceType) + '  ' +order.user.phoneCredentials[0].make + ' ' + order.user.phoneCredentials[0].os}}</span>
-          <button mat-icon-button (click)="open()">
-            <mat-icon class="mat-18">near_me</mat-icon>
-          </button>
+          <mat-icon matListItemIcon class="material-icons-outlined">phone</mat-icon>
+          <a matListItemTitle>{{(order.user.phoneCredentials[0].deviceType) + '  ' +order.user.phoneCredentials[0].make + ' ' + order.user.phoneCredentials[0].os}}</a>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <div mat-subheader>Order Note</div>
+        
+        <mat-divider></mat-divider>
+        <div mat-subheader>Notes</div>
         <mat-list-item>
           <p>{{order.orderInstruction || 'No Notes'}} </p>
         </mat-list-item>
-
       </mat-list>
     </div>
 
@@ -139,65 +133,56 @@
         </button>
       </div>
 
-      <mat-list class="w-full">
-
+     
+      <mat-list>
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">phone_android</mat-icon>
-          <span class="w-full">{{order.receiver.phoneNumber}}</span>
-          <a mat-icon-button [href]="'tel:'+order.receiver.phoneNumber">
-              <mat-icon class="mat-18">call</mat-icon>
-          </a>
+          <mat-icon matListItemIcon class="material-icons-outlined">phone_android</mat-icon>
+          <a matListItemTitle [href]="'tel:'+order.receiver.phoneNumber">{{order.receiver.phoneNumber}}</a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">location_on</mat-icon>
-          <span class="w-full">{{order.receiver.address.name + ' ' + order.receiver.address.administrativeArea + ' ' + order.receiver.address.locality }}</span>
-          <button mat-icon-button (click)="open()">
-            <mat-icon class="mat-18">near_me</mat-icon>
-          </button>
+          <mat-icon matListItemIcon class="material-icons-outlined">location_on</mat-icon>
+          <div matListItemTitle>{{order.receiver.address.name + ' ' + order.receiver.address.administrativeArea + ' ' + order.receiver.address.locality }}</div>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <div mat-subheader> Gift Note</div>
+        <div mat-subheader>Notes</div>
         <mat-list-item>
           <p>{{order.receiver.note || 'No Notes'}} </p>
         </mat-list-item>
-
       </mat-list>
-
 
     </div>
 
     <div class="mat-elevation-z2  rounded-md w-full">
       <div fxLayout="column" fxLayoutAlign="space-around center" class="w-full p-3">
-        <img [src]="order.store.logo" width="150" height="150" class="rounded-full">
-        <h2 class="text-center font-bolder">{{order.store.name}}</h2>
+        <img [routerLink]="['../../../stores', order.store._id, 'explore']" [src]="order.store.logo" width="150" height="150"  class="rounded-full cursor-pointer">
+        <h2 class="text-center font-bolder text-blue-500 cursor-pointer" [routerLink]="['../../../stores', order.store._id, 'explore']">{{order.store.name}}</h2>
 
-        <button type="button"
+        <a type="button" [routerLink]="['../../../stores', order.user._id, 'explore']"
           class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           Restaurant
-        </button>
+      </a>
       </div>
 
       <mat-list class="w-full">
-
-        <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">phone_android</mat-icon>
-          <span class="w-full">{{order.store.contactInfo.phone}}</span>
-          <a mat-icon-button [href]="'tel:'+order.store.contactInfo.phone">
-            <mat-icon class="mat-18">call</mat-icon>
-          </a>
+        <mat-list-item  class="w-full">
+          <mat-icon matListItemIcon class="material-icons-outlined">phone_android</mat-icon>
+          <a matListItemTitle [href]="'tel:'+order.store.contactInfo.phone">{{order.store.contactInfo.phone}}</a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">mail</mat-icon>{{order.store.contactInfo.email}}
+          <mat-icon matListItemIcon class="material-icons-outlined">location_on</mat-icon>
+          <a matListItemTitle>{{order.store.contactInfo.placeNumber + ' ' + order.store.contactInfo.placeName + ' ' 
+            || "No Address"}}</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="order.store.contactInfo.address">
+          <a matListItemTitle>{{order.store.contactInfo.address}}</a>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
-          <mat-icon matListIcon class="material-icons-outlined">location_on</mat-icon>
-          {{order.store.contactInfo.placeNumber + ' ' + order.store.contactInfo.placeName + ' ' +
-          order.store.contactInfo.address || "No Address"}}
+          <mat-icon matListItemIcon class="material-icons-outlined">mail</mat-icon>
+          <a matListItemTitle>{{order.store.contactInfo.email}}</a>
         </mat-list-item>
-        <mat-divider></mat-divider>
       </mat-list>
     </div>
   </div>
@@ -369,6 +354,29 @@
                 </td>
               </tr>
             </tfoot>
+            <tfoot class="bg-gray-700">
+              <tr class="font-semibold text-white dark:white">
+                <th scope="row" class="py-3 px-6 whitespace-nowrap text-base">
+                  <div class="text-left font-bold">Driver Tips</div>
+                </th>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">-</div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-left font-medium text-white">
+                    {{(order.driverTip || 0) | currency: order.store.currency}}
+                  </div>
+                </td>
+                <td class="p-2 whitespace-nowrap">
+                  <div class="text-lg text-center">
+                    -
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
             <tfoot class="bg-blue-700">
               <tr class="font-semibold text-white dark:white">
                 <th scope="row" class="py-3 px-6 whitespace-nowrap text-base">
@@ -382,7 +390,7 @@
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-left font-medium text-white">
-                    {{((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission) | currency: order.store.currency}} ({{order.vendorCommission}}%)
+                    {{order.vendorCommissionAmount | currency: order.store.currency}} ({{order.vendorCommission}}%)
                   </div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
@@ -405,7 +413,7 @@
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-left font-medium text-white">
-                    {{(order.total - order.serviceFee - order.shippingFee) - ((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission) | currency: order.store.currency}}
+                    {{(order.subTotal) - (order.vendorCommissionAmount) | currency: order.store.currency}}
                   </div>
                 </td>
                 <td class="p-2 whitespace-nowrap">
@@ -429,7 +437,7 @@
                 </td>
                 <td class="p-2 whitespace-nowrap">
                   <div class="text-left font-medium text-white">
-                    {{order.total - ((order.total - order.serviceFee - order.shippingFee) - ((order.total - order.serviceFee - order.shippingFee) / 100 * order.vendorCommission))  | currency: order.store.currency}}
+                    {{order.total - ((order.subTotal) - (order.vendorCommissionAmount))  | currency: order.store.currency}}
                   </div>
                 </td>
                 <td class="p-2 whitespace-nowrap">

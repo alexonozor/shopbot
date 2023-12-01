@@ -7,6 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
+import { switchMap } from 'rxjs/operators';
+import { Role } from 'src/app/shared/models/role';
+import { AuthService } from 'src/app/shared/services';
 
 @Component({
   selector: 'app-list-orders',
@@ -15,27 +18,42 @@ import { OrdersService } from 'src/app/shared/services/order.service';
 })
 export class ListOrdersComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'device', 'date', 'status', 'paymentStatus', 'paymentType', 'amount', 'actions'];
+  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'device', 'date', 'status', 'paymentStatus', 'settled', 'paymentType', 'amount', 'actions'];
   public dataSource = new MatTableDataSource<Order>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
-
+  totalOrders: number = 0;
+  Role = Role
+  
 
   constructor(
     private route: ActivatedRoute,
     private orderService: OrdersService,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    public auth: AuthService,
   ) { }
 
   
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    
+    this.paginator.page.pipe(switchMap((event) => { 
+      const offSet = event.pageSize * event.pageIndex
+      return this.orderService.getOrders({
+      data: {$match:{}},
+      control:[{$sort:{'createdAt': -1}},{$skip:offSet},{$limit:20}] 
+     })
+    })).subscribe((orders) => {
+     
+      this.dataSource = new MatTableDataSource<Order>(orders);
+    })
+   
   }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Order>(this.route.snapshot.data['orders']);
+    this.totalOrders = this.route.snapshot.data['totalOrders'] as number;
   }
 
   isAllSelected() {
@@ -93,7 +111,7 @@ export class ListOrdersComponent implements OnInit {
         this.dataSource.data.splice(index, 1);
         this.dataSource = new MatTableDataSource<Order>(this.dataSource.data);
         this.dataSource._updateChangeSubscription();
-        this.dataSource.paginator = this.paginator;
+        // this.dataSource.paginator = this.paginator;
         this.orderService.deleteOrder(id).subscribe();
       }
     });

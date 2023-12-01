@@ -73,8 +73,8 @@ export class AddBankComponent implements OnInit {
               bankName: this.selectedBank.name,
               store: this.data.storeId,
               code: this.selectedBank.code,
-              type: this.selectedBank.type,
-              currency: this.selectedBank.currency
+              type: this.selectedBank?.type,
+              currency: this.data.currency
           } as any).subscribe((data) => {
             this.dialogRef.close(data);
           })
@@ -86,8 +86,8 @@ export class AddBankComponent implements OnInit {
               bankName: this.selectedBank.name,
               store: this.data.storeId,
               code: this.selectedBank.code,
-              type: this.selectedBank.type,
-              currency: this.selectedBank.currency
+              type: this.selectedBank?.type,
+              currency: this.data.currency
           } as any, this.data.bank._id).subscribe((data) => {
             this.snack.open("Account Details has been updated!", "Close", {duration: 2000});
             this.dialogRef.close(data);

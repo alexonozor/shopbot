@@ -1,0 +1,42 @@
+<div mat-subheader>Mobile Blocks</div>
+<ul cdkDropList class="divide-y divide-gray-200 w-full example-list" (cdkDropListDropped)="drop($event)">
+    <li  *ngFor="let block of blocks; let i = index" cdkDrag class="w-full bg-white p-4">
+       <div class="flex items-center space-x-4">
+        <div class="flex-shrink-0 cursor-drag">
+            <mat-icon>drag_handle</mat-icon>
+         </div>
+          <div class="flex-1 min-w-0">
+             <p class="text-sm font-medium text-gray-900 mb-0 truncate" style="margin-bottom: 0px">
+                {{block.title}}
+             </p>
+             <p class="text-sm text-gray-500 mb-0 truncate" style="margin-bottom: 0px">
+                {{block.content}} - {{block.orientation}}
+             </p>
+          </div>
+          <div class="inline-flex items-center text-base font-semibold text-gray-900">
+            <mat-slide-toggle matListItemIcon [(ngModel)]="block.active" (change)="onChange(block, $event)" class="mx-8"
+            color="primary"></mat-slide-toggle>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
+                <button mat-menu-item (click)="delete(i, block._id); $event.stopPropagation() "><mat-icon>delete</mat-icon>
+                    Delete</button>
+                <button mat-menu-item (click)="viewDetails(block)" *ngIf="!block.active">
+                    <mat-icon>done</mat-icon> Enable
+                </button>
+    
+                <button mat-menu-item (click)="viewDetails(block)">
+                    <mat-icon>edit</mat-icon> Edit / View
+                </button>
+            </mat-menu>
+          </div>
+       </div>
+    </li>
+ </ul>
+
+<div fxLayout="row" fxLayoutAlign="end end">
+    <button mat-fab color="primary" aria-label="Add Store" class="fixed" (click)="addNewBlock()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

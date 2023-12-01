@@ -21,10 +21,9 @@ export class FundRequestsListComponent implements OnInit {
   public displayedColumns: string[] = ['select', 'createdAt', 'requestedBy', 'category', 'status', 'items', 'total',  'actions'];
   public dataSource = new MatTableDataSource<FundRequest>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
-
+  
 
   constructor(
     private route: ActivatedRoute,

@@ -60,9 +60,15 @@
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Store Currency</mat-label>
                     <mat-select formControlName="currency" >
-                        <mat-option *ngFor="let currency of ['₦', 'RS ']" [value]="currency">{{currency}}</mat-option>
+                        <mat-option *ngFor="let currency of countriesWithStates" [value]="currency.currency">{{currency.currency}}</mat-option>
                     </mat-select>
-                    
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Store Currency</mat-label>
+                    <mat-select formControlName="currencyCode" >
+                        <mat-option *ngFor="let currency of countriesWithStates" [value]="currency.currencyCode">{{currency.currencyCode}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="outline">
@@ -84,13 +90,23 @@
                     <input matInput placeholder="Store Phone Number" formControlName="phone">
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field appearance="outline" class="example-full-width w-full">
                     <mat-label>Country</mat-label>
-                    <mat-select formControlName="country" >
-                        <mat-option *ngFor="let country of ['Nigeria', 'Mauritius', 'Rwanda']" [value]="country">{{country}}</mat-option>
+                    <mat-select formControlName="country">
+                      <mat-option *ngFor="let country of countriesWithStates" [value]="country.country">
+                        {{ country.country }}
+                      </mat-option>
                     </mat-select>
-                    
-                </mat-form-field>
+                  </mat-form-field>
+                
+                  <mat-form-field appearance="outline" class="example-full-width w-full">
+                    <mat-label>State</mat-label>
+                    <mat-select formControlName="state">
+                      <mat-option *ngFor="let state of states" [value]="state.name">
+                        {{ state.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
 
             </div>
             <div class="mat-elevation-z6 example-container" fxFlex="25%" fxFlexAlign.gt-md="start" formGroupName="finance">
@@ -122,10 +138,10 @@
 
         <div fxLayout="column" fxLayoutAlign="space-between stretch">
             <div class="mat-elevation-z6 example-container" fxLayout="column" fxLayoutAlign="space-between start" formGroupName="contactInfo">
-                <h3>Location</h3>
+                <!-- <h3>Location</h3>
                 <agm-map [latitude]="lat" [longitude]="lng">
                     <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                </agm-map>
+                </agm-map> -->
                 <button mat-raised-button color="primary" (click)="setCurrentLocation()" style="margin-top: 10px ;">
                     <mat-icon class="mat-18">location_searching</mat-icon> USE MY LOCATION
                 </button>
@@ -138,12 +154,12 @@
                     <mat-label>Suite/Store Number</mat-label>
                     <input matInput placeholder="Enter Suite/Store Number" formControlName="placeNumber">
                 </mat-form-field>
-                <mat-form-field appearance="outline" style="width: 100%; margin-top: 10px;">
+                <!-- <mat-form-field appearance="outline" style="width: 100%; margin-top: 10px;">
                     <mat-label>Enter your Location</mat-label>
                     <input matInput matGoogleMapsAutocomplete 
                         (onAutocompleteSelected)="onAutocompleteSelected($event)"
                         (onLocationSelected)="onLocationSelected($event)">
-                </mat-form-field>
+                </mat-form-field> -->
 
             </div>
 

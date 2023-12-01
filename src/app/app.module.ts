@@ -34,7 +34,6 @@ const config: SocketIoConfig = { url: environment.hostServer, options: {} };
       color: "#f71cff"
     }),
     NgProgressHttpModule
-   
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }

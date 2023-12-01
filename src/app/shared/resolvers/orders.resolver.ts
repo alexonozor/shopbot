@@ -14,11 +14,27 @@ export class OrdersResolver implements Resolve<Order[]> {
 
   resolve(): Observable<Order[]> {
     return this.orderService.getOrders({
-      data: {$match: { }},
-      control:[   { $sort: { 'createdAt': -1 }}] 
+      data: {$match:{}},
+      control:[{$sort:{'createdAt': -1}},{$limit:20},{$skip:0}] 
      });
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class OrdersCountResolver implements Resolve<number> {
+  constructor(private orderService: OrdersService) {}
+  resolve(): Observable<number> {
+    return this.orderService.countOrders();
+  }
+}
+
+
+
+
+
 
 
 @Injectable({

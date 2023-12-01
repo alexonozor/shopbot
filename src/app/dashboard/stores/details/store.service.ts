@@ -52,10 +52,10 @@ export class StoreService implements Resolve<any> {
    *
    * @returns {Promise<any>}
    */
-  getStore(): Promise<any> {
+  getStore(storeId?:string): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this._httpClient.get(`${this.hostServer}/stores/${this.routeParams.id}`)
+      this._httpClient.get(`${this.hostServer}/stores/${storeId || this.routeParams.id}`)
         .subscribe((response: any) => {
           this.store = response;
           this.onStoreChanged.next(this.store);

@@ -1,6 +1,6 @@
 
 import { map, tap } from 'rxjs/operators';
-import {AfterViewInit, OnInit, Component, ViewChild, Input} from '@angular/core';
+import {AfterViewInit, OnInit, Component, ViewChild, Input, Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -40,7 +40,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   ]
 
   constructor(
-    private socket: Socket,
+    @Inject(Socket) private socket: Socket,
     private storeService: StoreService,
     public _matDialog: MatDialog,
     ) {
@@ -118,7 +118,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order) => {
+    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
       if (order) {
         this.dataSource.data.unshift(order)
         this.dataSource._updateChangeSubscription();

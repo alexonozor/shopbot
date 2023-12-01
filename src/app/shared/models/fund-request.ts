@@ -13,5 +13,6 @@ export interface FundRequest {
       }[];
       total: number;
       currency: string;
+      country: string;
       description: String;
 }

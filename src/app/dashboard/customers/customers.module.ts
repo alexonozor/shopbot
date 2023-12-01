@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersComponent } from './customers.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
-import { UserResolver, UsersResolver} from 'src/app/shared/resolvers/customers.resolver';
+import { UserCountResolver, UserResolver, UsersResolver} from 'src/app/shared/resolvers/customers.resolver';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { MaterialModule } from 'src/app/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -14,6 +14,9 @@ import { EditCustomersNotesComponent } from './modals/edit-customers-notes/edit-
 import { EditCustomersMarketingStatusComponent } from './modals/edit-customers-marketing-status/edit-customers-marketing-status.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
+import { DeliveryZonesResolver, DeliveryZoneResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
+import { EditWalletComponent } from './modals/edit-wallet/edit-wallet.component';
 
 
 @NgModule({
@@ -24,6 +27,7 @@ import { NotificationsService } from 'src/app/shared/services/notifications.serv
     EditCustomersInfoComponent,
     EditCustomersNotesComponent,
     EditCustomersMarketingStatusComponent,
+    EditWalletComponent
   ],
   imports: [
   CommonModule,
@@ -32,8 +36,16 @@ import { NotificationsService } from 'src/app/shared/services/notifications.serv
     FlexLayoutModule,
     ReactiveFormsModule,
   ],
-
-  providers: [UserResolver, UsersResolver, UsersService, NotificationsService],
+  providers: [
+    UserResolver,
+    UsersResolver,
+    UsersService,
+    NotificationsService,
+    DeliveryZonesResolver,
+    DeliveryZoneResolver,
+    DeliveryZoneService,
+    UserCountResolver
+  ],
 
   exports: [
      EditCustomersInfoComponent,

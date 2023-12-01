@@ -15,6 +15,7 @@ import { Order } from 'src/app/shared/models/order';
 import { EditCustomersInfoComponent } from '../modals/edit-customers-info/edit-customers-info.component';
 import { EditCustomersNotesComponent } from '../modals/edit-customers-notes/edit-customers-notes.component';
 import { EditCustomersMarketingStatusComponent } from '../modals/edit-customers-marketing-status/edit-customers-marketing-status.component';
+import { EditWalletComponent } from '../modals/edit-wallet/edit-wallet.component';
 
 @Component({
   selector: 'app-customers-details',
@@ -29,6 +30,11 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
   orders$!: Observable<Order[]> 
+  transactions$!: Observable<any[]> 
+  userReferralStat!: Observable<any[]> 
+  userReferrals$!: Observable<any[]> 
+  userReferralStat$!: Observable<any> 
+  userAddresses$!: Observable<any[]> 
 
   constructor( 
     private route: ActivatedRoute,
@@ -42,6 +48,10 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.customer = this.route.snapshot.data['customer'] as User;
     this.getCustomerOrders(this.customer._id)
+    this.getUsersTransaction()
+    this.getUserReferrals()
+    this.getUserReferralsStat(),
+    this.getUserAddresses()
   }
 
   getCustomerOrders(id:string) {
@@ -54,6 +64,22 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
         return orders
       })
     )
+  }
+
+  getUsersTransaction() {
+    this.transactions$ = this.userService.getUserTransactions(this.customer._id)
+  }
+
+  getUserReferrals() {
+    this.userReferrals$ = this.userService.getUserReferrals(this.customer._id)
+  }
+
+  getUserReferralsStat() {
+    this.userReferralStat$ = this.userService.getUserReferralStats(this.customer._id)
+  }
+
+  getUserAddresses() {
+    this.userAddresses$ = this.userService.getUserAddresses(this.customer._id)
   }
 
   back() {
@@ -157,6 +183,18 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  editWallet() {
+    const dialogRef = this._matDialog.open(EditWalletComponent, {
+      data: this.customer,
+      width: '400px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.customer = {...this.customer, ...result}
+      }
+    });
+  }
+
   openCustomerNote() {
     const dialogRef = this._matDialog.open(EditCustomersNotesComponent, {
       data: this.customer,
@@ -181,19 +219,27 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  disableAccount() {
-    this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
-      disableClose: false
-    });
-    this.confirmDialogRef.componentInstance.title = !this.customer.deleteAccount ? 'Disable Account?' : 'Enable Account?';
-    this.confirmDialogRef.componentInstance.confirmMessage = !this.customer.deleteAccount ? 'Are you sure you want to disable this account?' : 'Are you sure you want enable this account';
-    this.confirmDialogRef.componentInstance.confirmButton = !this.customer.deleteAccount ? 'Disable Account' : 'Enable Account';
-    this.confirmDialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.customer = {...this.customer, ...{ deleteAccount: !this.customer.deleteAccount}}
-        this.userService.updateUser(this.customer._id, {deleteAccount: this.customer.deleteAccount}).subscribe()
-      }
-    });
+  disableAccount(event:any) {
+    this.customer = {...this.customer, ...{ deleteAccount: event.checked}}
+    this.userService.updateUser(this.customer._id, {deleteAccount: this.customer.deleteAccount}).subscribe()
+  }
+
+  banAccount(event:any) {
+    console.log(event)
+      this.customer = {...this.customer, ...{ ban: event.checked}}
+      this.userService.updateUser(this.customer._id, {ban: this.customer.ban}).subscribe()
+  }
+
+  allowCash(event:any) {
+    console.log(event)
+      this.customer = {...this.customer, ...{ allowCashOnDelivery: event.checked}}
+      this.userService.updateUser(this.customer._id, {allowCashOnDelivery: this.customer.allowCashOnDelivery}).subscribe()
+  }
+
+  allowWallet(event:any) {
+    console.log(event)
+      this.customer = {...this.customer, ...{ allowWallet: event.checked}}
+      this.userService.updateUser(this.customer._id, {allowWallet: this.customer.allowWallet}).subscribe()
   }
 
 

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import {  Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Payment } from '../models/payment';
+import { Block } from '../models/block';
+
 
 @Injectable()
 export class SettingsService  {
@@ -38,12 +40,33 @@ export class SettingsService  {
   deletePayment(PaymentId: string) {
     return this._httpClient.delete(`${this.hostServer}/payment-methods/${PaymentId}`);
   }
+  
+
+  creatBlock(params:any) {
+    return this._httpClient.post(`${this.hostServer}/blocks`, params);
+  }
+  
+  getBlocks(): Observable<Block[]> {
+    return this._httpClient.get<Block[]>(`${this.hostServer}/blocks`);
+  }
+
+  getBlock(id:any): Observable<Block> {
+    return this._httpClient.get<Block>(`${this.hostServer}/blocks/${id}`);
+  }
+
+  updateBlock(id: string, params:any) {
+    return this._httpClient.put(`${this.hostServer}/blocks/${id}`, params);
+  }
+
+  deleteBlock(id: string) {
+    return this._httpClient.delete(`${this.hostServer}/blocks/${id}`);
+  }
 
   versionUpdate(params: any) {
-    return this._httpClient.put(`${this.hostServer}/version-settings/649e53c6837973557666255a`, params);
+    return this._httpClient.put(`${this.hostServer}/version-settings/64a3ac4b376e5b4172739f1b`, params);
   }
 
   getVersion() {
-    return this._httpClient.get(`${this.hostServer}/version-settings/649e53c6837973557666255a`);
+    return this._httpClient.get(`${this.hostServer}/version-settings/64a3ac4b376e5b4172739f1b`);
   }
 }

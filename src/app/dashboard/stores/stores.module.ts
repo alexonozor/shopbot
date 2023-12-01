@@ -28,6 +28,8 @@ import { CategoriesService } from 'src/app/shared/services/category.service';
 import { MerchantResolver, MerchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
 import { MerchantsService } from 'src/app/shared/services/merchant.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DeliveryZoneResolver, DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
 
 
 @NgModule({
@@ -54,7 +56,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MerchantTabComponent,
     filterNames
   ],
-  entryComponents: [AddItemToMenuComponent],
   providers: [
     StoresService,
     StoreService,
@@ -67,7 +68,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     CategoriesService,
     MerchantResolver,
     MerchantsService,
-    MerchantsResolver
+    MerchantsResolver,
+    DeliveryZoneResolver,
+    DeliveryZonesResolver,
+    DeliveryZoneService
   ],
   exports: [
     AddItemToMenuComponent,

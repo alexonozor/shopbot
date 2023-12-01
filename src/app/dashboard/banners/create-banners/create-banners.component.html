@@ -14,7 +14,7 @@
 
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Short Description</mat-label>
-                    <textarea matInput placeholder="Short Description" formControlName="shortDescription"></textarea>
+                    <input matInput placeholder="Short Description" formControlName="shortDescription">
                 </mat-form-field>
 
                 <mat-form-field class="full-width" appearance="outline" >
@@ -23,6 +23,40 @@
                         <mat-option *ngFor="let category of ['Product', 'Category', 'Blog', 'Ads']" [value]="category" >{{category}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+
+                <mat-form-field class="example-full-width" *ngIf="bannerForm.value.category === 'Product'">
+                  <mat-label>Store</mat-label>
+                  <input matInput
+                         aria-label="Store"
+                         [matAutocomplete]="auto"
+                         [formControl]="storesCtrl"
+                         formControlName="storeId">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onShopSelectionChanged($event)" > 
+                    <mat-option *ngFor="let store of filteredStores | async" [value]="store.name" [id]="store._id">
+                      <span>{{store.name}}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" *ngIf="bannerForm.value.storeId">
+                  <mat-label>Select product menu</mat-label>
+                  <mat-select (selectionChange)="changeMenu($event)"  formControlName="menuId">
+                    <mat-option *ngFor="let menu of menus$ | async" [value]="menu._id">
+                      <span>{{menu.name}}</span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" *ngIf="selectedMenu">
+                  <mat-label>Select product</mat-label>
+                  <mat-select formControlName="productId">
+                    <mat-option *ngFor="let food of selectedMenu.foods" [value]="food._id">
+                      <span>{{food.name}}</span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                
 
                 <mat-form-field class="full-width" appearance="outline" >
                     <mat-label>Show on Slider</mat-label>
@@ -33,8 +67,28 @@
 
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Link</mat-label>
-                    <textarea matInput placeholder="Enter Link" formControlName="link"></textarea>
+                    <input matInput placeholder="Enter Link" formControlName="link">
                 </mat-form-field>
+
+                 <mat-form-field appearance="outline">
+                    <mat-label>Country</mat-label>
+                    <mat-select  formControlName="country" (selectionChange)="selectedCountry($event)">
+                      <mat-option *ngFor="let zone of deliveryZones" [value]="zone.country">{{zone.country}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            
+                  <mat-form-field appearance="outline" *ngIf="selectedZone">
+                    <mat-label>Localities</mat-label>
+                    <mat-select  multiple formControlName="localities">
+                      <mat-select-trigger>
+                        {{bannerForm.value?.localities?.[0] || ''}}
+                        <span *ngIf="(bannerForm.value?.localities?.length || 0) > 1" class="example-additional-selection">
+                          (+{{(bannerForm.value?.localities?.length || 0) - 1}} {{bannerForm.value?.localities?.length === 2 ? 'other' : 'others'}})
+                        </span>
+                      </mat-select-trigger>
+                      <!-- <mat-option *ngFor="let locality of selectedZone.localAreas" [value]="locality.name">{{locality.name}}</mat-option> -->
+                    </mat-select>
+                  </mat-form-field>
 
                 
     

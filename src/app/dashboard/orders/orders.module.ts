@@ -12,6 +12,7 @@ import {
   OrderResolver,
   OrdersResolver,
   OrderUpdateResolver,
+  OrdersCountResolver
 } from '../../shared/resolvers/orders.resolver';
 import { OrdersService } from '../../shared/services/order.service';
 import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
@@ -36,6 +37,7 @@ import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
     OrderResolver,
     OrdersService,
     OrderUpdateResolver,
+    OrdersCountResolver
   ],
 })
 export class OrdersModule {}

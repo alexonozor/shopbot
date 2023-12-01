@@ -1,48 +1,69 @@
 <div>
-   
-  
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="card bg-white w-full mat-elevation-z2 px-2 py-2">
-      <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-        <span>Customers</span>
-      </span>
 
-
-      <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="selection.selected.length">
-        <button mat-button>{{selection.selected.length}}  Selected</button>
-        <button mat-stroked-button color="primary" (click)="sendMessagesToSelectedCustomers()"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
-        <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon> Delete Selected Customers</button>
-      </span>
-  
-      
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch"
+    fxLayoutAlign="space-between start">
+    <div fxLayout="column" fxLayoutAlign="space-between start">
+      <h1 class="m-0">Customers</h1>
+      <p>List of Customers</p>
     </div>
-    <div class="mat-elevation-z8">
+
+
+
+    <div fxLayout="row" [formGroup]="filterForm" fxLayout.lt-md="column" fxLayoutGap="20px"
+      fxLayoutAlign.lt-md="space-around stretch" fxLayoutAlign="space-between start">
+     
+      <mat-form-field class="example-full-width">
+        <mat-label>Search</mat-label>
+        <input matInput formControlName="search" placeholder="Search">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Select a country</mat-label>
+        <mat-select formControlName="country">
+          <mat-option *ngFor="let delivery of deliveries" [value]="delivery.country">{{delivery.country}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+    class="card bg-white w-full mat-elevation-z2 px-2 py-2">
+    <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+      *ngIf="selection.selected.length">
+      <button mat-button>{{selection.selected.length}} Selected</button>
+      <button mat-stroked-button color="primary" (click)="sendMessagesToSelectedCustomers()"><mat-icon
+          class="mat-18">campaign</mat-icon> Message Customers</button>
+      <button mat-stroked-button color="warn" *ngIf="auth.isShow([Role.SuperAdmin])" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon>
+        Delete Selected Customers</button>
+    </span>
+
+
+  </div>
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="w-full" matSort matTableResponsive>
-        <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                            [checked]="selection.hasValue() && isAllSelected()"
-                            [indeterminate]="selection.hasValue() && !isAllSelected()"
-                            [aria-label]="checkboxLabel()">
-              </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="$event ? selection.toggle(row) : null"
-                            [checked]="selection.isSelected(row)"
-                            [aria-label]="checkboxLabel(row)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="Name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let element">{{ element.name }}</td>
       </ng-container>
-  
+
       <ng-container matColumnDef="phoneNumber">
         <th mat-header-cell *matHeaderCellDef>Phone Number</th>
         <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
       </ng-container>
-  
+
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>Email</th>
         <td mat-cell *matCellDef="let element">{{ element.email }}</td>
@@ -62,7 +83,7 @@
 
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>Registered at</th>
-        <td mat-cell *matCellDef="let element">{{ element.createdAt  | date:'short'}}</td>
+        <td mat-cell *matCellDef="let element">{{ element.createdAt | date:'short'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -73,27 +94,25 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="message(element)">
-                <mat-icon class="material-icons-outlined">campaign</mat-icon>
-                <span>Message Customer</span>
-              </button>
-            <button mat-menu-item (click)="deleteUser(element._id, j)">
+              <mat-icon class="material-icons-outlined">campaign</mat-icon>
+              <span>Message Customer</span>
+            </button>
+            <button mat-menu-item (click)="deleteUser(element._id, j)" *ngIf="auth.isShow([Role.SuperAdmin])">
               <mat-icon class="material-icons-outlined">delete</mat-icon>
               <span>Delete</span>
             </button>
-            <button mat-menu-item  [routerLink]="['../', element._id, 'details']">
+            <button mat-menu-item [routerLink]="['../', element._id, 'details']">
               <mat-icon class="material-icons-outlined">person</mat-icon>
               <span>Profile</span>
             </button>
           </mat-menu>
         </td>
       </ng-container>
-  
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[15, 30, 60]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
-</div>
+    <mat-paginator  [pageSize]="20" [length]="resultsLength" aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
+</div>

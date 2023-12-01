@@ -1,8 +1,6 @@
 
 
 <div>
-
-
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
         class="card bg-white w-full mat-elevation-z2 px-2 py-2">
         <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -34,10 +32,6 @@
                     </mat-checkbox>
                 </td>
             </ng-container>
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-            </ng-container>
            
             <ng-container matColumnDef="country">
                 <th mat-header-cell *matHeaderCellDef>Country</th>
@@ -46,12 +40,12 @@
 
             <ng-container matColumnDef="states">
                 <th mat-header-cell *matHeaderCellDef>State</th>
-                <td mat-cell *matCellDef="let element">{{ element.states[0] + ' ' + element.states.length }}</td>
+                <td mat-cell *matCellDef="let element">{{ element.states[0].name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="localities">
                 <th mat-header-cell *matHeaderCellDef>localities</th>
-                <td mat-cell *matCellDef="let element">{{ element.localities[0] + ' ' +  element.localities.length }}</td>
+                <td mat-cell *matCellDef="let element">{{ element.localities[0].name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="enabled">

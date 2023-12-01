@@ -5,12 +5,27 @@
             <app-select-media valueName="Image" [isNew]="false" [mediaData]="mediaData?.image"
             (removeValue)="removeValue($event)" (openMediaBrowser)="addMedia($event)"></app-select-media>
 
-            <mat-form-field class="full-width" appearance="outline">
+            <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Name Of Cuisine</mat-label>
                 <input matInput placeholder="Name Of Cuisine" formControlName="name">
             </mat-form-field>
 
             <mat-slide-toggle formControlName="status">Enable</mat-slide-toggle>
+
+            <mat-form-field appearance="fill" >
+                <mat-label>Country</mat-label>
+                <mat-select  multiple formControlName="country">
+                  <mat-select-trigger>
+                    {{cuisineForm.value?.country?.[0] || ''}}
+                    <span *ngIf="(cuisineForm.value?.country?.value?.length || 0) > 1" class="example-additional-selection">
+                      (+{{(cuisineForm.value?.country?.length || 0) - 1}} {{cuisineForm.value?.country?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let region of deliveriesZones" [value]="region.country">{{region.country}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        
+            
 
             <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
                 <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>

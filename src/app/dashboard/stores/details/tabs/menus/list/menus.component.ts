@@ -104,7 +104,7 @@ goBack() {
 }
 
 
-drop(event: CdkDragDrop<string[]>) {
+drop(event: CdkDragDrop<string[] | any>) {
   
   moveItemInArray(this.menus, event.previousIndex, event.currentIndex);
    this.menus.forEach((item, i) => {

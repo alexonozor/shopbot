@@ -9,15 +9,15 @@
 
             <mat-form-field class="example-chip-list" appearance="fill">
                 <mat-label>Select Permissions</mat-label>
-                <mat-chip-list #chipList aria-label="Fruit selection">
-                  <mat-chip
+                <mat-chip-grid #chipList aria-label="Fruit selection">
+                  <mat-chip-row
                     *ngFor="let permission of permissions"
                     (removed)="remove(permission)">
                     {{permission}}
                     <button matChipRemove>
                       <mat-icon>cancel</mat-icon>
                     </button>
-                  </mat-chip>
+                  </mat-chip-row>
                   <input
                     placeholder="New permissions..."
                     #fruitInput
@@ -26,7 +26,7 @@
                     [matChipInputFor]="chipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
+                </mat-chip-grid>
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                   <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
                     {{fruit}}
@@ -45,4 +45,3 @@
         </div>
     </form>
 </div>
-<pre>{{rolesForm.value | json}}</pre>

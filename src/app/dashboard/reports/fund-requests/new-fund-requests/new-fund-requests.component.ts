@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormArray, FormGroup} from '@angular/forms'
 import { AuthService } from 'src/app/shared/services';
 import { FundRequestsService } from '../../../../shared/services/fund-request.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 @Component({
   selector: 'app-new-fund-requests',
@@ -18,19 +19,23 @@ export class NewFundRequestsComponent implements OnInit {
     items: this.fb.array([]),
     total: [{ value: 0, disabled: true } as any, Validators.required],
     currency: ['', Validators.required],
+    country: ['', Validators.required],
     description: [''],
   });
   isLoading: boolean = false;
+  deliveries: DeliveryZone[] = [];
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
+    private route: ActivatedRoute,
     private requestedFundService: FundRequestsService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.addItems();
+    this.deliveries = this.route.snapshot.data['deliveries']; 
   }
 
   newItems(): FormGroup {

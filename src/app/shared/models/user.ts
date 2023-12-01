@@ -2,6 +2,7 @@ export interface User {
     _id:string;
     photo: string;
     name: string;
+    username: string;
     email: string;
     phoneNumber: string;
     gender: string;
@@ -22,6 +23,14 @@ export interface User {
     totalOrders: number;
     shipping: Shipping;
     phoneCredentials: any;
+    createdAt: string;
+    referralLink:string;
+    currency: string;
+    ban: boolean;
+    allowCashOnDelivery: boolean;
+    allowWallet: boolean;
+    walletBallance: number;
+    totalEarnings: number;
 }
 
 export interface Shipping {

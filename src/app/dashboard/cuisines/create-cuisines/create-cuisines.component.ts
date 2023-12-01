@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CuisinesService } from '../../../shared/services/cuisines.service';
 import { Location } from '@angular/common';
 import { MediaComponent } from '../../media/media.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-cuisine',
@@ -13,22 +15,28 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CreateCuisinesComponent implements OnInit {
   mediaData:any;
-  cuisineForm = this.fb.group({
-    name: ['', Validators.required],
-    status: ['', Validators.required],
-    image: ['', Validators.required],
-  });
+  cuisineForm!: FormGroup;
+  deliveriesZones!: DeliveryZone[];
 
   constructor(
     private fb: FormBuilder,
     private cuisineService: CuisinesService,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public route: ActivatedRoute
   ) {
     this.mediaData = { image:null, icon:null };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.deliveriesZones = this.route.snapshot.data['deliveriesZones'] as DeliveryZone[]
+    this.cuisineForm = this.fb.group({
+      name: ['', Validators.required],
+      status: ['', Validators.required],
+      image: ['', Validators.required],
+      country: ['', Validators.required],
+    });
+  }
 
   submit() {
     if (this.cuisineForm.valid) {

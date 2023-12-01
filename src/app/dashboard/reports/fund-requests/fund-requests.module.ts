@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FundRequestsListComponent } from './fund-requests-list/fund-requests-list.component';
 import { NewFundRequestsComponent } from './new-fund-requests/new-fund-requests.component';
 import { EditFundRequestsComponent } from './edit-fund-requests/edit-fund-requests.component';
+import { DeliveryZonesResolver, DeliveryZoneResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,10 @@ import { EditFundRequestsComponent } from './edit-fund-requests/edit-fund-reques
   providers: [
     FundRequestsResolver,
     FundRequestsService,
-    FundRequestResolver
+    FundRequestResolver,
+    DeliveryZonesResolver, 
+    DeliveryZoneResolver, 
+    DeliveryZoneService,
   ]
 })
 export class FundRequestsModule { }

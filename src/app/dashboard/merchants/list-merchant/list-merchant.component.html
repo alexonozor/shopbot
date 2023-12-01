@@ -1,28 +1,55 @@
 
 <div class="h-screen w-full">
-<mat-list style="margin-bottom: 20px">
-    <div mat-subheader>Merchants</div>
-    <mat-list-item *ngFor="let merchant of merchants; let i = index" >
-       
-        <div mat-line><span class="title font-extrabold">{{merchant.name}}</span></div>
-        
-       <div mat-line class="text-gray-400 font-thin">{{merchant.phoneNumber}}</div>
 
-       <!-- <mat-slide-toggle [(ngModel)]="merchant.deactivate" (change)="onChange(merchant, $event)" class="mx-8" color="primary"></mat-slide-toggle> -->
-       
-        <button mat-icon-button [matMenuTriggerFor]="menu" >
-            <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
-            <button mat-menu-item (click)="deleteMerchant(merchant._id, i); $event.stopPropagation() "><mat-icon>delete</mat-icon> Delete</button>
-            <button mat-menu-item [routerLink]="['../', merchant._id, 'details']">
-                <mat-icon>edit</mat-icon> Edit 
-            </button>
-          </mat-menu>
-          <mat-divider></mat-divider>
-    </mat-list-item>
-    
-</mat-list>
+    <div mat-subheader>Merchants</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  
+    <table class="w-full text-sm text-left text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+               
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b " *ngFor="let merchant of merchants; let i = index">
+                
+                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
+                    <div class="pl-3">
+                        <div class="text-base font-semibold">{{merchant.name}}</div>
+                        <div class="font-normal text-gray-500">{{merchant.phoneNumber}}</div>
+                    </div>  
+                </th>
+               
+                <td class="px-6 py-4">
+                    {{merchant.email}}
+                </td>
+                
+                <td class="px-6 py-4">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" >
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
+                        <button mat-menu-item (click)="deleteMerchant(merchant._id, i); $event.stopPropagation() "><mat-icon>delete</mat-icon> Delete</button>
+                        <button mat-menu-item [routerLink]="['../', merchant._id, 'details']">
+                            <mat-icon>edit</mat-icon> Edit 
+                        </button>
+                      </mat-menu>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 
 
 

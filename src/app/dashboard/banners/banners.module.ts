@@ -15,7 +15,9 @@ import { MaterialModule } from 'src/app/material';
 import { StoreTabsModule } from '../stores/details/tabs/store-tabs.modules';
 import { StoresRoutingModule } from '../stores/stores.routing';
 import { SharedModule } from '../../shared/shared.module';
-
+import { StoreService } from '../stores/details/store.service';
+import { DeliveryZoneResolver, DeliveryZonesResolver } from '../../shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from '../../shared/services/delivery-zone.service';
 @NgModule({
   declarations: [
     BannersComponent,
@@ -24,8 +26,7 @@ import { SharedModule } from '../../shared/shared.module';
     EditBannersComponent
   ],
   imports: [
-  
-  BannersRoutingModule,
+    BannersRoutingModule,
     CommonModule,
     MaterialModule,
     StoresRoutingModule,
@@ -39,7 +40,11 @@ import { SharedModule } from '../../shared/shared.module';
   providers: [
     BannersResolver, 
     BannerResolver,
-    BannersService
+    BannersService,
+    StoreService,
+    DeliveryZonesResolver,
+    DeliveryZoneResolver,
+    DeliveryZoneService
   ]
 })
 export class BannersModule { }

@@ -24,16 +24,16 @@
   
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
             <mat-label>Promo Code Valid For This Vendor</mat-label>
-            <mat-chip-list #customerList aria-label="Customer selection">
-              <mat-chip *ngFor="let store of selectedStores" [selectable]="selectable" [removable]="removable"
+            <mat-chip-grid #customerList aria-label="Customer selection">
+              <mat-chip-row *ngFor="let store of selectedStores"  [removable]="removable"
                 (removed)="removeStore(store)">
                 {{store.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
+              </mat-chip-row>
               <input placeholder="New Vendors" #storeInput [formControl]="storeCtrl" [matAutocomplete]="storeAuto"
                 [matChipInputFor]="customerList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                 [matChipInputAddOnBlur]="addOnBlur">
-            </mat-chip-list>
+            </mat-chip-grid>
             <mat-autocomplete #storeAuto="matAutocomplete" (optionSelected)="selectedStore($event)">
               <mat-option *ngFor="let store of filteredStores | async" [value]="store">
                 {{store.name}}
@@ -43,16 +43,16 @@
   
   
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
-            <mat-chip-list #chipList aria-label="Customer selection">
-              <mat-chip *ngFor="let customer of selectedCustomers" [selectable]="selectable" [removable]="removable"
+            <mat-chip-grid #chipList aria-label="Customer selection">
+              <mat-chip-row *ngFor="let customer of selectedCustomers"  [removable]="removable"
                 (removed)="remove(customer)">
                 {{customer.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
+              </mat-chip-row>
               <input placeholder="New customer..." #customerInput [formControl]="customerCtrl" [matAutocomplete]="auto"
                 [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                 [matChipInputAddOnBlur]="addOnBlur">
-            </mat-chip-list>
+            </mat-chip-grid>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
               <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
                 {{customer.name}}

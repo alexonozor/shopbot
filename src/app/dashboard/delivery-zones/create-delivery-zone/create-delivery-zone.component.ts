@@ -1,9 +1,10 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DeliveryZoneService } from '../../../shared/services/delivery-zone.service';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 @Component({
   selector: 'create-delivery-zone',
@@ -11,60 +12,74 @@ import { DeliveryZoneService } from '../../../shared/services/delivery-zone.serv
   styleUrls: ['./create-delivery-zone.component.scss'],
 })
 export class CreateDeliveryZoneComponent implements OnInit {
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  states: any[] = [];
-  localities: any[] = [];
-  deliveryZonesForm = this.fb.group({
-    name: ['', Validators.required],
-    country: ['', Validators.required],
-    states: this.fb.array(['']),
-    enabled: ['', Validators.required],
-    localities: this.fb.array([''])
-  });
+  deliveryZonesForm!: FormGroup;
+  zones!: DeliveryZone;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private deliveryService: DeliveryZoneService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private location: Location
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   
+    this.deliveryZonesForm = this.fb.group({
+      country: ['', Validators.required],
+      countryCode: ['', Validators.required],
+      currencyCode: ['', Validators.required],
+      currency: ['', Validators.required],
+      image: ['', Validators.required],
+      states: this.fb.array([]),
+      enabled: ['', Validators.required],
+    });
+    
+  }
+
+  getLocalities(state: FormGroup | any) {
+    return state.get('localities') as FormArray;
+  }
+
+  get states() {
+    return this.deliveryZonesForm.get('states') as FormArray
+  }
+
+  addStates(): any {
+    const state = this.fb.group({
+      name: ['', Validators.required],
+      localities: this.fb.array([])
+    })
+    this.states.push(state)
+    this.addLocality(state)
+  }
+
+  addLocality(state?: any) {
+    const locality = this.fb.group({
+      name: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required],
+      enabled: [false],
+    })
+    state.get('localities').push(locality);
+  }
+
+  removeLocality(state: FormGroup | any, index: number) {
+    state.get('localities').removeAt(index);
+  }
+
+  removeState(index: number) {
+    this.states.removeAt(index);
+  }
 
   submit() {
-    if (this.deliveryZonesForm.valid) {
-      this.deliveryService
-        .createDeliveryZone(this.deliveryZonesForm.getRawValue())
-        .subscribe((data) => {});
-    }
+    this.deliveryService.createDeliveryZone(this.deliveryZonesForm.getRawValue())
+      .subscribe((data) => { });
   }
 
-  add(event: MatChipInputEvent, place:string): void {
-    const value = (event.value || '').trim();
-	event.chipInput!.clear();
-	if (place === 'states') {
-		this.states.push(value);
-		this.deliveryZonesForm.patchValue({states: this.states});
-	} else {
-		this.localities.push(value);
-		this.deliveryZonesForm.patchValue({localities: this.localities});
-	}  
+  back() {
+    this.location.back();
   }
-
-  remove(fruit: string, place: string): void {
-    const index = this.states.indexOf(fruit);
-    if (index >= 0) {
-      if (place === 'states') {
-		this.states.splice(index, 1);
-        this.deliveryZonesForm.patchValue({ states: this.states });
-      } else {
-        this.localities.splice(index, 1);
-        this.deliveryZonesForm.patchValue({ localities: this.localities });
-      }
-    }
-  }
-
-  
-
-  back() {}
 
 }

@@ -5,12 +5,12 @@
         (removeValue)="removeValue($event)" (openMediaBrowser)="addMedia($event)"></app-select-media>
       <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
         fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
           <mat-label>Promo Code Name</mat-label>
           <input matInput placeholder="Name Of Banner" formControlName="codeName">
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%">
           <mat-label>Promo Code</mat-label>
           <input matInput placeholder="Promo Code *" formControlName="code">
         </mat-form-field>
@@ -19,18 +19,18 @@
       <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
         fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
           <mat-label>Promo Code Valid For This Vendor</mat-label>
-          <mat-chip-list #customerList aria-label="Customer selection">
-            <mat-chip *ngFor="let store of selectedStores" [selectable]="selectable" [removable]="removable"
+          <mat-chip-grid #customerList aria-label="Customer selection">
+            <mat-chip-row *ngFor="let store of selectedStores"  [removable]="removable"
               (removed)="removeStore(store)">
               {{store.name}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
+            </mat-chip-row>
             <input placeholder="New Vendors" #storeInput [formControl]="storeCtrl" [matAutocomplete]="storeAuto"
               [matChipInputFor]="customerList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
               [matChipInputAddOnBlur]="addOnBlur">
-          </mat-chip-list>
+          </mat-chip-grid>
           <mat-autocomplete #storeAuto="matAutocomplete" (optionSelected)="selectedStore($event)">
             <mat-option *ngFor="let store of filteredStores | async" [value]="store">
               {{store.name}}
@@ -39,17 +39,17 @@
         </mat-form-field>
 
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
-          <mat-chip-list #chipList aria-label="Customer selection">
-            <mat-chip *ngFor="let customer of selectedCustomers" [selectable]="selectable" [removable]="removable"
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
+          <mat-chip-grid #chipList aria-label="Customer selection">
+            <mat-chip-row  *ngFor="let customer of selectedCustomers" [removable]="removable"
               (removed)="remove(customer)">
               {{customer.name}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
+            </mat-chip-row >
             <input placeholder="New customer..." #customerInput [formControl]="customerCtrl" [matAutocomplete]="auto"
               [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
               [matChipInputAddOnBlur]="addOnBlur">
-          </mat-chip-list>
+          </mat-chip-grid>
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
             <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
               {{customer.name}}
@@ -71,21 +71,21 @@
         </div>
 
         <ng-container *ngIf="promoForm.value.flatDiscount">
-          <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+          <mat-form-field class="full-width"  fxFlex.gt-md="50%">
             <mat-label>Flat discount amount</mat-label>
             <input matInput placeholder="Enter flat discount amount" formControlName="flatDiscountAmount">
           </mat-form-field>
         </ng-container>
 
         <ng-container *ngIf="!promoForm.value.flatDiscount">
-          <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+          <mat-form-field class="full-width"  fxFlex.gt-md="50%">
             <mat-label>Select Discount Type</mat-label>
             <mat-select formControlName="discountType" placeholder="Discount Type">
               <mat-option *ngFor="let discount of ['Percentage', 'Amount']" [value]="discount">{{discount}}</mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+          <mat-form-field class="full-width"  fxFlex.gt-md="50%">
             <mat-label>Flat discount amount</mat-label>
             <input matInput type="number" placeholder="Enter flat discount amount" formControlName="discount">
           </mat-form-field>
@@ -95,12 +95,12 @@
 
       <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
         fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%">
           <mat-label>Maximum Discount Amount</mat-label>
           <input matInput type="number" placeholder=">Maximum Discount Amount" formControlName="maximumDiscountAmount">
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%">
           <mat-label>Flat discount amount</mat-label>
           <input matInput type="number" placeholder=">Minimum Order Amount" formControlName="minimumOrderAmount">
         </mat-form-field>
@@ -111,7 +111,7 @@
 
 
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%">
           <mat-label>Promo Code Redeem Start/End Period</mat-label>
           <mat-date-range-input [rangePicker]="picker">
             <input matStartDate formControlName="startTime" placeholder="Start date">
@@ -125,7 +125,7 @@
           <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%">
           <mat-label>Promo code redeem count</mat-label>
           <input matInput type="number" placeholder="Promo code redeem count" formControlName="redeemCount">
         </mat-form-field>
@@ -133,12 +133,12 @@
 
       <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-around start" fxLayout.lt-lg="column"
         fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
-        <mat-form-field class="full-width"   appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"    fxFlex.gt-md="50%">
           <mat-label>Promo Code Description</mat-label>
           <textarea matInput placeholder="Short Description" formControlName="promoCodeDescription"></textarea>
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
+        <mat-form-field class="full-width"  fxFlex.gt-md="50%">
           <mat-label>Text Promo Code Description</mat-label>
           <textarea matInput placeholder="Text Promo Code Description" formControlName="textCodeDescription"></textarea>
         </mat-form-field>
@@ -164,33 +164,3 @@
     </div>
   </form>
 </div>
-
-
-
-<!-- // _id: string;
-// image: string;
-// codeName: string;
-// code: string;
-// vendors: Store[];
-// customers: User[];
-// showInCustomerApp: boolean;
-// flatDiscount: boolean;
-// flatDiscountAmount: number;
-// discountType: number;
-// startTime: Date;
-// endTime: Date;
-// redeemCount: number;
-// promoCodeDescription: string;
-// textCodeDescription: string;
-// enabled: boolean;
-// createdAt: Date; -->
-
-<!-- maximumDiscountAmount: {
-  type: Number, 
-  default: 0
-},
-
-minimumOrderAmount: {
-  type: Number, 
-  default: 0
-}, -->

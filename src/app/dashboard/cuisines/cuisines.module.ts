@@ -12,6 +12,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
 
 
 @NgModule({
@@ -30,6 +32,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     SharedModule
   ],
-  providers: [CuisinesResolver, CuisineResolver, CuisinesService]
+  providers: [CuisinesResolver, CuisineResolver, CuisinesService, DeliveryZonesResolver, DeliveryZoneService]
 })
 export class CuisinesModule { }

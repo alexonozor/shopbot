@@ -24,7 +24,7 @@ export class MenusService  {
     this.onMenusChanged = new BehaviorSubject({});
   }
 
-  getStoreMenus(storeId: string): Observable<Menu[]> {
+  getStoreMenus(storeId: any): Observable<Menu[]> {
    return this._httpClient.get<Menu[]>(`${this.hostServer}/menus/${storeId}/store/menus`)
   }
 

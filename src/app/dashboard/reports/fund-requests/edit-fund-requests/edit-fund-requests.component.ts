@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/shared/services';
 import { FundRequestsService } from '../../../../shared/services/fund-request.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FundRequest } from 'src/app/shared/models/fund-request';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 @Component({
   selector: 'app-edit-fund-requests',
@@ -15,6 +16,7 @@ export class EditFundRequestsComponent implements OnInit {
   requestForm!: FormGroup;
   isLoading: boolean = false;
   fund: FundRequest;
+  deliveries: DeliveryZone[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +26,8 @@ export class EditFundRequestsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.fund = this.route.snapshot.data['fund']
-   }
+    this.deliveries = this.route.snapshot.data['deliveries']; 
+  }
 
   ngOnInit(): void {
    this.requestForm = this.fb.group({
@@ -33,6 +36,7 @@ export class EditFundRequestsComponent implements OnInit {
       status: [this.fund.status, Validators.required],
       items: this.fb.array([]),
       total: [{ value: this.fund.total, disabled: true } as any, Validators.required],
+      country: [this.fund.country, Validators.required],
       currency: [this.fund.currency, Validators.required],
       description: [this.fund.description],
     });
@@ -40,7 +44,6 @@ export class EditFundRequestsComponent implements OnInit {
     this.fund.items.forEach((item) => {
       this.addItems(item);
     })
-   
   }
 
   newItems(item?:any): FormGroup {
@@ -50,34 +53,29 @@ export class EditFundRequestsComponent implements OnInit {
       quantity: [item?.quantity, Validators.required],
       note: [item?.note, Validators.required]
     });
-  
     itemGroup.valueChanges.subscribe(() => {
       this.calculateTotal();
     });
-  
     return itemGroup;
  }
 
  calculateTotal() {
-  
   let total = 0;
   this.items.controls.forEach((itemGroup: any) => {
     const price = itemGroup.get('price').value;
     const quantity = itemGroup.get('quantity').value;
-
     if (price && quantity) {
       total += price * quantity;
     }
   });
-
   this.requestForm.patchValue({
     total: total // Assuming you want the total to have 2 decimal places
   });
 }
 
- addItems(item?:any) {
-  this.items.push(this.newItems(item));
-}
+  addItems(item?:any) {
+    this.items.push(this.newItems(item));
+  }
 
 removeItems(i:number) {
   this.items.removeAt(i);

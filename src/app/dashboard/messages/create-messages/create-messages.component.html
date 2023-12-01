@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <form [formGroup]="messagesForm" fxLayout="column" fxLayoutAlign="space-around stretch">
     <ng-container *ngIf="!data.allCustomers else selectRecipient">
-      <mat-form-field class="example-chip-list" appearance="fill">
+      <!-- <mat-form-field class="example-chip-list" appearance="fill">
         <mat-label>Recipients</mat-label>
         <mat-chip-list #chipList aria-label="Fruit selection" formArrayName="recipients">
           <mat-chip *ngFor="let recipient of recipients.controls; let i = index" (removed)="remove(recipient)">
@@ -14,7 +14,7 @@
           <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
-      </mat-form-field>
+      </mat-form-field> -->
     </ng-container>
 
     <ng-template #selectRecipient>

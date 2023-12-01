@@ -84,6 +84,7 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
       name: [data ? data.name : '', Validators.required],
       mandatory: [data ? data.mandatory : false, Validators.required],
       selectedType: [data ? data.selectedType : '', Validators.required],
+      enabled: [data ? data.enabled : '', Validators.required],
       options: this._formBuilder.array(data ? data.options.map((p: any) => this.newSubOptions(p)) : [])
     })
   }
@@ -92,6 +93,7 @@ export class AddItemToMenuComponent implements OnInit, AfterViewInit {
     return this._formBuilder.group({
       name: [data ? data.name : '', Validators.required],
       price: [data ? data.price : 0, Validators.required],
+      inStock: [data ? data.inStock : '', Validators.required],
     })
   }
 

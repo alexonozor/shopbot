@@ -9,7 +9,9 @@ export interface Order  {
     user: User,
     status: Status[];
     reference: string;
+    settled: boolean;
     total: number;
+    driverTip: number;
     discount: number;
     serviceFee: number;
     orderInstruction: string;
@@ -18,12 +20,15 @@ export interface Order  {
     createdAt: string;
     shippingFee: number;
     paymentStatus: string;
+    currentAppVersion:string;
     payment:string;
     category: string;
     gift: boolean;
     orderType: string;
     receiver: Receiver;
     vendorCommission: number;
+    vendorCommissionAmount: number;
+    subTotal: number;
     deliveryTime: any;
 }
 
@@ -66,6 +71,7 @@ export interface Shipping {
     thoroughfare: string;
     paymentStatus: string;
     category: string;
+    streetName?: string | null | undefined;
   }
 
   export interface Status {

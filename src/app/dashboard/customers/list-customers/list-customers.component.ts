@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest, merge, of, startWith, switchMap, tap } from 'rxjs';
 import { UsersService } from '../../../shared/services/users.service';
 import { User } from '../../../shared/models/user';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +9,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
+import { AuthService } from 'src/app/shared/services';
+import { Role } from 'src/app/shared/models/role';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { off } from 'process';
 
 @Component({
   selector: 'app-list-customers',
@@ -19,25 +24,77 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
 
   public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'device', 'country', 'createdAt', 'actions'];
   public dataSource = new MatTableDataSource<User>([]);
+  public filterForm: FormGroup
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
+  Role = Role
+  userObject: any
+  resultsLength: number = 0;
+  deliveries: DeliveryZone[] = []
 
 
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
-    private _matDialog: MatDialog
-  ) { }
-
-  
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    public auth: AuthService,
+    private _matDialog: MatDialog,
+    private fb: FormBuilder
+  ) {
+    this.filterForm = this.fb.group({
+      country: new FormControl('Nigeria'),
+      search: new FormControl(null),
+    });
+    this.deliveries = this.route.snapshot.data['deliveries'] as DeliveryZone[];
+    this.resultsLength = this.route.snapshot.data['count'] as number;
   }
 
+  ngAfterViewInit() {
+    combineLatest([
+      this.filterForm.valueChanges.pipe(startWith({ country: 'Nigeria' })),
+      this.paginator.page.pipe(startWith({ pageIndex: 0, pageSize: 20 }))
+    ]).pipe(
+      switchMap(([filterFormValue, paginatorEvent]) => {
+        const { country, search } = filterFormValue;
+        const offSet = paginatorEvent.pageSize * paginatorEvent.pageIndex;
+        if (search) {
+          this.paginator.pageIndex = 0;
+          this.resultsLength = 20
+          return this.userService.getUsers({
+            data: { $match: { country, name: { $regex: search, $options: 'i' }  } },
+            control: [
+              { $sort: { createdAt: -1 } }
+              // { $skip: offSet },
+              // { $limit: 20 }
+            ]
+          });
+          
+        } else {
+          this.resultsLength = this.route.snapshot.data['count'] as number;
+          return this.userService.getUsers({
+            data: { $match: { country } },
+            control: [
+              { $sort: { createdAt: -1 } },
+              { $skip: offSet },
+              { $limit: 20 }
+            ]
+          });
+        }
+        
+      })
+    ).subscribe((users) => {
+      this.dataSource = new MatTableDataSource<User>(users);
+      
+      // this.paginator.pageIndex = 0;
+    });
+  }
+
+
+
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<User>(this.route.snapshot.data['customers']) 
+    this.userObject = this.route.snapshot.data['customers'];
+    // this.resultsLength = this.userObject.length;
+    this.dataSource = new MatTableDataSource<User>(this.userObject);
   }
 
   isAllSelected() {
@@ -63,16 +120,15 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
     this.confirmDialogRef.componentInstance.confirmButton = 'Delete';
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.selection.selected.forEach((user: User, i:number) => {
-        this.dataSource.data.splice(i, 1);
-        this.dataSource = new MatTableDataSource<User>(this.dataSource.data);
-        this.dataSource._updateChangeSubscription();
-        this.dataSource.paginator = this.paginator;
-        this.userService.deleteUser(user._id).subscribe();
+        this.selection.selected.forEach((user: User, i: number) => {
+          this.dataSource.data.splice(i, 1);
+          this.dataSource = new MatTableDataSource<User>(this.dataSource.data);
+          this.dataSource._updateChangeSubscription();
+          this.dataSource.paginator = this.paginator;
+          this.userService.deleteUser(user._id).subscribe();
         })
       }
     });
-    
   }
 
   checkboxLabel(row?: any): string {
@@ -81,7 +137,6 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
-
 
   deleteUser(id: string, index: number) {
     this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
@@ -99,21 +154,21 @@ export class ListCustomersComponent implements OnInit, AfterViewInit {
         this.userService.deleteUser(id).subscribe();
       }
     });
-   
+
   }
 
 
   message(customer: User) {
     this._matDialog.open(CreateMessagesComponent, {
-      data: { customers: customer, isBulkMsg: false, allCustomers: false},
+      data: { customers: customer, isBulkMsg: false, allCustomers: false },
       width: '500px'
     });
-    
+
   }
 
   sendMessagesToSelectedCustomers() {
     this._matDialog.open(CreateMessagesComponent, {
-      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: false},
+      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: false },
       width: '500px'
     });
   }

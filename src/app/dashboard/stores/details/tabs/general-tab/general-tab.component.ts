@@ -1,8 +1,5 @@
-import { MapsAPILoader } from '@agm/core';
 import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/models/store';
-import { Location, Appearance, GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
-import PlaceResult = google.maps.places.PlaceResult;
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs';
@@ -32,6 +29,9 @@ export class GeneralTabComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition | undefined;
   verticalPosition: MatSnackBarVerticalPosition | undefined;
   categories!: Category[]
+  countriesWithStates: any[] = [];
+
+  states: any[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -40,13 +40,28 @@ export class GeneralTabComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.categories = this.route.snapshot.data['categories']
+    this.countriesWithStates = this.route.snapshot.data['deliveryZones'];
+    console.log(this.countriesWithStates)
   }
 
   ngOnInit(): void {
     this.lat = this.store.location.coordinates[0];
     this.lng = this.store.location.coordinates[1];
     this.generalSettingForm = this.createGeneralSettingForm();
+
+    this.generalSettingForm = this.createGeneralSettingForm();
+
+    // Subscribe to changes in the 'country' form control
+    this.generalSettingForm?.get('contactInfo.country')?.valueChanges.subscribe((selectedCountry) => {
+    const matchingCountry = this.countriesWithStates.find(item => item.country === selectedCountry);
+      if (matchingCountry) {
+        this.states = matchingCountry.states
+      } 
+    });
+
+    this.generalSettingForm?.get('contactInfo')?.patchValue({country: this.store.contactInfo.country})
   }
+
 
   createGeneralSettingForm(): FormGroup {
     return this._formBuilder.group({
@@ -56,6 +71,7 @@ export class GeneralTabComponent implements OnInit {
       description: [this.store.description, Validators.required],
       category: [this.store.category[0]?._id, Validators.required],
       currency: [this.store.currency, Validators.required],
+      currencyCode: [this.store.currencyCode, Validators.required],
       expensive: [this.store.expensive, Validators.required],
 
       finance: this._formBuilder.group({
@@ -87,6 +103,7 @@ export class GeneralTabComponent implements OnInit {
     })
   }
 
+
   setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -98,13 +115,13 @@ export class GeneralTabComponent implements OnInit {
     }
   }
 
-  onAutocompleteSelected(result: PlaceResult) {
+  onAutocompleteSelected(result:any) {
     console.log('onAutocompleteSelected: ', result);
   }
 
   onLocationSelected(location: Location) {
-    this.lat = location.latitude;
-    this.lng = location.longitude;
+    // this.lat = location.latitude;
+    // this.lng = location.longitude;
     this.generalSettingForm.patchValue({ location: { coordinates: [this.lat, this.lng] } })
   }
 

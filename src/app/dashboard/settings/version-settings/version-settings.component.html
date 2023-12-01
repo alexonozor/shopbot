@@ -74,37 +74,50 @@
                 fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
                 fxFlex.lt-md="100%">
               
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>ios User APP Version Mandatory</mat-label>
-                    <input matInput placeholder="ios User APP Version Mandatory"
-                        formControlName="iosUserVersionMandatory">
-                </mat-form-field>
+        
+                <mat-form-field class="full-width">
+                    <mat-label>iOS User APP Version Mandatory</mat-label>
+                    <mat-select formControlName="iosUserVersionMandatory">
+                      <mat-option *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value: false}]" [value]="item.value">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
 
-
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>ios Vendor APP Mandatory</mat-label>
-                    <input matInput placeholder="ios Vendor APP Mandatory" formControlName="iosVendorMandatory">
-                </mat-form-field>
-
-               
-
-                
-                
+                <mat-form-field class="full-width">
+                    <mat-label>iOS Vendor APP Mandatory</mat-label>
+                    <mat-select formControlName="iosVendorMandatory">
+                      <mat-option *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value: false}]" [value]="item.value">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout="row" fxLayoutAlign="space-around center"
                 fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch" fxFlex.gt-sm="50%"
                 fxFlex.lt-md="100%">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Android User Version Mandatory</mat-label>
-                    <input matInput placeholder="Android User Version Mandatory"
-                        formControlName="androidUserVersionMandatory">
-                </mat-form-field>
+             
 
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width">
+                    <mat-label>Android User Version Mandatory</mat-label>
+                    <mat-select formControlName="androidUserVersionMandatory">
+                      <mat-option *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value: false}]" [value]="item.value">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+            
+
+                <mat-form-field class="full-width"> 
                     <mat-label>Android Vendor App Mandatory</mat-label>
-                    <input matInput placeholder="Android Vendor App Mandatory" formControlName="androidVendorMandatory">
-                </mat-form-field>
+                    <mat-select formControlName="androidVendorMandatory">
+                      <mat-option *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value: false}]" [value]="item.value">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                
             </div>
 

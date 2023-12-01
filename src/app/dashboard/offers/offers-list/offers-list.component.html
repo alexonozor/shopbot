@@ -1,0 +1,84 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="p-4 bg-white"  fxLayout="row" fxLayoutAlign="space-between center">
+        <h2>Offers</h2>
+        <div>
+            <button mat-raised-button color="primary" [routerLink]="['../', 'new-offer']"><mat-icon>add</mat-icon> Add Offers</button>
+        </div>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+            <tr>
+               
+                <th scope="col" class="px-6 py-3">
+                    Store
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Menu
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Product
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Discount
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Duration
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b  hover:bg-gray-50 " *ngFor="let offer of offers; let i =index">
+                
+                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
+                    <img class="w-10 h-10 rounded-full" [src]="offer.image" alt="Jese image">
+                    <div class="pl-3">
+                        <div class="text-base font-semibold">{{offer.store.name}}</div>
+                        <div class="font-normal text-gray-500">{{offer.description}}</div>
+                    </div>  
+                </th>
+                <td class="px-6 py-4">
+                    {{offer?.menu?.name || 'Applied to all'}}
+                </td>
+                <td class="px-6 py-4">
+                    {{offer?.food?.name || 'Applied to all'}}
+                </td>
+                <td class="px-6 py-4">
+                    {{offer.discount}}
+                </td>
+                <td class="px-6 py-4">
+                    <ng-container *ngIf="offer.offerPeriodType === 'One Time'">
+                        {{offer.startTime | date: 'medium'}} - {{offer.endTime | date: 'medium'}}
+                    </ng-container>
+                    <ng-container *ngIf="offer.offerPeriodType !== 'One Time'">
+                        Recurring offer
+                    </ng-container>
+                    
+                </td>
+                <td class="px-6 py-4">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <!-- <button mat-menu-item (click)="viewOrder(element)">
+                            <mat-icon class="material-icons-outlined">campaign</mat-icon>
+                            <span>Message Order</span>
+                          </button> -->
+                        <button mat-menu-item (click)="deleteOffer(offer._id, i)">
+                          <mat-icon class="material-icons-outlined">delete</mat-icon>
+                          <span>Delete</span>
+                        </button>
+                        <!-- [routerLink]="['../', element._id, 'details']" -->
+                        <button mat-menu-item [routerLink]="['../', offer._id, 'edit']">
+                          <mat-icon class="material-icons-outlined">visibility</mat-icon>
+                          <span>Edit Offer</span>
+                        </button>
+                      </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
