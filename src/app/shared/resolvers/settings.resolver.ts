@@ -66,6 +66,6 @@ export class BlocksResolver implements Resolve<Block[]> {
   constructor(private settingsService: SettingsService) {}
   
   resolve(route: ActivatedRouteSnapshot): Observable<Block[]> {
-    return this.settingsService.getBlocks();
+    return this.settingsService.getBlocks({country: 'Nigeria'});
   }
 }

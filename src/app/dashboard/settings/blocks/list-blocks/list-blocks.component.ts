@@ -9,6 +9,7 @@ import { CreateBlocksComponent } from '../create-blocks/create-blocks.component'
 import { EditBlocksComponent } from '../edit-blocks/edit-blocks.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-blocks',
@@ -20,6 +21,9 @@ export class ListBlocksComponent implements OnInit {
   public blocks: Block[] = [];
   confirmDialogRef!: MatDialogRef<ConfirmComponent> | null;
   zones!: DeliveryZone[];
+  range = new FormGroup({
+    country: new FormControl< null | string>('Nigeria'),
+  });
 
   constructor(
     private settingsService: SettingsService,
@@ -38,6 +42,16 @@ export class ListBlocksComponent implements OnInit {
   ngOnInit(): void {
     this.blocks = this.route.snapshot.data['blocks'] as Block[]
     this.zones = this.route.snapshot.data['zones'] as DeliveryZone[];
+    this.range.valueChanges.subscribe((data) => {
+      this.settingsService.getBlocks(data).subscribe((blocks) => {
+        this.blocks = blocks;
+      })
+   })
+  }
+
+  changeCurrency(event: any) {
+    const delivery = this.zones.find((delivery) => delivery.country == event.value)
+    
   }
 
   delete(index: number, id: any) {
@@ -65,7 +79,7 @@ export class ListBlocksComponent implements OnInit {
     addBlockForm.afterClosed().subscribe(result => {
 
       if (result) {
-        this.settingsService.getBlocks().subscribe((blocks) => {
+        this.settingsService.getBlocks(this.range.value).subscribe((blocks) => {
           this.blocks = blocks;
         })
       }
@@ -89,7 +103,7 @@ export class ListBlocksComponent implements OnInit {
     addBlockForm.afterClosed().subscribe(result => {
 
       if (result) {
-        this.settingsService.getBlocks().subscribe((blocks) => {
+        this.settingsService.getBlocks(this.range.value).subscribe((blocks) => {
           this.blocks = blocks;
         })
       }

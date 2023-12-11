@@ -8,6 +8,7 @@ import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.comp
 import { Notification } from 'src/app/shared/models/notification';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 import { CreateMessagesComponent } from '../create-messages/create-messages.component';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 @Component({
   selector: 'app-list-messages',
@@ -21,12 +22,15 @@ export class ListMessagesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
+  deliveries: DeliveryZone[]
 
   constructor(
     private route: ActivatedRoute,
     private notificationService: NotificationsService,
     private _matDialog: MatDialog
-  ) { }
+  ) {
+    this.deliveries = this.route.snapshot.data['deliveries'] as DeliveryZone[];
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -78,7 +82,6 @@ export class ListMessagesComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
-
   deleteNotification(id: string, index: number) {
     this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
       disableClose: false
@@ -95,13 +98,11 @@ export class ListMessagesComponent implements OnInit, AfterViewInit {
         this.notificationService.deleteNotification(id).subscribe();
       }
     });
-   
   }
-
 
   openMessaging() {
     this._matDialog.open(CreateMessagesComponent, {
-      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: true},
+      data: { customers: this.selection.selected, isBulkMsg: true, allCustomers: true, deliveries: this.deliveries},
       width: '500px'
     });
   }

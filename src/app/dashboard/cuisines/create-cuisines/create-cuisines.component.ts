@@ -17,6 +17,7 @@ export class CreateCuisinesComponent implements OnInit {
   mediaData:any;
   cuisineForm!: FormGroup;
   deliveriesZones!: DeliveryZone[];
+  selectedZone!: DeliveryZone;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +35,8 @@ export class CreateCuisinesComponent implements OnInit {
       name: ['', Validators.required],
       status: ['', Validators.required],
       image: ['', Validators.required],
-      country: ['', Validators.required],
+      countries: ['', Validators.required],
+      // states: ['', Validators.required],
     });
   }
 
@@ -45,6 +47,10 @@ export class CreateCuisinesComponent implements OnInit {
       })
     }
   }
+
+  selectedCountry(event:any) {
+    this.selectedZone =  this.deliveriesZones.find((zone) => zone.country == event.value) as DeliveryZone
+   }
 
   back() {
     this.location.back()

@@ -47,7 +47,7 @@ export class EditBannersComponent implements OnInit {
   ) {
    this.banner = this.route.snapshot.data['banner'] as Banner;
    this.deliveryZones = this.route.snapshot.data['deliveryZones'] as DeliveryZone[]
-   console.log(this.banner.country)
+
    this.selectedCountry(this.banner.country)
    this.mediaData = { image:null, icon:null };
    this.bannerForm = this.fb.group({
@@ -62,7 +62,7 @@ export class EditBannersComponent implements OnInit {
     menuId: [this.banner.menuId],
     productId: [this.banner.productId],
     country: [this.banner.country, Validators.required],
-    localities: [this.banner.localities, Validators.required]
+    states: [this.banner.states, Validators.required]
   });
     this.mediaData = {image:null, icon:null};
     this.mediaData['image'] = this.banner.image

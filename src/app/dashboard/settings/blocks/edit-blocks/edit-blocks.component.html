@@ -60,27 +60,21 @@
 
     <mat-form-field appearance="outline" >
         <mat-label>Country</mat-label>
-        <mat-select  multiple formControlName="country">
-          <mat-select-trigger>
-            {{blockForm.value?.country?.[0] || ''}}
-            <span *ngIf="(blockForm.value?.country?.length || 0) > 1" class="example-additional-selection">
-              (+{{(blockForm.value?.country?.length || 0) - 1}} {{blockForm.value?.country?.length === 2 ? 'other' : 'others'}})
-            </span>
-          </mat-select-trigger>
+        <mat-select formControlName="country" (selectionChange)="getSelectedCountry($event.value)">
           <mat-option *ngFor="let region of zones" [value]="region.country">{{region.country}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" >
         <mat-label>City</mat-label>
-        <mat-select  multiple formControlName="cities">
+        <mat-select  multiple formControlName="states">
           <mat-select-trigger>
-            {{blockForm.value?.cities?.[0] || ''}}
-            <span *ngIf="(blockForm.value?.cities?.length || 0) > 1" class="example-additional-selection">
-              (+{{(blockForm.value?.cities?.length || 0) - 1}} {{blockForm.value?.cities?.length === 2 ? 'other' : 'others'}})
+            {{blockForm.value?.states?.[0] || ''}}
+            <span *ngIf="(blockForm.value?.states?.length || 0) > 1" class="example-additional-selection">
+              (+{{(blockForm.value?.states?.length || 0) - 1}} {{blockForm.value?.states?.length === 2 ? 'other' : 'others'}})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let region of ['Yenagoa', 'Lagos', 'Warri', 'PH']" [value]="region">{{region}}</mat-option>
+          <mat-option *ngFor="let region of selectedStates" [value]="region.name">{{region.name}}</mat-option>
         </mat-select>
       </mat-form-field>
   </form>

@@ -12,6 +12,38 @@
 
             <mat-slide-toggle formControlName="status">Enable</mat-slide-toggle>
 
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                <mat-select  formControlName="country" (selectionChange)="selectedCountry($event)">
+                  <mat-option *ngFor="let zone of deliveryZones" [value]="zone.country">{{zone.country}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        
+              <mat-form-field appearance="outline" *ngIf="selectedZone">
+                <mat-label>States</mat-label>
+                <mat-select  multiple formControlName="states">
+                  <mat-select-trigger>
+                    {{categoryForm.value.states?.[0] || ''}}
+                    <span *ngIf="(categoryForm.value?.states?.length || 0) > 1" class="example-additional-selection">
+                      (+{{(categoryForm.value.states?.length || 0) - 1}} {{categoryForm.value.states?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let locality of selectedZone.states" [value]="locality.name">{{locality.name}}</mat-option>
+                </mat-select>
+              </mat-form-field> -->
+              <mat-form-field appearance="fill">
+                <mat-label>Country</mat-label>
+                <mat-select  multiple formControlName="countries">
+                  <mat-select-trigger>
+                    {{categoryForm.value.countries?.[0] || ''}}
+                    <span *ngIf="(categoryForm.value?.countries?.length || 0) > 1" class="example-additional-selection">
+                      (+{{(categoryForm.value.countries?.length || 0) - 1}} {{categoryForm.value.countries?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let zone of deliveryZones" [value]="zone.country">{{zone.country}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
             <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
                 <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
 

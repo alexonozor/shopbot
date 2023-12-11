@@ -17,6 +17,7 @@ export class EditBlocksComponent implements OnInit {
   isLoading: boolean = false;
   block!: Block;
   zones!: DeliveryZone[]
+  selectedStates: any = []
   types = [
     {name: 'Categories', value: 'category'}, 
     {name: 'Store grid', value:  'store-grid'},
@@ -33,14 +34,13 @@ export class EditBlocksComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ) { 
-      console.log(data)
       this.block = data.block
       this.zones = data.zones
     }
 
   ngOnInit() {
+    this.getSelectedCountry(this.block.country)
     this.blockForm = this.createProductForm()
-    
   }
 
   createProductForm(): FormGroup {
@@ -51,7 +51,7 @@ export class EditBlocksComponent implements OnInit {
       useAggrregateQuery: [this.block.useAggrregateQuery, Validators.required],
       query: [this.block.query, Validators.required],
       country: [this.block.country, Validators.required],
-      cities: [this.block.cities, Validators.required],
+      states: [this.block.states, Validators.required],
       orientation: [this.block.orientation, Validators.required],
       metaQuery: this._formBuilder.group({
         params: [this.block.metaQuery.params],
@@ -60,6 +60,12 @@ export class EditBlocksComponent implements OnInit {
       }),
       active: [this.block.active, Validators.required],
     });
+  }
+
+
+  getSelectedCountry(value:string) {
+     const country = this.zones.find((zone) => zone.country == value)
+     this.selectedStates = country?.states
   }
 
 

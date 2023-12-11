@@ -5,6 +5,7 @@ import { ListCategoriesComponent } from './list-categories/list-categories.compo
 import { CreateCategoriesComponent } from './create-categories/create-categories.component';
 import { CategoriesResolver, CategoryResolver } from '../../shared/resolvers/categories.resolver';
 import { CategoryDetailsComponent } from './category-details/categories-details.component';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   {
@@ -18,12 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: CreateCategoriesComponent
+        component: CreateCategoriesComponent,
+        resolve: { deliveryZones: DeliveryZonesResolver }
       },
       {
         path: ':id/details',
         component: CategoryDetailsComponent,
-        resolve: { category: CategoryResolver }
+        resolve: { category: CategoryResolver, deliveryZones: DeliveryZonesResolver }
       }      
     ]
   }

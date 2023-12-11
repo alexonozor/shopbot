@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MessagesComponent } from './messages.component';
 import { ListMessagesComponent } from '../messages/list-messages/list-messages.component';
 import { NotificationsResolver } from '../../shared/resolvers/notifications.resolver';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
       {
         path: 'list',
         component: ListMessagesComponent,
-        resolve: { notifications: NotificationsResolver }
+        resolve: { notifications: NotificationsResolver, deliveries: DeliveryZonesResolver }
       }  
     ]
   }

@@ -55,7 +55,7 @@ export class CreateBannersComponent implements OnInit {
       menuId: [''],
       productId: [''],
       country: ['', Validators.required],
-      localities: ['', Validators.required]
+      states: ['', Validators.required]
     });
   }
 
@@ -65,7 +65,6 @@ export class CreateBannersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
     this.filteredStores = this.storesCtrl.valueChanges.pipe(
       startWith(''),
       debounceTime(500),

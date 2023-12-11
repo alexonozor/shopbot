@@ -27,6 +27,7 @@ export class CreateBlocksComponent implements OnInit {
     {name: 'Cuisines', value:  'cuisine'}
   ]
   zones!: DeliveryZone[]
+  selectedStates: any = []
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -38,7 +39,7 @@ export class CreateBlocksComponent implements OnInit {
 
   ngOnInit() {
     this.blockForm = this.createProductForm()
-    this.zones = this.route.snapshot.data['zones'] as DeliveryZone[];
+    this.zones = this.data.zones as DeliveryZone[];
   }
 
   createProductForm(): FormGroup {
@@ -49,7 +50,7 @@ export class CreateBlocksComponent implements OnInit {
       useAggrregateQuery: ['', Validators.required],
       query: [''],
       country: ['', Validators.required],
-      cities: ['', Validators.required],
+      states: ['', Validators.required],
       metaQuery: this._formBuilder.group({
         params: [''],
         controls: [''],
@@ -60,10 +61,15 @@ export class CreateBlocksComponent implements OnInit {
     });
   }
 
+  getSelectedCountry(event:any) {
+    const country = this.zones.find((zone) => zone.country == event.value)
+    this.selectedStates = country?.states
+ }
+
 
   save() {
     this.isLoading = true;
-    this.settingsService.creatBlock(this.blockForm.getRawValue())
+    this.settingsService.createBlock(this.blockForm.getRawValue())
     .pipe(
       finalize(() => this.isLoading = false)
     ).subscribe((data) => {

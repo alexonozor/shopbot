@@ -12,16 +12,36 @@
 
             <mat-slide-toggle formControlName="status" class="my-4">Enable</mat-slide-toggle>
 
-            <mat-form-field appearance="fill" >
-              <mat-label>countries</mat-label>
-              <mat-select  multiple formControlName="countries">
+            <!-- <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <mat-select  formControlName="country" (selectionChange)="selectedCountry($event.value)">
+                <mat-option *ngFor="let zone of deliveriesZones" [value]="zone.country">{{zone.country}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" *ngIf="selectedZone">
+              <mat-label>States</mat-label>
+              <mat-select  multiple formControlName="states">
                 <mat-select-trigger>
-                  {{cuisineForm.value?.countries?.[0] || ''}}
-                  <span *ngIf="(cuisineForm.value?.countries?.value?.length || 0) > 1" class="example-additional-selection">
-                    (+{{(cuisineForm.value?.countries?.length || 0) - 1}} {{cuisineForm.value?.countries?.length === 2 ? 'other' : 'others'}})
+                  {{cuisineForm.value?.states?.[0] || ''}}
+                  <span *ngIf="(cuisineForm.value?.states?.length || 0) > 1" class="example-additional-selection">
+                    (+{{(cuisineForm.value?.states?.length || 0) - 1}} {{cuisineForm.value?.states?.length === 2 ? 'other' : 'others'}})
                   </span>
                 </mat-select-trigger>
-                <mat-option *ngFor="let region of deliveriesZones" [value]="region.country">{{region.country}}</mat-option>
+                <mat-option *ngFor="let locality of selectedZone.states" [value]="locality.name">{{locality.name}}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+
+            <mat-form-field appearance="fill">
+              <mat-label>Country</mat-label>
+              <mat-select  multiple formControlName="countries">
+                <mat-select-trigger>
+                  {{cuisineForm.value.countries?.[0] || ''}}
+                  <span *ngIf="(cuisineForm.value?.countries?.length || 0) > 1" class="example-additional-selection">
+                    (+{{(cuisineForm.value.countries?.length || 0) - 1}} {{cuisineForm.value.countries?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let zone of deliveriesZones" [value]="zone.country">{{zone.country}}</mat-option>
               </mat-select>
             </mat-form-field>
         
