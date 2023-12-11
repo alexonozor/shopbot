@@ -6,4 +6,7 @@ export interface Category {
     description: string;
     status: string;
     createdAt: string;
+    country: string;
+    states: string;
+    countries: string[]
 }

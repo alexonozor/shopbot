@@ -9,7 +9,7 @@ export interface Banner {
     showOnSlider: string;
     link: string;
     country: string;
-    localities: any[];
+    states: any[];
     createdAt: string;
     storeId: string;
     menuId: string;

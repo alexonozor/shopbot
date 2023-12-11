@@ -20,14 +20,12 @@ export class EditWalletComponent implements OnInit {
     public dialogRef: MatDialogRef<EditWalletComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) { 
-  
     this.customerForm = this.fb.group({
       walletBallance: [this.data.walletBallance | 0, Validators.required],
     });
   }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
 

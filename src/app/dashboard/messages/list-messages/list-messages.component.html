@@ -1,17 +1,33 @@
 <div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch"
+  fxLayoutAlign="space-between start">
+  <div fxLayout="column" fxLayoutAlign="space-between start">
+    <h1 class="m-0">Notifications</h1>
+    <p>List of push notification sent to users</p>
+  </div>
+
+
+
+  <!-- <div fxLayout="row" [formGroup]="filterForm" fxLayout.lt-md="column" fxLayoutGap="20px"
+    fxLayoutAlign.lt-md="space-around stretch" fxLayoutAlign="space-between start">
+   
+    <mat-form-field>
+      <mat-label>Select a country</mat-label>
+      <mat-select formControlName="country">
+        <mat-option *ngFor="let delivery of deliveries" [value]="delivery.country">{{delivery.country}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+   
+  </div> -->
+  <button mat-raised-button (click)="openMessaging()" color="primary">Send Message</button> 
+</div>
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="card bg-white w-full mat-elevation-z2 px-2 py-2">
-      <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-        <span>Messages and Notifications</span>
-      </span>
-
-
       <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="selection.selected.length">
         <button mat-button>{{selection.selected.length}}  Selected</button>
         <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message Customers</button>
         <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon> Delete Selected Customers</button>
       </span>
-  
-      
     </div>
     <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="w-full">

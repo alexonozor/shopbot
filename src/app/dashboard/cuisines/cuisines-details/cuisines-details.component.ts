@@ -20,6 +20,7 @@ export class CuisinesDetailsComponent implements OnInit {
   cuisineForm!:FormGroup;
   mediaData:any;
   deliveriesZones!: DeliveryZone[];
+  selectedZone!: DeliveryZone;
 
   constructor(
     private fb: FormBuilder,
@@ -34,16 +35,24 @@ export class CuisinesDetailsComponent implements OnInit {
       name: [this.cuisine.name, Validators.required],
       status: [this.cuisine.status, Validators.required],
       image: [this.cuisine.image, Validators.required],
+      // country: [this.cuisine.country, Validators.required],
+      // states: [this.cuisine.states, Validators.required],
       countries: [this.cuisine.countries, Validators.required],
     });
+   
 
     this.mediaData = {image:null, icon:null};
     this.mediaData['image'] = this.cuisine.image
   }
 
   ngOnInit(): void {
-    this.deliveriesZones = this.route.snapshot.data['deliveriesZones'] as DeliveryZone[]
+    this.deliveriesZones = this.route.snapshot.data['deliveriesZones'] as DeliveryZone[];
+    // this.selectedCountry(this.cuisine.country)
   }
+
+  selectedCountry(value:string) {
+    this.selectedZone =  this.deliveriesZones.find((zone) => zone.country == value) as DeliveryZone
+   }
 
   submit() {
     if (this.cuisineForm.valid) {

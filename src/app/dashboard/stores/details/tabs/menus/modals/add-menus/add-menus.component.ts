@@ -60,6 +60,7 @@ export class AddMenusComponent implements OnInit {
       .pipe(
         finalize(() => this.isLoading = false)
       ).subscribe((data) => {
+        console.log(data);
         this.isLoading = true;
         this.dialogRef.close(true);
       })

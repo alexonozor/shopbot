@@ -42,12 +42,12 @@ export class SettingsService  {
   }
   
 
-  creatBlock(params:any) {
+  createBlock(params:any) {
     return this._httpClient.post(`${this.hostServer}/blocks`, params);
   }
   
-  getBlocks(): Observable<Block[]> {
-    return this._httpClient.get<Block[]>(`${this.hostServer}/blocks`);
+  getBlocks(params:any): Observable<Block[]> {
+    return this._httpClient.post<Block[]>(`${this.hostServer}/blocks/country/select`, params);
   }
 
   getBlock(id:any): Observable<Block> {

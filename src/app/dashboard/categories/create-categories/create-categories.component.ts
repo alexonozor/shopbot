@@ -5,6 +5,8 @@ import {CategoriesService } from '../../../shared/services/category.service';
 import { Location } from '@angular/common';
 import { MediaComponent } from '../../media/media.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-category',
@@ -17,16 +19,27 @@ export class CreateCategoriesComponent implements OnInit {
     name: ['', Validators.required],
     status: ['', Validators.required],
     image: ['', Validators.required],
+    country: ['', Validators.required],
+    states: ['', Validators.required],
+    countries: ['', Validators.required],
   });
+  deliveryZones: DeliveryZone[];
+  selectedZone!: DeliveryZone;
 
   constructor(
     private fb: FormBuilder,
     private categoryService:CategoriesService,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public route: ActivatedRoute
   ) {
+    this.deliveryZones = this.route.snapshot.data['deliveryZones'] as DeliveryZone[]
     this.mediaData = { image:null, icon:null };
   }
+
+  selectedCountry(event:any) {
+    this.selectedZone = this.deliveryZones.find((zone) => zone.country == event.value) as DeliveryZone
+   }
 
   ngOnInit(): void {}
 

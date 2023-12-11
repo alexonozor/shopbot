@@ -1,4 +1,38 @@
-<div mat-subheader>Mobile Blocks</div>
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around stretch"
+fxLayoutAlign="space-between start">
+<div fxLayout="column" fxLayoutAlign="space-between start">
+  <h1 class="m-0">Mobile Blocks</h1>
+  <p>This blocks display how restaurants base on the users location</p>
+</div>
+
+
+
+  <div fxLayout="row" [formGroup]="range" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutAlign.lt-md="space-around stretch"
+    fxLayoutAlign="space-between start">
+    <mat-form-field>
+      <mat-label>Select a country</mat-label>
+      <mat-select formControlName="country">
+        <mat-option *ngFor="let delivery of zones" [value]="delivery.country">{{delivery.country}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input  [rangePicker]="picker">
+        <input matStartDate formControlName="startDate" placeholder="Start date">
+        <input matEndDate formControlName="endDate" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="range.controls.startDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.endDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field> -->
+  </div>
+
+
+
+</div>
 <ul cdkDropList class="divide-y divide-gray-200 w-full example-list" (cdkDropListDropped)="drop($event)">
     <li  *ngFor="let block of blocks; let i = index" cdkDrag class="w-full bg-white p-4">
        <div class="flex items-center space-x-4">

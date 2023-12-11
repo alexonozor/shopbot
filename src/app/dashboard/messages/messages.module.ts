@@ -10,6 +10,8 @@ import { MaterialModule } from 'src/app/material';
 import { CreateMessagesComponent } from './create-messages/create-messages.component';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 import { NotificationResolver, NotificationsResolver } from '../../shared/resolvers/notifications.resolver';
+import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -23,9 +25,10 @@ import { NotificationResolver, NotificationsResolver } from '../../shared/resolv
     MessagesRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatChipsModule
   ],
-  providers: [NotificationsService, NotificationsResolver, NotificationResolver],
+  providers: [NotificationsService, NotificationsResolver, NotificationResolver, DeliveryZonesResolver],
   exports: [
     CreateMessagesComponent
   ]

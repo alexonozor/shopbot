@@ -62,7 +62,6 @@ export class ListBannersComponent implements OnInit {
 
 
   onChange(banner: Banner, event: MatSlideToggleChange) {
-
     this.bannersService.updateBanner(banner._id, {active: event.checked }).subscribe(() => {
       this._matDialog
     })

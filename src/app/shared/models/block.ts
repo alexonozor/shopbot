@@ -13,7 +13,7 @@ export interface Block {
 
     country: string;
 
-    cities: string;
+    states: string;
     
     metaQuery: {
         params: string;

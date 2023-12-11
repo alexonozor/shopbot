@@ -6,6 +6,7 @@ import { MediaComponent } from '../../media/media.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '../../../shared/models/category';
+import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class CategoryDetailsComponent implements OnInit {
   category:Category;
   categoryForm!:FormGroup;
   mediaData:any;
+  selectedZone!: DeliveryZone;
+  deliveryZones: any;
 
   constructor(
     private fb: FormBuilder,
@@ -27,16 +30,23 @@ export class CategoryDetailsComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
    this.category = this.route.snapshot.data['category'] as Category;
+   this.deliveryZones = this.route.snapshot.data['deliveryZones'] as DeliveryZone[]
    this.mediaData = { image:null, icon:null };
    this.categoryForm = this.fb.group({
       name: [this.category.name, Validators.required],
       status: [this.category.status, Validators.required],
       image: [this.category.image, Validators.required],
+      // country: [this.category.country, Validators.required],
+      // states: [this.category.states, Validators.required],
+      countries: [this.category.countries, Validators.required],
     });
-
     this.mediaData = {image:null, icon:null};
     this.mediaData['image'] = this.category.image
   }
+
+  selectedCountry(event:any) {
+    this.selectedZone =  this.deliveryZones.find((zone:any) => zone.country == event.value) as DeliveryZone
+   }
 
   ngOnInit(): void {}
 
