@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+  <p>{{confirmMessage}}</p>
+  <mat-selection-list #reason [multiple]="false">
+    <mat-list-option *ngFor="let reason of cancellationReasons" [value]="reason">
+      {{reason}}
+    </mat-list-option>
+  </mat-selection-list>
+  <mat-form-field class="w-full" *ngIf="reason.selectedOptions.hasValue() && reason.selectedOptions.selected[0].value === 'Others'">
+    <mat-label>Tell us the reason..</mat-label>
+    <textarea matInput cancellation="Tell us the reason of your cancellation" [(ngModel)]="cancellationText"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-raised-button (click)="closeDialog(reason.selectedOptions.selected[0].value || cancellationText)" color="warn">{{confirmButton}}</button>
+</div>
+

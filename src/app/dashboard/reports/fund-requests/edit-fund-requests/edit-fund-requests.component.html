@@ -44,26 +44,26 @@
                     fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px" [formGroupName]="i">
                     <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
                         <mat-label>Item Name</mat-label>
-                        <input matInput type="text" placeholder="Enter an item name"
+                        <input matInput type="text" cancellation="Enter an item name"
                             formControlName="item">
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
                         <mat-label>Price</mat-label>
-                        <input matInput type="number" placeholder="Enter an item price"
+                        <input matInput type="number" cancellation="Enter an item price"
                             formControlName="price">
                     </mat-form-field>
 
                     <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
                         <mat-label>Quantity</mat-label>
-                        <input matInput type="number" placeholder="Enter quantity"
+                        <input matInput type="number" cancellation="Enter quantity"
                             formControlName="quantity">
                     </mat-form-field>
 
 
                     <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
                         <mat-label>Note</mat-label>
-                        <input matInput type="text" placeholder="note"
+                        <input matInput type="text" cancellation="note"
                             formControlName="note">
                     </mat-form-field>
                     <button mat-icon-button color="warn"  fxFlexAlign="auto" (click)="removeItems(i)">
@@ -77,7 +77,7 @@
                 fxLayoutAlign.lt-lg="space-around stretch" class="w-full">
                 <mat-form-field class="w-full" appearance="outline" >
                     <mat-label>Total</mat-label>
-                    <input matInput type="number" placeholder="note"
+                    <input matInput type="number" cancellation="note"
                     formControlName="total">
                 </mat-form-field>
             </div>
@@ -87,7 +87,7 @@
                 fxLayoutAlign.lt-lg="space-around stretch" class="w-full">
                 <mat-form-field class="w-full" appearance="outline">
                     <mat-label>Note</mat-label>
-                    <textarea matInput placeholder="Short Description"
+                    <textarea matInput cancellation="Short Description"
                         formControlName="description"></textarea>
                 </mat-form-field>
             </div>

@@ -3,12 +3,12 @@
   <form name="menuForm" [formGroup]="menuForm" class="product w-100" fxLayout="column" fxFlex>
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Menu Name" name="name" formControlName="name" required>
+      <input matInput cancellation="Menu Name" name="name" formControlName="name" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" class="w-100s">
       <mat-label>Description</mat-label>
-      <textarea matInput placeholder="Menu Description" name="description" formControlName="description"
+      <textarea matInput cancellation="Menu Description" name="description" formControlName="description"
         rows="5"></textarea>
     </mat-form-field>
 
@@ -34,12 +34,12 @@
           <p class="text-right">{{day.day}}</p>
           <mat-form-field>
             <input matInput type="time" [value]="day.from" (change)="changeTime($event, day, 'from')"
-              placeholder="start time">
+              cancellation="start time">
           </mat-form-field>
 
           <mat-form-field>
             <input matInput type="time" [value]="day.to" (change)="changeTime($event, day, 'to')"
-              placeholder="end date">
+              cancellation="end date">
           </mat-form-field>
         </div>
 

@@ -86,6 +86,10 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
     this.userAddresses$ = this.userService.getUserAddresses(this.customer._id)
   }
 
+  openOrder(id:string) {
+    this.router.navigate(['dashboard', 'orders', id, 'details'])
+  }
+
   back() {
     this.location.back()
   }

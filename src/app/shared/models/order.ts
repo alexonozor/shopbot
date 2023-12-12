@@ -30,6 +30,7 @@ export interface Order  {
     vendorCommissionAmount: number;
     subTotal: number;
     deliveryTime: any;
+    orderCancellationReason: string;
 }
 
 

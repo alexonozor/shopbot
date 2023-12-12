@@ -29,7 +29,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Order Status</mat-label>
-        <mat-select [disabled]="order.settled" (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
+        <mat-select  (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -41,6 +41,12 @@
 
 <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch"  class="mt-10" fxLayoutGap="20px">
   <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex.gt-md="30%" fxFlex.lt-md="100%" fxLayoutGap="20px">
+
+    <div *ngIf="order.status[0].name === 'Canceled'" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+      <h3 class="px-5 py-3">Cancellation Reason</h3>
+      <p class="px-5 py-3">{{order.orderCancellationReason || 'No reason stated'}}</p>
+    </div>
+
     <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
       <mat-list class="w-full">
         <div mat-subheader>Order reference #{{order.reference}}</div>

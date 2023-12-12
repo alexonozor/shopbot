@@ -13,7 +13,7 @@
                 <p>Average amount of time it takes to prepare an order.</p>
                 <mat-form-field appearance="outline" style="width: 50%;">
                     <mat-label>Enter Order Pre time</mat-label>
-                    <input matInput formControlName="orderPrepTime" placeholder="Enter Order Pre time">
+                    <input matInput formControlName="orderPrepTime" cancellation="Enter Order Pre time">
                     <span matSuffix>minutes</span>
                 </mat-form-field>
             </div>
@@ -37,7 +37,7 @@
                                 appearance="outline" style="width: 50%; margin-top: 20px;">
                                 <mat-label>Enter Minimum order amount</mat-label>
                                 <input matInput type="number" formControlName="minimumOrderAmount"
-                                    placeholder="Enter Minimum order amount">
+                                    cancellation="Enter Minimum order amount">
                                 <span matSuffix>{{store.currency ? store.currency : 'Currency'}}</span>
                             </mat-form-field>
                         </div>
@@ -107,7 +107,7 @@
                     </p>
                     <mat-form-field appearance="outline" style="width: 50%;">
                         <mat-label>Enter delivery radius</mat-label>
-                        <input matInput formControlName="deliveryRadius" placeholder="Enter delivery radius">
+                        <input matInput formControlName="deliveryRadius" cancellation="Enter delivery radius">
                         <span matSuffix>Km</span>
                     </mat-form-field>
                 </div>
@@ -128,7 +128,7 @@
                             *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 1"
                             style="width: 50%;">
                             <mat-label>Enter delivery for all orders</mat-label>
-                            <input matInput type="number" placeholder="Enter delivery fee"
+                            <input matInput type="number" cancellation="Enter delivery fee"
                                 formControlName="deliveryFeeForAllOrder">
                             <!-- <span matPrefix>N</span> -->
                         </mat-form-field>
@@ -137,14 +137,14 @@
                             style="width: 100%;" fxLayout="column" fxLayoutAlign="space-between start">
                             <mat-form-field appearance="outline" style="width: 50%;">
                                 <mat-label>Order amount to qualify for free delivery</mat-label>
-                                <input matInput placeholder="Enter Minimum order amount"
+                                <input matInput cancellation="Enter Minimum order amount"
                                     formControlName="minimumOrderAmountForFreeDelivery">
                                 <span matSuffix>N</span>
                             </mat-form-field>
 
                             <mat-form-field appearance="outline" style="width: 50%;">
                                 <mat-label>Delivery fee for all other orders</mat-label>
-                                <input matInput placeholder="Enter delivery fee"
+                                <input matInput cancellation="Enter delivery fee"
                                     formControlName="deliveryFeeForAllOrder">
                                 <span matSuffix>N</span>
                             </mat-form-field>
@@ -154,7 +154,7 @@
                             style="width: 100%;" fxLayout="column" fxLayoutAlign="space-between start">
                             <mat-form-field appearance="outline" style="width: 50%;">
                                 <mat-label>Minimum delivery fee</mat-label>
-                                <input matInput placeholder="Enter Minimum delivery Fee"
+                                <input matInput cancellation="Enter Minimum delivery Fee"
                                     formControlName="minimumDeliveryFee">
                                 <span matSuffix>N</span>
                             </mat-form-field>
@@ -162,7 +162,7 @@
                             <mat-form-field appearance="outline" style="width: 50%;">
                                 <mat-label>Delivery fee per kilometer</mat-label>
                                 <input matInput type="number" formControlName="deliveryFeeByKilometers"
-                                    placeholder="Enter Delivery fee">
+                                    cancellation="Enter Delivery fee">
                                 <span matSuffix>N</span>
                             </mat-form-field>
                         </div>
@@ -178,7 +178,7 @@
                     <mat-form-field appearance="outline" style="width: 50%;"
                         *ngIf="pickupAndDeliveryForm.value.deliverySettings.allowMinimumOrderAmount">
                         <mat-label>Enter Minimum order amount</mat-label>
-                        <input matInput formControlName="minimumOrderAmount" placeholder="Enter Minimum order amount">
+                        <input matInput formControlName="minimumOrderAmount" cancellation="Enter Minimum order amount">
                         <span matSuffix>N</span>
                     </mat-form-field>
                 </div>
@@ -194,7 +194,7 @@
                     <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;" fxLayoutGap="20px">
                         <mat-form-field appearance="outline" style="width: 50%;">
                             <mat-label>Enter Minimum delivery time</mat-label>
-                            <input matInput formControlName="minimum" placeholder="Enter Minimum order amount">
+                            <input matInput formControlName="minimum" cancellation="Enter Minimum order amount">
                             <span matSuffix>minutes</span>
                         </mat-form-field>
 
@@ -202,7 +202,7 @@
 
                         <mat-form-field appearance="outline" style="width: 50%;">
                             <mat-label>Enter Maximum delivery time</mat-label>
-                            <input matInput formControlName="maximum" placeholder="Enter Maximum order amount">
+                            <input matInput formControlName="maximum" cancellation="Enter Maximum order amount">
                             <span matSuffix>minutes</span>
                         </mat-form-field>
                     </div>

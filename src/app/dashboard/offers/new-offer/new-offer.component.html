@@ -13,7 +13,7 @@
 
       <mat-form-field class="w-full" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
         <mat-label>Select a vendor</mat-label>
-        <input matInput placeholder="Select a vendor" #storeInput formControlName="store" [formControl]="storeCtrl"
+        <input matInput cancellation="Select a vendor" #storeInput formControlName="store" [formControl]="storeCtrl"
           [matAutocomplete]="storeAuto">
 
         <mat-autocomplete #storeAuto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectStore($event)">
@@ -40,23 +40,23 @@
 
       <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 1 || promoForm.value.applicableType === 2">
         <mat-label>Enter the quantity the buyer needs to order</mat-label>
-        <input matInput type="number" placeholder="Enter the quantity the buyer needs to order" formControlName="quantityToOrder">
+        <input matInput type="number" cancellation="Enter the quantity the buyer needs to order" formControlName="quantityToOrder">
       </mat-form-field>
   
       <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 1">
         <mat-label>Enter to the quantity the buy will receive</mat-label>
-        <input matInput type="number" placeholder="Enter to the quantity the buyer will receive" formControlName="quantityForFree">
+        <input matInput type="number" cancellation="Enter to the quantity the buyer will receive" formControlName="quantityForFree">
       </mat-form-field>
   
       <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 0 || promoForm.value.applicableType === 2 || promoForm.value.applicableType === 3">
         <mat-label>Enter the discount</mat-label>
-        <input matInput type="number" placeholder="Enter Discount" formControlName="discount">
+        <input matInput type="number" cancellation="Enter Discount" formControlName="discount">
         <mat-icon matSuffix>percent</mat-icon>
       </mat-form-field>
 
       <mat-form-field class="w-full" *ngIf="promoForm.value.applicableType === 3">
         <mat-label>Enter the amount</mat-label>
-        <input matInput type="number" placeholder="Enter amount" formControlName="amount">
+        <input matInput type="number" cancellation="Enter amount" formControlName="amount">
         <mat-icon matSuffix>money</mat-icon>
       </mat-form-field>
 
@@ -73,7 +73,7 @@
       <mat-form-field class="w-full" *ngIf="promoForm.value.offerType === 'Single menu'
           || promoForm.value.offerType === 'Single Item' && selectedStore">
         <mat-label>Select a menu</mat-label>
-        <input matInput placeholder="Select a menu" #menuInput formControlName="menu" [formControl]="menuCtrl"
+        <input matInput cancellation="Select a menu" #menuInput formControlName="menu" [formControl]="menuCtrl"
           [matAutocomplete]="menuAuto">
 
         <mat-autocomplete #menuAuto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectedMenu($event)">
@@ -130,7 +130,7 @@
 
       <mat-form-field class="w-full">
         <mat-label>Description</mat-label>
-        <textarea matInput placeholder="Text Description" formControlName="description"></textarea>
+        <textarea matInput cancellation="Text Description" formControlName="description"></textarea>
       </mat-form-field>
 
       <mat-form-field class="w-full">
