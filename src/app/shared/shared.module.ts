@@ -7,6 +7,8 @@ import { SelectMediaComponent } from './components/select-media/select-media.com
 import { MaterialModule } from '../material';
 import { StatsComponent } from './components/stats/stats.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { OrderCancelationComponent } from './components/order-cancelation/order-cancelation.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,14 @@ import { NotificationComponent } from './components/notification/notification.co
     FileMediaCardComponent,
     SelectMediaComponent,
     StatsComponent,
-    NotificationComponent
+    NotificationComponent,
+    OrderCancelationComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
+    FormsModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   exports: [
@@ -27,7 +31,8 @@ import { NotificationComponent } from './components/notification/notification.co
     FileMediaCardComponent,
     SelectMediaComponent,
     StatsComponent,
-    NotificationComponent
+    NotificationComponent,
+    OrderCancelationComponent
   ]
 })
 export class SharedModule { }

@@ -10,12 +10,12 @@
           fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%" fxFlex.lt-lg="100%">
             <mat-label>Promo Code Name</mat-label>
-            <input matInput placeholder="Name Of Banner" formControlName="codeName">
+            <input matInput cancellation="Name Of Banner" formControlName="codeName">
           </mat-form-field>
   
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
             <mat-label>Promo Code</mat-label>
-            <input matInput placeholder="Promo Code *" formControlName="code">
+            <input matInput cancellation="Promo Code *" formControlName="code">
           </mat-form-field>
         </div>
   
@@ -76,21 +76,21 @@
           <ng-container *ngIf="promoForm.value.flatDiscount">
             <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
               <mat-label>Flat discount amount</mat-label>
-              <input matInput placeholder="Enter flat discount amount" formControlName="flatDiscountAmount">
+              <input matInput cancellation="Enter flat discount amount" formControlName="flatDiscountAmount">
             </mat-form-field>
           </ng-container>
   
           <ng-container *ngIf="!promoForm.value.flatDiscount">
             <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
               <mat-label>Select Discount Type</mat-label>
-              <mat-select formControlName="discountType" placeholder="Discount Type">
+              <mat-select formControlName="discountType" cancellation="Discount Type">
                 <mat-option *ngFor="let discount of ['Percentage', 'Amount']" [value]="discount">{{discount}}</mat-option>
               </mat-select>
             </mat-form-field>
   
             <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
               <mat-label>Discount</mat-label>
-              <input matInput type="number" placeholder="Enter flat discount amount" formControlName="discount">
+              <input matInput type="number" cancellation="Enter flat discount amount" formControlName="discount">
             </mat-form-field>
           </ng-container>
   
@@ -100,12 +100,12 @@
           fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
             <mat-label>Maximum Discount Amount</mat-label>
-            <input matInput type="number" placeholder=">Maximum Discount Amount" formControlName="maximumDiscountAmount">
+            <input matInput type="number" cancellation=">Maximum Discount Amount" formControlName="maximumDiscountAmount">
           </mat-form-field>
   
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
             <mat-label>Minimum Order Amount</mat-label>
-            <input matInput type="number" placeholder=">Minimum Order Amount" formControlName="minimumOrderAmount">
+            <input matInput type="number" cancellation=">Minimum Order Amount" formControlName="minimumOrderAmount">
           </mat-form-field>
         </div>
   
@@ -130,7 +130,7 @@
   
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
             <mat-label>Promo code redeem count</mat-label>
-            <input matInput type="number" placeholder="Promo code redeem count" formControlName="redeemCount">
+            <input matInput type="number" cancellation="Promo code redeem count" formControlName="redeemCount">
           </mat-form-field>
         </div>
   
@@ -138,12 +138,12 @@
           fxLayoutAlign.lt-lg="space-around stretch" class="w-full" fxLayoutGap="10px">
           <mat-form-field class="full-width"   appearance="outline" fxFlex.gt-md="50%">
             <mat-label>Promo Code Description</mat-label>
-            <textarea matInput placeholder="Short Description" formControlName="promoCodeDescription"></textarea>
+            <textarea matInput cancellation="Short Description" formControlName="promoCodeDescription"></textarea>
           </mat-form-field>
   
           <mat-form-field class="full-width" appearance="outline" fxFlex.gt-md="50%">
             <mat-label>Text Promo Code Description</mat-label>
-            <textarea matInput placeholder="Text Promo Code Description" formControlName="textCodeDescription"></textarea>
+            <textarea matInput cancellation="Text Promo Code Description" formControlName="textCodeDescription"></textarea>
           </mat-form-field>
         </div>
   

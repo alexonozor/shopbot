@@ -6,12 +6,12 @@
   <form name="storeForm" [formGroup]="storeForm" class="product w-100-p" fxLayout="column" fxFlex>
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Product Name" name="name" formControlName="name" required>
+      <input matInput cancellation="Product Name" name="name" formControlName="name" required>
     </mat-form-field>
   
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Description</mat-label>
-      <textarea matInput placeholder="Product Description" name="description" formControlName="description" rows="5"></textarea>
+      <textarea matInput cancellation="Product Description" name="description" formControlName="description" rows="5"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">

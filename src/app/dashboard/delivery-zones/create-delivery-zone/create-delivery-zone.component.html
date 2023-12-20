@@ -3,27 +3,27 @@
     <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Country</mat-label>
-        <input matInput placeholder="Country Name" formControlName="country">
+        <input matInput cancellation="Country Name" formControlName="country">
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Country Code</mat-label>
-        <input matInput placeholder="+234" formControlName="countryCode">
+        <input matInput cancellation="+234" formControlName="countryCode">
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Currency</mat-label>
-        <input matInput placeholder="currency" formControlName="currency">
+        <input matInput cancellation="currency" formControlName="currency">
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Currency Code</mat-label>
-        <input matInput placeholder="currency Code" formControlName="currencyCode">
+        <input matInput cancellation="currency Code" formControlName="currencyCode">
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Country Flag</mat-label>
-        <input matInput placeholder="flag" formControlName="image">
+        <input matInput cancellation="flag" formControlName="image">
       </mat-form-field>
 
       <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="start start" fxLayout.lt-lg="column"
@@ -38,7 +38,7 @@
           <div>
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>State Name</mat-label>
-              <input matInput placeholder="Enter State Name" formControlName="name">
+              <input matInput cancellation="Enter State Name" formControlName="name">
             </mat-form-field>
             <a mat-icon-button (click)="removeState(i)">
               <mat-icon class="mat-18">remove</mat-icon>
@@ -53,17 +53,17 @@
 
               <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Locality name</mat-label>
-                <input matInput placeholder="Locality name" formControlName="name">
+                <input matInput cancellation="Locality name" formControlName="name">
               </mat-form-field>
 
               <mat-form-field class="full-width" appearance="fill">
                 <mat-label>latitude</mat-label>
-                <input matInput placeholder="latitude" type="number" formControlName="latitude">
+                <input matInput cancellation="latitude" type="number" formControlName="latitude">
               </mat-form-field>
 
               <mat-form-field class="full-width" appearance="fill">
                 <mat-label>longitude</mat-label>
-                <input matInput type="number" placeholder="longitude" formControlName="longitude">
+                <input matInput type="number" cancellation="longitude" formControlName="longitude">
               </mat-form-field>
 
               <mat-slide-toggle formControlName="enabled" class="my-3">Enable</mat-slide-toggle>

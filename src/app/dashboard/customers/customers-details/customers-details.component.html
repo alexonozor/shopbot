@@ -38,7 +38,7 @@
         <div fxLayout="column" fxLayoutAlign="space-evenly center " class="text-center" fxFlex="50%">
           <p class="text-center">Wallet Ballance</p>
           <h1 class="text-center">{{customer.walletBallance || 0 | currency: customer.currency}}</h1>
-          <p class="text-center text-xs cursor-pointer text-blue-700"  (click)="editWallet()">Edit wallet</p>
+          <p class="text-center text-xs cursor-pointer text-blue-700" *ngIf="auth.isShow([Role.SuperAdmin])"  (click)="editWallet()">Edit wallet</p>
         </div>
         <div fxLayout="column" fxLayoutAlign="space-evenly center" class="text-center" fxFlex="50%">
           <p class="text-center">Referral Bonus</p>
@@ -124,7 +124,7 @@
                       <mat-icon class="material-icons-outlined">delete</mat-icon>
                       <span>Delete</span>
                     </button>
-                    <button mat-menu-item [routerLink]="['../', element._id, 'details']">
+                    <button mat-menu-item  (click)="openOrder(element._id)">
                       <mat-icon class="material-icons-outlined">receipt_long</mat-icon>
                       <span>Open Order</span>
                     </button>
@@ -372,7 +372,6 @@
       <div fxLayout="column" fxLayoutAlign="space-around start" class="mat-elevation-z3   rounded-md p-2 mb-5 w-full">
         <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full px-2">
           <div fxLayout="row" fxLayoutAlign="space-between start" class="w-full">
-
             <button mat-button>Notes</button>
             <button mat-icon-button (click)="openCustomerNote()">
               <mat-icon class="mat-18">edit</mat-icon>

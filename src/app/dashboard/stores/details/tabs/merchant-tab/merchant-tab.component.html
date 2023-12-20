@@ -4,7 +4,7 @@
     <form [formGroup]="generalSettingForm">
         <mat-form-field appearance="outline" floatLabel="always" class="w-full">
             <mat-label>Select Merchant</mat-label>
-            <mat-select formControlName="merchant" placeholder="Select Merchant">
+            <mat-select formControlName="merchant" cancellation="Select Merchant">
                 <mat-option *ngFor="let merchant of merchants" [value]="merchant._id">{{merchant.name}}</mat-option>
             </mat-select>
           </mat-form-field>

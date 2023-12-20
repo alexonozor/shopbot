@@ -41,6 +41,12 @@
 
 <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch"  class="mt-10" fxLayoutGap="20px">
   <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex.gt-md="30%" fxFlex.lt-md="100%" fxLayoutGap="20px">
+
+    <div *ngIf="order.status[0].name === 'Canceled'" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+      <h3 class="px-5 py-3">Cancellation Reason</h3>
+      <p class="px-5 py-3">{{order.orderCancellationReason || 'No reason stated'}}</p>
+    </div>
+
     <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
       <mat-list class="w-full">
         <div mat-subheader>Order reference #{{order.reference}}</div>
@@ -194,7 +200,7 @@
           <mat-icon class="mat-18">alarm</mat-icon> Schedule Delivery</h3>
       </div>
       <div class="mt-2 mb-4 text-sm">
-        This order is Scheduled for {{order.deliveryTime.time}}, kindly inform both the vendor and the customers. 
+        This order is Scheduled for {{order.deliveryTime.date}} {{order.deliveryTime.time}}, kindly inform both the vendor and the customers. 
       </div>
     </div>
     <div class="mat-elevation-z2 p-3 rounded-md w-full" id="pdfTable" #pdfTable>

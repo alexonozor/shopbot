@@ -3,30 +3,30 @@
   <form name="storeForm" [formGroup]="blockForm" class="product w-100-p" fxLayout="column" fxFlex>
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
         <mat-label>Title</mat-label>
-        <input matInput placeholder="Title" name="title" formControlName="title" required>
+        <input matInput cancellation="Title" name="title" formControlName="title" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-        <mat-select formControlName="type" placeholder="Category">
+        <mat-select formControlName="type" cancellation="Category">
             <mat-option  *ngFor="let item of types" [value]="item.value">{{item.name}}</mat-option>
         </mat-select>
      </mat-form-field>
 
      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Content</mat-label>
-      <textarea matInput placeholder="Block Content" name="content" formControlName="content" rows="5"></textarea>
+      <textarea matInput cancellation="Block Content" name="content" formControlName="content" rows="5"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Use aggregate query</mat-label>
-      <mat-select formControlName="useAggrregateQuery" placeholder="Use aggregate query">
+      <mat-select formControlName="useAggrregateQuery" cancellation="Use aggregate query">
           <mat-option  *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value:  false}]" [value]="item.value">{{item.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Activate</mat-label>
-      <mat-select formControlName="active" placeholder="Enabled">
+      <mat-select formControlName="active" cancellation="Enabled">
           <mat-option  *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value:  false}]" [value]="item.value">{{item.name}}</mat-option>
       </mat-select>
    </mat-form-field>
@@ -40,21 +40,21 @@
 
     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
       <mat-label>Query</mat-label>
-      <textarea matInput placeholder="Query" name="query" formControlName="query" rows="5"></textarea>
+      <textarea matInput cancellation="Query" name="query" formControlName="query" rows="5"></textarea>
     </mat-form-field>
 
     <ng-container formGroupName="metaQuery">
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
         <mat-label>Params Query</mat-label>
-        <textarea matInput placeholder="Params" name="params" formControlName="params" rows="5"></textarea>
+        <textarea matInput cancellation="Params" name="params" formControlName="params" rows="5"></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
         <mat-label>Controls</mat-label>
-        <textarea matInput placeholder="Controls" name="controls" formControlName="controls" rows="5"></textarea>
+        <textarea matInput cancellation="Controls" name="controls" formControlName="controls" rows="5"></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
         <mat-label>Url</mat-label>
-        <textarea matInput placeholder="Url" name="controls" formControlName="url" rows="5"></textarea>
+        <textarea matInput cancellation="Url" name="controls" formControlName="url" rows="5"></textarea>
       </mat-form-field>
    </ng-container>
 
