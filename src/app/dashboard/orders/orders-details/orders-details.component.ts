@@ -81,7 +81,7 @@ export class OrdersDetailsComponent implements OnInit {
 
   cancelOrder(order: Order) {
     this.isCanceling = true;
-    this.updateStatus({ id: 3, name: "Canceled", color: "text-red-500", updatedOn: new Date() }, order, false)
+    this.cancel(order, { id: 3, name: "Canceled", color: "text-red-500", updatedOn: new Date() })
     order.category = 'Canceled'
   }
 
@@ -99,7 +99,7 @@ export class OrdersDetailsComponent implements OnInit {
   }
 
   updateStatus(event: any, order: any, eventType = true) {
-    if (event.value.name === 'Canceled') {
+    if ((eventType ? event.value.name : event.name) === 'Canceled') {
       this.cancel(order, event.value)
     } else {
       this.orderService.updateOrderStatus(order._id, order.user._id, eventType ? event.value : event).subscribe((data: any) => {

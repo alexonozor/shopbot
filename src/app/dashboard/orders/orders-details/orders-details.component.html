@@ -29,7 +29,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Order Status</mat-label>
-        <mat-select  (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
+        <mat-select [disabled]="order.settled" (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -200,7 +200,7 @@
           <mat-icon class="mat-18">alarm</mat-icon> Schedule Delivery</h3>
       </div>
       <div class="mt-2 mb-4 text-sm">
-        This order is Scheduled for {{order.deliveryTime.time}}, kindly inform both the vendor and the customers. 
+        This order is Scheduled for {{order.deliveryTime.date}} {{order.deliveryTime.time}}, kindly inform both the vendor and the customers. 
       </div>
     </div>
     <div class="mat-elevation-z2 p-3 rounded-md w-full" id="pdfTable" #pdfTable>
