@@ -88,6 +88,13 @@ const routes: Routes = [
       },
 
       {
+        path: 'riders',
+        loadChildren: () => import('./riders/riders.module').then(m => m.RiderModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.SuperAdmin, Role.Admin, Role.Marketer] }
+      },
+
+      {
         path: 'reports',
         loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
         canActivate: [AuthGuard, RoleGuard],

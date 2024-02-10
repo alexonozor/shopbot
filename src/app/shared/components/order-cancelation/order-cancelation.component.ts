@@ -18,16 +18,17 @@ export class OrderCancelationComponent implements OnInit {
   public confirmMessage: string = '';
   public confirmButton: string = '';
   public cancellationText: string = '';
-  cancellationReasons: string[] = [
-    'Customer change of mind',
-    'Customer found a better deal',
-    'Item out of stock',
-    'Restaurant is closed',
-    'Delivery Issues',
-    'Unable to reach the customer',
-    'Unable to reach the Vendor',
-    'Payment Issues',
-    'Others'
+  public vendorIssue: boolean = false;
+  public cancellationReasons: any[] = [
+    { text: 'Customer change of mind', vendorIssue: false},
+    { text: 'Customer found a better deal', vendorIssue: false},
+    { text: 'Item out of stock', vendorIssue: true },
+    { text: 'Restaurant is closed', vendorIssue: true },
+    { text: 'Delivery Issues', vendorIssue: false },
+    { text: 'Unable to reach the customer', vendorIssue: false },
+    { text: 'Unable to reach the Vendor',  vendorIssue: true },
+    { text: 'Payment Issues', vendorIssue: false },
+    { text: 'Others', vendorIssue: false }
   ];
 
   constructor(
@@ -39,13 +40,13 @@ export class OrderCancelationComponent implements OnInit {
 
   ngOnInit() {}
 
-  closeDialog(data: string) {
+  closeDialog(data: any) {
     if (!data) {
       return;
     }
-    if (data === 'Others') {
+    if (data.text === 'Others') {
       if (this.cancellationText.length > 2) {
-        this.dialogRef.close(this.cancellationText);
+        this.dialogRef.close({text: this.cancellationText, vendorIssue: this.vendorIssue});
       } else {
         this.snackbar.open('Please tell us why!', 'Ok', { duration: 3000 })
       }

@@ -33,6 +33,13 @@
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rider</mat-label>
+        <mat-select  (selectionChange)="selectRider($event)" [(ngModel)]="order.rider">
+          <mat-option *ngFor="let rider of riders" [value]="rider._id">{{rider.firstName + ' ' + rider.lastName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </ng-template>
 

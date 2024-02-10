@@ -3,16 +3,19 @@
   <p>{{confirmMessage}}</p>
   <mat-selection-list #reason [multiple]="false">
     <mat-list-option *ngFor="let reason of cancellationReasons" [value]="reason">
-      {{reason}}
+      {{reason.text}}
     </mat-list-option>
   </mat-selection-list>
-  <mat-form-field class="w-full" *ngIf="reason.selectedOptions.hasValue() && reason.selectedOptions.selected[0].value === 'Others'">
-    <mat-label>Tell us the reason..</mat-label>
-    <textarea matInput cancellation="Tell us the reason of your cancellation" [(ngModel)]="cancellationText"></textarea>
-  </mat-form-field>
+  <ng-container  *ngIf="reason.selectedOptions.hasValue() && reason.selectedOptions.selected[0].value.text === 'Others'">
+    <mat-form-field class="w-full">
+      <mat-label>Tell us the reason..</mat-label>
+      <textarea matInput cancellation="Tell us the reason of your cancellation" [(ngModel)]="cancellationText"></textarea>
+    </mat-form-field>
+    <mat-slide-toggle [(ngModel)]="vendorIssue">Is this cancellation caused by vendor?</mat-slide-toggle>
+  </ng-container>
+  
 </div>
-<div mat-dialog-actions>
-
+<div mat-dialog-actions> 
   <button mat-button mat-dialog-close>Close</button>
   <button mat-raised-button (click)="closeDialog(reason.selectedOptions.selected[0].value || cancellationText)" color="warn">{{confirmButton}}</button>
 </div>

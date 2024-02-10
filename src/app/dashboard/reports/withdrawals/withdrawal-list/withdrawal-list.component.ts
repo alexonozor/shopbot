@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 export class WithdrawalListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'createdAt', 'vendor', 'destination', 'type', 'narration', 'status', 'total',  'actions'];
+  public displayedColumns: string[] = ['select', 'createdAt', 'vendor', 'destination', 'type', 'merchant', 'status', 'total',  'actions'];
   public dataSource = new MatTableDataSource<Transfer>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

@@ -52,6 +52,11 @@
                 <mat-icon matListItemIcon class="material-icons-outlined">face_3</mat-icon>
             </mat-list-item>
 
+            <mat-list-item  class="parent" [routerLink]="['/dashboard/riders/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+                <span class="full-width">Riders</span>
+                <mat-icon matListItemIcon class="material-icons-outlined">directions_bike</mat-icon>
+            </mat-list-item>
+
             <mat-list-item  class="parent" [routerLink]="['/dashboard/roles-permissions/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin])">
                 <span class="full-width">Roles and Permissions</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">manage_accounts</mat-icon>

@@ -1,0 +1,84 @@
+<div class="mat-elevation-z8 container mx-auto my-10  p-5" style="width: 50rem;">
+    <form [formGroup]="riderForm" (ngSubmit)="submit()">
+        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" formControlName="firstName">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option *ngFor="let gender of ['Male', 'Female']" [value]="gender">{{gender}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Address</mat-label>
+                <input matInput placeholder="Address" formControlName="address">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Local Govt</mat-label>
+                <input matInput placeholder="local Govt" formControlName="localGovt">
+            </mat-form-field>
+           
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="country">
+                    <mat-option *ngFor="let country of ['Nigeria ', 'Mauritius']" [value]="country">{{country}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Years of Experience</mat-label>
+                <input matInput placeholder="Years of Experience" formControlName="yearsOfExperience">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Means of Dispatch</mat-label>
+                <mat-select formControlName="vehicle">
+                    <mat-option *ngFor="let vehicle of ['Bicycle', 'Foot', 'Motorcycle']" [value]="vehicle">{{vehicle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+           
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                <a mat-raised-button (click)="back()" fxFlex="50%">CANCEL</a>
+
+                <button mat-raised-button fxFlex="50%" color="primary" [disabled]="riderForm.invalid">SAVE</button>
+            </div>
+
+
+       
+        </div>
+    </form>
+</div>

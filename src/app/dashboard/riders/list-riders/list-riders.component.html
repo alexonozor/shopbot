@@ -1,0 +1,112 @@
+<div class="h-screen w-full">
+
+  <div mat-subheader>Riders</div>
+
+
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div
+      class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white p-2">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Search Riders</mat-label>
+        <input type="tel" matInput>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button routerLink="../new" color="primary">Add Rider</button>
+     
+    </div>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+        <tr>
+          <th scope="col" class="p-4">
+            <div class="flex items-center">
+              <input id="checkbox-all-search" type="checkbox"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500   focus:ring-2 ">
+              <label for="checkbox-all-search" class="sr-only">checkbox</label>
+            </div>
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Name
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Wallet
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Location
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Vehicle
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Ban
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Activate
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let rider of riders; let j = index">
+          <tr class="bg-white border-b ">
+            <td class="w-4 p-4">
+              <div class="flex items-center">
+                <input id="checkbox-table-search-1" type="checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+              </div>
+            </td>
+            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
+              <div class="ps-3">
+                <div class="text-base font-semibold">{{rider.firstName + ' ' + rider.lastName}}</div>
+                <div class="font-normal text-gray-500">{{rider.email}}</div>
+              </div>
+            </th>
+            <td class="px-6 py-4">
+              {{rider.walletBallance | currency: rider.currency}}
+            </td>
+            <td class="px-6 py-4">
+              {{rider.address}}
+            </td>
+            <td class="px-6 py-4">
+              {{rider.vehicle}}
+            </td>
+            <td class="px-6 py-4">
+              <mat-slide-toggle [(ngModel)]="rider.ban" (click)="$event.stopPropagation()"
+                    (change)="banRider(rider, $event)"  color="primary"></mat-slide-toggle>
+            </td>
+            <td class="px-6 py-4">
+              <mat-slide-toggle [(ngModel)]="rider.activate" (click)="$event.stopPropagation()"
+                    (change)="onChange(rider, $event)"  color="primary"></mat-slide-toggle>
+            </td>
+            <td class="px-6 py-4">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+
+                <button mat-menu-item (click)="deleteRider(rider._id, j)">
+                  <mat-icon class="material-icons-outlined">delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+                <button mat-menu-item [routerLink]="['../', rider._id, 'details']">
+                  <mat-icon class="material-icons-outlined">person</mat-icon>
+                  <span>Profile</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+</div>

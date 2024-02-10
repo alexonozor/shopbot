@@ -97,7 +97,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-medium text-right text-gray-900 truncate ">
-            {{transfer.fullname}}
+            {{transfer?.fullname || transfer?.meta?.bank?.accountName}}
           </p>
         </div>
         
@@ -113,7 +113,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-medium text-right text-gray-900 truncate ">
-            {{transfer.bank_name}}
+            {{transfer?.bank_name || transfer?.meta?.bank?.bankName}}
           </p>
         </div>
         
@@ -129,7 +129,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-medium text-right text-gray-900 truncate ">
-            {{transfer.account_number}}
+            {{transfer?.account_number || transfer?.meta?.bank?.accountNumber}}
           </p>
         </div>
         

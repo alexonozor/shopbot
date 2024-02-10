@@ -41,7 +41,7 @@
   
         <ng-container matColumnDef="requestedBy">
           <th mat-header-cell *matHeaderCellDef>Requested By</th>
-          <td mat-cell *matCellDef="let element">{{ element.requestedBy.name }}</td>
+          <td mat-cell *matCellDef="let element">{{ element?.requestedBy?.name || 'Removed user' }}</td>
         </ng-container>
   
         <ng-container matColumnDef="category">

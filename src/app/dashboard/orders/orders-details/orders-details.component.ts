@@ -10,6 +10,7 @@ declare var require: any;
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { OrderCancelationComponent } from 'src/app/shared/components/order-cancelation/order-cancelation.component';
+import { Rider } from 'src/app/shared/models/rider';
 
 
 const htmlToPdfmake = require("html-to-pdfmake");
@@ -23,6 +24,7 @@ const htmlToPdfmake = require("html-to-pdfmake");
 export class OrdersDetailsComponent implements OnInit {
   @ViewChild('pdfTable') pdfTable!: ElementRef;
   order!: Order;
+  riders: Rider[] = []
   isCanceling!: boolean;
   isAccepting!: boolean;
   statuses = [
@@ -46,6 +48,7 @@ export class OrdersDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.order = this.route.snapshot.data['order'] as Order
+    this.riders = this.route.snapshot.data['riders'] as Rider[]
   }
 
   optionsPrice(options: any): number {
@@ -69,12 +72,14 @@ export class OrdersDetailsComponent implements OnInit {
     this.cancelationDialogRef.componentInstance.confirmButton = 'Cancel Order';
     this.cancelationDialogRef.afterClosed().subscribe(result => {
       if (result) {
+        event['vendorIssue'] = result.vendorIssue
+        event['orderCancellationReason'] = result.text
         this.orderService.updateOrderStatus(order._id, order.user._id, event).subscribe((data: any) => {
           this.isCanceling = false;
           this.isAccepting = false;
           this._matSnack.open(`You have updated this order to Canceled`, 'Close', { duration: 3000 })
         })
-        this.orderService.updateOrder(order._id, { orderCancellationReason: result }).subscribe()
+        this.orderService.updateOrder(order._id, { orderCancellationReason: result.text }).subscribe()
       }
     });
   }
@@ -108,6 +113,14 @@ export class OrdersDetailsComponent implements OnInit {
         this._matSnack.open(`You have updated this order to ${event.value.name}`, 'Close', { duration: 3000 })
       })
     }
+  }
+
+  selectRider(event: any) {
+      console.log(event.value);
+      this.orderService.updateOrder(this.order._id, {rider: event.value}).subscribe((data: any) => {
+        this._matSnack.open(`You have assigned a rider to this order`, 'Close', { duration: 3000 })
+      })
+    
   }
 
   public exportPDF() {

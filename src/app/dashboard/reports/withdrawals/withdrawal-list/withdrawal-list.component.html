@@ -45,7 +45,7 @@
       
         <ng-container matColumnDef="destination">
           <th mat-header-cell *matHeaderCellDef>Destination</th>
-          <td mat-cell *matCellDef="let element">{{ element.account_number + '-' + element.bank_name }}</td>
+          <td mat-cell *matCellDef="let element">{{ (element?.account_number || element?.meta.bank.accountNumber) + '-' + (element?.bank_name || element?.meta?.bank?.accountName) }}</td>
         </ng-container>
 
         <ng-container matColumnDef="type">
@@ -53,9 +53,9 @@
           <td mat-cell *matCellDef="let element"> {{ element.meta.transactionType | titlecase }}</td>
         </ng-container>
 
-         <ng-container matColumnDef="narration">
-          <th mat-header-cell *matHeaderCellDef>Narration</th>
-          <td mat-cell *matCellDef="let element">{{ element.narration }}</td>
+         <ng-container matColumnDef="merchant">
+          <th mat-header-cell *matHeaderCellDef>Merchant</th>
+          <td mat-cell *matCellDef="let element">{{ element?.meta?.customer?.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">

@@ -1,3 +1,4 @@
+import { Rider } from './rider';
 import { Store } from './store';
 import { User } from './user';
 
@@ -20,6 +21,7 @@ export interface Order  {
     createdAt: string;
     shippingFee: number;
     paymentStatus: string;
+    rider: Rider | string
     currentAppVersion:string;
     payment:string;
     category: string;

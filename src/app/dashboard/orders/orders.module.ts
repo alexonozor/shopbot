@@ -16,6 +16,8 @@ import {
 } from '../../shared/resolvers/orders.resolver';
 import { OrdersService } from '../../shared/services/order.service';
 import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
+import { RidersResolver } from 'src/app/shared/resolvers/riders.resolver';
+import { RidersService } from 'src/app/shared/services/rider.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
     OrderResolver,
     OrdersService,
     OrderUpdateResolver,
-    OrdersCountResolver
+    OrdersCountResolver,
+    RidersResolver,
+    RidersService
   ],
 })
 export class OrdersModule {}

@@ -6,10 +6,10 @@ import { Store } from './store';
 export interface Transfer {
     _id:string;
     id:string;
-    account_number: string;
+    account_number: string | undefined;
     bank_name: string;
     bank_code: string;
-    fullname: string;
+    fullname: string | undefined;
     created_at: string;
     currency: string;
     debit_currency: string;
@@ -21,6 +21,7 @@ export interface Transfer {
       store: Store;
       customer: User;
       account: Bank;
+      bank: Bank;
       transactionType: string;
     },
     narration: string;
