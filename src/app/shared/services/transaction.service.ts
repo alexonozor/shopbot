@@ -20,6 +20,10 @@ export class TransactionsService  {
     return this._httpClient.post(`${this.hostServer}/transactions`, params);
   }
   
+  undoTransaction(params:any) {
+    return this._httpClient.post(`${this.hostServer}/transactions/undo/transaction`, params);
+  }
+
 
   getTransactions(): Observable<any[]> {
     return this._httpClient.get<any[]>(`${this.hostServer}/transactions`);

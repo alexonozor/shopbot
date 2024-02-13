@@ -9,7 +9,7 @@ import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.comp
 import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from 'src/app/shared/services/transaction.service';
 import { Router } from '@angular/router';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-payouts-list',
   templateUrl: './payouts-list.component.html',
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 export class PayoutsListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'createdAt', 'vendor', 'orders', 'total',  'actions'];
+  public displayedColumns: string[] = ['select', 'createdAt', 'vendor', 'orders', 'type', 'remark', 'total',  'actions'];
   public dataSource = new MatTableDataSource<Transaction>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -31,7 +31,8 @@ export class PayoutsListComponent implements OnInit {
     private route: ActivatedRoute,
     private transactionsService: TransactionsService,
     private _matDialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
   
 
@@ -61,6 +62,20 @@ export class PayoutsListComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
+  undoTransaction(transaction:Transaction) {
+    this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
+      disableClose: false
+    });
+    this.confirmDialogRef.componentInstance.title = 'Undo transaction?';
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to undo this transaction?';
+    this.confirmDialogRef.componentInstance.confirmButton = 'Undo';
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      this.transactionsService.undoTransaction(transaction).subscribe((data) => {
+        this.snackBar.open('Transaction has been undone', "okay", {duration: 3000})
+      })
+    });
+  }
+
   deleteSelected() {
     this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
       disableClose: false
@@ -81,28 +96,6 @@ export class PayoutsListComponent implements OnInit {
     });
     
   }
-
-  // updateStatus(status:string) {
-  //   this.confirmDialogRef = this._matDialog.open(ConfirmComponent, {
-  //     disableClose: false
-  //   });
-  //   this.confirmDialogRef.componentInstance.title = `${status} Fund Request?`;
-  //   this.confirmDialogRef.componentInstance.confirmMessage = `Are you sure you want to ${status} these Fund Request?`;
-  //   this.confirmDialogRef.componentInstance.confirmButton = `${status}`;
-  //   this.confirmDialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.selection.selected.forEach((fundRequest: Transaction, i:number) => {
-  //       // this.dataSource.data.splice(i, 1);
-  //       fundRequest.status = status;
-  //       this.dataSource = new MatTableDataSource<Transaction>(this.dataSource.data);
-  //       this.dataSource._updateChangeSubscription();
-  //       this.dataSource.paginator = this.paginator;
-  //       this.transactionsService.updateStatusTransaction(fundRequest._id, {status, id: fundRequest.requestedBy._id}).subscribe({});
-  //       })
-  //     }
-  //   });
-    
-  // }
 
   checkboxLabel(row?: any): string {
     if (!row) {

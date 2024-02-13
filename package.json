@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
-    "publish": "ng build  --base-href 'https://dashboard.shopbot.africa' && npx ngh --dir=dist/shopbot",
+    "publish": "ng build  --base-href 'https://dashboard.shopbot.africa' && npx ngh --dir=dist/shopbot --no-silent",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
