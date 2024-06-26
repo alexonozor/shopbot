@@ -1,18 +1,37 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { Store } from 'src/app/shared/models/store';
-import { StoreService } from '../../store.service';
 import { Bank } from 'src/app/shared/models/bank';
 import { BankService } from '../../../../../shared/services/bank.service';
 import { AddBankComponent } from './modals/add-bank/add-bank.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from 'src/app/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bank-account-tab',
   templateUrl: './bank-account-tab.component.html',
-  styleUrls: ['./bank-account-tab.component.scss']
+  styleUrls: ['./bank-account-tab.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    AddBankComponent
+  ],
+  providers: [
+    BankService
+  ]
+  
 })
 export class BankAccountTabComponent implements OnInit {
   @Input() store: Store | any;
@@ -22,12 +41,13 @@ export class BankAccountTabComponent implements OnInit {
 
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private storeService: StoreService,
+   
     private bankService: BankService,
-    private _snackBar: MatSnackBar,
-    private _matDialog: MatDialog
-  ) { }
+    private _matDialog: MatDialog,
+    private route: ActivatedRoute
+  ) {
+    this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
+   }
 
   ngOnInit(): void {
     this.getStoreBank()

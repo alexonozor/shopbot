@@ -1,0 +1,17 @@
+<h1 matDialogTitle>Edit Category</h1>
+<mat-dialog-content class="mat-typography">
+  <form name="menuForm" [formGroup]="menuForm" class="product w-100" fxLayout="column" fxFlex>
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
+      <mat-label>Name</mat-label>
+      <input matInput cancellation="Name" name="name" formControlName="name" required>
+    </mat-form-field>
+    <mat-slide-toggle formControlName="activate">Published</mat-slide-toggle>
+
+  </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button  color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="save()" [disabled]="!menuForm.valid">{{isLoading ? 'Please wait..' : 'Update' }}</button>
+</mat-dialog-actions>

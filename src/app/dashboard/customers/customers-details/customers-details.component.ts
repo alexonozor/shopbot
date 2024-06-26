@@ -155,7 +155,6 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
         this.orderService.deleteOrder(id).subscribe();
       }
     });
-   
   }
 
   deleteSelected() {
@@ -233,21 +232,18 @@ export class CustomersDetailsComponent implements OnInit, AfterViewInit {
   }
 
   banAccount(event:any) {
-    console.log(event)
-      this.customer = {...this.customer, ...{ ban: event.checked}}
-      this.userService.updateUser(this.customer._id, {ban: this.customer.ban}).subscribe()
+    this.customer = {...this.customer, ...{ ban: event.checked}}
+    this.userService.updateUser(this.customer._id, {ban: this.customer.ban}).subscribe()
   }
 
   allowCash(event:any) {
-    console.log(event)
-      this.customer = {...this.customer, ...{ allowCashOnDelivery: event.checked}}
-      this.userService.updateUser(this.customer._id, {allowCashOnDelivery: this.customer.allowCashOnDelivery}).subscribe()
+    this.customer = {...this.customer, ...{ allowCashOnDelivery: event.checked}}
+    this.userService.updateUser(this.customer._id, {allowCashOnDelivery: this.customer.allowCashOnDelivery}).subscribe()
   }
 
   allowWallet(event:any) {
-    console.log(event)
-      this.customer = {...this.customer, ...{ allowWallet: event.checked}}
-      this.userService.updateUser(this.customer._id, {allowWallet: this.customer.allowWallet}).subscribe()
+    this.customer = {...this.customer, ...{ allowWallet: event.checked}}
+    this.userService.updateUser(this.customer._id, {allowWallet: this.customer.allowWallet}).subscribe()
   }
 
 

@@ -11,7 +11,7 @@
             <div class="mat-elevation-z6 example-container">
                 <h2>Order Settings</h2>
                 <p>Average amount of time it takes to prepare an order.</p>
-                <mat-form-field appearance="outline" style="width: 50%;">
+                <mat-form-field appearance="fill" style="width: 50%;">
                     <mat-label>Enter Order Pre time</mat-label>
                     <input matInput formControlName="orderPrepTime" cancellation="Enter Order Pre time">
                     <span matSuffix>minutes</span>
@@ -34,7 +34,7 @@
                                 orders to be eligible for pickup
                             </mat-slide-toggle>
                             <mat-form-field *ngIf="pickupAndDeliveryForm.value.orderSettings.allowMinimumOrderAmount"
-                                appearance="outline" style="width: 50%; margin-top: 20px;">
+                                appearance="fill" style="width: 50%; margin-top: 20px;">
                                 <mat-label>Enter Minimum order amount</mat-label>
                                 <input matInput type="number" formControlName="minimumOrderAmount"
                                     cancellation="Enter Minimum order amount">
@@ -58,7 +58,7 @@
                             <li>If someone else can pickup the order</li>
                         </ul>
 
-                        <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-form-field appearance="fill" style="width: 100%;">
                             <mat-label>Enter Pickup Instruction</mat-label>
                             <textarea matInput formControlName="pickUpInstruction" cols="30" rows="5"></textarea>
                         </mat-form-field>
@@ -91,7 +91,7 @@
             <div
                 *ngIf="pickupAndDeliveryForm.value.deliveryService.deliverOrderToCustomers === 'My own couriers'; else ShopBotCouriers">
                 <div style="margin-bottom: 20px;">
-                    <mat-form-field appearance="outline" style="width: 50%;">
+                    <mat-form-field appearance="fill" style="width: 50%;">
                         <mat-label>Delivery Types</mat-label>
                         <mat-select name="food" formControlName="deliveryType" multiple="true">
                             <mat-option *ngFor="let delivery of ['Instant Delivery', 'Schedule Delivery']"
@@ -105,7 +105,7 @@
 
                     <p>Customers outside this area will not be able to place orders for delivery from this location.
                     </p>
-                    <mat-form-field appearance="outline" style="width: 50%;">
+                    <mat-form-field appearance="fill" style="width: 50%;">
                         <mat-label>Enter delivery radius</mat-label>
                         <input matInput formControlName="deliveryRadius" cancellation="Enter delivery radius">
                         <span matSuffix>Km</span>
@@ -115,7 +115,7 @@
                 <div style="margin-top: 20px;">
                     <h2>Delivery fee</h2>
                     <div class="example-radio-group">
-                        <mat-form-field appearance="outline" style="width: 50%;">
+                        <mat-form-field appearance="fill" style="width: 50%;">
                             <mat-label>Delivery fee</mat-label>
                             <mat-select name="food" formControlName="deliveryFeeNumber">
                                 <mat-option *ngFor="let food of foods" [value]="food.value">
@@ -124,7 +124,7 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline"
+                        <mat-form-field appearance="fill"
                             *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 1"
                             style="width: 50%;">
                             <mat-label>Enter delivery for all orders</mat-label>
@@ -135,14 +135,14 @@
 
                         <div *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 3"
                             style="width: 100%;" fxLayout="column" fxLayoutAlign="space-between start">
-                            <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-form-field appearance="fill" style="width: 50%;">
                                 <mat-label>Order amount to qualify for free delivery</mat-label>
                                 <input matInput cancellation="Enter Minimum order amount"
                                     formControlName="minimumOrderAmountForFreeDelivery">
                                 <span matSuffix>N</span>
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-form-field appearance="fill" style="width: 50%;">
                                 <mat-label>Delivery fee for all other orders</mat-label>
                                 <input matInput cancellation="Enter delivery fee"
                                     formControlName="deliveryFeeForAllOrder">
@@ -152,14 +152,14 @@
 
                         <div *ngIf="pickupAndDeliveryForm.value.deliverySettings.deliveryFeeNumber == 4"
                             style="width: 100%;" fxLayout="column" fxLayoutAlign="space-between start">
-                            <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-form-field appearance="fill" style="width: 50%;">
                                 <mat-label>Minimum delivery fee</mat-label>
                                 <input matInput cancellation="Enter Minimum delivery Fee"
                                     formControlName="minimumDeliveryFee">
                                 <span matSuffix>N</span>
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline" style="width: 50%;">
+                            <mat-form-field appearance="fill" style="width: 50%;">
                                 <mat-label>Delivery fee per kilometer</mat-label>
                                 <input matInput type="number" formControlName="deliveryFeeByKilometers"
                                     cancellation="Enter Delivery fee">
@@ -175,7 +175,7 @@
                         be eligible for delivery
                     </mat-slide-toggle>
 
-                    <mat-form-field appearance="outline" style="width: 50%;"
+                    <mat-form-field appearance="fill" style="width: 50%;"
                         *ngIf="pickupAndDeliveryForm.value.deliverySettings.allowMinimumOrderAmount">
                         <mat-label>Enter Minimum order amount</mat-label>
                         <input matInput formControlName="minimumOrderAmount" cancellation="Enter Minimum order amount">
@@ -192,7 +192,7 @@
                     <p>The time it takes an order to get to the customer's door, after the courier picks it up from this
                         location. </p>
                     <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;" fxLayoutGap="20px">
-                        <mat-form-field appearance="outline" style="width: 50%;">
+                        <mat-form-field appearance="fill" style="width: 50%;">
                             <mat-label>Enter Minimum delivery time</mat-label>
                             <input matInput formControlName="minimum" cancellation="Enter Minimum order amount">
                             <span matSuffix>minutes</span>
@@ -200,7 +200,7 @@
 
                         <p>to</p>
 
-                        <mat-form-field appearance="outline" style="width: 50%;">
+                        <mat-form-field appearance="fill" style="width: 50%;">
                             <mat-label>Enter Maximum delivery time</mat-label>
                             <input matInput formControlName="maximum" cancellation="Enter Maximum order amount">
                             <span matSuffix>minutes</span>
@@ -226,7 +226,7 @@
                             <li>If they need name or order number</li>
                             <li> If someone else can receive the order</li>
                         </ul>
-                        <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-form-field appearance="fill" style="width: 100%;">
                             <mat-label>Enter Delivery Instruction</mat-label>
                             <textarea matInput formControlName="deliveryInstructions" cols="30" rows="5"></textarea>
                         </mat-form-field>

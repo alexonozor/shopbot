@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, combineLatest, merge, of, startWith, switchMap, tap } from 'rxjs';
+import { combineLatest, startWith, switchMap } from 'rxjs';
 import { UsersService } from '../../../shared/services/users.service';
 import { User } from '../../../shared/models/user';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/shared/services';
 import { Role } from 'src/app/shared/models/role';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
-import { off } from 'process';
 
 @Component({
   selector: 'app-list-customers',
@@ -22,7 +21,7 @@ import { off } from 'process';
 })
 export class ListCustomersComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'device', 'country', 'createdAt', 'actions'];
+  public displayedColumns: string[] = ['select', 'Name', 'phoneNumber', 'email', 'device', 'country', 'wallet', 'createdAt', 'actions'];
   public dataSource = new MatTableDataSource<User>([]);
   public filterForm: FormGroup
   @ViewChild(MatPaginator) paginator!: MatPaginator;

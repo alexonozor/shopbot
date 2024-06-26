@@ -1,0 +1,31 @@
+MDTextField {
+  error-color: red;
+  ripple-color: #13A549;
+  stroke-color: #13A549;             /* the border color when active */
+  stroke-inactive-color: #13A549;   /* the border color when inactive */
+  floating-color: #13A549;           /* the floating placeholder color when active */
+  floating-inactive-color: #13A549; /* the floating placeholder color when inactive */
+}
+
+MDTextView {
+  error-color: red;
+  ripple-color: #13A549;
+  stroke-color: #13A549;             /* the border color when active */
+  stroke-inactive-color: #13A549;   /* the border color when inactive */
+  floating-color: #13A549;           /* the floating placeholder color when active */
+  floating-inactive-color: #13A549; /* the floating placeholder color when inactive */
+}
+
+Switch:checked {
+  color: #13A549;
+  margin: 0;
+  padding: 0;
+  background: #ccc;
+}
+
+Switch {
+  color: #000;
+  margin: 0;
+  padding: 0;
+  background: #ccc;
+}

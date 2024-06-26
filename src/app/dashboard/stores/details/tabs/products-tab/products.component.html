@@ -1,0 +1,17 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <mat-list role="list">
+      @for (item of links; track $index) {
+        <a mat-list-item class="parent" 
+        (click)="activeLink = item.path"
+         [ngClass]="activeLink === item.path ? 'text-primary-600 active' : ''"
+          [routerLink]="item.path">
+          <span class="full-width">{{item.name}}</span>
+      </a>
+      }
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

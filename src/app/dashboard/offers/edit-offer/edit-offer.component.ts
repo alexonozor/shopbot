@@ -12,9 +12,9 @@ import { MediaComponent } from '../../media/media.component';
 import { StoresService } from '../../stores/stores.service';
 import { Location } from '@angular/common';
 import { Menu } from '../../../shared/models/menu';
-import { MenusService } from '../../stores/details/tabs/menus/list/menus.service';
 import { ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/app/shared/models/offer';
+import { MenusService } from '../../stores/details/tabs/products-tab/categories/list/menus.service';
 
 @Component({
   selector: 'app-edit-offer',

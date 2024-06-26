@@ -12,7 +12,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material';
-import { StoreTabsModule } from '../stores/details/tabs/store-tabs.modules';
 import { StoresRoutingModule } from '../stores/stores.routing';
 import { SharedModule } from '../../shared/shared.module';
 import { StoreService } from '../stores/details/store.service';
@@ -33,7 +32,6 @@ import { DeliveryZoneService } from '../../shared/services/delivery-zone.service
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
-    StoreTabsModule,
     RouterModule,
     SharedModule
   ],

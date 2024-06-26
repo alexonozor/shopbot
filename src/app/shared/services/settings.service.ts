@@ -4,9 +4,12 @@ import {  Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Payment } from '../models/payment';
 import { Block } from '../models/block';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SettingsService  {
   payments!: Payment[];
   private hostServer: string = environment.hostServer;
@@ -17,7 +20,12 @@ export class SettingsService  {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {}
+  constructor(
+    private _httpClient: HttpClient,
+   private route: ActivatedRoute
+  ) {
+
+    }
 
 
   createPayment(params:any) {
@@ -69,4 +77,32 @@ export class SettingsService  {
   getVersion() {
     return this._httpClient.get(`${this.hostServer}/version-settings/64a3ac4b376e5b4172739f1b`);
   }
+
+
+  findDataInRoute(route: ActivatedRouteSnapshot | null, dataKey: string): any {
+    if (!route) {
+      return null; // Base case: Reached the root or no route
+    }
+
+    const data = route.data;
+    if (data && data.hasOwnProperty(dataKey)) {
+      return data[dataKey]; // Found data in the current route
+    } else {
+      return this.findDataInRoute(route.parent, dataKey); // Recursively search parent routes
+    }
+  }
+
+  getParametersFromUrl(route: ActivatedRouteSnapshot | null, paramKey: string): any {
+    if (!route) {
+      return null; // Base case: Reached the root or no route
+    }
+
+    const param = route.paramMap.get(paramKey);
+    if (param) {
+      return param; // Found param in the current route
+    } else {
+      return this.getParametersFromUrl(route.parent, paramKey); // Recursively search parent routes
+    }
+  }
+
 }

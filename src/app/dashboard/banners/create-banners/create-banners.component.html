@@ -7,17 +7,17 @@
                 <app-select-media valueName="Image" [isNew]="false" [mediaData]="mediaData?.image"
                 (removeValue)="removeValue($event)" (openMediaBrowser)="addMedia($event)"></app-select-media>
     
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" appearance="fill">
                     <mat-label>Name Of Banner</mat-label>
                     <input matInput cancellation="Name Of Banner" formControlName="title">
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" appearance="fill">
                     <mat-label>Short Description</mat-label>
                     <input matInput cancellation="Short Description" formControlName="shortDescription">
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline" >
+                <mat-form-field class="full-width" appearance="fill" >
                     <mat-label>Category</mat-label>
                     <mat-select formControlName="category">
                         <mat-option *ngFor="let category of ['Product', 'Category', 'Blog', 'Ads']" [value]="category" >{{category}}</mat-option>
@@ -58,26 +58,26 @@
 
                 
 
-                <mat-form-field class="full-width" appearance="outline" >
+                <mat-form-field class="full-width" appearance="fill" >
                     <mat-label>Show on Slider</mat-label>
                     <mat-select formControlName="showOnSlider">
                         <mat-option *ngFor="let category of [{value:true, name:'Yes'}, {value: false, name:'No'}]" [value]="category.value" >{{category.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" appearance="fill">
                     <mat-label>Link</mat-label>
                     <input matInput cancellation="Enter Link" formControlName="link">
                 </mat-form-field>
 
-                 <mat-form-field appearance="outline">
+                 <mat-form-field appearance="fill">
                     <mat-label>Country</mat-label>
                     <mat-select  formControlName="country" (selectionChange)="selectedCountry($event)">
                       <mat-option *ngFor="let zone of deliveryZones" [value]="zone.country">{{zone.country}}</mat-option>
                     </mat-select>
                   </mat-form-field>
             
-                  <mat-form-field appearance="outline" *ngIf="selectedZone">
+                  <mat-form-field appearance="fill" *ngIf="selectedZone">
                     <mat-label>States</mat-label>
                     <mat-select  multiple formControlName="states">
                       <mat-select-trigger>

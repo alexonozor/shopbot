@@ -11,9 +11,9 @@ import {Observable} from 'rxjs';
 import {map, switchMap, debounceTime, startWith} from 'rxjs/operators';
 import { StoresService } from '../../stores/stores.service';
 import { Menu } from '../../../shared/models/menu';
-import { MenusService } from '../../stores/details/tabs/menus/list/menus.service';
 import { StoreService } from '../../stores/details/store.service';
 import { DeliveryZone } from '../../../shared/models/delivery-zone';
+import { MenusService } from '../../stores/details/tabs/products-tab/categories/list/menus.service';
 
 @Component({
   selector: 'app-edit-banners',

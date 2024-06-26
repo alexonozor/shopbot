@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Add Option Items</h2>
+<mat-dialog-content class="w-full">
+  <form  [formGroup]="groupOptionsForm" class="product" fxLayout="column">
+
+        <div class="tab-content" fxLayout="column" fxLayoutAlign="space-around stretch">
+         
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>Price</mat-label>
+            <input matInput placeholder="Price" type="number" formControlName="price" required>
+          </mat-form-field>
+
+          
+
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>In Stock</mat-label>
+            <mat-select formControlName="inStock" required>
+              <mat-option *ngFor="let status of [{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+                [value]="status.value">
+                {{status.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="saveGroupOptions()" [disabled]="groupOptionsForm.invalid" cdkFocusInitial>{{isLoading ? 'Checking..' : 'Save'}}</button>
+</mat-dialog-actions>

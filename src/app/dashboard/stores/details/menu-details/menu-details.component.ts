@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Store } from 'src/app/shared/models/store';
 import { StoreService } from '../store.service';
 import { Location } from '@angular/common';
 import { Menu } from 'src/app/shared/models/menu';
-import { MenuService } from './menu.service';
+import { MenuService } from '../../../../shared/services/menu.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { AddMenusComponent } from '../tabs/menus/modals/add-menus/add-menus.component';
 import { AddItemToMenuComponent } from './modal/add-item-to-menu/add-item-to-menu.component';
 import { Product } from 'src/app/shared/models/product';
 

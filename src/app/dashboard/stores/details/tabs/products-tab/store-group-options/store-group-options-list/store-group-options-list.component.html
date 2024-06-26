@@ -1,0 +1,98 @@
+<div style="height: 100vh; position: relative;">
+
+
+  @if (groupOptions$ | async; as options) {
+  @if (options.length > 0) {
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="p-4 bg-white ">
+      <div class="p-3" fxLayout="row" fxLayoutAlign="space-between start">
+        <h2>Group Options</h2>
+        <div>
+            <button mat-raised-button (click)="addGroupOption()" color="primary" >Add Group Options</button>
+        </div>
+
+    </div>
+
+    </div>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+             Name
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Options
+          </th>
+          <th scope="col" class="px-6 py-3">
+            At Least
+          </th>
+          <th scope="col" class="px-6 py-3">
+            At Most
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Enabled
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (option of options; track $index) {
+        <tr class="bg-white border-b ">
+          <td class="px-6 py-4 text-base font-semibold">
+            {{option.name}}
+          </td>
+          
+          <td class="px-6 py-4">
+            {{option.options.length}}
+          </td>
+
+          <td class="px-6 py-4">
+            {{option.atLeast}}
+          </td>
+
+          <td class="px-6 py-4">
+            {{option.atMost}}
+          </td>
+
+          <td class="px-6 py-4">
+            <mat-slide-toggle (change)="updateEnabled($event, option._id)" [checked]="option.enabled"></mat-slide-toggle>
+          </td>
+          
+          <td class="px-6 py-4">
+            
+              <button mat-icon-button [matMenuTriggerFor]="menu2" (click)="$event.stopPropagation()">
+                  <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu2="matMenu">
+                  <button mat-menu-item (click)="delete($index, option._id)"><mat-icon>delete</mat-icon> Delete</button>
+                  <button mat-menu-item (click)="editGroupOption(option)"><mat-icon>edit</mat-icon> Edit</button>
+              </mat-menu>
+        
+          </td>
+        </tr>
+        }
+
+      </tbody>
+    </table>
+  </div>
+  } @else {
+  <section class="py-4 bg-neutral-50 overflow-hidden">
+    <div class="container px-4 mx-auto">
+      <img class="mx-auto" src="dashy-assets/images/empty.png" alt="">
+      <div class="max-w-md mx-auto text-center">
+        <h2 class="font-heading mb-3 text-2xl font-semibold">It’s a bit empty here</h2>
+        <p class="mb-7 text-neutral-500">Group options are ways to customize your product in variants</p>
+        <a (click)="addGroupOption()" class="inline-flex px-6 py-2.5 text-sm bg-primary-700 text-neutral-50 font-medium  rounded-lg transition duration-300"
+          >Add First Group Option</a>
+      </div>
+    </div>
+  </section>
+  }
+
+  }
+
+
+
+</div>

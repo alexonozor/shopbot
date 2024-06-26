@@ -1,11 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { Store } from '../../../../../shared/models/store';
 import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from 'src/app/material';
+import { ActivatedRoute } from '@angular/router';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 const { range } = extendMoment(moment);
 
 
@@ -13,7 +18,21 @@ const { range } = extendMoment(moment);
 @Component({
   selector: 'app-business-hours-tab',
   templateUrl: './business-hours-tab.component.html',
-  styleUrls: ['./business-hours-tab.component.scss']
+  styleUrls: ['./business-hours-tab.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class BusinessHoursTabComponent implements OnInit {
   businessHoursForm!: FormGroup;
@@ -22,14 +41,15 @@ export class BusinessHoursTabComponent implements OnInit {
   public isLoading: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition | undefined;
   verticalPosition: MatSnackBarVerticalPosition | undefined;
-
+  
 
   constructor(
     private _formBuilder: FormBuilder,
     private storeService: StoreService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
     ) {
-
+      this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
   }
 
   ngOnInit(): void {

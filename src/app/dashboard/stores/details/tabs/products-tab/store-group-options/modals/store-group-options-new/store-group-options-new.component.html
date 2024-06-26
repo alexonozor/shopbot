@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>Add Option Group</h2>
+<mat-dialog-content class="w-full">
+  <form  [formGroup]="groupOptionsForm" class="product" fxLayout="column">
+
+        <div class="tab-content" fxLayout="column" fxLayoutAlign="space-around stretch">
+         
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>At least</mat-label>
+            <input matInput placeholder="At least" type="number" formControlName="atLeast" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>At Most</mat-label>
+            <input matInput placeholder="At least" type="number" formControlName="atMost" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" floatLabel="always" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="enabled" required>
+              <mat-option *ngFor="let status of [{ name: 'Active', value: true }, { name: 'Draft', value: false }]"
+                [value]="status.value">
+                {{status.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          
+
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                   Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  In stock
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (option of options; track $index) {
+              <tr class="bg-white border-b ">
+                <td class="px-6 py-4 text-base font-semibold">
+                  {{option.name}}
+                </td>
+                
+                <td class="px-6 py-4">
+                  {{option.price | currency: option.store.currency}}
+                </td>
+
+                <td class="px-6 py-4">
+                  {{option.inStock ? "Yes":"No"}}
+                </td>
+                
+                
+                
+                <td class="px-6 py-4">
+                  <a (click)="removeOption($index, option._id)" class="font-medium cursor-pointer text-red-600  hover:underline">Remove</a>
+                </td>
+              </tr>
+              }
+      
+            </tbody>
+          </table>
+
+          <a mat-stroked-button color="primary" (click)="addOptionItems()">Add Option Items</a>
+        </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="saveGroupOptions()" [disabled]="groupOptionsForm.invalid" cdkFocusInitial>{{isLoading ? 'Checking..' : 'Save'}}</button>
+</mat-dialog-actions>

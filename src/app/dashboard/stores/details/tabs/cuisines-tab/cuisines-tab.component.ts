@@ -1,6 +1,6 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable, startWith, map } from 'rxjs';
@@ -10,11 +10,30 @@ import { CuisinesService } from 'src/app/shared/services/cuisines.service';
 import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from 'src/app/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cuisines-tab',
   templateUrl: './cuisines-tab.component.html',
-  styleUrls: ['./cuisines-tab.component.scss']
+  styleUrls: ['./cuisines-tab.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class CuisinesTabComponent  {
   @Input() store: Store | any;
@@ -34,9 +53,10 @@ export class CuisinesTabComponent  {
   constructor(
     private cuisinesService: CuisinesService,
     private storeService: StoreService,
-    private snackBar: MatSnackBar
-    
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
+    this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
     this.cuisinesService.getCuisines().subscribe((cuisines) => {
       this.cuisines = cuisines
     })

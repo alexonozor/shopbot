@@ -40,16 +40,16 @@
         <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayoutGap="10px"  fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-around center">
             <div class="mat-elevation-z6 example-container" fxFlex="25%" fxFlexAlign.gt-md="start">
                 <h3>Basic Information</h3>
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Name</mat-label>
                     <input matInput formControlName="name" cancellation="Enter Store Name">
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Description</mat-label>
                     <textarea matInput formControlName="description" cancellation="Enter Store Description"></textarea>
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Category</mat-label>
                     <mat-select formControlName="category" >
                         <mat-option *ngFor="let category of categories" [value]="category._id">{{category.name}}</mat-option>
@@ -57,21 +57,21 @@
                     
                 </mat-form-field>
                 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Currency</mat-label>
                     <mat-select formControlName="currency" >
                         <mat-option *ngFor="let currency of countriesWithStates" [value]="currency.currency">{{currency.currency}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Currency</mat-label>
                     <mat-select formControlName="currencyCode" >
                         <mat-option *ngFor="let currency of countriesWithStates" [value]="currency.currencyCode">{{currency.currencyCode}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Expensive</mat-label>
                     <mat-select formControlName="expensive" >
                         <mat-option *ngFor="let expensive of [1,2,3,4,5]" [value]="expensive">{{expensive}}</mat-option>
@@ -81,16 +81,16 @@
             </div>
             <div class="mat-elevation-z6 example-container" fxFlex="25%" fxFlexAlign.gt-md="start" formGroupName="contactInfo">
                 <h3>Contact Information</h3>
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Email Address</mat-label>
                     <input matInput cancellation="Enter Store Email" formControlName="email">
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Store Phone Number</mat-label>
                     <input matInput cancellation="Store Phone Number" formControlName="phone">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="example-full-width w-full">
+                <mat-form-field appearance="fill" class="example-full-width w-full">
                     <mat-label>Country</mat-label>
                     <mat-select formControlName="country">
                       <mat-option *ngFor="let country of countriesWithStates" [value]="country.country">
@@ -99,7 +99,7 @@
                     </mat-select>
                   </mat-form-field>
                 
-                  <mat-form-field appearance="outline" class="example-full-width w-full">
+                  <mat-form-field appearance="fill" class="example-full-width w-full">
                     <mat-label>State</mat-label>
                     <mat-select formControlName="state">
                       <mat-option *ngFor="let state of states" [value]="state.name">
@@ -113,14 +113,14 @@
                 <h3>Admin charges</h3>
                
 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Finance Type </mat-label>
                     <mat-select formControlName="financeType" >
                         <mat-option *ngFor="let country of ['amount', 'discount']" [value]="country">{{country | uppercase}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Discount or ammount</mat-label>
                     <input matInput type="number" cancellation="Discount or ammount" formControlName="adminCommission">
                 </mat-form-field>
@@ -146,20 +146,14 @@
                     <mat-icon class="mat-18">location_searching</mat-icon> USE MY LOCATION
                 </button>
 
-                <mat-form-field appearance="outline"   style="width: 100%; margin-top: 10px;">
+                <mat-form-field appearance="fill"   style="width: 100%; margin-top: 10px;">
                     <mat-label>Place name</mat-label>
                     <input matInput cancellation="Place name" formControlName="placeName">
                 </mat-form-field>
-                <mat-form-field appearance="outline" style="width: 100%; margin-top: 10px;">
+                <mat-form-field appearance="fill" style="width: 100%; margin-top: 10px;">
                     <mat-label>Suite/Store Number</mat-label>
                     <input matInput cancellation="Enter Suite/Store Number" formControlName="placeNumber">
                 </mat-form-field>
-                <!-- <mat-form-field appearance="outline" style="width: 100%; margin-top: 10px;">
-                    <mat-label>Enter your Location</mat-label>
-                    <input matInput matGoogleMapsAutocomplete 
-                        (onAutocompleteSelected)="onAutocompleteSelected($event)"
-                        (onLocationSelected)="onLocationSelected($event)">
-                </mat-form-field> -->
 
             </div>
 

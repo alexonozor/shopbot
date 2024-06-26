@@ -3,22 +3,22 @@
 <mat-dialog-content>
  <form [formGroup]="customerForm" >
   <div fxLayout="column" fxLayoutAlign="space-evenly stretch" >
-   <mat-form-field class="full-width" appearance="outline">
+   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Full Name</mat-label>
     <input matInput cancellation="Full Name" formControlName="name">
    </mat-form-field>
 
-   <mat-form-field class="full-width" appearance="outline">
+   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Phone Number</mat-label>
     <input matInput cancellation="Phone Number" formControlName="phoneNumber">
    </mat-form-field>
 
-   <mat-form-field class="full-width" appearance="outline">
+   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Email</mat-label>
     <input matInput cancellation="Email" formControlName="email">
    </mat-form-field>
 
-   <mat-form-field class="full-width" appearance="outline">
+   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Gender</mat-label>
     <mat-select  formControlName="gender">
         <mat-option  *ngFor="let gender of ['Male', 'Female']" [value]="gender">{{gender}}</mat-option>
@@ -26,14 +26,14 @@
    </mat-form-field>
 
 
-   <mat-form-field class="full-width" appearance="outline">
+   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Language</mat-label>
     <mat-select  formControlName="language">
         <mat-option  *ngFor="let language of ['English', 'French']" [value]="language">{{language}}</mat-option>
     </mat-select>
    </mat-form-field>
 
-   <mat-form-field class="full-width" appearance="outline">
+   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Country</mat-label>
     <mat-select  formControlName="country">
         <mat-option  *ngFor="let country of ['Nigeria', 'Mauritius']" [value]="country">{{country}}</mat-option>

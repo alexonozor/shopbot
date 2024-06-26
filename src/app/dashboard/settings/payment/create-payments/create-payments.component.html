@@ -1,43 +1,43 @@
 <h1 matDialogTitle>Create Payment Method</h1>
 <div mat-dialog-content>
   <form name="storeForm" [formGroup]="paymentForm" class="product w-100-p" fxLayout="column" fxFlex>
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
         <mat-label>Icon</mat-label>
         <input matInput cancellation="Icon image code" name="image" formControlName="image" required>
       </mat-form-field>
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
         <mat-label>Position</mat-label>
         <input matInput type="number" cancellation="Position" name="id" formControlName="id" required>
       </mat-form-field>
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
       <mat-label>Name</mat-label>
       <input matInput cancellation="Product Name" name="name" formControlName="name" required>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
       <mat-label>Secret Key</mat-label>
       <input matInput cancellation="Secret Key" name="name" formControlName="secretKey" required>
     </mat-form-field>
 
    
 
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
       <mat-label>Public Key</mat-label>
       <input matInput cancellation="Public Key" name="name" formControlName="publicKey" required>
     </mat-form-field>
   
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
       <mat-label>Description</mat-label>
       <textarea matInput cancellation="Product Description" name="description" formControlName="description" rows="5"></textarea>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+    <mat-form-field appearance="fill" floatLabel="always" class="w-100-p">
         <mat-select formControlName="active" cancellation="Enabled">
             <mat-option  *ngFor="let item of [{name: 'Yes', value: true}, {name: 'No', value:  false}]" [value]="item.value">{{item.name}}</mat-option>
         </mat-select>
    </mat-form-field>
 
-    <mat-form-field appearance="outline" >
+    <mat-form-field appearance="fill" >
         <mat-label>Region</mat-label>
         <mat-select  multiple formControlName="region">
           <mat-select-trigger>

@@ -19,8 +19,6 @@ import { Cuisine } from 'src/app/shared/models/cuisine';
   styleUrls: ['./create-promos.component.scss']
 })
 export class CreatePromosComponent implements OnInit {
-
-
   visible = true;
   selectable = true;
   removable = true;
@@ -68,7 +66,7 @@ export class CreatePromosComponent implements OnInit {
     redeemCount: ['', Validators.required],
     promoCodeDescription: ['', Validators.required],
     textCodeDescription: ['', Validators.required],
-    enabled: [false, Validators.required],
+    published: [false, Validators.required],
   });
 
 
@@ -94,13 +92,13 @@ export class CreatePromosComponent implements OnInit {
   }
 
 
- get getCustomersForm() {
-  return this.promoForm.get('customers') as FormArray
- }
+  get getCustomersForm() {
+    return this.promoForm.get('customers') as FormArray
+  }
 
- get getStoresForm() {
-  return this.promoForm.get('vendors') as FormArray
- }
+  get getStoresForm() {
+    return this.promoForm.get('vendors') as FormArray
+  }
 
   
   ngOnInit(): void {}
@@ -125,7 +123,6 @@ export class CreatePromosComponent implements OnInit {
       const filterValue = value.name.toLowerCase();
       return this.stores?.filter(store => store?.name?.toLowerCase().indexOf(filterValue) === 0);
     }
-   
   }
 
   removeStore(store: Store): void {
@@ -160,7 +157,6 @@ export class CreatePromosComponent implements OnInit {
   }
 
   submit() {
-
     if (this.promoForm.valid) {
       this.isLoading = true
       this.promosService.createPromo(this.promoForm.getRawValue()).subscribe((data) => {
@@ -201,7 +197,4 @@ export class CreatePromosComponent implements OnInit {
     this.promoForm.patchValue({ [property]: null  })
     this.mediaData[property] = null;
   }
-
- 
-
 }

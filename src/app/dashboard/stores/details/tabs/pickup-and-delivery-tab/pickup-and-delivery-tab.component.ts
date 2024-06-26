@@ -1,18 +1,33 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs';
 import { Store } from 'src/app/shared/models/store';
 import { StoreService } from '../../store.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from 'src/app/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pickup-and-delivery-tab',
   templateUrl: './pickup-and-delivery-tab.component.html',
-  styleUrls: ['./pickup-and-delivery-tab.component.scss']
+  styleUrls: ['./pickup-and-delivery-tab.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class PickupAndDeliveryTabComponent implements OnInit {
   isActive = false;
-  @Input() store!: Store | any
+  protected store!: Store | any
   favoriteSeason: string | undefined;
   couriers: string[] = ['My own couriers', 'Shopbot couriers'];
   public isLoading: boolean = false;
@@ -33,8 +48,11 @@ export class PickupAndDeliveryTabComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private storeService: StoreService,
-    private _snackBar: MatSnackBar
-    ) { }
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
+    ) { 
+      this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
+    }
 
   ngOnInit(): void {
     this.pickupAndDeliveryForm = this.createProductForm()

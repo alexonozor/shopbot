@@ -1,0 +1,37 @@
+<div class="p-4 bg-white" fxLayout="row" fxLayoutAlign="space-between start">
+  <h2>Add Group Options</h2>
+  <div>
+    <button mat-stroked-button color="primary" (click)="createGroupOption()" cdkFocusInitial>Add</button>
+  </div>
+</div>
+<mat-dialog-content class="w-full">
+  @if (groupOptions$ | async; as options) {
+  @if (options.length > 0) {
+  <mat-selection-list #option (selectionChange)="onSelection($event)">
+    @for (option of options; track option) {
+    <mat-list-option [value]="option" [selected]="isSelected(option)">{{option.name}}</mat-list-option>
+    }
+  </mat-selection-list>
+
+  } @else {
+  <section class="py-4 bg-neutral-50 overflow-hidden">
+    <div class="container px-4 mx-auto">
+      <img class="mx-auto" src="dashy-assets/images/empty.png" alt="">
+      <div class="max-w-md mx-auto text-center">
+        <h2 class="font-heading mb-3 text-2xl font-semibold">It’s a bit empty here</h2>
+        <p class="mb-7 text-neutral-500">Group options are ways to customize your product in variants</p>
+        <a class="inline-flex px-6 py-2.5 cursor-pointer text-sm bg-primary-700 text-neutral-50 font-medium  rounded-lg transition duration-300"
+          (click)="addGroupOption()">Add First Group Option</a>
+      </div>
+    </div>
+  </section>
+  }
+
+  } @else {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="saveGroupOptions()" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

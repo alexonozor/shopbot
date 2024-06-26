@@ -15,11 +15,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from '../shared/interceptor/token-interceptor.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
+// import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
 import { MaterialModule } from '../material';
 import { HomeComponent } from './home/home.component';
 import { OrdersService } from '../shared/services/order.service';
-import { NgChartsModule } from 'ng2-charts';
+// import { NgChartsModule } from 'ng2-charts';
 import { DashboardService } from '../shared/services/dashboard.service';
 import { StoresService } from './stores/stores.service';
 import { AuthService } from '../shared/services';
@@ -27,6 +27,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NotificationsService } from '../shared/services/notifications.service';
 import { DeliveryZonesResolver, DeliveryZoneResolver } from '../shared/resolvers/delivery-zones.resolver';
 import { DeliveryZoneService } from '../shared/services/delivery-zone.service';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { DeliveryZoneService } from '../shared/services/delivery-zone.service';
     LayoutModule,
     MatSnackBarModule,
     MaterialModule,
-    NgChartsModule,
+    BaseChartDirective,
+    // NgChartsModule,
     SharedModule,
   ],
   providers: [
@@ -62,6 +64,7 @@ import { DeliveryZoneService } from '../shared/services/delivery-zone.service';
     DeliveryZonesResolver, 
     DeliveryZoneResolver, 
     DeliveryZoneService,
+    provideCharts(withDefaultRegisterables()),
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
 

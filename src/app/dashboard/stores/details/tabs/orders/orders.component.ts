@@ -10,23 +10,35 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/material';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from 'src/app/shared/models/store';
 
-
-
-/**
- * @title Data table with sorting, pagination, and filtering.
- */
  @Component({
   selector: 'app-orders-tab',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class OrdersComponent implements OnInit, AfterViewInit {
-  @Input() store!: any;
+  
+  protected store!: Store;
   public orders$!: Observable<any[]>;
   displayedColumns: string[] = ['reference', 'date',  'status', 'amount', 'paymentStatus', 'paymentType', 'actions'];
   dataSource: MatTableDataSource<any[]>;
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   @ViewChild(MatSort) sort!: MatSort;
@@ -43,25 +55,21 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     @Inject(Socket) private socket: Socket,
     private storeService: StoreService,
     public _matDialog: MatDialog,
+    public route: ActivatedRoute
     ) {
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource();
-  }
+      this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
+      this.dataSource = new MatTableDataSource();
+    }
 
   compareFn(t1: any, t2: any): boolean { 
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
   }
-
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
-
-  
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   toggleAllRows() {
@@ -74,7 +82,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
  
-
    /** The label for the checkbox on the passed row */
    checkboxLabel(row?: any): string {
     if (!row) {
@@ -107,10 +114,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   getOrders() {
    this.storeService.getStoreOrders(this.store._id).pipe(tap((orders) => {
       this.dataSource = new MatTableDataSource(orders);
-      
-    })).subscribe()
-
-     
+    })).subscribe() 
   }
 
   get getTotalCost() {

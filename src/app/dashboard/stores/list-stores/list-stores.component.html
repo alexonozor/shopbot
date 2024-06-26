@@ -2,7 +2,7 @@
     <form *ngIf="filterForm" [formGroup]="filterForm">
         <div fxLayout.lt-lg="column" fxLayout="row" fxLayoutAlign="space-between start">
             <div class="col-xl-3" ngClass.lt-lg="w-full">
-                <mat-form-field appearance="outline" ngClass.lt-lg="w-full">
+                <mat-form-field appearance="fill" ngClass.lt-lg="w-full">
                     <mat-label>Filter Store name</mat-label>
                     <input matInput [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" type="text" required cancellation="Search">
                 </mat-form-field>
@@ -10,7 +10,7 @@
             <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-between stretch" fxLayout="row" fxLayoutGap="10px"
                 fxLayoutAlign.gt-md="space-between start" ngClass.lt-lg="w-full">
                 <div class="col-xl-3" ngClass.lt-lg="w-full">
-                    <mat-form-field appearance="outline" ngClass.lt-lg="w-full">
+                    <mat-form-field appearance="fill" ngClass.lt-lg="w-full">
                         <mat-label>Filter by Active </mat-label>
                         <mat-select formControlName="active">
                             <mat-option
@@ -22,7 +22,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-xl-3" ngClass.lt-lg="w-full">
-                    <mat-form-field appearance="outline" class="w-full">
+                    <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Filter by Country </mat-label>
                         <mat-select formControlName="contactInfo.country">
                             <mat-option *ngFor="let country of ['Nigeria', 'Mauritius']"
@@ -31,7 +31,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-xl-3" ngClass.lt-lg="w-full">
-                    <mat-form-field appearance="outline" class="w-full">
+                    <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Filter by Category</mat-label>
                         <mat-select formControlName="category" multiple="true">
                             <mat-option *ngFor="let category of categories" [value]="category._id">{{

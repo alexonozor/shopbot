@@ -54,7 +54,6 @@ export class StoreService implements Resolve<any> {
    */
   getStore(storeId?:string): Promise<any> {
     return new Promise((resolve, reject) => {
-
       this._httpClient.get(`${this.hostServer}/stores/${storeId || this.routeParams.id}`)
         .subscribe((response: any) => {
           this.store = response;

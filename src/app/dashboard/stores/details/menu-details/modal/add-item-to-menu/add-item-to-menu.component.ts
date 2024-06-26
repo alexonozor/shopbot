@@ -7,7 +7,7 @@ import { Product } from 'src/app/shared/models/product';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Location } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
-import { MenuService } from '../../menu.service';
+import { MenuService } from '../../../../../../shared/services/menu.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({

@@ -1,20 +1,34 @@
 import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/models/store';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/shared/models/category';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from 'src/app/material';
 
 @Component({
   selector: 'app-general-settings-tab',
   templateUrl: './general-tab.component.html',
-  styleUrls: ['./general-tab.component.scss']
+  styleUrls: ['./general-tab.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class GeneralTabComponent implements OnInit {
-  @Input() store: Store | any;
+  protected store!: Store |  any;
   lat = 51.678418;
   lng = 7.809007;
   zoom: number = 8;
@@ -39,18 +53,16 @@ export class GeneralTabComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private route: ActivatedRoute
   ) {
-    this.categories = this.route.snapshot.data['categories']
-    this.countriesWithStates = this.route.snapshot.data['deliveryZones'];
-    console.log(this.countriesWithStates)
+    this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
+    this.categories = this.route.parent?.parent?.snapshot.data['categories']
+    this.countriesWithStates = this.route.parent?.parent?.snapshot.data['deliveryZones'];
   }
 
   ngOnInit(): void {
     this.lat = this.store.location.coordinates[0];
     this.lng = this.store.location.coordinates[1];
     this.generalSettingForm = this.createGeneralSettingForm();
-
     this.generalSettingForm = this.createGeneralSettingForm();
-
     // Subscribe to changes in the 'country' form control
     this.generalSettingForm?.get('contactInfo.country')?.valueChanges.subscribe((selectedCountry) => {
     const matchingCountry = this.countriesWithStates.find(item => item.country === selectedCountry);

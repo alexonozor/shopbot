@@ -1,18 +1,34 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { finalize, filter } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../../../../../shared/services/auth.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BankService } from 'src/app/shared/services/bank.service';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from 'src/app/material';
 
 @Component({
   selector: 'app-add-bank',
   templateUrl: './add-bank.component.html',
-  styleUrls: ['./add-bank.component.scss']
+  styleUrls: ['./add-bank.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+  ],
+  providers: [
+    BankService
+  ]
 })
 export class AddBankComponent implements OnInit {
   bankForm!: FormGroup;

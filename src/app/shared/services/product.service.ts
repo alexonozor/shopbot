@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Product } from '../models/product';
 
 @Injectable()
 export class ProductService implements Resolve<any> {
@@ -66,6 +67,10 @@ export class ProductService implements Resolve<any> {
           }, reject);
       }
     });
+  }
+
+  getProductSingle(id:string): Observable<Product> {
+    return this._httpClient.get<Product>(`${this.hostServer}/foods/${id}`)
   }
 
   /**

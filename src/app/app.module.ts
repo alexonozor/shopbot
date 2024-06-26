@@ -9,7 +9,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MaterialModule } from './material';
-import { NgChartsModule } from 'ng2-charts';
 import { TokenInterceptorService } from './shared/interceptor/token-interceptor.service';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from "ngx-progressbar/http";
@@ -28,7 +27,6 @@ const config: SocketIoConfig = { url: environment.hostServer, options: {} };
     MaterialModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: true }),
     SocketIoModule.forRoot(config),
-    NgChartsModule,
      NgProgressModule.withConfig({
       spinnerPosition: "left",
       color: "#f71cff"

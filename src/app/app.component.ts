@@ -28,9 +28,7 @@ export class AppComponent implements OnInit {
   checkSWUpdate(): void {
     if (environment.production) {
       // Subscribe new worker is available
-      this.swUpdate.available.subscribe((event) => {
-        console.log('Current version is', event.current);
-        console.log('Available version is', event.available);
+      this.swUpdate.checkForUpdate().then((event) => {
         // update available: ask the user to reload
         const snackBarRef = this.snackBar.open('Newer version of the app is available', 'Refresh');
   
@@ -39,9 +37,9 @@ export class AppComponent implements OnInit {
         });
       });
   
-      this.swUpdate.activated.subscribe((event) => {
-        console.log('Old version was', event.previous);
-        console.log('New version is', event.current);
+      this.swUpdate.activateUpdate().then((event) => {
+        console.log('Old version was', event);
+        console.log('New version is', event);
       });
   
       // Check for new version

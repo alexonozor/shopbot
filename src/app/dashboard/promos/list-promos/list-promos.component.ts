@@ -22,7 +22,6 @@ export class ListPromosComponent implements OnInit {
   selection = new SelectionModel<any>(true, []);
   confirmDialogRef!: MatDialogRef<ConfirmComponent>;
 
-
   constructor(
     private route: ActivatedRoute,
     private promoService: PromosService,

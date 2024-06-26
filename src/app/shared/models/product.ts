@@ -1,3 +1,4 @@
+import { Option } from "./option";
 
 
 export class Product
@@ -6,8 +7,8 @@ export class Product
     name: string;
     handle: string;
     description: string;
-    menu: string;
-    store: string;
+    menu: string | any;
+    store: string | null;
     categories: {};
     tags: string[];
     photos: {}[];
@@ -24,19 +25,7 @@ export class Product
     weight: string;
     extraShippingFee: number;
     active: boolean;
-    options: [{
-        name: string;
-        mandatory: boolean;
-        selectedType: string;
-        enabled: boolean;
-        options: [
-         { 
-           name: { type: string },
-           price: { type: number },
-           inStock: { type: boolean },
-         }
-        ]
-      }];
+    options: Option[]
 
     /**
      * Constructor

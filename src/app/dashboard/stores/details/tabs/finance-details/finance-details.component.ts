@@ -6,12 +6,18 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
 import { StoreService } from '../../store.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/material';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from 'src/app/shared/models/store';
 const htmlToPdfmake = require("html-to-pdfmake");
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -22,7 +28,18 @@ const htmlToPdfmake = require("html-to-pdfmake");
  @Component({
   selector: 'app-finance-details-tab',
   templateUrl: './finance-details.component.html',
-  styleUrls: ['./finance-details.component.scss']
+  styleUrls: ['./finance-details.component.scss'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+  ],
+  providers: [
+    StoreService
+  ]
 })
 export class FinanceDetailsComponent implements OnInit, AfterViewInit {
   @Input() store!: any;
@@ -41,12 +58,11 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
     @Inject(Socket) private socket: Socket,
     private storeService: StoreService,
     public _matDialog: MatDialog,
+    private route: ActivatedRoute
     ) {
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource();
-  }
+      this.store = this.route.parent?.parent?.snapshot.data['store'] as Store
+      this.dataSource = new MatTableDataSource();
+    }
 
   compareFn(t1: any, t2: any): boolean { 
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
