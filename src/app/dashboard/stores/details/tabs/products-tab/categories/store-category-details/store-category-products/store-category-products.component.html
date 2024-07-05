@@ -91,7 +91,7 @@
                 <h2 class="font-heading mb-3 text-2xl font-semibold">It’s a bit empty here</h2>
                 <p class="mb-7 text-neutral-500">Make sure to customize your product.</p>
                 <a class="inline-flex px-6 py-2.5 text-sm bg-primary-700 text-neutral-50 font-medium  rounded-lg transition duration-300"
-                    href="#">Add First Product</a>
+                [routerLink]="['../new']" [queryParams]="{pageType: 'new', storeId: store._id}">Add First Product</a>
             </div>
         </div>
     </section>

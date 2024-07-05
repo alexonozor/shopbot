@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SwPush, SwUpdate } from '@angular/service-worker';
+import { SwUpdate } from '@angular/service-worker';
 import { environment } from '../environments/environment.prod';
-import { AccountService } from './shared/services/account.service';
-import { AuthService } from './shared/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -15,8 +13,6 @@ export class AppComponent implements OnInit {
   title = 'shopbot';
 
   constructor(
-    private accountService: AccountService,
-    private authService: AuthService,
     private swUpdate: SwUpdate,
     private snackBar: MatSnackBar
   ) {}
@@ -30,11 +26,14 @@ export class AppComponent implements OnInit {
       // Subscribe new worker is available
       this.swUpdate.checkForUpdate().then((event) => {
         // update available: ask the user to reload
-        const snackBarRef = this.snackBar.open('Newer version of the app is available', 'Refresh');
+        if (event) {
+          const snackBarRef = this.snackBar.open('Newer version of the app is available', 'Refresh');
   
         snackBarRef.onAction().subscribe(() => {
           window.location.reload();
         });
+        }
+        
       });
   
       this.swUpdate.activateUpdate().then((event) => {
