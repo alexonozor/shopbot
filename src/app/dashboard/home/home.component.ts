@@ -18,8 +18,8 @@ import * as moment from 'moment';
 import { AuthService } from '../../shared/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-const startOfMonth = moment().startOf('month').toDate()
-const endOfMonth   = moment().endOf('month').toDate()
+const startOfMonth = moment().startOf('month').toDate();
+const endOfMonth   = moment().endOf('month').toDate();
 
 @Component({
   selector: 'app-home',
@@ -230,12 +230,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  changeValue(event:any, order:any) {
-    //event.value
-    this.ordersService.updateOrderStatus(order._id, order.user._id, event.value).subscribe((data:any) => {
-      console.log(data)
-    })
-  }
 
 }
 

@@ -3,13 +3,13 @@
   <ng-container *ngIf="order.category == 'New'; else statusControl">
     <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap="15px">
      
-        <button type="button" (click)="cancelOrder(order)" [disabled]="isCanceling"
+        <button type="button" (click)="cancelOrder()" [disabled]="isCanceling"
           class="inline-flex items-center rounded-md border border-red-500 bg-white px-4 py-2 text-sm font-medium text-red-500 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
           <mat-icon class="mat-18" *ngIf="!isCanceling">close</mat-icon>
           {{isCanceling ? 'CANCELLING....' : 'CANCEL ORDER'}}
         </button>
      
-        <button type="button" (click)="accept(order)"
+        <button type="button" (click)="accept()"
           class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <mat-icon class="mat-18" *ngIf="!isAccepting">check</mat-icon>
           {{isAccepting ? 'ACCEPTING....' : 'ACCEPT ORDER'}}
@@ -29,7 +29,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Order Status</mat-label>
-        <mat-select    (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
+        <mat-select    (selectionChange)="updateStatusChange($event.value)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>

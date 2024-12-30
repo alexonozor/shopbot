@@ -72,7 +72,7 @@ export class ListBlocksComponent implements OnInit {
 
   addNewBlock() {
     let addBlockForm = this._matDialog.open(CreateBlocksComponent, {
-      width: '500px',
+      width: '800px',
       disableClose: false,
       data: { zones: this.zones }
     });
@@ -96,7 +96,7 @@ export class ListBlocksComponent implements OnInit {
   public viewDetails(block: Block) {
     let addBlockForm = this._matDialog.open(EditBlocksComponent, {
       data:  { zones: this.zones, block },
-      width: '500px',
+      width: '800px',
       disableClose: false,
       
     });
