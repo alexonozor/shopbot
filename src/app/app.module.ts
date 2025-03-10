@@ -12,7 +12,7 @@ import { MaterialModule } from './material';
 import { TokenInterceptorService } from './shared/interceptor/token-interceptor.service';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from "ngx-progressbar/http";
-const config: SocketIoConfig = { url: environment.hostServer, options: {} };
+const config: SocketIoConfig = { url: '/', options: {} };
 
 @NgModule({
   declarations: [

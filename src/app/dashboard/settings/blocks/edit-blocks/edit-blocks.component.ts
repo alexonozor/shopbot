@@ -24,7 +24,8 @@ export class EditBlocksComponent implements OnInit {
     {name: 'Store List', value:  'store-list'},
     {name: 'Sliders', value:  'slider'},
     {name: 'Food items', value:  'food'},
-    {name: 'Cuisines', value:  'cuisine'}
+    {name: 'Cuisines', value:  'cuisine'},
+    {name: 'Ads', value:  'ads'},
   ]
 
   constructor(

@@ -18,7 +18,7 @@ import { AuthService } from 'src/app/shared/services';
 })
 export class ListOrdersComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'device', 'date', 'status', 'paymentStatus', 'settled', 'paymentType', 'amount', 'actions'];
+  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'type', 'date', 'status', 'paymentStatus', 'settled', 'paymentType', 'amount', 'actions'];
   public dataSource = new MatTableDataSource<Order>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);

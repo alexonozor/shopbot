@@ -57,17 +57,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.getOrder();
+    // this.getOrder();
   }
 
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
-      if (order) {
-        this.orderService.broadcast(order as Order)
-        this.notificationService.broadCast(order)
-      }
-    })
+    // return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
+    //   if (order) {
+    //     this.orderService.broadcast(order as Order)
+    //     this.notificationService.broadCast(order)
+    //   }
+    // })
   }
 
   subscribeToNotifications() {

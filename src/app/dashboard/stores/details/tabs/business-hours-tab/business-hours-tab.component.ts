@@ -64,7 +64,7 @@ export class BusinessHoursTabComponent implements OnInit {
 		  day: m.format('dddd').toLowerCase(),
 		  closed: false,
 		  referenceDate: m,
-		  neverOpen: false
+		  open: false
 		}
 	  })
 	  this.days = daysRange
@@ -74,7 +74,6 @@ export class BusinessHoursTabComponent implements OnInit {
 		return { ...this.store.businessHours[key] }
 	  })
 	 this.businessHoursForm = this.createProductForm(days);
-   console.log(this.businessHoursForm.value)
 	}
   
 	createProductForm(data: any): FormGroup {
@@ -91,7 +90,7 @@ export class BusinessHoursTabComponent implements OnInit {
 		  openingTime: [new Date(data[i].openingTime), Validators.required],
 		  closingTime: [new Date(data[i].closingTime), Validators.required],
 		  closed: data[i].closed,
-		  neverOpen: data[i].neverOpen
+		  open: data[i]?.open
 		})
 	  }
 	  return f as FormGroup;

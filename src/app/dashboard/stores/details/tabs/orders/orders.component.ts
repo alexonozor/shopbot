@@ -122,12 +122,12 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
-      if (order) {
-        this.dataSource.data.unshift(order)
-        this.dataSource._updateChangeSubscription();
-      }
-    })
+    // return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
+    //   if (order) {
+    //     this.dataSource.data.unshift(order)
+    //     this.dataSource._updateChangeSubscription();
+    //   }
+    // })
   }
 
   ngAfterViewInit() {
