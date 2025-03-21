@@ -16,7 +16,9 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { Banner } from '../models/banner';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BannersService {
   banners!: any[];
   private hostServer: string = environment.hostServer;

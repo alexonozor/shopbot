@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BannersService } from '../../../shared/services/banners.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { MediaComponent } from '../../media/media.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from 'src/app/shared/models/store';
@@ -11,13 +11,46 @@ import { StoresService } from '../../stores/stores.service';
 import { Menu } from '../../../shared/models/menu';
 import { StoreService } from '../../stores/details/store.service';
 import { DeliveryZone } from '../../../shared/models/delivery-zone';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MenusService } from '../../stores/details/tabs/products-tab/categories/list/menus.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import {  MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-banners',
   templateUrl: './create-banners.component.html',
-  styleUrls: ['./create-banners.component.scss']
+  styleUrls: ['./create-banners.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    RouterModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatSlideToggleModule,
+    SelectMediaComponent,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatInputModule
+  ]
 })
 export class CreateBannersComponent implements OnInit {
   mediaData: any;

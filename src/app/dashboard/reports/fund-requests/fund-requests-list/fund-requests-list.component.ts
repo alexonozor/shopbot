@@ -1,18 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FundRequest } from 'src/app/shared/models/fund-request';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FundRequestsService } from 'src/app/shared/services/fund-request.service';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-fund-requests-list',
   templateUrl: './fund-requests-list.component.html',
-  styleUrls: ['./fund-requests-list.component.scss']
+  styleUrls: ['./fund-requests-list.component.scss'],
+  imports: [
+    MatTableModule,
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    MatPaginatorModule
+  ]
 })
 
 

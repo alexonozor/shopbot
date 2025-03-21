@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { MerchantComponent } from './merchants.component';
 import { ListMerchantComponent } from './list-merchant/list-merchant.component';
 import { CreateMerchantComponent } from './create-merchant/create-merchant.component';
-import { MerchantResolver, MerchantsResolver } from '../../shared/resolvers/merchants.resolver';
+import { merchantResolver, merchantsResolver } from '../../shared/resolvers/merchants.resolver';
 import { MerchantDetailsComponent } from './merchant-details/merchant-details.component';
+import { Routes } from '@angular/router';
 
-const routes: Routes = [
+export const MERCHANTS_ROUTING: Routes = [
   {
     path: '',
     component: MerchantComponent,
@@ -14,7 +13,7 @@ const routes: Routes = [
       {
         path: 'list',
         component: ListMerchantComponent,
-        resolve: { merchants: MerchantsResolver }
+        resolve: { merchants: merchantsResolver }
       },
       {
         path: 'new',
@@ -24,14 +23,9 @@ const routes: Routes = [
       {
         path: ':id/details',
         component: MerchantDetailsComponent,
-        resolve: { merchant: MerchantResolver }
+        resolve: { merchant: merchantResolver }
       }      
     ]
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class MerchantRoutingModule { }

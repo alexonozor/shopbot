@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {  Routes } from '@angular/router';
 import { SettingsComponent } from './settings.component';
-import { PaymentComponent } from './payment/payment.component';
 import { VersionSettingsComponent } from './version-settings/version-settings.component';
 import { VersionResolver } from 'src/app/shared/resolvers/settings.resolver';
 
-const routes: Routes = [
+export const SETTINGS_ROUTE: Routes = [
   {
     path: '',
     component: SettingsComponent,
@@ -13,11 +11,11 @@ const routes: Routes = [
  
     {
       path: 'payments',
-      loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),
+      loadChildren: () => import('./payment/payment.routing').then(m => m.PAYMENT_ROUTING),
     },
     {
       path: 'blocks',
-      loadChildren: () => import('./blocks/blocks.module').then(m => m.BlockModule),
+      loadChildren: () => import('./blocks/blocks.routing').then(m => m.BLOCK_ROUTING),
     },
     {
         path: 'version-settings',
@@ -26,8 +24,3 @@ const routes: Routes = [
     }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-exports: [RouterModule]
-})
-export class SettingsRoutingModule { }

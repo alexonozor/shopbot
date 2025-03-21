@@ -7,7 +7,7 @@ import { CuisinesResolver, CuisineResolver } from '../../shared/resolvers/cuisin
 import { CuisinesDetailsComponent } from './cuisines-details/cuisines-details.component';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
-const routes: Routes = [
+export const CUISINES_ROUTE: Routes = [
   {
     path: '',
     component: CuisinesComponent,
@@ -30,10 +30,3 @@ const routes: Routes = [
     ]
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  
-exports: [RouterModule]
-})
-export class CuisinesRoutingModule { }

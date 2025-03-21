@@ -1,16 +1,38 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 import { DeliveryZoneService } from 'src/app/shared/services/delivery-zone.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'edit-delivery-zone',
   templateUrl: './edit-delivery-zone.component.html',
   styleUrls: ['./edit-delivery-zone.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    FormsModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatInputModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule
+  ]
 })
 export class EditDeliveryZoneComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];

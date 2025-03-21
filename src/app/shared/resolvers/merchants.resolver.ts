@@ -1,28 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 import { Merchant } from '../models/merchant';
 import { MerchantsService } from '../services/merchant.service';
 
+export const merchantsResolver: ResolveFn<Merchant[]> = () => {
+  const merchantService = inject(MerchantsService);
+  return merchantService.getMerchants();
+};
 
-@Injectable({
-  providedIn: 'root'
-})
-export class MerchantsResolver implements Resolve<Merchant[]> {
-  constructor(private merchantService: MerchantsService) {}
-  resolve(): Observable<Merchant[]> {
-    return this.merchantService.getMerchants();
-  }
-}
-
-
-@Injectable({
-  providedIn: 'root'
-})
-export class MerchantResolver implements Resolve<Merchant> {
-  constructor(private merchantService: MerchantsService) {}
-  resolve(route: ActivatedRouteSnapshot): Observable<Merchant> {
-    const id = route.paramMap.get('id');
-    return this.merchantService.getMerchant(id);
-  }
-}
+export const merchantResolver: ResolveFn<Merchant> = (route) => {
+  const merchantService = inject(MerchantsService);
+  const id = route.paramMap.get('id');
+  return merchantService.getMerchant(id);
+};

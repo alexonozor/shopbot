@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { finalize } from 'rxjs/operators';
 import { JwtService } from "../../../shared/services";
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  imports: [
+    FormsModule,
+    CommonModule,
+    RouterModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
+  ]
 })
 export class LoginComponent implements OnInit {
   public userForm: FormGroup;
@@ -74,7 +83,7 @@ export class LoginComponent implements OnInit {
   getUser(email: string) {
     this.auth.getUserByEmail(email).subscribe((user:any) => {
       this.auth.saveUser(user)
-      this.router.navigate(['dashboards'])
+      this.router.navigate(['dashboard'])
     })
   }
 

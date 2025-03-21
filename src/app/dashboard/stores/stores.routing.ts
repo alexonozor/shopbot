@@ -1,22 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ListStoresComponent } from './list-stores/list-stores.component';
-import { StoreService } from './details/store.service';
 import { StoresService } from './stores.service';
-import { MenuDetailsComponent } from './details/menu-details/menu-details.component';
-import { MenuService } from '../../shared/services/menu.service';
 import { CategoriesResolver } from '../../shared/resolvers/categories.resolver';
-import { MerchantResolver, MerchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
+import {  merchantsResolver } from 'src/app/shared/resolvers/merchants.resolver';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 import { StoreResolver } from 'src/app/shared/resolvers/store.resolver';
 
-const routes: Routes = [
+export const STORE_ROUTING: Routes = [
   {
     path: 'list',
     component: ListStoresComponent,
     resolve: {
       data: StoresService,
-      merchants: MerchantsResolver,
+      merchants: merchantsResolver,
       categories: CategoriesResolver,
     }
   },
@@ -26,7 +22,7 @@ const routes: Routes = [
     resolve: {
       store: StoreResolver,
       categories: CategoriesResolver,
-      merchants: MerchantsResolver,
+      merchants: merchantsResolver,
       deliveryZones: DeliveryZonesResolver,
     }
   },
@@ -36,8 +32,3 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class StoresRoutingModule { }

@@ -1,15 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DeliveryZoneService } from '../../../shared/services/delivery-zone.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'create-delivery-zone',
   templateUrl: './create-delivery-zone.component.html',
   styleUrls: ['./create-delivery-zone.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    FormsModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule
+  ]
 })
 export class CreateDeliveryZoneComponent implements OnInit {
   deliveryZonesForm!: FormGroup;

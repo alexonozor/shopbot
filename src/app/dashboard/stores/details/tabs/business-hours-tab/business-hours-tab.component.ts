@@ -8,11 +8,17 @@ import { finalize } from 'rxjs';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
 import { ActivatedRoute } from '@angular/router';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import {MatTimepickerModule} from '@angular/material/timepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 const { range } = extendMoment(moment);
-
+import {MatInputModule} from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @Component({
@@ -21,14 +27,19 @@ const { range } = extendMoment(moment);
   styleUrls: ['./business-hours-tab.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatDividerModule,
+    MatTimepickerModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatSlideToggleModule
   ],
   providers: [
     StoreService

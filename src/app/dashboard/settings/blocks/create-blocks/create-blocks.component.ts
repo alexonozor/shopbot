@@ -1,7 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { finalize } from 'rxjs';
 import { StoresService } from 'src/app/dashboard/stores/stores.service';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
@@ -12,7 +18,19 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 @Component({
   selector: 'app-create-blocks',
   templateUrl: './create-blocks.component.html',
-  styleUrls: ['./create-blocks.component.scss']
+  styleUrls: ['./create-blocks.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    RouterModule,
+    FlexLayoutModule,
+    MatInputModule,
+    MatDialogModule
+  ]
 })
 export class CreateBlocksComponent implements OnInit {
 

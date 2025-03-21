@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 export interface DialogData {
   title: string;
@@ -10,7 +12,12 @@ export interface DialogData {
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.scss']
+  styleUrls: ['./confirm.component.scss'],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule
+  ]
 })
 export class ConfirmComponent implements OnInit {
   public title: string = ''

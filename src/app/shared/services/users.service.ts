@@ -16,7 +16,9 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersService {
   users!: any[];
   private hostServer: string = environment.hostServer;

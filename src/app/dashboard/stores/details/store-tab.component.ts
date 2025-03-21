@@ -6,10 +6,11 @@ import { Subject } from 'rxjs';
 import { StoreService } from './store.service';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { Store } from 'src/app/shared/models/store';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Merchant } from 'src/app/shared/models/merchant';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 @Component({
@@ -18,13 +19,13 @@ import { MaterialModule } from 'src/app/material';
   styleUrls: ['./store-tab.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
+    MatIconModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     RouterModule,
-    RouterModule
+    MatTabsModule
   ]
 })
 
@@ -74,6 +75,11 @@ export class StoreTabComponent implements OnInit, OnDestroy {
       id: 7,
       name: "Bank Account",
       path: "bank-account"
+    },
+    {
+      id: 7,
+      name: "Merchant",
+      path: "merchant"
     }
   ];
   activeLink = this.links[0].path;

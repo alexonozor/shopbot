@@ -5,7 +5,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Store } from 'src/app/shared/models/store';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StoreService implements Resolve<any> {
   routeParams: any;
   store: any;

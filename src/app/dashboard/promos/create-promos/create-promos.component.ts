@@ -1,22 +1,56 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormBuilder, FormControl, FormArray, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormControl, FormArray, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaComponent } from '../../media/media.component';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { PromosService } from 'src/app/shared/services/promo.service';
 import { User } from 'src/app/shared/models/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { StoresService } from '../../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, Observable, startWith } from 'rxjs';
 import { Cuisine } from 'src/app/shared/models/cuisine';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-promos',
   templateUrl: './create-promos.component.html',
-  styleUrls: ['./create-promos.component.scss']
+  styleUrls: ['./create-promos.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SelectMediaComponent,
+    MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule
+  ],
 })
 export class CreatePromosComponent implements OnInit {
   visible = true;

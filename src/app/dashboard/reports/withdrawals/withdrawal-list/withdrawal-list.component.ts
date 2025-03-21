@@ -2,18 +2,36 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Transfer } from 'src/app/shared/models/transfer';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TransfersService } from 'src/app/shared/services/transfer.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-withdrawals-list',
   templateUrl: './withdrawal-list.component.html',
-  styleUrls: ['./withdrawal-list.component.scss']
+  styleUrls: ['./withdrawal-list.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatPaginator,
+    RouterModule,
+    MatIconModule,
+    MatMenuModule
+  ]
 })
 
 

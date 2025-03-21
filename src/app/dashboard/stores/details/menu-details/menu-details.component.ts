@@ -2,18 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Store } from 'src/app/shared/models/store';
 import { StoreService } from '../store.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Menu } from 'src/app/shared/models/menu';
 import { MenuService } from '../../../../shared/services/menu.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { AddItemToMenuComponent } from './modal/add-item-to-menu/add-item-to-menu.component';
 import { Product } from 'src/app/shared/models/product';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu-details',
   templateUrl: './menu-details.component.html',
-  styleUrls: ['./menu-details.component.scss']
+  styleUrls: ['./menu-details.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    RouterModule
+  ]
 })
 export class MenuDetailsComponent implements OnInit {
   store!: Store;

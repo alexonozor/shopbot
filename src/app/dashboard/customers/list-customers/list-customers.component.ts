@@ -1,23 +1,48 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { combineLatest, startWith, switchMap } from 'rxjs';
 import { UsersService } from '../../../shared/services/users.service';
 import { User } from '../../../shared/models/user';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 import { AuthService } from 'src/app/shared/services';
 import { Role } from 'src/app/shared/models/role';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
-  styleUrls: ['./list-customers.component.scss']
+  styleUrls: ['./list-customers.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    RouterModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule
+  ]
 })
 export class ListCustomersComponent implements OnInit, AfterViewInit {
 

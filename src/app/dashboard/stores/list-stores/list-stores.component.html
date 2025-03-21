@@ -1,128 +1,123 @@
-<div class="row">
-    <form *ngIf="filterForm" [formGroup]="filterForm">
-        <div fxLayout.lt-lg="column" fxLayout="row" fxLayoutAlign="space-between start">
-            <div class="col-xl-3" ngClass.lt-lg="w-full">
-                <mat-form-field appearance="fill" ngClass.lt-lg="w-full">
-                    <mat-label>Filter Store name</mat-label>
-                    <input matInput [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" type="text" required cancellation="Search">
-                </mat-form-field>
-            </div>
-            <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-between stretch" fxLayout="row" fxLayoutGap="10px"
-                fxLayoutAlign.gt-md="space-between start" ngClass.lt-lg="w-full">
-                <div class="col-xl-3" ngClass.lt-lg="w-full">
-                    <mat-form-field appearance="fill" ngClass.lt-lg="w-full">
-                        <mat-label>Filter by Active </mat-label>
-                        <mat-select formControlName="active">
-                            <mat-option
-                                *ngFor="let active of [{name: 'Enabled', value: true}, {name: 'Disable', value: false}]"
-                                [value]="active.value">{{
-                                active.name
-                                }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-3" ngClass.lt-lg="w-full">
-                    <mat-form-field appearance="fill" class="w-full">
-                        <mat-label>Filter by Country </mat-label>
-                        <mat-select formControlName="contactInfo.country">
-                            <mat-option *ngFor="let country of ['Nigeria', 'Mauritius']"
-                                [value]="country">{{country}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-3" ngClass.lt-lg="w-full">
-                    <mat-form-field appearance="fill" class="w-full">
-                        <mat-label>Filter by Category</mat-label>
-                        <mat-select formControlName="category" multiple="true">
-                            <mat-option *ngFor="let category of categories" [value]="category._id">{{
-                                category.name
-                                }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+<div class="p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-semibold text-gray-800">Stores</h2>
+    <button mat-raised-button color="primary" (click)="addNewStore()">
+      <mat-icon class="mr-2">add</mat-icon>
+      Create New Store
+    </button>
+  </div>
 
+  <form [formGroup]="filterForm" class="mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Store Name</mat-label>
+        <input matInput [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Search store name">
+        <mat-icon matPrefix class="text-gray-400">search</mat-icon>
+      </mat-form-field>
 
-                <button mat-button fxFlexAlign="center" ngClass.lt-lg="w-full" (click)="clearFilerSet()">
-                    Clear Filters
-                </button>
+      <!-- <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="active">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option [value]="true">Enabled</mat-option>
+          <mat-option [value]="false">Disabled</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-            </div>
+      <mat-form-field appearance="outline" class="w-full" formGroupName="contactInfo">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country">
+          <mat-option [value]="null">All Countries</mat-option>
+          <mat-option *ngFor="let country of ['Nigeria', 'Mauritius']" [value]="country">
+            {{country}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        </div>
-
-    </form>
-</div>
-<div class="w-full h-screen relative">
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-       
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
-                <tr>
-                   
-                    <th scope="col" class="px-6 py-3">
-                        Vendor Profile
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                       Wallet Balance
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Featured
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Enabled
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="bg-white border-b  hover:bg-gray-50 " *ngFor="let store of stores | filterByName:name; let i = index"
-                [routerLink]="['../', store._id, 'explore']">
-                    
-                    <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                        <img class="w-10 h-10 rounded-full" [src]="store.logo">
-                        <div class="pl-3">
-                            <div class="text-base font-semibold">{{store.name}}</div>
-                            <div class="font-normal truncate text-gray-500">{{store.contactInfo.state}} {{store.contactInfo.country}}</div>
-                        </div>  
-                    </th>
-                    <td class="px-6 py-4">
-                        <div class="text-base font-semibold">{{store.walletBalance | currency: store.currency}}</div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <mat-slide-toggle [(ngModel)]="store.featured" (click)="$event.stopPropagation()"
-                    (change)="onChangeFeatured(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
-                    </td>
-                    <td class="px-6 py-4">
-                        <mat-slide-toggle [(ngModel)]="store.active" (click)="$event.stopPropagation()"
-                    (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
-                    </td>
-                    <td class="px-6 py-4">
-                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="delete(i, store._id);" *ngIf="auth.isShow([Role.SuperAdmin])"><mat-icon>delete</mat-icon> Delete</button>
-            
-            
-                            <button mat-menu-item (click)="viewDetails(store)">
-                                <mat-icon>edit</mat-icon> Edit
-                            </button>
-                        </mat-menu>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Categories</mat-label>
+        <mat-select formControlName="category" multiple>
+          <mat-option *ngFor="let category of categories" [value]="category._id">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
     </div>
 
+    <!-- <div class="flex justify-end gap-4 mt-2">
+      <button mat-stroked-button color="primary" (click)="applyFilters()">
+        <mat-icon class="mr-2">filter_list</mat-icon>
+        Apply Filters
+      </button>
+      <button mat-stroked-button (click)="clearFilters()">
+        <mat-icon class="mr-2">clear</mat-icon>
+        Clear Filters
+      </button>
+    </div> -->
+  </form>
 
-
-
-    <button mat-fab (click)="addNewStore()" color="primary" style="position: fixed; bottom: 80px; right: 15px">
-        <mat-icon class="mat-18">add</mat-icon>
-    </button>
-
+  <!-- Existing table code -->
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+            <tr>
+               
+                <th scope="col" class="px-6 py-3">
+                    Vendor Profile
+                </th>
+                <th scope="col" class="px-6 py-3">
+                   Wallet Balance
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Featured
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Enabled
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b  hover:bg-gray-50 " *ngFor="let store of stores | filterByName:name; let i = index"
+            [routerLink]="['../', store._id, 'explore']">
+                
+                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                    <img class="w-10 h-10 rounded-full" [src]="store.logo">
+                    <div class="pl-3">
+                        <div class="text-base font-semibold">{{store.name}}</div>
+                        <div class="font-normal truncate text-gray-500">{{store.contactInfo.state}} {{store.contactInfo.country}}</div>
+                    </div>  
+                </th>
+                <td class="px-6 py-4">
+                    <div class="text-base font-semibold">{{store.walletBalance | currency: store.currency}}</div>
+                </td>
+                <td class="px-6 py-4">
+                    <mat-slide-toggle [(ngModel)]="store.featured" (click)="$event.stopPropagation()"
+                (change)="onChangeFeatured(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
+                </td>
+                <td class="px-6 py-4">
+                    <mat-slide-toggle [(ngModel)]="store.active" (click)="$event.stopPropagation()"
+                (change)="onChange(store, $event)" class="mx-8" color="primary"></mat-slide-toggle>
+                </td>
+                <td class="px-6 py-4">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="delete(i, store._id);" *ngIf="auth.isShow([Role.SuperAdmin])"><mat-icon>delete</mat-icon> Delete</button>
+        
+        
+                        <button mat-menu-item (click)="viewDetails(store)">
+                            <mat-icon>edit</mat-icon> Edit
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
 </div>
 
 

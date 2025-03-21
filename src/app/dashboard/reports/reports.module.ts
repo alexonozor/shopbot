@@ -5,10 +5,10 @@ import { ReportsRoutingModule } from './reports-routing.module';
 
 
 @NgModule({
-  declarations: [ReportsComponent],
-  imports: [
-    CommonModule,
-    ReportsRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ReportsRoutingModule,
+        ReportsComponent
+    ]
 })
 export class ReportsModule { }

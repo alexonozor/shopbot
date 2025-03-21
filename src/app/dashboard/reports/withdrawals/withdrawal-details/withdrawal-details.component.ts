@@ -2,11 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransfersService } from 'src/app/shared/services/transfer.service';
 import { Transfer } from 'src/app/shared/models/transfer';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-payouts-details',
   templateUrl: './withdrawal-details.component.html',
-  styleUrls: ['./withdrawal-details.component.scss']
+  styleUrls: ['./withdrawal-details.component.scss'],
+  imports: [
+    MatMenuModule,
+    MatIconModule,
+    CommonModule
+  ]
 })
 
 

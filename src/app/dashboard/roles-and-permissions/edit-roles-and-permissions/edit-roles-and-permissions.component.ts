@@ -1,19 +1,41 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { FormControl, Validators, FormBuilder, FormArray, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, startWith, map } from 'rxjs';
 import { RolesAndPermissionsService } from 'src/app/shared/services/roles-and-permissions.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RolesAndPermission } from '../../../shared/models/roles-and-permission';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-roles-and-permissions',
   templateUrl: './edit-roles-and-permissions.component.html',
-  styleUrls: ['./edit-roles-and-permissions.component.scss']
+  styleUrls: ['./edit-roles-and-permissions.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    RouterModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+   MatAutocompleteModule
+  ]
 })
 export class EditRolesAndPermissionsComponent implements OnInit {
 

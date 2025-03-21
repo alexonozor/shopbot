@@ -39,6 +39,10 @@ export const STORE_ROUTE: Routes = [
         loadComponent: () => import('./tabs/bank-account-tab/bank-account-tab.component').then(f => f.BankAccountTabComponent)
       },
       {
+        path: 'merchant',
+        loadComponent: () => import('./tabs/merchant-tab/merchant-tab.component').then(f => f.MerchantTabComponent)
+      },
+      {
         path: '',
         redirectTo: 'general',
         pathMatch: 'full'

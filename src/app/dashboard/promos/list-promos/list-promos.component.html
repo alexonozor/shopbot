@@ -1,22 +1,24 @@
 <div class="h-screen w-full">
-
-
-  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center"
     class="card bg-white w-full mat-elevation-z2 px-2 py-2">
     <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
       <span class="text-2xl">Promos</span>
     </span>
 
-
-    <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
-      *ngIf="selection.selected.length">
-      <button mat-button>{{selection.selected.length}} Selected</button>
-      <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message Promos</button>
-      <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon>
-        Delete Selected Promos</button>
-    </span>
-
-
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <button mat-raised-button color="primary" [routerLink]="['../', 'new']">
+        <mat-icon class="mat-18">add</mat-icon>
+        Create Promo
+      </button>
+      
+      <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+        *ngIf="selection.selected.length">
+        <button mat-button>{{selection.selected.length}} Selected</button>
+        <button mat-stroked-button color="primary"><mat-icon class="mat-18">campaign</mat-icon> Message Promos</button>
+        <button mat-stroked-button color="warn" (click)="deleteSelected()"><mat-icon class="mat-18">delete</mat-icon>
+          Delete Selected Promos</button>
+      </span>
+    </div>
   </div>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="w-full">
@@ -93,9 +95,4 @@
     <mat-paginator [pageSizeOptions]="[15, 30, 60]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
-
-  <button mat-fab [routerLink]="['../', 'new']" color="primary"  
-    style="position: fixed; bottom: 80px; right: 15px">
-    <mat-icon class="mat-18">add</mat-icon>
-  </button>
 </div>

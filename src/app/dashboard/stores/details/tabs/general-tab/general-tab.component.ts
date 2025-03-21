@@ -9,7 +9,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/shared/models/category';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatInputModule} from '@angular/material/input';
+
 
 @Component({
   selector: 'app-general-settings-tab',
@@ -17,11 +24,17 @@ import { MaterialModule } from 'src/app/material';
   styleUrls: ['./general-tab.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
+    MatIconModule,
+    MatSelectModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatInputModule
   ],
   providers: [
     StoreService
@@ -187,8 +200,17 @@ export class GeneralTabComponent implements OnInit {
 
   save() {
     this.isLoading = true;
+    const formValue = this.generalSettingForm.getRawValue();
+    
+    // Convert coordinates string to array if it's a string
+    if (typeof formValue.location.coordinates === 'string') {
+      formValue.location.coordinates = formValue.location.coordinates
+        .split(',')
+        .map((coord: string) => parseFloat(coord.trim()));
+    }
+    
     this.store.paused = !this.store.paused;
-    this.storeService.saveStore(this.generalSettingForm.getRawValue(), this.store._id)
+    this.storeService.saveStore(formValue, this.store._id)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((store) => {
         this._snackBar.open('Saved', 'ok', {

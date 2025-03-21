@@ -1,17 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { AdminService } from '../../../shared/services/admin.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { RolesAndPermission } from '../../../shared/models/roles-and-permission';
 import { ActivatedRoute } from '@angular/router';
 import { Rider } from 'src/app/shared/models/rider';
 import { RidersService } from 'src/app/shared/services/rider.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-create-rider',
   templateUrl: './create-rider.component.html',
-  styleUrls: ['./create-rider.component.scss']
+  styleUrls: ['./create-rider.component.scss'],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSelectModule,
+    CommonModule,
+    FormsModule,
+    MatDatepickerModule
+  ]
 })
 export class CreateRiderComponent implements OnInit {
  

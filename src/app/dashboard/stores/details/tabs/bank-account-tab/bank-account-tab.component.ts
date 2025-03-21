@@ -6,11 +6,13 @@ import { Bank } from 'src/app/shared/models/bank';
 import { BankService } from '../../../../../shared/services/bank.service';
 import { AddBankComponent } from './modals/add-bank/add-bank.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+
 import { ActivatedRoute } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-bank-account-tab',
@@ -18,15 +20,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./bank-account-tab.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
+    
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    AddBankComponent
+    MatListModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     BankService

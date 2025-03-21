@@ -1,8 +1,8 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { Observable, startWith, map } from 'rxjs';
 import { Cuisine } from 'src/app/shared/models/cuisine';
 import { Store } from 'src/app/shared/models/store';
@@ -10,11 +10,13 @@ import { CuisinesService } from 'src/app/shared/services/cuisines.service';
 import { StoreService } from '../../store.service';
 import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+
 import { ActivatedRoute } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-cuisines-tab',
@@ -22,14 +24,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cuisines-tab.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
+    MatFormFieldModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     StoreService

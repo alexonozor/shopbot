@@ -1,21 +1,25 @@
 
 import { map, tap } from 'rxjs/operators';
 import {AfterViewInit, OnInit, Component, ViewChild, Input, Inject} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
 import { StoreService } from '../../store.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
+
 import { ActivatedRoute } from '@angular/router';
 import { Store } from 'src/app/shared/models/store';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
  @Component({
   selector: 'app-orders-tab',
@@ -23,11 +27,16 @@ import { Store } from 'src/app/shared/models/store';
   styleUrls: ['./orders.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
+    MatSelectModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatPaginatorModule
   ],
   providers: [
     StoreService

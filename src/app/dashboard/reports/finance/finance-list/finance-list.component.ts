@@ -1,31 +1,51 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Transaction } from 'src/app/shared/models/transaction';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TransactionsService } from 'src/app/shared/services/transaction.service';
 import { Router } from '@angular/router';
 import { FinancesService } from 'src/app/shared/services/finance.service';
 import * as moment from 'moment';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { tap, distinctUntilChanged, forkJoin, catchError, switchMap, Observable, startWith } from 'rxjs';
 const startOfMonth = moment().startOf('month').toDate() as any
 const endOfMonth   = moment().endOf('month').toDate() as any
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule, MatDateSelectionModel } from '@angular/material/datepicker';
 const htmlToPdfmake = require("html-to-pdfmake");
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts.vfs;
 
 @Component({
   selector: 'app-finance-list',
   templateUrl: './finance-list.component.html',
-  styleUrls: ['./finance-list.component.scss']
+  styleUrls: ['./finance-list.component.scss'],
+  imports: [
+    MatTableModule,
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    MatDatepickerModule
+  ]
 })
 
 

@@ -10,25 +10,39 @@ import { HttpEventType } from '@angular/common/http';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+
 import { Menu } from 'src/app/shared/models/menu';
 import { MenusService } from '../../categories/list/menus.service';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { StoreGroupOptionSelectComponent } from '../../store-group-options/modals/store-group-options-select/store-group-options-select.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductsService } from 'src/app/shared/services/products.service';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 @Component({
   selector: 'app-store-product-create',
   templateUrl: './store-product-create.component.html',
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [
     ProductService,
@@ -85,7 +99,7 @@ export class StoreProductCreateComponent implements OnInit {
 
   createProductForm(): FormGroup {
     return this._formBuilder.group({
-      _id: [this.product._id],
+      // _id: [this.product._id],
       name: [this.product.name, Validators.required],
       menu: [this.product.menu, Validators.required],
       store: [this.product.store, Validators.required],
@@ -155,6 +169,7 @@ export class StoreProductCreateComponent implements OnInit {
     if (this.pageType == 'new') {
     this.productService.addProduct(data).pipe(
       mergeMap((val) => {
+        console.log(val)
         this.product._id = val._id
         this.updateOptions(this.product.options,  this.product._id)
        return this.menusService.addFoodToMenu(val._id, this.product.menu)

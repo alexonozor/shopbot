@@ -16,7 +16,9 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { Cuisine } from '../models/cuisine';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CuisinesService {
   cuisines!: any[];
   private hostServer: string = environment.hostServer;

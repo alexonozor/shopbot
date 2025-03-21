@@ -1,17 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsersService } from 'src/app/shared/services/users.service';
 import {CategoriesService } from '../../../shared/services/category.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { MediaComponent } from '../../media/media.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-categories.component.html',
-  styleUrls: ['./create-categories.component.scss']
+  styleUrls: ['./create-categories.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    RouterModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatSlideToggleModule,
+    SelectMediaComponent,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+  ]
 })
 export class CreateCategoriesComponent implements OnInit {
   mediaData:any;

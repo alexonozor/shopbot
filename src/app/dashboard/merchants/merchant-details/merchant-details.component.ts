@@ -1,15 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MerchantsService } from 'src/app/shared/services/merchant.service';
 import { Merchant } from 'src/app/shared/models/merchant';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @Component({
   selector: 'app-merchant-details',
   templateUrl: './merchant-details.component.html',
-  styleUrls: ['./merchant-details.component.scss']
+  styleUrls: ['./merchant-details.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatSelectModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    RouterModule
+  ]
 })
 export class MerchantDetailsComponent implements OnInit {
 

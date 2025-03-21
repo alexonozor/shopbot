@@ -6,20 +6,33 @@ import { Store } from 'src/app/shared/models/store';
 import { StoreService } from '../../store.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+import {MatInputModule} from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-pickup-and-delivery-tab',
   templateUrl: './pickup-and-delivery-tab.component.html',
   styleUrls: ['./pickup-and-delivery-tab.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatDividerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSlideToggleModule
   ],
   providers: [
     StoreService

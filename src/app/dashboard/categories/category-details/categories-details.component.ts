@@ -1,18 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoriesService } from 'src/app/shared/services/category.service';
 import { MediaComponent } from '../../media/media.component';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Category } from '../../../shared/models/category';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
   selector: 'app-categories-details',
   templateUrl: './categories-details.component.html',
-  styleUrls: ['./categories-details.component.scss']
+  styleUrls: ['./categories-details.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    RouterModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatSlideToggleModule,
+    SelectMediaComponent,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+  ]
 })
 export class CategoryDetailsComponent implements OnInit {
 

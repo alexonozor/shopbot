@@ -1,22 +1,24 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import {  Observable, finalize } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Store } from 'src/app/shared/models/store';
 import { Menu } from 'src/app/shared/models/menu';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { MaterialModule } from 'src/app/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { Product } from 'src/app/shared/models/product';
 import { Option } from 'src/app/shared/models/option';
 import { FormsModule } from '@angular/forms';
-import { MatSelectionListChange } from '@angular/material/list';
+import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { StoreGroupOptionNewComponent } from '../store-group-options-new/store-group-options-new.component';
 import { StoreOptionNewComponent } from '../../../store-options-items/modals/store-options-new/store-options-new.component';
 import { StoreOptionSelectComponent } from '../../../store-options-items/modals/store-options-select/store-options-select.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-store-group-options-select',
@@ -25,9 +27,12 @@ import { StoreOptionSelectComponent } from '../../../store-options-items/modals/
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatListModule,
+    MatButtonModule
   ],
   providers: [
     ProductService

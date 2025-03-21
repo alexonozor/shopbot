@@ -6,13 +6,16 @@ import { CommonModule, Location } from '@angular/common';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+import {MatInputModule} from '@angular/material/input';
 import { Menu } from 'src/app/shared/models/menu';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { Option } from 'src/app/shared/models/option';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { MenusService } from '../../../categories/list/menus.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: "store-group-options-new",
@@ -21,11 +24,15 @@ import { MenusService } from '../../../categories/list/menus.service';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     ProductService,

@@ -1,6 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatListModule} from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+
 
 export interface DialogData {
   title: string;
@@ -11,7 +18,16 @@ export interface DialogData {
 @Component({
   selector: 'app-order-cancelation',
   templateUrl: './order-cancelation.component.html',
-  styleUrls: ['./order-cancelation.component.scss']
+  styleUrls: ['./order-cancelation.component.scss'],
+  imports: [
+    CommonModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatSlideToggleModule,
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule
+  ]
 })
 export class OrderCancelationComponent implements OnInit {
   public title: string = ''

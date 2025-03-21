@@ -1,19 +1,38 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Notification } from 'src/app/shared/models/notification';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 import { CreateMessagesComponent } from '../create-messages/create-messages.component';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list-messages',
   templateUrl: './list-messages.component.html',
-  styleUrls: ['./list-messages.component.scss']
+  styleUrls: ['./list-messages.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatMenuModule,
+    RouterModule,
+    MatPaginatorModule,
+    FlexLayoutModule,
+    MatButtonModule
+  ]
 })
 export class ListMessagesComponent implements OnInit, AfterViewInit {
 

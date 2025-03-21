@@ -109,8 +109,21 @@
         <div class="p-3 border-b-2 border-b-gray w-full" *ngFor="let period of offerPeriods.controls; let i = index"  fxLayout="row" fxLayoutAlign="space-around center">
           <ng-container [formGroupName]="i">
           <mat-checkbox  formControlName="active">{{period.value.day}}</mat-checkbox>
-          <ngx-mat-timepicker  formControlName="startDate" [enableMeridian]="true"> </ngx-mat-timepicker>
-          <ngx-mat-timepicker  formControlName="endDate" [enableMeridian]="true"> </ngx-mat-timepicker>
+          <!-- <ngx-mat-timepicker  formControlName="startDate" [enableMeridian]="true"> </ngx-mat-timepicker> -->
+          <mat-form-field>
+            <mat-label>Open</mat-label>
+            <input matInput formControlName="startDate" [matTimepicker]="startDate">
+            <mat-timepicker-toggle matIconSuffix [for]="startDate"/>
+            <mat-timepicker #startDate/>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Close</mat-label>
+            <input matInput formControlName="endDate" [matTimepicker]="endDate">
+            <mat-timepicker-toggle matIconSuffix [for]="endDate"/>
+            <mat-timepicker #endDate/>
+          </mat-form-field>
+          <!-- <ngx-mat-timepicker  formControlName="endDate" [enableMeridian]="true"> </ngx-mat-timepicker> -->
         </ng-container>
         </div>
         

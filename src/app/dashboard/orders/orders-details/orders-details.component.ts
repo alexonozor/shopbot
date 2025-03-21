@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,15 +12,39 @@ import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { OrderCancelationComponent } from 'src/app/shared/components/order-cancelation/order-cancelation.component';
 import { Rider } from 'src/app/shared/models/rider';
 import { STATUS_ENUM, STATUS, Status, StatusParams, getStatus } from 'src/app/shared/constants/order-status.constant';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
 
 
 const htmlToPdfmake = require("html-to-pdfmake");
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts.vfs;
 
 @Component({
   selector: 'app-orders-details',
   templateUrl: './orders-details.component.html',
-  styleUrls: ['./orders-details.component.scss']
+  styleUrls: ['./orders-details.component.scss'],
+  imports: [
+    FlexLayoutModule,
+    MatMenuModule,
+    MatIconModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatChipsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatListModule,
+    GravatarDirective
+  ]
 })
 export class OrdersDetailsComponent implements OnInit {
   @ViewChild('pdfTable') pdfTable!: ElementRef;

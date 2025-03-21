@@ -7,11 +7,14 @@ import { Store } from 'src/app/shared/models/store';
 import { Menu } from 'src/app/shared/models/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { MaterialModule } from 'src/app/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { Product } from 'src/app/shared/models/product';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-store-products-list',
@@ -20,9 +23,11 @@ import { Product } from 'src/app/shared/models/product';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     ProductService

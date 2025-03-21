@@ -1,10 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 import { Media } from 'src/app/shared/models/media';
 
 @Component({
   selector: 'app-select-media',
   templateUrl: './select-media.component.html',
-  styleUrls: ['./select-media.component.scss']
+  styleUrls: ['./select-media.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    FlexLayoutModule
+  ]
 })
 export class SelectMediaComponent  {
   @Input() mediaData!: Media;

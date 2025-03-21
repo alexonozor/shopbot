@@ -1,17 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Payment } from 'src/app/shared/models/payment';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { CreatePaymentsComponent } from '../create-payments/create-payments.component';
 import { EditPaymentsComponent } from '../edit-payments/edit-payments.component';
+import { CommonModule } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-list-payments',
   templateUrl: './list-payments.component.html',
-  styleUrls: ['./list-payments.component.scss']
+  styleUrls: ['./list-payments.component.scss'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatSlideToggleModule,
+    MatMenuModule,
+    FormsModule,
+    MatIconModule
+  ]
 })
 export class ListPaymentsComponent implements OnInit {
 

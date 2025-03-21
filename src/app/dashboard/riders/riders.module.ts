@@ -9,23 +9,20 @@ import { RiderResolver, RidersResolver } from 'src/app/shared/resolvers/riders.r
 import { RiderDetailsComponent } from './rider-details/rider-details.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
+
 
 @NgModule({
-  declarations: [
+    imports: [
+    CommonModule,
+    RiderRoutingModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
     RidersComponent,
     ListRiderComponent,
     CreateRiderComponent,
     RiderDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    RiderRoutingModule,
-    MaterialModule,
-    FlexLayoutModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  providers: [RidersResolver, RiderResolver, RidersService]
+],
+    providers: [RidersResolver, RiderResolver, RidersService]
 })
 export class RiderModule { }
