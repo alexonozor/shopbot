@@ -28,7 +28,6 @@ const config: SocketIoConfig = { url: 'https://shopbot.ngrok.io', options: {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(),
     provideRouter(routes),
     provideAnimationsAsync(),
     provideCharts(withDefaultRegisterables()),

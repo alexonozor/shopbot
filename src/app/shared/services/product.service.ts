@@ -88,7 +88,7 @@ export class ProductService implements Resolve<any> {
     })
   }
 
-  /**
+/**
  * Save product
  *
  * @param product
