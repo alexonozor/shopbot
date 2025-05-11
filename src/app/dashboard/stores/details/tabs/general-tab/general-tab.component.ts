@@ -141,7 +141,6 @@ export class GeneralTabComponent implements OnInit {
   }
 
   onAutocompleteSelected(result:any) {
-    console.log('onAutocompleteSelected: ', result);
   }
 
   onLocationSelected(location: Location) {

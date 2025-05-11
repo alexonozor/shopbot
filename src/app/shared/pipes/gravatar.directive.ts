@@ -21,7 +21,6 @@ export class GravatarDirective implements OnInit {
   }
 
   updateEmail(email: string): void {
-    console.log(email)
     if (!email || !this.el.nativeElement) {
       return;
     }

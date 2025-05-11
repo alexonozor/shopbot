@@ -136,7 +136,6 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
     let total = 0;
     for (const data of this.dataSource.data as any) {
      let d = (data.total - (data.total * this.store.finance.adminCommission / 100))
-     console.log(d)
       total +=d;
       
     }
@@ -197,7 +196,6 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
   changeValue(event:any, order:any) {
     //event.value
     this.storeService.updateOrderStatus(order._id, order.user._id, event.value).subscribe((data:any) => {
-      console.log(data)
     })
   }
 

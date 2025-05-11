@@ -16,7 +16,6 @@ export class RoleGuard implements CanActivate {
         const currentUser = this.authenticationService.currentUser;
         if (currentUser) {
             // check if route is restricted by role
-            console.log(currentUser.role.name)
             if (route.data['roles'] && route.data['roles'].indexOf(currentUser.role.name) === -1) {
                 // role not authorised so redirect to home page
                 this.snackbar.open('Unauthorized', 'Close', {duration: 5000});
