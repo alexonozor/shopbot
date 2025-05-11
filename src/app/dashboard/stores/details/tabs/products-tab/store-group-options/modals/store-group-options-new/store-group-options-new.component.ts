@@ -8,17 +8,19 @@ import { CommonModule, Location } from '@angular/common';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+
 import { Store } from 'src/app/shared/models/store';
 import { Menu } from 'src/app/shared/models/menu';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { Option } from 'src/app/shared/models/option';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { MenusService } from '../../../categories/list/menus.service';
 import { StoreOptionSelectComponent } from '../../../store-options-items/modals/store-options-select/store-options-select.component';
 import { MatSelectionListChange } from '@angular/material/list';
-
+import { MatSelectModule } from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: "store-group-options-new",
   templateUrl: "./store-group-options-new.component.html",
@@ -26,11 +28,14 @@ import { MatSelectionListChange } from '@angular/material/list';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     ProductService,

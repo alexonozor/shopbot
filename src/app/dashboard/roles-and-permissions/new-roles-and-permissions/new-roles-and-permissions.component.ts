@@ -1,18 +1,30 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormBuilder, FormControl, FormArray } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { Validators, FormBuilder, FormControl, FormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, startWith, map } from 'rxjs';
 import { RolesAndPermissionsService } from 'src/app/shared/services/roles-and-permissions.service';
 import { MediaComponent } from '../../media/media.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-new-roles-and-permissions',
   templateUrl: './new-roles-and-permissions.component.html',
-  styleUrls: ['./new-roles-and-permissions.component.scss']
+  styleUrls: ['./new-roles-and-permissions.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatIconModule
+  ]
 })
 export class NewRolesAndPermissionsComponent implements OnInit {
 

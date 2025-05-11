@@ -8,12 +8,16 @@ import { Menu } from 'src/app/shared/models/menu';
 import { MenusService } from './menus.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AddMenusComponent } from '../modals/add-menus/add-menus.component';
 import { EditMenusComponent } from '../modals/edit-menus/edit-menus.component';
-import { MaterialModule } from 'src/app/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-store-menus-tab',
@@ -22,10 +26,15 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSlideToggleModule,
     FlexLayoutModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    CdkDropList, 
+    CdkDrag,
+    MatButtonModule
   ],
   providers: [
     MenusService

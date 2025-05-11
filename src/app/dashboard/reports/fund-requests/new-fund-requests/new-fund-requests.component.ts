@@ -1,14 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormBuilder, FormArray, FormGroup} from '@angular/forms'
+import {Validators, FormBuilder, FormArray, FormGroup, ReactiveFormsModule, FormsModule} from '@angular/forms'
 import { AuthService } from 'src/app/shared/services';
 import { FundRequestsService } from '../../../../shared/services/fund-request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-new-fund-requests',
   templateUrl: './new-fund-requests.component.html',
-  styleUrls: ['./new-fund-requests.component.scss']
+  styleUrls: ['./new-fund-requests.component.scss'],
+  imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatIconModule
+  ]
 })
 export class NewFundRequestsComponent implements OnInit {
 

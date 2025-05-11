@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DeliveryZone } from '../models/delivery-zone';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DeliveryZoneService {
   users!: any[];
   private hostServer: string = environment.hostServer;

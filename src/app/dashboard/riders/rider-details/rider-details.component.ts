@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RidersService } from 'src/app/shared/services/rider.service';
 import { Rider } from 'src/app/shared/models/rider';
 import { Location } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-rider-details',
   templateUrl: './rider-details.component.html',
-  styleUrls: ['./rider-details.component.scss']
+  styleUrls: ['./rider-details.component.scss'],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatButtonModule
+  ]
 })
 export class RiderDetailsComponent implements OnInit {
 

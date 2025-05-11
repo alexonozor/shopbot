@@ -1,15 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormBuilder, FormArray, FormGroup} from '@angular/forms'
+import {Validators, FormBuilder, FormArray, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { AuthService } from 'src/app/shared/services';
 import { FundRequestsService } from '../../../../shared/services/fund-request.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FundRequest } from 'src/app/shared/models/fund-request';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-edit-fund-requests',
   templateUrl: './edit-fund-requests.component.html',
-  styleUrls: ['./edit-fund-requests.component.scss']
+  styleUrls: ['./edit-fund-requests.component.scss'],
+  imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatIconModule
+  ]
 })
 export class EditFundRequestsComponent implements OnInit {
 

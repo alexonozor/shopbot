@@ -7,7 +7,7 @@ import { BlocksResolver } from '../../../shared/resolvers/settings.resolver';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
 
-const routes: Routes = [
+export const BLOCK_ROUTING: Routes = [
   {
     path: '',
     component: ListBlocksComponent,
@@ -24,10 +24,3 @@ const routes: Routes = [
     resolve: { block: BlocksResolver, deliveries: DeliveryZonesResolver }
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-
-exports: [RouterModule]
-})
-export class BlockRoutingModule { }

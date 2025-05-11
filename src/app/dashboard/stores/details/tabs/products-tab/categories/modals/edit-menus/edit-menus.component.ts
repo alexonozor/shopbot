@@ -2,12 +2,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { MenusService } from '../../list/menus.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from 'src/app/material';
+import {MatInputModule} from '@angular/material/input';
 import { Menu } from 'src/app/shared/models/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-edit-menus',
@@ -17,10 +21,15 @@ import { Menu } from 'src/app/shared/models/menu';
   providers: [AuthService, MenusService],
   imports: [
     FlexLayoutModule,
-    MaterialModule,
+    MatDialogModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatInputModule
   ]
 })
 export class EditMenusComponent implements OnInit {

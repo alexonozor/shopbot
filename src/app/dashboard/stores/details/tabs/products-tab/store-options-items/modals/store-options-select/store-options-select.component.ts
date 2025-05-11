@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {  Observable, finalize } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Store } from 'src/app/shared/models/store';
 import { Menu } from 'src/app/shared/models/menu';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { MaterialModule } from 'src/app/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { Option } from 'src/app/shared/models/option';
 import { FormsModule } from '@angular/forms';
-import { MatSelectionListChange } from '@angular/material/list';
-import { StoreGroupOptionNewComponent } from '../../../store-group-options/modals/store-group-options-new/store-group-options-new.component';
+import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { StoreOptionNewComponent } from '../store-options-new/store-options-new.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-store-options-select',
@@ -23,9 +23,12 @@ import { StoreOptionNewComponent } from '../store-options-new/store-options-new.
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatInputModule
   ],
   providers: [
     ProductService

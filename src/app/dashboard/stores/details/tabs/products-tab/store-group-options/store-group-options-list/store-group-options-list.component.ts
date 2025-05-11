@@ -7,7 +7,7 @@ import { Store } from 'src/app/shared/models/store';
 import { Menu } from 'src/app/shared/models/menu';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
-import { MaterialModule } from 'src/app/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
@@ -15,6 +15,10 @@ import { Product } from 'src/app/shared/models/product';
 import { Option } from 'src/app/shared/models/option';
 import { FormsModule } from '@angular/forms';
 import { StoreGroupOptionNewComponent } from '../modals/store-group-options-new/store-group-options-new.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-store-group-options-list',
@@ -23,9 +27,12 @@ import { StoreGroupOptionNewComponent } from '../modals/store-group-options-new/
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     ProductService

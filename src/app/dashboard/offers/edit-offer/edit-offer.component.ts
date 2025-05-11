@@ -1,7 +1,7 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FormControl, FormGroup, Validators, FormBuilder, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, startWith, map } from 'rxjs';
 import { User } from 'src/app/shared/models';
@@ -10,16 +10,46 @@ import { OffersService } from 'src/app/shared/services/offers.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { MediaComponent } from '../../media/media.component';
 import { StoresService } from '../../stores/stores.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Menu } from '../../../shared/models/menu';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Offer } from 'src/app/shared/models/offer';
 import { MenusService } from '../../stores/details/tabs/products-tab/categories/list/menus.service';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import {MatTimepickerModule} from '@angular/material/timepicker';
 @Component({
   selector: 'app-edit-offer',
   templateUrl: './edit-offer.component.html',
-  styleUrls: ['./edit-offer.component.scss']
+  styleUrls: ['./edit-offer.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SelectMediaComponent,
+    MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatTimepickerModule
+  ],
 })
 export class EditOfferComponent implements OnInit {
   visible = true;

@@ -1,18 +1,50 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, Validators, FormArray, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { DialogData } from 'src/app/shared/components/confirm/confirm.component';
 import { NotificationsService } from '../../../shared/services/notifications.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipEvent, MatChipInputEvent} from '@angular/material/chips';
+import {MatChipEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-messages',
   templateUrl: './create-messages.component.html',
-  styleUrls: ['./create-messages.component.scss']
+  styleUrls: ['./create-messages.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule
+  ],
 })
 export class CreateMessagesComponent implements OnInit {
 

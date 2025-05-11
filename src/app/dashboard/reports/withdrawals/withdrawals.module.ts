@@ -11,20 +11,18 @@ import {
 } from 'src/app/shared/resolvers/transfers.resolver';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
-import { SharedModule } from 'src/app/shared/shared.module';
+
+
 
 @NgModule({
-  declarations: [WithdrawalsComponent, WithdrawalListComponent, WithdrawalDetailsComponent],
-  imports: [
+    imports: [
     CommonModule,
     WithdrawalsRoutingModule,
-    MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
-  ],
-  providers: [TransfersService, TransfersResolver, TransferResolver],
+    WithdrawalsComponent, WithdrawalListComponent, WithdrawalDetailsComponent,
+],
+    providers: [TransfersService, TransfersResolver, TransferResolver],
 })
 export class WithdrawalsModule {}

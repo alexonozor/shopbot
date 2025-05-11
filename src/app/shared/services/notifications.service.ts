@@ -7,7 +7,9 @@ import { Order } from 'src/app/shared/models/order';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationComponent } from '../components/notification/notification.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationsService {
   notifications!: any[];
   private hostServer: string = environment.hostServer;

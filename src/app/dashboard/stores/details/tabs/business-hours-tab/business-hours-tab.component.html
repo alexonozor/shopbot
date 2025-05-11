@@ -23,36 +23,32 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start start" *ngFor="let day of days"  [formGroupName]="day.day" class="days">
             <div fxLayout.lg-sm="column" fxLayoutAlign.lg-sm="space-around start" fxFlex="20">
                 <section class="example-section" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="10px" fxLayout.lt-md="row" fxLayoutAlign.lt-md="space-between start" >
-                    <p>Never open on:</p>
-                    <mat-slide-toggle class="example-margin" color="primary" formControlName="neverOpen">
+                    <p>Open's on:</p>
+                    <mat-slide-toggle class="example-margin" color="primary" formControlName="open">
                     </mat-slide-toggle>
                     <p><strong>{{ day.day | titlecase }} </strong></p>
                 </section>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="space-around start"  fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch" fxFlex="60">
-                <!-- <mat-form-field appearance="fill" ngClass.gt-sm="mt-5" fxFlex.md="40">
-                    <mat-label>Open Time</mat-label>
-                    <input matInput placeholder="Placeholder"    [format]="12" [ngxTimepicker]="openingTime"   formControlName="openingTime">
-                    <ngx-material-timepicker clockTheme="primary" #openingTime></ngx-material-timepicker>
-                    <mat-icon matSuffix>schedule</mat-icon>
-                </mat-form-field> -->
-
-                <ngx-mat-timepicker  formControlName="openingTime" [enableMeridian]="true"> </ngx-mat-timepicker>
-                <ngx-mat-timepicker  formControlName="closingTime" [enableMeridian]="true"> </ngx-mat-timepicker>
-
-                <!-- <ngx-mat-timepicker [(ngModel)]="date" [disabled]="disabled" [showSpinners]="showSpinners"
-                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [showSeconds]="showSeconds"
-                [color]="color" [enableMeridian]="enableMeridian">
-              </ngx-mat-timepicker> -->
               
-            
-              <!-- <mat-form-field appearance="fill" ngClass.gt-sm="mt-5" fxFlex.md="40">
-                  <mat-label>Close Time</mat-label>
-                  <input matInput placeholder="Placeholder" [ngxTimepicker]="closingTime" [format]="12" formControlName="closingTime">
-                  <ngx-material-timepicker #closingTime></ngx-material-timepicker>
-                  <mat-icon matSuffix>schedule</mat-icon>
-              </mat-form-field> -->
+
+                <mat-form-field>
+                    <mat-label>Opening Time</mat-label>
+                    <input matInput  formControlName="openingTime" [matTimepicker]="openTime">
+                    <mat-timepicker-toggle matIconSuffix [for]="openTime"/>
+                    <mat-timepicker #openTime/>
+                  </mat-form-field>
+
+     
+                <mat-form-field>
+                    <mat-label>Closing Time</mat-label>
+                    <input matInput formControlName="closingTime" [matTimepicker]="closeTime">
+                    <mat-timepicker-toggle matIconSuffix [for]="closeTime"/>
+                    <mat-timepicker #closeTime/>
+                  </mat-form-field>
+
+               
             </div>  
 
             <section class="example-section"   fxLayout="column" fxLayoutAlign="space-between center" fxFlex="20">

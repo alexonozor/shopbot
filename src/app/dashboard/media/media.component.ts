@@ -1,18 +1,34 @@
 import { Component, EventEmitter, Inject, OnInit, Optional, Output } from '@angular/core';
-import { Location } from '@angular/common';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Media } from 'src/app/shared/models/media';
 import { MediaService } from 'src/app/shared/services/media.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ListsAllMediaComponent } from './tabs/lists-all-media/lists-all-media.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss']
+  styleUrls: ['./media.component.scss'],
+  imports: [
+    RouterModule,
+    MatDialogModule,
+    MatProgressBarModule,
+    MatTabsModule,
+    ListsAllMediaComponent,
+    MatIconModule,
+    FlexLayoutModule,
+    CommonModule,
+    MatButtonModule
+  ]
 })
 export class MediaComponent implements OnInit {
   public selectedTab = 0;

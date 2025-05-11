@@ -1,23 +1,56 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormBuilder, FormControl, FormArray, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormControl, FormArray, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaComponent } from '../../media/media.component';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { PromosService } from 'src/app/shared/services/promo.service';
 import { User } from 'src/app/shared/models/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { StoresService } from '../../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, Observable, startWith } from 'rxjs';
 import { Promo } from 'src/app/shared/models/promo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-promo',
   templateUrl: './edit-promo.component.html',
-  styleUrls: ['./edit-promo.component.scss']
+  styleUrls: ['./edit-promo.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SelectMediaComponent,
+    MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule
+  ],
 })
 export class EditPromoComponent implements OnInit {
 

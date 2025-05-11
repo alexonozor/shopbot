@@ -7,7 +7,9 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../../shared/services/auth.service';
 import { Store } from 'src/app/shared/models/store';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StoresService implements Resolve<any>
 {
   stores: any[] = [];

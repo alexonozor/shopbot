@@ -1,6 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, Validators, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { DialogData } from 'src/app/shared/components/confirm/confirm.component';
 import { User } from 'src/app/shared/models/user';
 import { UsersService } from 'src/app/shared/services/users.service';
@@ -8,7 +12,16 @@ import { UsersService } from 'src/app/shared/services/users.service';
 @Component({
   selector: 'app-edit-wallet',
   templateUrl: './edit-wallet.component.html',
-  styleUrls: ['./edit-wallet.component.scss']
+  styleUrls: ['./edit-wallet.component.scss'],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ]
 })
 export class EditWalletComponent implements OnInit {
 

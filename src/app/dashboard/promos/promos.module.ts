@@ -9,36 +9,30 @@ import { PromosResolver, PromoResolver } from 'src/app/shared/resolvers/promo.re
 import { PromosService } from 'src/app/shared/services/promo.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
+
 import { UsersService } from 'src/app/shared/services/users.service';
 import { StoresService } from '../stores/stores.service';
-import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 @NgModule({
-  declarations: [
+    imports: [
+    CommonModule,
+    PromosRoutingModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
     PromosComponent,
     ListPromosComponent,
     CreatePromosComponent,
     EditPromoComponent
-  ],
-
-  imports: [
-    CommonModule,
-    PromosRoutingModule,
-    MaterialModule,
-    FlexLayoutModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SharedModule
-  ],
-  
-  providers: [
-    PromosResolver,
-    PromoResolver,
-    PromosService,
-    UsersService,
-    StoresService
-  ]
+],
+    providers: [
+        PromosResolver,
+        PromoResolver,
+        PromosService,
+        UsersService,
+        StoresService
+    ]
 })
 export class PromosModule { }

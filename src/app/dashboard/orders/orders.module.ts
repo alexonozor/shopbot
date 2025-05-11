@@ -7,7 +7,7 @@ import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { OrdersDetailsComponent } from './orders-details/orders-details.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
+
 import {
   OrderResolver,
   OrdersResolver,
@@ -20,28 +20,25 @@ import { RidersResolver } from 'src/app/shared/resolvers/riders.resolver';
 import { RidersService } from 'src/app/shared/services/rider.service';
 
 @NgModule({
-  declarations: [
-    OrdersComponent, 
-    ListOrdersComponent, 
-    OrdersDetailsComponent, 
-    GravatarDirective
-  ],
-  imports: [
+    imports: [
     CommonModule,
     OrdersRoutingModule,
-    MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-  ],
-  providers: [
-    OrdersResolver,
-    OrderResolver,
-    OrdersService,
-    OrderUpdateResolver,
-    OrdersCountResolver,
-    RidersResolver,
-    RidersService
-  ],
+    OrdersComponent,
+    ListOrdersComponent,
+    OrdersDetailsComponent,
+    GravatarDirective,
+],
+    providers: [
+        OrdersResolver,
+        OrderResolver,
+        OrdersService,
+        OrderUpdateResolver,
+        OrdersCountResolver,
+        RidersResolver,
+        RidersService
+    ],
 })
 export class OrdersModule {}

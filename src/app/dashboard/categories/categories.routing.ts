@@ -7,7 +7,7 @@ import { CategoriesResolver, CategoryResolver } from '../../shared/resolvers/cat
 import { CategoryDetailsComponent } from './category-details/categories-details.component';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
-const routes: Routes = [
+export const CATEGORIES_ROUTING: Routes = [
   {
     path: '',
     component: CategoriesComponent,
@@ -31,9 +31,4 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  
-exports: [RouterModule]
-})
-export class CategoriesRoutingModule { }
+

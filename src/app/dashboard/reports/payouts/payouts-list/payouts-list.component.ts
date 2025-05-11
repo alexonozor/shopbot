@@ -1,19 +1,34 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Transaction } from 'src/app/shared/models/transaction';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TransactionsService } from 'src/app/shared/services/transaction.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-payouts-list',
   templateUrl: './payouts-list.component.html',
-  styleUrls: ['./payouts-list.component.scss']
+  styleUrls: ['./payouts-list.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatCheckboxModule
+  ]
 })
 
 

@@ -6,7 +6,7 @@ import { DeliveryZonesComponent } from './delivery-zones.component';
 import { EditDeliveryZoneComponent } from './edit-delivery-zone/edit-delivery-zone.component';
 import { ListDeliveryZonesComponent } from './list-delivery-zones/list-delivery-zones.component';
 
-const routes: Routes = [
+export const DELIVERY_ZONE_ROUTING: Routes = [
   {
     path: '',
     component: DeliveryZonesComponent,
@@ -28,10 +28,3 @@ const routes: Routes = [
     ]
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  
-exports: [RouterModule]
-})
-export class DeliveryZonesRoutingModule { }

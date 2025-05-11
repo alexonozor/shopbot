@@ -15,6 +15,7 @@ import {
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { Order } from '../models/order';
+import { Status, StatusParams } from '../constants/order-status.constant';
 
 @Injectable()
 export class OrdersService {
@@ -45,8 +46,8 @@ export class OrdersService {
     return this._httpClient.get<Order>(`${this.hostServer}/orders/${id}`);
   }
 
-  updateOrderStatus(orderId: string, userId: string, status: any) {
-    return this._httpClient.put(`${this.hostServer}/orders/${orderId}/status/${userId}`, status);
+  updateOrderStatus(statusParams: StatusParams) {
+    return this._httpClient.put(`${this.hostServer}/orders/status/update`, statusParams);
   }
 
 

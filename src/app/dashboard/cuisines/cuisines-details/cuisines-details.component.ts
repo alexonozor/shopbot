@@ -1,18 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CuisinesService } from 'src/app/shared/services/cuisines.service';
 import { MediaComponent } from '../../media/media.component';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Cuisine } from '../../../shared/models/cuisine';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @Component({
   selector: 'app-cuisines-details',
   templateUrl: './cuisines-details.component.html',
-  styleUrls: ['./cuisines-details.component.scss']
+  styleUrls: ['./cuisines-details.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatMenuModule,
+    RouterModule,
+    MatPaginatorModule,
+    SelectMediaComponent,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSlideToggleModule
+  ]
 })
 export class CuisinesDetailsComponent implements OnInit {
 

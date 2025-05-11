@@ -1,7 +1,19 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormArray,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  MatAutocomplete,
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, startWith, map } from 'rxjs';
 import { User } from 'src/app/shared/models';
@@ -10,14 +22,45 @@ import { OffersService } from 'src/app/shared/services/offers.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { MediaComponent } from '../../media/media.component';
 import { StoresService } from '../../stores/stores.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Menu } from '../../../shared/models/menu';
 import { MenusService } from '../../stores/details/tabs/products-tab/categories/list/menus.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+
 
 @Component({
   selector: 'app-new-offer',
   templateUrl: './new-offer.component.html',
-  styleUrls: ['./new-offer.component.scss']
+  styleUrls: ['./new-offer.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SelectMediaComponent,
+    MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+  ],
 })
 export class NewOfferComponent implements OnInit {
   visible = true;
@@ -39,30 +82,51 @@ export class NewOfferComponent implements OnInit {
     end: new FormControl<Date | null>(null),
   });
 
-  public panelOpenState: boolean = false
+  public panelOpenState: boolean = false;
   public availableDays = [
-    { day: "Sunday", active: true, startDate: new Date(), endDate: new Date() },
-    { day: "Monday", active: true, startDate: new Date(), endDate: new Date() },
-    { day: "Tuesday", active: true, startDate: new Date(), endDate: new Date() },
-    { day: "Wednesday", active: true, startDate: new Date(), endDate: new Date() },
-    { day: "Thursday", active: true, startDate: new Date(), endDate: new Date() },
-    { day: "Friday", active: true, startDate: new Date(), endDate: new Date() },
-    { day: "Saturday", active: true, startDate: new Date(), endDate: new Date() }
-  ]
+    { day: 'Sunday', active: true, startDate: new Date(), endDate: new Date() },
+    { day: 'Monday', active: true, startDate: new Date(), endDate: new Date() },
+    {
+      day: 'Tuesday',
+      active: true,
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+    {
+      day: 'Wednesday',
+      active: true,
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+    {
+      day: 'Thursday',
+      active: true,
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+    { day: 'Friday', active: true, startDate: new Date(), endDate: new Date() },
+    {
+      day: 'Saturday',
+      active: true,
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+  ];
 
   public filteredDays: any[] = [];
 
-  @ViewChild('customerInput', { static: false }) customerInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('customerInput', { static: false })
+  customerInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete!: MatAutocomplete;
-  @ViewChild('storeInput', { static: false }) storeInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('storeAuto', { static: false }) matAutocompleteStore!: MatAutocomplete;
+  @ViewChild('storeInput', { static: false })
+  storeInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('storeAuto', { static: false })
+  matAutocompleteStore!: MatAutocomplete;
   mediaData: any;
   menus: Menu[] = [];
   stores: Store[] = [];
   promoForm: FormGroup;
   activeDays: any;
-
-
 
   constructor(
     private fb: FormBuilder,
@@ -73,7 +137,6 @@ export class NewOfferComponent implements OnInit {
     public dialog: MatDialog,
     public menuService: MenusService
   ) {
-
     this.promoForm = this.fb.group({
       image: [''],
       menu: [null],
@@ -93,55 +156,68 @@ export class NewOfferComponent implements OnInit {
       enabled: [false, Validators.required],
     });
 
-
     this.availableDays.forEach((item) => {
-      this.addOfferPeriods(item)
-    })
+      this.addOfferPeriods(item);
+    });
 
-    this.getStores()
+    this.getStores();
     this.mediaData = { image: null, icon: null };
     this.filteredMenus = this.menuCtrl.valueChanges.pipe(
       startWith(null),
-      map((menu: string | null) => menu ? this._filter(menu) : this.menus.slice()));
+      map((menu: string | null) =>
+        menu ? this._filter(menu) : this.menus.slice()
+      )
+    );
     this.filteredStores = this.storeCtrl.valueChanges.pipe(
       startWith(null),
-      map((store: string | null) => store ? this._filterStore(store) : this.stores.slice()));
+      map((store: string | null) =>
+        store ? this._filterStore(store) : this.stores.slice()
+      )
+    );
   }
 
-
   addOfferPeriods(item: any) {
-    const lessonForm = this.fb.group({ day: item.day, active: item.active, startDate: item.startDate, endDate: item.endDate });
+    const lessonForm = this.fb.group({
+      day: item.day,
+      active: item.active,
+      startDate: item.startDate,
+      endDate: item.endDate,
+    });
     this.offerPeriods.push(lessonForm);
   }
 
   get offerPeriods() {
-    return this.promoForm.controls["offerPeriodDays"] as FormArray
+    return this.promoForm.controls['offerPeriodDays'] as FormArray;
   }
 
-
-  ngOnInit(): void { }
-
+  ngOnInit(): void {}
 
   private _filter(value: any): Menu[] {
     if (typeof value == 'string') {
       const filterValue = value?.toLowerCase();
-      return this.menus?.filter(menu => menu?.name?.toLowerCase().indexOf(filterValue) === 0);
+      return this.menus?.filter(
+        (menu) => menu?.name?.toLowerCase().indexOf(filterValue) === 0
+      );
     } else {
       const filterValue = value.name.toLowerCase();
-      return this.menus?.filter(menu => menu?.name?.toLowerCase().indexOf(filterValue) === 0);
+      return this.menus?.filter(
+        (menu) => menu?.name?.toLowerCase().indexOf(filterValue) === 0
+      );
     }
-
   }
 
   private _filterStore(value: any): Store[] {
     if (typeof value == 'string') {
       const filterValue = value?.toLowerCase();
-      return this.stores?.filter(store => store?.name?.toLowerCase().indexOf(filterValue) === 0);
+      return this.stores?.filter(
+        (store) => store?.name?.toLowerCase().indexOf(filterValue) === 0
+      );
     } else {
       const filterValue = value.name.toLowerCase();
-      return this.stores?.filter(store => store?.name?.toLowerCase().indexOf(filterValue) === 0);
+      return this.stores?.filter(
+        (store) => store?.name?.toLowerCase().indexOf(filterValue) === 0
+      );
     }
-
   }
 
   displayFn(state: any) {
@@ -151,13 +227,13 @@ export class NewOfferComponent implements OnInit {
   submit() {
     if (this.promoForm.valid) {
       let formValue = this.promoForm.getRawValue();
-      formValue.store = this.selectedStore._id
+      formValue.store = this.selectedStore._id;
       formValue.menu = <any>this.selectMenu?._id;
-      this.isLoading = true
+      this.isLoading = true;
       this.offersService.createOffer(formValue).subscribe((data) => {
         this.isLoading = false;
         this.location.back();
-      })
+      });
     }
   }
 
@@ -165,29 +241,32 @@ export class NewOfferComponent implements OnInit {
     this.selectedStore = event.option.value;
     setTimeout(() => {
       this.getMenu();
-    }, 2000)
-
+    }, 2000);
   }
 
   getMenu() {
     if (this.selectedStore) {
-      this.menuService.getStoreMenus(this.selectedStore._id).subscribe((menu: any) => {
-        this.menus = menu as Menu[]
-      })
+      this.menuService
+        .getStoreMenus(this.selectedStore._id)
+        .subscribe((menu: any) => {
+          this.menus = menu as Menu[];
+        });
     }
   }
 
   selectedMenu(event: any) {
     this.selectMenu = event.option.value as Menu;
-
   }
 
-
-
   getStores() {
-    this.storesService.getStores({ data: { $match: {} }, control: [{ $sort: { 'createdAt': -1 } }] }).subscribe((stores: Store[]) => {
-      this.stores = stores
-    })
+    this.storesService
+      .getStores({
+        data: { $match: {} },
+        control: [{ $sort: { createdAt: -1 } }],
+      })
+      .subscribe((stores: Store[]) => {
+        this.stores = stores;
+      });
   }
 
   back() {
@@ -196,17 +275,17 @@ export class NewOfferComponent implements OnInit {
 
   addMedia(property: string) {
     const dialogRef = this.dialog.open(MediaComponent);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.promoForm.patchValue({ [property]: result.url })
-        const value = { [property]: result }
+        this.promoForm.patchValue({ [property]: result.url });
+        const value = { [property]: result };
         this.mediaData[property] = value[property];
       }
     });
   }
 
   removeValue(property: string) {
-    this.promoForm.patchValue({ [property]: null })
+    this.promoForm.patchValue({ [property]: null });
     this.mediaData[property] = null;
   }
 }

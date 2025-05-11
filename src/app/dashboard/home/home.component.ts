@@ -3,12 +3,12 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
 import { map, Observable, startWith, switchMap, tap, finalize, forkJoin, of } from 'rxjs';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { OrdersService } from '../../shared/services/order.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { DashboardService } from 'src/app/shared/services/dashboard.service';
 import { catchError, distinctUntilChanged } from 'rxjs/operators';
@@ -16,15 +16,39 @@ import { StoresService } from '../stores/stores.service';
 import { Store } from 'src/app/shared/models/store';
 import * as moment from 'moment';
 import { AuthService } from '../../shared/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { environment } from 'src/environments/environment';
-const startOfMonth = moment().startOf('month').toDate()
-const endOfMonth   = moment().endOf('month').toDate()
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { StatsComponent } from 'src/app/shared/components/stats/stats.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+const startOfMonth = moment().startOf('month').toDate();
+const endOfMonth   = moment().endOf('month').toDate();
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    StatsComponent,
+    MatIconModule,
+    RouterModule,
+    MatTableModule,
+    MatListModule,
+    BaseChartDirective
+  ]
 })
 export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['storeName', 'customer', 'date', 'amount', 'actions'];
@@ -230,12 +254,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  changeValue(event:any, order:any) {
-    //event.value
-    this.ordersService.updateOrderStatus(order._id, order.user._id, event.value).subscribe((data:any) => {
-      console.log(data)
-    })
-  }
 
 }
 

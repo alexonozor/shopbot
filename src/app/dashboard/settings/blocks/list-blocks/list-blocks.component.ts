@@ -1,20 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Block } from 'src/app/shared/models/block';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { CreateBlocksComponent } from '../create-blocks/create-blocks.component';
 import { EditBlocksComponent } from '../edit-blocks/edit-blocks.component';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-list-blocks',
   templateUrl: './list-blocks.component.html',
-  styleUrls: ['./list-blocks.component.scss']
+  styleUrls: ['./list-blocks.component.scss'],
+  imports: [
+    FormsModule,
+    MatSelectModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    CdkDropList, 
+    CdkDrag,
+    MatSlideToggleModule,
+    FlexLayoutModule,
+    MatInputModule
+  ]
 })
 export class ListBlocksComponent implements OnInit {
 
@@ -72,7 +93,7 @@ export class ListBlocksComponent implements OnInit {
 
   addNewBlock() {
     let addBlockForm = this._matDialog.open(CreateBlocksComponent, {
-      width: '500px',
+      width: '800px',
       disableClose: false,
       data: { zones: this.zones }
     });
@@ -96,7 +117,7 @@ export class ListBlocksComponent implements OnInit {
   public viewDetails(block: Block) {
     let addBlockForm = this._matDialog.open(EditBlocksComponent, {
       data:  { zones: this.zones, block },
-      width: '500px',
+      width: '800px',
       disableClose: false,
       
     });

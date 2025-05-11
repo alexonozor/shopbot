@@ -8,7 +8,7 @@ import { RoleGuard } from '../shared/guard/authorisation.guard';
 import { DeliveryZonesResolver } from '../shared/resolvers/delivery-zones.resolver';
 
 
-const routes: Routes = [
+export const DASHBOARD_ROUTE: Routes = [
   {
     path: '',
     // canActivate: [AuthGuard],
@@ -22,20 +22,20 @@ const routes: Routes = [
       },
       {
         path: 'stores',
-        loadChildren: () => import('./stores/stores.module').then(m => m.StoresModule),
+        loadChildren: () => import('./stores/stores.routing').then(m => m.STORE_ROUTING),
         // canActivate: [AdminGuard]
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin, Role.Producer, Role.Marketer] }
       },
       {
         path: 'customers',
-        loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
+        loadChildren: () => import('./customers/customers.routing').then(m => m.CUSTOMERS_ROUTING),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin, Role.Marketer] }
       },
       {
         path: 'categories',
-        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+        loadChildren: () => import('./categories/categories.routing').then(m => m.CATEGORIES_ROUTING),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin] }
       },
@@ -55,14 +55,14 @@ const routes: Routes = [
 
       {
         path: 'delivery-zones',
-        loadChildren: () => import('./delivery-zones/delivery-zones.module').then(m => m.DeliveryZonesModule),
+        loadChildren: () => import('./delivery-zones/delivery-zones.routing').then(m => m.DELIVERY_ZONE_ROUTING),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin] }
       },
 
       {
         path: 'cuisines',
-        loadChildren: () => import('./cuisines/cuisines.module').then(m => m.CuisinesModule),
+        loadChildren: () => import('./cuisines/cuisines.routing').then(m => m.CUISINES_ROUTE),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin] }
       },
@@ -82,7 +82,7 @@ const routes: Routes = [
 
       {
         path: 'merchants',
-        loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantModule),
+        loadChildren: () => import('./merchants/merchants.routing').then(m => m.MERCHANTS_ROUTING),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin, Role.Marketer] }
       },
@@ -120,13 +120,13 @@ const routes: Routes = [
       },
       {
         path: 'banners',
-        loadChildren: () => import('./banners/banners.module').then(m => m.BannersModule),
+        loadChildren: () => import('./banners/banners.routing').then(m => m.BANNER_ROUTING),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin, Role.Marketer] }
       },
       {
         path: 'settings',
-        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+        loadChildren: () => import('./settings/settings.routing').then(m => m.SETTINGS_ROUTE),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin] }
       },
@@ -138,9 +138,3 @@ const routes: Routes = [
     ]
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class DashboardRoutingModule { }

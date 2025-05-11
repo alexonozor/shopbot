@@ -1,19 +1,35 @@
 import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize, mergeMap, Subject } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Product } from 'src/app/shared/models/product';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
 import { MenuService } from '../../../../../../shared/services/menu.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-add-item-to-menu',
   templateUrl: './add-item-to-menu.component.html',
-  styleUrls: ['./add-item-to-menu.component.scss']
+  styleUrls: ['./add-item-to-menu.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTabsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatProgressBarModule,
+    MatDialogModule,
+  ]
 })
 export class AddItemToMenuComponent implements OnInit, AfterViewInit {
   private _unsubscribeAll!: Subject<any>;

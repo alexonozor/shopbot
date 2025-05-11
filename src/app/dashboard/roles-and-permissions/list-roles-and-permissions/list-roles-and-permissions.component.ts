@@ -1,18 +1,34 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 import { RolesAndPermissionsService } from '../../../shared/services/roles-and-permissions.service';
 import { RolesAndPermission } from '../../../shared/models/roles-and-permission';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-list-roles-and-permissions',
   templateUrl: './list-roles-and-permissions.component.html',
-  styleUrls: ['./list-roles-and-permissions.component.scss']
+  styleUrls: ['./list-roles-and-permissions.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    RouterModule,
+    MatMenuModule,
+    MatPaginatorModule
+  ]
 })
 export class ListRolesAndPermissionsComponent implements OnInit {
 

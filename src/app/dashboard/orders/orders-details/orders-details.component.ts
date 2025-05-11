@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,15 +11,40 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { OrderCancelationComponent } from 'src/app/shared/components/order-cancelation/order-cancelation.component';
 import { Rider } from 'src/app/shared/models/rider';
+import { STATUS_ENUM, STATUS, Status, StatusParams, getStatus } from 'src/app/shared/constants/order-status.constant';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { GravatarDirective } from 'src/app/shared/pipes/gravatar.directive';
 
 
 const htmlToPdfmake = require("html-to-pdfmake");
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts.vfs;
 
 @Component({
   selector: 'app-orders-details',
   templateUrl: './orders-details.component.html',
-  styleUrls: ['./orders-details.component.scss']
+  styleUrls: ['./orders-details.component.scss'],
+  imports: [
+    FlexLayoutModule,
+    MatMenuModule,
+    MatIconModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatChipsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatListModule,
+    GravatarDirective
+  ]
 })
 export class OrdersDetailsComponent implements OnInit {
   @ViewChild('pdfTable') pdfTable!: ElementRef;
@@ -27,14 +52,8 @@ export class OrdersDetailsComponent implements OnInit {
   riders: Rider[] = []
   isCanceling!: boolean;
   isAccepting!: boolean;
-  statuses = [
-    { id: 0, name: "Accepted", color: "text-yellow-700", updatedOn: new Date() },
-    { id: 1, name: "Preparing", color: "text-blue-500", updatedOn: new Date() },
-    { id: 2, name: "Ready for Pickup", color: "text-blue-500", updatedOn: new Date() },
-    { id: 4, name: "Shipped", color: "text-blue-500", updatedOn: new Date() },
-    { id: 3, name: "Canceled", color: "text-red-500", updatedOn: new Date() },
-    { id: 5, name: "Delivered", color: "text-green-500", updatedOn: new Date() },
-  ]
+
+  statuses = STATUS
   cancelationDialogRef!: MatDialogRef<OrderCancelationComponent>
 
 
@@ -57,13 +76,21 @@ export class OrdersDetailsComponent implements OnInit {
     }, 0)
   }
 
-  accept(order: Order) {
+  accept() {
     this.isAccepting = true;
-    this.updateStatus({ id: 0, name: "Accepted", color: "text-yellow-700", updatedOn: new Date() }, order, false)
-    order.category = 'Processing'
+    const acceptedStatus = getStatus(STATUS_ENUM.ACCEPTED);
+    this.updateStatusChange(acceptedStatus);
+    this.order.category = 'Processing';
   }
 
-  cancel(order: Order, event: any) {
+  cancelOrder() {
+    this.isCanceling = true;
+    const cancelStatus = getStatus(STATUS_ENUM.CANCELED);
+    this.cancel({orderId: this.order._id, userId: this.order.user._id, statusNumber: cancelStatus.id})
+    this.order.category = 'Canceled'
+  }
+
+  cancel(statusParams: StatusParams) {
     this.cancelationDialogRef = this._matDialog.open(OrderCancelationComponent, {
       disableClose: false
     });
@@ -72,23 +99,19 @@ export class OrdersDetailsComponent implements OnInit {
     this.cancelationDialogRef.componentInstance.confirmButton = 'Cancel Order';
     this.cancelationDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        event['vendorIssue'] = result.vendorIssue
-        event['orderCancellationReason'] = result.text
-        this.orderService.updateOrderStatus(order._id, order.user._id, event).subscribe((data: any) => {
+        statusParams['vendorIssue'] = result.vendorIssue
+        statusParams['orderCancellationReason'] = result.text
+        this.orderService.updateOrderStatus({orderId: this.order._id, userId: this.order.user._id, statusNumber: STATUS_ENUM.CANCELED}).subscribe((data: any) => {
           this.isCanceling = false;
           this.isAccepting = false;
           this._matSnack.open(`You have updated this order to Canceled`, 'Close', { duration: 3000 })
         })
-        this.orderService.updateOrder(order._id, { orderCancellationReason: result.text }).subscribe()
+        this.orderService.updateOrder(this.order._id, { orderCancellationReason: result.text }).subscribe()
       }
     });
   }
 
-  cancelOrder(order: Order) {
-    this.isCanceling = true;
-    this.cancel(order, { id: 3, name: "Canceled", color: "text-red-500", updatedOn: new Date() })
-    order.category = 'Canceled'
-  }
+
 
   updatePaymentStatus(order: Order, event: any) {
     this.orderService.updateOrder(order._id, { paymentStatus: event.value })
@@ -103,20 +126,21 @@ export class OrdersDetailsComponent implements OnInit {
     return t1 && t2 ? t1.name === t2 : t1.name === t2;
   }
 
-  updateStatus(event: any, order: any, eventType = true) {
-    if ((eventType ? event.value.name : event.name) === 'Canceled') {
-      this.cancel(order, event.value)
+  updateStatusChange(statusParams: Status) {
+    if (statusParams.id === STATUS_ENUM.CANCELED) {
+      this.cancelOrder();
     } else {
-      this.orderService.updateOrderStatus(order._id, order.user._id, eventType ? event.value : event).subscribe((data: any) => {
+      this.orderService.updateOrderStatus({orderId: this.order._id, userId: this.order.user._id, statusNumber: statusParams.id}).subscribe((data: any) => {
         this.isCanceling = false;
         this.isAccepting = false;
-        this._matSnack.open(`You have updated this order to ${event.value.name}`, 'Close', { duration: 3000 })
+        this._matSnack.open(`You have updated this order to ${statusParams.name}`, 'Close', { duration: 3000 })
       })
     }
   }
 
+
+
   selectRider(event: any) {
-      console.log(event.value);
       this.orderService.updateOrder(this.order._id, {rider: event.value}).subscribe((data: any) => {
         this._matSnack.open(`You have assigned a rider to this order`, 'Close', { duration: 3000 })
       })

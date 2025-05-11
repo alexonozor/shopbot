@@ -1,17 +1,35 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 import { DeliveryZoneService } from '../../../shared/services/delivery-zone.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-delivery-zones',
   templateUrl: './list-delivery-zones.component.html',
-  styleUrls: ['./list-delivery-zones.component.scss']
+  styleUrls: ['./list-delivery-zones.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    RouterModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    FlexLayoutModule
+  ]
 })
 export class ListDeliveryZonesComponent implements OnInit {
 

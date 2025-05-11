@@ -1,16 +1,34 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { Block } from 'src/app/shared/models/block';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-edit-blocks',
   templateUrl: './edit-blocks.component.html',
-  styleUrls: ['./edit-blocks.component.scss']
+  styleUrls: ['./edit-blocks.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    RouterModule,
+    FlexLayoutModule,
+    MatInputModule,
+    MatDialogModule
+  ]
 })
 export class EditBlocksComponent implements OnInit {
   blockForm!: FormGroup;
@@ -24,7 +42,8 @@ export class EditBlocksComponent implements OnInit {
     {name: 'Store List', value:  'store-list'},
     {name: 'Sliders', value:  'slider'},
     {name: 'Food items', value:  'food'},
-    {name: 'Cuisines', value:  'cuisine'}
+    {name: 'Cuisines', value:  'cuisine'},
+    {name: 'Ads', value:  'ads'},
   ]
 
   constructor(

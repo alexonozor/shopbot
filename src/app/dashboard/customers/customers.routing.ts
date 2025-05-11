@@ -7,7 +7,7 @@ import { CustomerDetails } from '../../shared/models/auth';
 import { CustomersDetailsComponent } from './customers-details/customers-details.component';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
-const routes: Routes = [
+export const CUSTOMERS_ROUTING: Routes = [
   {
     path: '',
     component: CustomersComponent,
@@ -25,10 +25,3 @@ const routes: Routes = [
     ]
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-
-exports: [RouterModule]
-})
-export class CustomersRoutingModule { }

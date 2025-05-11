@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Merchant } from '../models/merchant';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MerchantsService {
   merchants!: any[];
   private hostServer: string = environment.hostServer;

@@ -7,7 +7,9 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { Option } from '../models/option';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductsService implements Resolve<any>
 {
   products!: Product[];

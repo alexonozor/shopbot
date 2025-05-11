@@ -33,6 +33,7 @@ export interface Order  {
     subTotal: number;
     deliveryTime: any;
     orderCancellationReason: string;
+    type: string;
 }
 
 

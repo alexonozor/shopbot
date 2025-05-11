@@ -1,13 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from 'src/app/shared/services/settings.service'
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-version-settings',
   templateUrl: './version-settings.component.html',
-  styleUrls: ['./version-settings.component.scss']
+  styleUrls: ['./version-settings.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatButtonModule
+  ]
 })
 export class VersionSettingsComponent implements OnInit {
 

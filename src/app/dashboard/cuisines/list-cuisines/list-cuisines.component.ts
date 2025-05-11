@@ -1,17 +1,35 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Cuisine } from 'src/app/shared/models/cuisine';
 import { CuisinesService } from '../../../shared/services/cuisines.service';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-list-cuisines',
   templateUrl: './list-cuisines.component.html',
-  styleUrls: ['./list-cuisines.component.scss']
+  styleUrls: ['./list-cuisines.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatMenuModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    FlexLayoutModule
+  ]
 })
 export class ListCuisinesComponent implements OnInit {
 

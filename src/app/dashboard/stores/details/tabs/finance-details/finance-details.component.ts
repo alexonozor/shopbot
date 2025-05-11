@@ -3,7 +3,7 @@ import { map, tap } from 'rxjs/operators';
 import {AfterViewInit, OnInit, Component, ViewChild, Input, ElementRef, Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { Socket } from 'ngx-socket-io';
 import { StoreService } from '../../store.service';
 import { Observable } from 'rxjs';
@@ -15,11 +15,13 @@ import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
+
 import { ActivatedRoute } from '@angular/router';
 import { Store } from 'src/app/shared/models/store';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 const htmlToPdfmake = require("html-to-pdfmake");
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts.vfs;
 
 
 /**
@@ -31,11 +33,13 @@ const htmlToPdfmake = require("html-to-pdfmake");
   styleUrls: ['./finance-details.component.scss'],
   standalone: true,
   imports: [
-    MaterialModule,
+    MatTableModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     StoreService
@@ -168,12 +172,12 @@ export class FinanceDetailsComponent implements OnInit, AfterViewInit {
   
  
   getOrder() {
-    return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
-      if (order) {
-        this.dataSource.data.unshift(order)
-        this.dataSource._updateChangeSubscription();
-      }
-    })
+    // return this.socket.fromEvent('order').pipe(map((data:any) => data)).subscribe((order:any) => {
+    //   if (order) {
+    //     this.dataSource.data.unshift(order)
+    //     this.dataSource._updateChangeSubscription();
+    //   }
+    // })
   }
 
   ngAfterViewInit() {

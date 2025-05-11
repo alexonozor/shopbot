@@ -8,30 +8,26 @@ import { TransactionsService } from '../../../shared/services/transaction.servic
 import { TransactionsResolver, TransactionResolver } from 'src/app/shared/resolvers/transactions.resolver';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material';
-import { SharedModule } from 'src/app/shared/shared.module';
+
+
 import { ModalGuard } from 'src/app/shared/guard/open-modal.guard';
 
 @NgModule({
-  declarations: [
-    PayoutsComponent,
-    PayoutsListComponent,
-    PayoutsDetailsComponent
-  ],
-  imports: [
+    imports: [
     CommonModule,
     PayoutsRoutingModule,
-    MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
-  ],
-  providers: [
-    TransactionsService,
-    TransactionsResolver,
-    TransactionResolver,
-    ModalGuard
-  ]
+    PayoutsComponent,
+    PayoutsListComponent,
+    PayoutsDetailsComponent
+],
+    providers: [
+        TransactionsService,
+        TransactionsResolver,
+        TransactionResolver,
+        ModalGuard
+    ]
 })
 export class PayoutsModule { }

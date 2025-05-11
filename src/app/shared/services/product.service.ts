@@ -5,7 +5,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductService implements Resolve<any> {
   routeParams: any;
   product: any;
@@ -86,7 +88,7 @@ export class ProductService implements Resolve<any> {
     })
   }
 
-  /**
+/**
  * Save product
  *
  * @param product

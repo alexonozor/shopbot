@@ -1,6 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { finalize } from 'rxjs';
 import { StoresService } from 'src/app/dashboard/stores/stores.service';
 import { AuthService } from 'src/app/shared/services';
@@ -10,7 +16,17 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 @Component({
   selector: 'app-create-payments',
   templateUrl: './create-payments.component.html',
-  styleUrls: ['./create-payments.component.scss']
+  styleUrls: ['./create-payments.component.scss'],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    FlexLayoutModule,
+  ]
 })
 export class CreatePaymentsComponent implements OnInit {
 

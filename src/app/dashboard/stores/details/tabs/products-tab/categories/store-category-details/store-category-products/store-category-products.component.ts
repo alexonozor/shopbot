@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, type OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { MaterialModule } from 'src/app/material';
+
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Menu } from 'src/app/shared/models/menu';
 import { Product } from 'src/app/shared/models/product';
@@ -17,9 +19,10 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule,
+    MatIconModule
   ],
   templateUrl: './store-category-products.component.html',
   styleUrl: './store-category-products.component.scss',

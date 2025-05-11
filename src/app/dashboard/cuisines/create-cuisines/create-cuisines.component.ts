@@ -1,17 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CuisinesService } from '../../../shared/services/cuisines.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { MediaComponent } from '../../media/media.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
 import { ActivatedRoute } from '@angular/router';
+import { SelectMediaComponent } from 'src/app/shared/components/select-media/select-media.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create-cuisine',
   templateUrl: './create-cuisines.component.html',
-  styleUrls: ['./create-cuisines.component.scss']
+  styleUrls: ['./create-cuisines.component.scss'],
+  imports: [
+    CommonModule,
+    SelectMediaComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSlideToggleModule
+  ]
 })
 export class CreateCuisinesComponent implements OnInit {
   mediaData:any;

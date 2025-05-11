@@ -15,7 +15,9 @@ import {
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DashboardService {
   orders!: any[];
   private hostServer: string = environment.hostServer;

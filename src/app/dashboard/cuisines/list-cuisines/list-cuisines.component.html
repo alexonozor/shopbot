@@ -1,25 +1,22 @@
-
-
 <div>
-
-
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center"
         class="card bg-white w-full mat-elevation-z2 px-2 py-2">
         <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
             <span>Cuisines</span>
         </span>
 
-
-        <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
-            *ngIf="selection.selected.length">
-            <button mat-button>{{selection.selected.length}} Selected</button>
-            
-            <button mat-stroked-button color="warn" (click)="deleteSelected()">
-                <mat-icon class="mat-18">delete</mat-icon> Delete Selected Cuisines
+        <div fxLayout="row" fxLayoutGap="10px">
+            <span class="text-lg font-thin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+                *ngIf="selection.selected.length">
+                <button mat-button>{{selection.selected.length}} Selected</button>
+                <button mat-stroked-button color="warn" (click)="deleteSelected()">
+                    <mat-icon class="mat-18">delete</mat-icon> Delete Selected Cuisines
+                </button>
+            </span>
+            <button mat-raised-button color="primary" [routerLink]="['../', 'new']">
+                <mat-icon class="mat-18">add</mat-icon> Create Cuisine
             </button>
-        </span>
-
-
+        </div>
     </div>
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" class="w-full">
@@ -78,12 +75,5 @@
             aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
-    <div fxLayout="row" fxLayoutAlign="end center" class="m-5">
-   
-        <button mat-fab [routerLink]="['../', 'new']" color="primary"  class="m-10">
-            <mat-icon class="mat-18">add</mat-icon>
-        </button>
-    </div>
-    
 </div>
 

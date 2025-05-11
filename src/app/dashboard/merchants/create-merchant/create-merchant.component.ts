@@ -1,17 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { AdminService } from '../../../shared/services/admin.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { RolesAndPermission } from '../../../shared/models/roles-and-permission';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Merchant } from 'src/app/shared/models/merchant';
 import { MerchantsService } from 'src/app/shared/services/merchant.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-create-merchant',
   templateUrl: './create-merchant.component.html',
-  styleUrls: ['./create-merchant.component.scss']
+  styleUrls: ['./create-merchant.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatSelectModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    RouterModule
+  ]
 })
 export class CreateMerchantComponent implements OnInit {
  

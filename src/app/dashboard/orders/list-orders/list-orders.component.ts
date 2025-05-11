@@ -1,24 +1,41 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { Order } from 'src/app/shared/models/order';
 import { OrdersService } from 'src/app/shared/services/order.service';
 import { switchMap } from 'rxjs/operators';
 import { Role } from 'src/app/shared/models/role';
 import { AuthService } from 'src/app/shared/services';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-list-orders',
   templateUrl: './list-orders.component.html',
-  styleUrls: ['./list-orders.component.scss']
+  styleUrls: ['./list-orders.component.scss'],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatMenuModule,
+    RouterModule,
+    MatPaginatorModule,
+    FlexLayoutModule
+  ]
 })
 export class ListOrdersComponent implements OnInit {
 
-  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'device', 'date', 'status', 'paymentStatus', 'settled', 'paymentType', 'amount', 'actions'];
+  public displayedColumns: string[] = ['select', 'no', 'orderId', 'vendorName', 'customerName', 'type', 'date', 'status', 'paymentStatus', 'settled', 'paymentType', 'amount', 'actions'];
   public dataSource = new MatTableDataSource<Order>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<any>(true, []);

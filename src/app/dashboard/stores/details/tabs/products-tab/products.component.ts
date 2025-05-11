@@ -3,8 +3,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from 'src/app/material';
+
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-store-products',
@@ -13,13 +14,13 @@ import {MatSidenavModule} from '@angular/material/sidenav';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
     CommonModule,
     RouterModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule
   ]
 })
 export class StoreProductComponent  {

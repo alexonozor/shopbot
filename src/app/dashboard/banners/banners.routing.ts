@@ -7,7 +7,7 @@ import { CreateBannersComponent } from './create-banners/create-banners.componen
 import { BannerResolver, BannersResolver } from 'src/app/shared/resolvers/banners.resolver';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
 
-const routes: Routes = [
+export const BANNER_ROUTING: Routes = [
   {
     path: '',
     component: BannersComponent,
@@ -30,12 +30,3 @@ const routes: Routes = [
     ]
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  
-
-
-exports: [RouterModule]
-})
-export class BannersRoutingModule { }

@@ -1,14 +1,30 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { Payment } from 'src/app/shared/models/payment';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-edit-payments',
   templateUrl: './edit-payments.component.html',
-  styleUrls: ['./edit-payments.component.scss']
+  styleUrls: ['./edit-payments.component.scss'],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    FlexLayoutModule,
+  ]
 })
 export class EditPaymentsComponent implements OnInit {
   paymentForm!: FormGroup;

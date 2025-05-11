@@ -1,15 +1,15 @@
-<div class="lg:flex lg:items-center lg:justify-between">
+<div *ngIf="order.type === 'online'" class="lg:flex lg:items-center lg:justify-between">
  
   <ng-container *ngIf="order.category == 'New'; else statusControl">
     <div fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch" ngClass.lt-lg="mt-10" fxLayoutGap="15px">
      
-        <button type="button" (click)="cancelOrder(order)" [disabled]="isCanceling"
+        <button type="button" (click)="cancelOrder()" [disabled]="isCanceling"
           class="inline-flex items-center rounded-md border border-red-500 bg-white px-4 py-2 text-sm font-medium text-red-500 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
           <mat-icon class="mat-18" *ngIf="!isCanceling">close</mat-icon>
           {{isCanceling ? 'CANCELLING....' : 'CANCEL ORDER'}}
         </button>
      
-        <button type="button" (click)="accept(order)"
+        <button type="button" (click)="accept()"
           class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <mat-icon class="mat-18" *ngIf="!isAccepting">check</mat-icon>
           {{isAccepting ? 'ACCEPTING....' : 'ACCEPT ORDER'}}
@@ -29,7 +29,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Order Status</mat-label>
-        <mat-select    (selectionChange)="updateStatus($event, order)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
+        <mat-select    (selectionChange)="updateStatusChange($event.value)" [(ngModel)]="order.status[0].name" [compareWith]="compareFn">
           <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -49,7 +49,7 @@
 <div fxLayout.gt-md="row" fxLayoutAlign.gt-md="space-between start" fxLayout.lt-lg="column" fxLayoutAlign.lt-lg="space-around stretch"  class="mt-10" fxLayoutGap="20px">
   <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex.gt-md="30%" fxFlex.lt-md="100%" fxLayoutGap="20px">
 
-    <div *ngIf="order.status[0].name === 'Canceled'" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+    <div *ngIf="order.type === 'online' && order.status[0].name === 'Canceled'" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
       <h3 class="px-5 py-3">Cancellation Reason</h3>
       <p class="px-5 py-3">{{order.orderCancellationReason || 'No reason stated'}}</p>
     </div>
@@ -92,7 +92,7 @@
       </mat-list>
     </div>
 
-    <div class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+    <div class="mat-elevation-z2  rounded-md w-full" *ngIf="order.type === 'online'" fxLayout="column" fxLayoutAlign="start start">
 
       <div fxLayout="column" fxLayoutAlign="space-around center" class="w-full p-3">
         
@@ -133,7 +133,7 @@
       </mat-list>
     </div>
 
-    <div *ngIf="order.gift" class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
+    <div *ngIf="order.gift && order.type === 'online'"    class="mat-elevation-z2  rounded-md w-full" fxLayout="column" fxLayoutAlign="start start">
 
       <div fxLayout="column" fxLayoutAlign="space-around center" class="w-full p-3">
         <img src="https://davur.dexignzone.com/react/demo/static/media/1.7c3d5aa9.jpg" width="150" height="150"
@@ -171,7 +171,7 @@
         <img [routerLink]="['../../../stores', order.store._id, 'explore']" [src]="order.store.logo" width="150" height="150"  class="rounded-full cursor-pointer">
         <h2 class="text-center font-bolder text-blue-500 cursor-pointer" [routerLink]="['../../../stores', order.store._id, 'explore']">{{order.store.name}}</h2>
 
-        <a type="button" [routerLink]="['../../../stores', order.user._id, 'explore']"
+        <a type="button" [routerLink]="['../../../stores', order._id, 'explore']"
           class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           Restaurant
       </a>

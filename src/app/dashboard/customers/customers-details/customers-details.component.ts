@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UsersResolver } from 'src/app/shared/resolvers/customers.resolver';
 import { User } from '../../../shared/models/user';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { OrdersService } from '../../../shared/services/order.service';
@@ -18,11 +18,40 @@ import { EditCustomersMarketingStatusComponent } from '../modals/edit-customers-
 import { EditWalletComponent } from '../modals/edit-wallet/edit-wallet.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Role } from 'src/app/shared/models/role';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-customers-details',
   templateUrl: './customers-details.component.html',
-  styleUrls: ['./customers-details.component.scss']
+  styleUrls: ['./customers-details.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    RouterModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatListModule
+  ]
 })
 export class CustomersDetailsComponent implements OnInit, AfterViewInit {
   public customer!: User;
