@@ -267,6 +267,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @socket.io/component-emitter
 
+angular-email-editor
+
 chart.js
 MIT
 The MIT License (MIT)
