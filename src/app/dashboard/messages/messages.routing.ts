@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {  Routes } from '@angular/router';
 import { MessagesComponent } from './messages.component';
-import { ListMessagesComponent } from '../messages/list-messages/list-messages.component';
+import { ListMessagesComponent } from './push-notifications/list-messages/list-messages.component';
 import { NotificationsResolver } from '../../shared/resolvers/notifications.resolver';
 import { DeliveryZonesResolver } from 'src/app/shared/resolvers/delivery-zones.resolver';
+import { EmailNotificationsComponent } from './email-notifications/email-notifications.component';
 
-const routes: Routes = [
+export const MESSAGING_ROUTES: Routes = [
   {
     path: '',
     component: MessagesComponent,
@@ -14,13 +14,12 @@ const routes: Routes = [
         path: 'list',
         component: ListMessagesComponent,
         resolve: { notifications: NotificationsResolver, deliveries: DeliveryZonesResolver }
-      }  
+      },
+      {
+        path: 'email',
+        loadChildren: () => import('./email-notifications/email-notifications.routing').then(m => m.EMAIL_ROUTES),
+      } 
     ]
   }
 ];
 
-@NgModule({
- imports: [RouterModule.forChild(routes)],
- exports: [RouterModule]
-})
-export class MessagesRoutingModule { }

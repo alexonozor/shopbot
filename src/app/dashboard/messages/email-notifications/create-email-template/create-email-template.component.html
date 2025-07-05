@@ -1,0 +1,34 @@
+<div class="h-screen flex flex-col">
+  <div class="p-4 bg-white shadow-sm" fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 class="text-xl font-semibold">
+      {{ isEditMode ? 'Edit Email Template' : 'Create Email Template' }}
+      <span *ngIf="isEditMode && currentTemplate" class="text-gray-500 font-normal">
+        - {{ currentTemplate.name }}
+      </span>
+    </h2>
+    
+    <div fxLayout="row" fxLayoutGap="10px">
+      <button mat-stroked-button (click)="backToList()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Templates
+      </button>
+      <button mat-stroked-button color="accent" (click)="sendEmail()">
+        <mat-icon>send</mat-icon>
+        Send Email
+      </button>
+      <button mat-raised-button color="primary" (click)="exportHtml()">
+        <mat-icon>save</mat-icon>
+        {{ isEditMode ? 'Update Template' : 'Save Template' }}
+      </button>
+    </div>
+  </div>
+  
+  <email-editor
+    class="flex-1"
+    [options]="options"
+    (loaded)="editorLoaded($event)"
+    (ready)="editorReady($event)"
+  ></email-editor>
+</div>
+
+

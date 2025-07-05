@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.mat-elevation-z8 {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mat-18 {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+td.mat-cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}

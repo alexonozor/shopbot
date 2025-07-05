@@ -8,7 +8,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 import { AuthService } from 'src/app/shared/services';
 import { Role } from 'src/app/shared/models/role';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { CreateMessagesComponent } from '../../messages/push-notifications/create-messages/create-messages.component';
 
 @Component({
   selector: 'app-list-customers',

@@ -5,7 +5,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
-import { CreateMessagesComponent } from '../../messages/create-messages/create-messages.component';
 import { RolesAndPermissionsService } from '../../../shared/services/roles-and-permissions.service';
 import { RolesAndPermission } from '../../../shared/models/roles-and-permission';
 import { CommonModule } from '@angular/common';
@@ -14,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { CreateMessagesComponent } from '../../messages/push-notifications/create-messages/create-messages.component';
 
 @Component({
   selector: 'app-list-roles-and-permissions',

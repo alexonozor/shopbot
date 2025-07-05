@@ -1,0 +1,102 @@
+<div class="send-email-modal">
+  <h2 mat-dialog-title class="text-xl font-semibold text-gray-900 mb-0">Send Email Template</h2>
+  
+  <form [formGroup]="sendForm" (ngSubmit)="onSend()">
+    <mat-dialog-content class="max-h-[70vh] overflow-y-auto py-6">
+      <!-- Email Details Section -->
+      <div class="mb-6 pb-4 border-b border-gray-200">
+        <h3 class="text-base font-medium text-gray-800 mb-4">Email Details</h3>
+        
+        <div class="space-y-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Subject</mat-label>
+            <input matInput formControlName="subject" placeholder="Enter email subject" class="w-full">
+            <mat-error *ngIf="sendForm.get('subject')?.hasError('required')">
+              Subject is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Recipient Type</mat-label>
+            <mat-select formControlName="type" (selectionChange)="onTypeChange()">
+              <mat-option value="User">Users</mat-option>
+              <mat-option value="Merchant">Merchants</mat-option>
+              <mat-option value="Riders">Riders</mat-option>
+              <mat-option value="All">All Types</mat-option>
+              <mat-option value="Custom">Specific Email</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field 
+            appearance="outline" 
+            class="w-full" 
+            *ngIf="sendForm.get('type')?.value === 'Custom'">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="to" placeholder="user@example.com" class="w-full">
+            <mat-error *ngIf="sendForm.get('to')?.hasError('required')">
+              Email address is required for custom recipient
+            </mat-error>
+            <mat-error *ngIf="sendForm.get('to')?.hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field 
+            appearance="outline" 
+            class="w-full"
+            *ngIf="sendForm.get('type')?.value !== 'Custom'">
+            <mat-label>Countries</mat-label>
+            <mat-select formControlName="countries" multiple>
+              <mat-option *ngFor="let country of availableCountries" [value]="country.code">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+            <mat-hint>Leave empty to send to all countries</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Template Data Section -->
+      <div class="mb-6 pb-4 border-b border-gray-200">
+        <h3 class="text-base font-medium text-gray-800 mb-4">Template Data (JSON)</h3>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Template Variables</mat-label>
+          <textarea 
+            matInput 
+            formControlName="data" 
+            rows="6"
+            placeholder='{"firstName": "John", "lastName": "Doe", "companyName": "Acme Corp"}'
+            class="font-mono text-sm">
+          </textarea>
+          <mat-hint class="text-sm text-gray-600">JSON object with variables to replace in the template</mat-hint>
+          <mat-error *ngIf="sendForm.get('data')?.hasError('invalidJson')">
+            Please enter valid JSON
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Template Preview Section -->
+      <div class="bg-gray-50 p-4 rounded-lg" *ngIf="data.templateName">
+        <h3 class="text-base font-medium text-gray-800 mb-2">Template: {{ data.templateName }}</h3>
+        <p class="text-sm text-gray-600 mb-0">
+          This email will be sent using the current template design.
+        </p>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end" class="pt-4 pb-0 px-0">
+      <button mat-button type="button" (click)="onCancel()" class="mr-2">
+        Cancel
+      </button>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit"
+        [disabled]="sendForm.invalid || isSending"
+        class="min-w-[120px]">
+        <mat-icon *ngIf="isSending" class="mr-1 animate-spin">hourglass_empty</mat-icon>
+        <span>{{ isSending ? 'Sending...' : 'Send Email' }}</span>
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

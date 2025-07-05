@@ -16,4 +16,6 @@ export interface Merchant {
     verified: boolean;
     store: Store;
     adminPush:any;
+    pin: number;
+    role: string;
 }

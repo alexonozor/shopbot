@@ -19,8 +19,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { TokenInterceptorService } from './shared/interceptor';
 import {  progressInterceptor } from 'ngx-progressbar/http';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'https://shopbot.ngrok.io', options: {
+const config: SocketIoConfig = { url: environment.hostServer, options: {
   transports: ['websocket'], // Force WebSocket
   withCredentials: true, // Ensure credentials are sent
 } };

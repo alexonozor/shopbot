@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { DialogData } from 'src/app/shared/components/confirm/confirm.component';
-import { NotificationsService } from '../../../shared/services/notifications.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import { DeliveryZone } from 'src/app/shared/models/delivery-zone';
@@ -20,6 +19,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 @Component({
   selector: 'app-create-messages',

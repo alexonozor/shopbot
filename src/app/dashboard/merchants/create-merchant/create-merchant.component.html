@@ -24,12 +24,18 @@
             </mat-form-field>
 
 
-            <!-- <mat-form-field class="full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Select Roles</mat-label>
                 <mat-select formControlName="role">
-                    <mat-option *ngFor="let role of roles" [value]="role._id">{{role.name}}</mat-option>
+                    <mat-option *ngFor="let role of roles" [value]="role.name">{{role.name}}</mat-option>
                 </mat-select>
-            </mat-form-field> -->
+            </mat-form-field>
+
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Pin</mat-label>
+                <input matInput type="number" maxlength="4" minlength="4"  formControlName="pin">
+            </mat-form-field>
 
 
             <mat-form-field class="full-width" appearance="fill">

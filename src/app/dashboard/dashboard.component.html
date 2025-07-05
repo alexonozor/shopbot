@@ -1,137 +1,180 @@
 <mat-toolbar color="primary" class="main-toolbar">
     <mat-toolbar-row fxLayout="row" fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayout="row"  fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayout="row" fxLayoutAlign="space-between center">
             <div class="logo-container">
-                <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button> 
+                <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
             </div>
             <h1 class="example-app-name">SHOPBOT</h1>
         </div>
-        <button mat-button (click)="logOut()"><mat-icon>logout</mat-icon>  Log out</button>
+        <button mat-button (click)="logOut()"><mat-icon>logout</mat-icon> Log out</button>
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container class="example-container" autosize>
-    <mat-sidenav #sidenav class="example-sidenav" [mode]="this.currentScreenSize === 'XSmall' ? 'over' : 'side'" opened="true" >
+    <mat-sidenav #sidenav class="example-sidenav" [mode]="this.currentScreenSize === 'XSmall' ? 'over' : 'side'"
+        opened="true">
         <mat-nav-list>
-            <mat-list-item   class="parent" routerLinkActive="active" (click)="closeWhenClick()" [routerLink]="['/dashboard/home']">
+            <mat-list-item class="parent" routerLinkActive="active" (click)="closeWhenClick()"
+                [routerLink]="['/dashboard/home']">
                 <mat-icon matListItemIcon class="material-icons-outlined" mat-list-icon>dashboard</mat-icon>
                 <span class="full-width">Dashboard</span>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/stores/list']" (click)="closeWhenClick()"  *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Producer])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/stores/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Producer])">
                 <span class="full-width">Stores</span>
                 <mat-icon matListItemIcon class="material-icons-outlined" mat-list-icon>storefront</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/cuisines/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/cuisines/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <span class="full-width">Cuisines</span>
-                <mat-icon  matListItemIcon class="material-icons-outlined">ramen_dining</mat-icon>
+                <mat-icon matListItemIcon class="material-icons-outlined">ramen_dining</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/categories/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/categories/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <span class="full-width">Categories</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">category</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/orders/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/orders/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer])">
                 <span class="full-width">Orders</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">receipt_long</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/customers/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/customers/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer])">
                 <span class="full-width">Customers</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">group</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/admin/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/admin/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin])">
                 <span class="full-width">Administration</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">admin_panel_settings</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/merchants/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/merchants/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <span class="full-width">Merchants</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">face_3</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/riders/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/riders/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <span class="full-width">Riders</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">directions_bike</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/roles-permissions/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/roles-permissions/list']"
+                (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin])">
                 <span class="full-width">Roles and Permissions</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">manage_accounts</mat-icon>
             </mat-list-item>
-            
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/promos/list']" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+
+            <mat-list-item class="parent" [routerLink]="['/dashboard/promos/list']"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <span class="full-width">Promo</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">card_giftcard</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/offers/list']" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/offers/list']"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <span class="full-width">Offers</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">sell</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/delivery-zones/list']" *ngIf="auth.isShow([Role.SuperAdmin])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/delivery-zones/list']"
+                *ngIf="auth.isShow([Role.SuperAdmin])">
                 <span class="full-width">Delivery Zones</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">emoji_flags</mat-icon>
             </mat-list-item>
 
             <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
                 <mat-expansion-panel-header style="padding: 0px 10px 0px 0px;">
-                 
+
                     <mat-nav-list>
-                        <mat-list-item  class="parent">
+                        <mat-list-item class="parent">
                             <span class="full-width">Reports</span>
                             <mat-icon matListItemIcon class="material-icons-outlined">monetization_on</mat-icon>
                         </mat-list-item>
                     </mat-nav-list>
-                    
-                    
+
+
                 </mat-expansion-panel-header>
                 <mat-nav-list class="submenu">
-                    <a mat-list-item  [routerLink]="['/dashboard/reports/fund-requests/list']" style="height: 40px">
-                        <mat-icon matListItemIcon class="material-icons-outlined">request_quote</mat-icon>Fund Requests</a>
-                    <a mat-list-item  [routerLink]="['/dashboard/reports/payouts/list']" style="height: 40px">
-                        <mat-icon matListItemIcon class="material-icons-outlined">trending_up</mat-icon>Payouts Reports</a>
-                    <a mat-list-item  [routerLink]="['/dashboard/reports/withdrawals/list']" style="height: 40px">
-                        <mat-icon matListItemIcon class="material-icons-outlined">volunteer_activism</mat-icon>Withdrawal Reports</a> 
-                        <a mat-list-item  [routerLink]="['/dashboard/reports/finances/list']" style="height: 40px">
-                            <mat-icon matListItemIcon class="material-icons-outlined">volunteer_activism</mat-icon>Financial Reports</a> 
+                    <a mat-list-item [routerLink]="['/dashboard/reports/fund-requests/list']" style="height: 40px">
+                        <mat-icon matListItemIcon class="material-icons-outlined">request_quote</mat-icon>Fund
+                        Requests</a>
+                    <a mat-list-item [routerLink]="['/dashboard/reports/payouts/list']" style="height: 40px">
+                        <mat-icon matListItemIcon class="material-icons-outlined">trending_up</mat-icon>Payouts
+                        Reports</a>
+                    <a mat-list-item [routerLink]="['/dashboard/reports/withdrawals/list']" style="height: 40px">
+                        <mat-icon matListItemIcon
+                            class="material-icons-outlined">volunteer_activism</mat-icon>Withdrawal Reports</a>
+                    <a mat-list-item [routerLink]="['/dashboard/reports/finances/list']" style="height: 40px">
+                        <mat-icon matListItemIcon class="material-icons-outlined">volunteer_activism</mat-icon>Financial
+                        Reports</a>
                 </mat-nav-list>
             </mat-expansion-panel>
-          
-  
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/messages/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer])">
+
+
+            <!-- <mat-list-item  class="parent" [routerLink]="['/dashboard/messages/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer])">
                 <span class="full-width">Messaging</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">campaign</mat-icon>
-            </mat-list-item>
+            </mat-list-item> -->
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/media']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer, Role.Producer])">
+            <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin])">
+                <mat-expansion-panel-header style="padding: 0px 10px 0px 0px;">
+
+                    <mat-nav-list>
+                        <mat-list-item class="parent">
+                            <span class="full-width">Messaging</span>
+                            <mat-icon matListItemIcon class="material-icons-outlined">campaign</mat-icon>
+                        </mat-list-item>
+                    </mat-nav-list>
+
+
+                </mat-expansion-panel-header>
+                <mat-nav-list class="submenu">
+                    <a mat-list-item [routerLink]="['/dashboard/messages/list']" (click)="closeWhenClick()"
+                        style="height: 40px">
+                        <mat-icon matListItemIcon class="material-icons-outlined">notifications_active</mat-icon>Push
+                        Notification</a>
+                    <a mat-list-item [routerLink]="['/dashboard/messages/email']" style="height: 40px">
+                        <mat-icon matListItemIcon class="material-icons-outlined">mail</mat-icon>Email</a>
+
+                </mat-nav-list>
+            </mat-expansion-panel>
+
+            <mat-list-item class="parent" [routerLink]="['/dashboard/media']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer, Role.Producer])">
                 <span class="full-width">Media</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">perm_media</mat-icon>
             </mat-list-item>
 
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/banners/list']" (click)="closeWhenClick()" *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer, Role.Producer])">
+            <mat-list-item class="parent" [routerLink]="['/dashboard/banners/list']" (click)="closeWhenClick()"
+                *ngIf="auth.isShow([Role.SuperAdmin, Role.Admin, Role.Marketer, Role.Producer])">
                 <span class="full-width">Banners</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">perm_media</mat-icon>
             </mat-list-item>
 
-            
-            <mat-list-item  class="parent" [routerLink]="['/dashboard/settings']" *ngIf="auth.isShow([Role.SuperAdmin])">
+
+            <mat-list-item class="parent" [routerLink]="['/dashboard/settings']" *ngIf="auth.isShow([Role.SuperAdmin])">
                 <span class="full-width">Settings</span>
                 <mat-icon matListItemIcon class="material-icons-outlined">settings</mat-icon>
             </mat-list-item>
-          
+
         </mat-nav-list>
         <mat-nav-list>
         </mat-nav-list>
     </mat-sidenav>
 
     <div class="example-sidenav-content">
-      
+
         <router-outlet></router-outlet>
     </div>
 

@@ -50,8 +50,6 @@ export class CreateCategoriesComponent implements OnInit {
     name: ['', Validators.required],
     status: ['', Validators.required],
     image: ['', Validators.required],
-    country: ['', Validators.required],
-    states: ['', Validators.required],
     countries: ['', Validators.required],
   });
   deliveryZones: DeliveryZone[];

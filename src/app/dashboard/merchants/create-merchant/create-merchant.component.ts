@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-merchant',
@@ -25,7 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     FlexLayoutModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatInputModule
   ]
 })
 export class CreateMerchantComponent implements OnInit {
@@ -35,8 +37,13 @@ export class CreateMerchantComponent implements OnInit {
     phoneNumber: ['', Validators.required],
     gender: ['', Validators.required],
     email: ['', Validators.email],
+    pin: ['', [Validators.maxLength(4), Validators.minLength(4)]],
+    role: ['', Validators.required],
     password: ['', Validators.required],
   });
+
+ roles = [{name: "Admin"}, {name: "Cashier"}, {name: "Kitchen"}, {name: "Waiter"}, {name: "Courier"}, {name: "Owner"}]
+
 
   constructor(
     private fb: FormBuilder,

@@ -23,6 +23,7 @@
     "@angular/router": "~19.2.2",
     "@angular/service-worker": "~19.2.2",
     "@auth0/angular-jwt": "^5.2.0",
+    "angular-email-editor": "^15.2.0",
     "angular-jwt": "^0.1.11",
     "chart.js": "^4.4.8",
     "crypto-js": "^4.2.0",

@@ -108,7 +108,7 @@ export const DASHBOARD_ROUTE: Routes = [
       },
       {
         path: 'messages',
-        loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule),
+        loadChildren: () => import('./messages/messages.routing').then(m => m.MESSAGING_ROUTES),
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Role.SuperAdmin, Role.Admin, Role.Marketer] }
       },

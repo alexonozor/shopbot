@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
@@ -23,13 +24,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     FlexLayoutModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatInputModule
   ]
 })
 export class MerchantDetailsComponent implements OnInit {
 
   merchantForm: FormGroup;
-  merchant: Merchant
+  merchant: Merchant;
+
+   roles = [{name: "Admin"}, {name: "Cashier"}, {name: "Kitchen"}, {name: "Waiter"}, {name: "Courier"}, {name: "Owner"}]
+
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +48,8 @@ export class MerchantDetailsComponent implements OnInit {
       name: [this.merchant.name, Validators.required],
       phoneNumber: [this.merchant.phoneNumber, Validators.required],
       gender: [this.merchant.gender, Validators.required],
+        pin: [this.merchant.pin, [Validators.maxLength(4), Validators.minLength(4)]],
+    role: [this.merchant.role, Validators.required],
       email: [this.merchant.email, Validators.email]
     })
   }
